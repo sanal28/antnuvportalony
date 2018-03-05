@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+
+    $(document).ready(function () {
+        if ($('.calendarmainbg').length > 0) {
+            var dt = new Date();
+            getmonthCalendar(dt.getFullYear(), parseInt(dt.getMonth()) + 1);
+            bindEvents(dt.getFullYear(), parseInt(dt.getMonth()) + 1, 17);
+            PreventDefaultClick();
+        }
+    });
+
+    function toggleSlid(obj) {
+        $(obj).parents('div.calendareventsmaindiv').find(".slidingDiv1").slideToggle();
+    }
+
+    function bindEvents(yr, mon) {
+        $.ajax({
+            url: '/Timesheet/GetAllTimesheet',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            data: { year: yr, month: mon,EmpId:@Request["EmpId"],ProjectId:@Request["Project"] },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                for (var i = 0; i < results.length; i++) {
+                    var dt = new Date(results[i].EventDate);
+                    var td = $('.calendarmainbg').find('td.' + results[i].Month + '[name="' + dt.getDate() + '"]');
+                    //$(td).append('<div class="timesheetCalmaindiv"><div class="timesheethours"><a href="#">' + results[i].ActHour + '</a></div>'+
+                    //'<div class="timesheethoursEST"><a href="#">' + results[i].EstHour + '</a></div>'+
+                    $(td).append('<div class="timesheetCalmaindiv"><div class="timesheethours">' + results[i].ActHour + '</div>'+
+                        '</div>');
+                }
+            },
+            error: function (xhr) {
+            }
+        });
+    }
+
+    function SetFormdata(){
+        $('#hdnId').val(@Request["Project"]);
+        $('#formFilter').submit();
+    }
+</script>
+<form id="formFilter" action="/Timesheet/TimesheetFilter" method="post">
+    @Html.Hidden("hdnId")
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/report-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Timesheet Calendar</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="contentmaindiv">
+
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" onclick="SetFormdata();" id="anchBack"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="calendarmaindiv">
+                    <div class="academicaddmaindiv" style="text-align:center;margin: 0px 0px 0px 12px;overflow:hidden;">
+
+                        <div title="Previous" class="timesheetleftarrow calPrev PreventDefault" onclick="calendarPrevious(this);"><a href="#" id="btnPrev">&#8810;</a></div>
+                        <label id="monthYeardiv" class="popupheadingtext1"></label>
+                        <div title="Next" class="timesheetrightarrow calNext PreventDefault" onclick="calendarNext(this);"><a href="#" id="btnNext">&#8811;</a></div>
+                        <input type="hidden" id="hdnPage" value="0" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="calendarmaindiv">
+                    <div class="calendarsubdiv">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="calendarmainbg">
+                            <tr>
+                                <td class="calendarheader-SUN">Sun</td>
+                                <td class="calendarheader">Mon</td>
+                                <td class="calendarheader">Tue</td>
+                                <td class="calendarheader">Wed</td>
+                                <td class="calendarheader">Thu</td>
+                                <td class="calendarheader">Fri</td>
+                                <td class="calendarheader-SUN">Sat</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

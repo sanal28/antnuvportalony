@@ -1,0 +1,1911 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<dialog id="dlgInterStatus" class="popupmaindiv" style="width:70%;background: transparent;left: 10%;border: none;margin:-150px 0px 0px 112px;background-color:rgba(67, 116, 136, 0.8) !important;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Interview Status</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgInterStatus').close();">X</a></div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div id="divCandidateRating" class="col-md-12" style="text-align:right;display:none;">
+                    <a href="#" class="PreventHref"><img src="../Images/documenticon.png" onclick="loadCandidateRating($('#hdnEmpId').val(),$('#hdnAppId').val(),$('#hdnStatusId').val());" /></a>
+                </div>
+            </div>
+                <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtStatuspop">
+                        <label class="float">Interview Status</label>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="contentfielddiv">
+                        <div class="textarea-wrapper">
+                            <textarea class="floating-textarea floating-input" placeholder=" " required id="txtCommentspop"></textarea>
+                            <label class="float">Comments</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divFilesattach" style="display:none">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="weeklyoffmaindiv">
+                            <div class="weeklytext">Documents</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="divAttachpop" style="display: none; max-width: inherit">
+                </div>
+                <input id="hdnEmpId" type="hidden" value="" />
+                <input id="hdnAppId" type="hidden" value="" />
+                <input id="hdnStatusId" type="hidden" value="" />
+            </div>
+        </div>
+    </div>
+</dialog>
+<dialog id="dlgCandidateRating" class="popupmaindiv" style="width:70%;background: transparent;left: 10%;border: none;margin:-150px 0px 0px 112px;background-color:rgba(67, 116, 136, 0.8) !important;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Candidate Rating</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgCandidateRating').close();">X</a></div>
+            </div>
+            <div class="space"></div>
+            <div id="assessRating">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="weeklyoffmaindiv">
+                            <div class="weeklytext">Technical Ability</div>
+                            <div class="ratingdiv" id="divTechAb">
+                                <fieldset class="rating">
+                                    <input type="radio" id="field1_star5" name="rating1" value="5" /><label class="full" for="field1_star5"></label>
+                                    <input type="radio" id="field1_star4" name="rating1" value="4" /><label class="full" for="field1_star4"></label>
+                                    <input type="radio" id="field1_star3" name="rating1" value="3" /><label class="full" for="field1_star3"></label>
+                                    <input type="radio" id="field1_star2" name="rating1" value="2" /><label class="full" for="field1_star2"></label>
+                                    <input type="radio" id="field1_star1" name="rating1" value="1" /><label class="full" for="field1_star1"></label>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="weeklyoffmaindiv">
+                            <div class="weeklytext">Interpersonal Skills</div>
+                            <div class="ratingdiv" id="divInterSk">
+                                <fieldset class="rating">
+                                    <input type="radio" id="field2_star5" name="rating2" value="5" /><label class="full" for="field2_star5"></label>
+                                    <input type="radio" id="field2_star4" name="rating2" value="4" /><label class="full" for="field2_star4"></label>
+                                    <input type="radio" id="field2_star3" name="rating2" value="3" /><label class="full" for="field2_star3"></label>
+                                    <input type="radio" id="field2_star2" name="rating2" value="2" /><label class="full" for="field2_star2"></label>
+                                    <input type="radio" id="field2_star1" name="rating2" value="1" /><label class="full" for="field2_star1"></label>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="weeklyoffmaindiv">
+                            <div class="weeklytext">Presentation Skills</div>
+                            <div class="ratingdiv" id="divPresentSk">
+                                <fieldset class="rating">
+                                    <input type="radio" id="field3_star5" name="rating3" value="5" /><label class="full" for="field3_star5"></label>
+                                    <input type="radio" id="field3_star4" name="rating3" value="4" /><label class="full" for="field3_star4"></label>
+                                    <input type="radio" id="field3_star3" name="rating3" value="3" /><label class="full" for="field3_star3"></label>
+                                    <input type="radio" id="field3_star2" name="rating3" value="2" /><label class="full" for="field3_star2"></label>
+                                    <input type="radio" id="field3_star1" name="rating3" value="1" /><label class="full" for="field3_star1"></label>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="weeklyoffmaindiv">
+                            <div class="weeklytext">Leadership Skills</div>
+                            <div class="ratingdiv" id="divLeaderSk">
+                                <fieldset class="rating">
+                                    <input type="radio" id="field4_star5" name="rating4" value="5" /><label class="full" for="field4_star5"></label>
+                                    <input type="radio" id="field4_star4" name="rating4" value="4" /><label class="full" for="field4_star4"></label>
+                                    <input type="radio" id="field4_star3" name="rating4" value="3" /><label class="full" for="field4_star3"></label>
+                                    <input type="radio" id="field4_star2" name="rating4" value="2" /><label class="full" for="field4_star2"></label>
+                                    <input type="radio" id="field4_star1" name="rating4" value="1" /><label class="full" for="field4_star1"></label>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="weeklyoffmaindiv">
+                            <div class="weeklytext">Teamwork</div>
+                            <div class="ratingdiv" id="divTeam">
+                                <fieldset class="rating">
+                                    <input type="radio" id="field5_star5" name="rating5" value="5" /><label class="full" for="field5_star5"></label>
+                                    <input type="radio" id="field5_star4" name="rating5" value="4" /><label class="full" for="field5_star4"></label>
+                                    <input type="radio" id="field5_star3" name="rating5" value="3" /><label class="full" for="field5_star3"></label>
+                                    <input type="radio" id="field5_star2" name="rating5" value="2" /><label class="full" for="field5_star2"></label>
+                                    <input type="radio" id="field5_star1" name="rating5" value="1" /><label class="full" for="field5_star1"></label>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <select class="floating-select" value="" id="ddlApplstatus">
+                                <option value=""></option>
+                            </select>
+                            <label class="float">Status</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<dialog id="dlgViewDetailsDialog" class="popupmaindiv" style="width:70%;background: transparent;left: 10%;border: none;margin:-150px 0px 0px 112px;background-color:rgba(67, 116, 136, 0.8) !important;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Interview Details</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgViewDetailsDialog').close();">X</a></div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtInterviewName">
+                        <label class="float">Candidate Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+
+                        <input class="floating-input" type="text" placeholder=" " id="txtInterviewPosting">
+                        <label class="float">Posting Title</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+
+                        <input class="floating-input" type="text" placeholder=" " id="txtInterviewType">
+                        <label class="float">Interview Type</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtInterviewDate">
+                        <label class="float">Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtInterviewTime">
+                        <label class="float">Time</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtInterviewLocation">
+                        <label class="float">Location</label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext" style="padding: 0px !important; margin: 0px !important;">Interviewer</div>
+                        <div class="floating-input autocomplete-textarea">
+                            <div id="listInterviewer" class="list competancylist"></div>
+                            @*<input type="text" class="competancy" placeholder=" " />*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtInterviewMobile">
+                        <label class="float">Mobile No</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtInterviewExp">
+                        <label class="float">Experience in Months</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtInterviewQual">
+                        <label class="float">Highest Qualification</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtInterviewJob">
+                        <label class="float">Current Job Titile</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtInterviewEmp">
+                        <label class="float">Current Employer</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="textarea-wrapper">
+                            <textarea class="floating-textarea floating-input" placeholder=" " required id="txtInterviewSkills"></textarea>
+                            <label class="floating-label">Skills</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="textarea-wrapper">
+                            <textarea class="floating-textarea floating-input" placeholder=" " required id="txtInterviewTech"></textarea>
+                            <label class="floating-label">Technologies</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="textarea-wrapper">
+                            <textarea class="floating-textarea floating-input" placeholder=" " required id="txtInterviewAddition"></textarea>
+                            <label class="floating-label">Additional Info</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<dialog id="dlgInterviewStatus" class="popupmaindiv" style="width:70%;background: transparent;left: 10%;border: none;margin:-150px 0px 0px 112px;background-color:rgba(67, 116, 136, 0.8) !important;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Update Interview Status</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="closeInterviewStatus()">X</a></div>
+            </div>
+            <div class="space"></div>
+                <div class="row" id="divValidateAll">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <select class="floating-select vselect" onclick="this.setAttribute('value', this.value);" value="" id="ddlIntStatus">
+                                <option value=""></option>
+                            </select>
+                            <label class="float">Interview Status</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="contentfielddiv">
+                            <div class="textarea-wrapper">
+                                <textarea class="floating-textarea floating-input" placeholder=" " required id="txtComments"></textarea>
+                                <label class="float">Comments</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="divFilescont">
+                    <div class="col-md-12">
+                        <div class="weeklyoffmaindiv">
+                            <div class="weeklytext">Documents</div>
+                            <div class="workstarttimediv">
+                                <div class="col-md-4" id="divFile">
+                                    <div class="contentfielddiv">
+                                        <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                        <input id="fileProject" type="file" class="contenttextfield" placeholder="Attachment" multiple>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="uploadbutton">
+                                        <img title="Upload" id="fileUrl" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" onclick="UploadInterviewFile();" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="divAttach" style="display: none; max-width: inherit">
+                </div>
+                <input id="hdnApplicantId" type="hidden" value=""/>
+                <input id="hdnInterviewerId" type="hidden" value="" />
+            <div class="buttonmaindiv">
+                <div class="buttondiv">
+                    <input title="Save" class="submitbtn" type="button" onclick="UpdateInterviewStatus();" />
+                </div>
+                <div class="ErrorLabel">
+                    <label id="lblMsg" class="lblError"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<dialog id="dlgPostingTitle" class="popupmaindiv" style="width:70%;background: transparent;left: 10%;border: none;margin:-150px 0px 0px 112px;background-color:rgba(67, 116, 136, 0.8) !important;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext"></div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgPostingTitle').close();">X</a></div>
+            </div>
+            <div style="overflow-y:auto;overflow-x:hidden;max-height:550px;">
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input validation1 vinput" type="text" placeholder=" " id="txtTitle">
+                            <label class="float">Job Title</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <select class="floating-select floatingddl" id="ddlDepartment" value="">
+                                <option value=""></option>
+                            </select>
+                            <label class="float">Department Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input validation2 vinput vnumeric" type="text" placeholder=" " id="txtVacant">
+                            <label class="float">No of Vacancies</label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <div class="weeklytext" style="padding:0px !important;margin:0px !important;">Account Manager</div>
+                            <div class="floating-input autocomplete-textarea" id="divManager">
+                                <div id="listManager" class="list competancylist"></div>
+                                <input type="text" class="competancy txtManager" id="txtManager" placeholder=" " />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <div class="weeklytext" style="padding:0px !important;margin:0px !important;">Assigned Recruiter</div>
+                            <div class="floating-input autocomplete-textarea vArecruiter " id="divRecruit">
+                                <div id="listRecruit" class="list competancylist"></div>
+                                <input type="text" class="competancy txtManager" id="txtRecruit" placeholder=" " />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space"></div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtCTC">
+                            <label class="float">CTC</label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input validation3  vinput vdate vsdate" type="text" placeholder=" " id="dateStart">
+                            <label class="float">Date Opened</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input validation4 vinput vdate vedate" type="text" placeholder=" " id="dateEnd">
+                            <label class="float">Apply Before</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <select class="floating-select  validation5  vselect" id="ddlJobType" value="">
+                                <option value=""></option>
+                                <option value="1">Contract</option>
+                                <option value="2">Permanent</option>
+                            </select>
+                            <label class="float">Job Type</label>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" "  id="txtContract">
+                            <label class="float">Contract Period</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtIndus">
+                            <label class="float">Industry</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtExpN">
+                            <label class="float">Experience Required</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtCity">
+                            <label class="float">City</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtState">
+                            <label class="float">State</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtCountry">
+                            <label class="float">Country</label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <select class="floating-select floatingddl  validation6 vselect" value="" id="ddlStatus">
+                                <option value=""></option>
+                                <option value="true">Open</option>
+                                <option value="false">Close</option>
+                            </select>
+                            <label class="float">Job Opening Status</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="contentfielddiv">
+                            <div class="textarea-wrapper">
+                                <textarea class="floating-input floating-textarea" id="txtDesc" required placeholder=" "></textarea>
+                                <label class="float">Job Description</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <div class="weeklytext">Roles</div>
+                            <div class="contenttextarea">
+                                <div id="listRoles" class="list competancylist"></div><input type="text" class="competancy" id="txtRole" placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <div class="weeklytext">Technologies</div>
+                            <div class="contenttextarea">
+                                <div id="listTech" class="list competancylist"></div><input type="text" class="competancy" id="txtTech" placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <div class="weeklytext">Certification</div>
+                            <div class="contenttextarea">
+                                <div id="listCert" class="list competancylist"></div><input type="text" class="competancy" id="txtCert" placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <div class="weeklytext">Domain</div>
+                            <div class="contenttextarea">
+                                <div id="listDomain" class="list competancylist"></div><input type="text" class="competancy" id="txtDom" placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <div class="weeklytext">Skills</div>
+                            <div class="contenttextarea">
+                                <div id="listSkills" class="list competancylist"></div><input type="text" class="competancy" id="txtSkill" placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="divAttach" style="display:none;max-width:inherit">
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<dialog id="dlgIntervieweeName" class="popupmaindiv" style="width:70%;background: transparent;left: 10%;border: none;margin:-150px 0px 0px 112px;background-color:rgba(67, 116, 136, 0.8) !important;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext"></div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgIntervieweeName').close();">X</a></div>
+            </div>
+            <div style="overflow-y:auto;overflow-x:hidden;max-height:550px;">
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input vinput" type="text" placeholder=" " id="txtIntName">
+                            <label class="float">Name</label>
+                            <input type="hidden" id="hdnProject" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input vinput vemail" type="text" placeholder=" " id="txtEmail">
+                            <label class="float">Email Id</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input vinput vphone" type="text" placeholder=" " id="txtMobile">
+                            <label class="float">Mobile No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtAddress">
+                            <label class="float">Address</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtStreet">
+                            <label class="float">Street</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtIntCity">
+                            <label class="float">City</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtIntState">
+                            <label class="float">State</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input vnumeric" type="text" placeholder=" " id="txtZip">
+                            <label class="float">Zip Code</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtIntCountry">
+                            <label class="float">Country</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input vnumeric" type="text" placeholder=" " id="txtExp">
+                            <label class="float">Experience in Months</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input validation4 vinput" type="text" placeholder=" " id="txtQual">
+                            <label class="float">Highest Qualification</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtJob">
+                            <label class="float">Current Job Title</label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtEmp">
+                            <label class="float">Current Employer</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtCTCcurr">
+                            <label class="float">Current CTC</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtCTCexp">
+                            <label class="float">Expected CTC</label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtSkype">
+                            <label class="float">Skype ID</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtTwitt">
+                            <label class="float">Twitter ID</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtLink">
+                            <label class="float">Linkedin ID</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="posTitle">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input" type="text" placeholder=" " id="txtPosTitle">
+                            <label class="float">Position Title</label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <div class="weeklytext">Skills</div>
+                            <div class="contenttextarea">
+                                <div id="listInterviewSkills" class="list competancylist"></div><input type="text" class="competancy" id="txtSkill" placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <div class="weeklytext">Technologies</div>
+                            <div class="contenttextarea">
+                                <div id="listInterviewTech" class="list competancylist"></div><input type="text" class="competancy" id="txtTech" placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="contentfielddiv">
+                            <div class="textarea-wrapper">
+                                <textarea class="floating-textarea floating-input disabletext" required id="txtInfo" placeholder=" "></textarea>
+                                <label class="float">Additional Info</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<div id="Statusdiv">
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/interview-sm.png" width="45" height="45" alt="" /></div></div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="mainheaderdiv">Interview Log</div>
+                </div>
+                <div class="col-sm-5">
+                </div>
+            </div>
+        </div>
+        <div class="contentmaindiv">
+            <div class="myprojectdiv">
+                @*<div class="myprojecttxt"> <a href="@Url.Action("CreateInterview","Recruitment")">+ Create Interview</a></div>*@
+                <a class="backbuttondiv" href="@Url.Action("RecHome","Recruitment")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            </div>
+            <div class="space"></div>
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Interview Scheduled</div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="requestgridmaindiv">
+                        <table width="100%" id="tblInterviewScheduled" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                            <tbody>
+                                <tr class="requestgriddiv">
+
+                                    <td class="requestgridheader" width="15%">
+                                        Interviewee Name
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field1Xml" id="cbRecIntSchIntName" name="intervieweename" style="width:170px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntSch1" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntSch1" name='Field1Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="15%">
+                                        Interviewers
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field2Xml" id="cbRecIntSchInterviewers" name="interviewers" style="width:170px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntSch2" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntSch2" name='Field2Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="10%">
+                                        Start Date
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field3Xml" id="cbRecIntSchSDate" name="startdate" style="width:110px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntSch3" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntSch3" name='Field3Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="10%">
+                                        Start Time
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field4Xml" id="cbRecIntSchSTime" name="starttime" style="width:110px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntSch4" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntSch4" name='Field4Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="20%">
+                                        Interview Type
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field5Xml" id="cbRecIntSchIntType" name="interviewtype" style="width:230px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntSch5" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntSch5" name='Field5Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="15%">
+                                        Posting Title
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field6Xml" id="cbRecIntSchTitle" name="postingtitle" style="width:170px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntSch6" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntSch6" name='Field6Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="10%">
+                                        Status
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field7Xml" id="cbRecIntSchStatus" name="status" style="width:130px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntSch7" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntSch7" name='Field7Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="requestgridheader" colspan="2" width="3%"><a href="#" id="hrefScheduledInterviewClearFilter"><img style="float:inherit" title="Clear" src="../images/ClearFilter.jpg" width="14" height="14" alt="" /></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationmaindiv" id="divPage">
+                            <div class="paginationsubdiv">
+                                <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                    <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                    <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                    <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                    <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space"></div>
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Interview Completed</div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="requestgridmaindiv">
+                        <table width="100%" id="tblInterviewCompleted" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                            <tbody>
+                                <tr class="requestgriddiv">
+                                    <td class="requestgridheader" width="15%">
+                                        Interviewee Name
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field1Xml" id="cbRecIntCompIntName" name="intervieweename" style="width:170px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntComp1" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntComp1" name='Field1Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="15%">
+                                        Interviewers
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field2Xml" id="cbRecIntCompInterviewers" name="interviewers" style="width:170px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntComp2" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntComp2" name='Field2Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="10%">
+                                        Start Date
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field3Xml" id="cbRecIntCompSDate" name="startdate" style="width:110px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntComp3" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntComp3" name='Field3Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="10%">
+                                        Start Time
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field4Xml" id="cbRecIntCompSTime" name="starttime" style="width:110px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntComp4" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntComp4" name='Field4Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="16%">
+                                        Interview Type
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field5Xml" id="cbRecIntCompIntType" name="interviewtype" style="width:230px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntComp5" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntComp5" name='Field5Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="15%">
+                                        Posting Title
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field6Xml" id="cbRecIntCompTitle" name="postingtitle" style="width:170px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntComp6" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntComp6" name='Field6Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="14%">
+                                        Status
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field7Xml" id="cbRecIntCompStatus" name="status" style="width:130px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbRecIntComp7" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbRecIntComp7" name='Field7Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" colspan="2" width="3%"><a href="#" id="hrefCompletedInterviewClearFilter"><img style="float:inherit" title="Clear" src="../images/ClearFilter.jpg" width="14" height="14" alt="" /></a></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationmaindiv" id="divPageCTasks">
+                            <div class="paginationsubdiv">
+                                <div class="paginationbtndiv" id="FRSTbtnCTasks" title="First">
+                                    <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="PRVbtnCTasks" title="Previous">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivComNum" id="divPgfirstCTasks">
+                                    <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMCompbtn paginationNUM-ACTVbtnComp  pagination pgNumberB1">1</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivComNum">
+                                    <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB2">2</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivComNum">
+                                    <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB3">3</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivComNum">
+                                    <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB4">4</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivComNum" id="divPglastCTasks">
+                                    <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB5">5</div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="NXTbtnCTasks" title="Next">
+                                    <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="LSTbtnCTasks" title="Last">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var dictScheduledInterviewArray = {};
+    var dictCompletedInterviewArray = {};
+    var IsPrimaryLoad = true;
+    var CurrentPageId = 1;
+    var CurrentPageIdCompleted = 1;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    var RowCount = 10;
+    var PageCount = 0;
+    var PageCountCompleted = 0;
+    var recruiter;
+    $(document).ready(function () {
+        recruiter = false;
+        dictScheduledInterviewArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "" };
+        dictCompletedInterviewArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+        hideFilter();
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        $('#hrefScheduledInterviewClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictScheduledInterviewArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "" };
+            FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            loadScheduledInterview();
+            showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+        });
+        $('#hrefCompletedInterviewClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictCompletedInterviewArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "" };
+            FirstButonClick($('.paginationNUMCompbtn'), $('.pgNumberB1'), 'paginationNUM-ACTVbtnComp', 1,
+            'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+            CurrentPageIdCompleted = 1;
+            loadCompletedInterView();
+            showAndHidePages(PageCountCompleted, CurrentPageIdCompleted, $('.paginationbtndivComNum > a'), '.pgNumberB');
+        });
+        loadScheduledInterview();
+        loadScheduledInterviewFilter();
+        loadCompletedInterView();
+        loadCompletedInterViewFilter();
+    });
+    function loadScheduledInterview() {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictScheduledInterviewArray), Operation: 20, ProjId: 0, TypeId: 1, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                $('#tblInterviewScheduled > tbody').children("tr:gt(0)").remove();
+                $('#divPage').show();
+                if (results != null && results.length > 0) {
+                    for (var i = 0; i < results.length; i++) {
+                        if (results[0]["TotalRowCount"] % 10 == 0)
+                            PageCount = results[0]["TotalRowCount"] / 10;
+                        else
+                            PageCount = Math.floor(results[0]["TotalRowCount"] / 10) + 1;
+                        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+                        showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                        $('#tblInterviewScheduled').append('<tr class="requestgriddiv2">' +
+                                    '<td class="requestgridsubheader"><div class="documentlinkdiv preventDefault"><a href="#" onclick="showIntervieweeDialog(\'' + results[i].FK_ApplicantId + '\',\'' + results[i].Name + '\');">' + results[i].Name + '</a></div></td>' +
+                                    '<td class="requestgridsubheader">' + results[i].InterViewerName + '</td>' +
+                                    '<td class="requestgridsubheader">' + FormatDate(results[i].Date, "mm/dd/yyyy") + '</td>' +
+                                    '<td class="requestgridsubheader">' + results[i].Time + '</td>' +
+                                    '<td class="requestgridsubheader">' + results[i].TypeName + '</td>' +
+                                    '<td class="requestgridsubheader"><div class="documentlinkdiv preventDefault"><a href="#" onclick="showPostingTitleDialog(\'' + results[i].openingId + '\');">' + results[i].JobTitle + '</a></div></td>' +
+                                    '<td class="requestgridsubheader"><div class="documentlinkdiv preventDefault"><a href="#" onclick="showInterviewStatusDialog(\''+results[i].CreateIntrviewId+'\');">' + results[i].StatusName + '</a></div></td>' +
+                                    '<td class="requestgridsubheader"><a href="#" title="View Details" onclick="loadViewDetailsDialog(\''+ results[i].CreateIntrviewId+'\')" class="PreventHref"><img src="../Images/assessmenticon.png" /></a></td></tr>');
+                    }
+                    PreventDefaultClick();
+                }
+                else {
+                        $('#divPage').hide();
+                        $('#tblInterviewScheduled').append('<tr><td class="NoRecordsFound" colspan="8">No Records Found</td></tr>');
+                }
+            },
+            error: function (xhr) {
+            }
+        });
+    }
+    function loadScheduledInterviewFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictScheduledInterviewArray), Operation: 20, ProjId: 0, TypeId: 1, OffSet: 0, RowCount: 0 },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                if (results != null && results.length > 0) {
+                    for (var i = 0; i < results.length; i++) {
+                        CreateCheckBox($('#cbRecIntSchIntName'), results[i].Name, 'Field1Xml');
+                        CreateCheckBox($('#cbRecIntSchInterviewers'), results[i].InterViewerName, 'Field2Xml');
+                        CreateCheckBox($('#cbRecIntSchSDate'), FormatDate(results[i].Date, "mm/dd/yyyy"), 'Field3Xml');
+                        CreateCheckBox($('#cbRecIntSchSTime'), results[i].Time, 'Field4Xml');
+                        CreateCheckBox($('#cbRecIntSchIntType'), results[i].TypeName, 'Field5Xml');
+                        CreateCheckBox($('#cbRecIntSchTitle'), results[i].JobTitle, 'Field6Xml');
+                        CreateCheckBox($('#cbRecIntSchStatus'), results[i].StatusName, 'Field7Xml');
+                        DefineCheckboxClicks();
+                    }
+                }
+            },
+            error: function (xhr) {
+            }
+        });
+    }
+
+    function loadCompletedInterView() {
+        OffsetVal = ((CurrentPageIdCompleted - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictCompletedInterviewArray), Operation: 21, ProjId: 0, TypeId: 1, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                $('#tblInterviewCompleted > tbody').children("tr:gt(0)").remove();
+                $('#divPageCTasks').show();
+                if (results != null && results.length > 0) {
+                    for (var i = 0; i < results.length; i++) {
+                        if (results[0]["TotalRowCount"] % 10 == 0)
+                            PageCountCompleted = results[0]["TotalRowCount"] / 10;
+                        else
+                            PageCountCompleted = Math.floor(results[0]["TotalRowCount"] / 10) + 1;
+                        disableButtons($('#LSTbtnCTasks'), $('#NXTbtnCTasks'), $('#FRSTbtnCTasks'), $('#PRVbtnCTasks'), PageCountCompleted, CurrentPageIdCompleted);
+                        showAndHidePages(PageCountCompleted, CurrentPageIdCompleted, $('.paginationbtndivComNum > a'), '.pgNumberB');
+                        $('#tblInterviewCompleted').append('<tr class="requestgriddiv2">' +
+                                    '<td class="requestgridsubheader"><div class="documentlinkdiv PreventDefaultClick"><a href="#" onclick="showIntervieweeDialog(\'' + results[i].FK_ApplicantId + '\',\'' + results[i].Name + '\');">' + results[i].Name + '</a></div></td>' +
+                                    '<td class="requestgridsubheader">' + results[i].InterViewerName + '</td>' +
+                                    '<td class="requestgridsubheader">' + FormatDate(results[i].Date, "mm/dd/yyyy") + '</td>' +
+                                    '<td class="requestgridsubheader">' + results[i].Time + '</td>' +
+                                    '<td class="requestgridsubheader">' + results[i].TypeName + '</td>' +
+                                    '<td class="requestgridsubheader">' + results[i].JobTitle + '</td>' +
+                                    '<td class="requestgridsubheader">' + results[i].StatusName + '</td>' +
+                                    '<td class="requestgridsubheader"><a href="#" title="View Details" class="PreventHref" onclick="loadViewDetailsDialog(\''+results[i].CreateIntrviewId+'\')"><img src="../Images/assessmenticon.png" /></a></td></tr>');
+                    }
+                    PreventDefaultClick();
+                }
+                else {
+                        $('#divPageCTasks').hide();
+                        $('#tblInterviewCompleted').append('<tr><td class="NoRecordsFound" colspan="8">No Records Found</td></tr>');
+                     }
+                PreventDefaultClick();
+            },
+            error: function (xhr) {
+            }
+        });
+    }
+    function loadCompletedInterViewFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictCompletedInterviewArray), Operation: 21, ProjId: 0, TypeId: 1, OffSet: 0, RowCount: 0 },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                if (results != null && results.length > 0) {
+                    for (var i = 0; i < results.length; i++) {
+                        CreateCheckBox($('#cbRecIntCompIntName'), results[i].Name, 'Field1Xml');
+                        CreateCheckBox($('#cbRecIntCompInterviewers'), results[i].InterViewerName, 'Field2Xml');
+                        CreateCheckBox($('#cbRecIntCompSDate'), FormatDate(results[i].Date, "mm/dd/yyyy"), 'Field3Xml');
+                        CreateCheckBox($('#cbRecIntCompSTime'), results[i].Time, 'Field4Xml');
+                        CreateCheckBox($('#cbRecIntCompIntType'), results[i].TypeName, 'Field5Xml');
+                        CreateCheckBox($('#cbRecIntCompTitle'), results[i].JobTitle, 'Field6Xml');
+                        CreateCheckBox($('#cbRecIntCompStatus'), results[i].StatusName, 'Field7Xml');
+                        DefineCheckboxClicks();
+                    }
+                }
+                PreventDefaultClick();
+            },
+            error: function (xhr) {
+            }
+        });
+    }
+
+
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblInterviewScheduled')
+                dictTemp = dictScheduledInterviewArray;
+            else
+                dictTemp = dictCompletedInterviewArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblInterviewScheduled') {
+                dictScheduledInterviewArray = dictTemp;
+                FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                loadScheduledInterview();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            else {
+                dictCompletedInterviewArray = dictTemp;
+                FirstButonClick($('.paginationNUMCompbtn'), $('.pgNumberB1'), 'paginationNUM-ACTVbtnComp', 1,
+                'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+                CurrentPageIdCompleted = 1;
+                loadCompletedInterView();
+                showAndHidePages(PageCountCompleted, CurrentPageIdCompleted, $('.paginationbtndivComNum > a'), '.pgNumberB');
+
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    function showDialog(dialogUrl, title, dlgId, actn) {
+        var dialog = $('<div id="' + dlgId + '" style="display:none"></div>').appendTo('body');
+        dialog.load(dialogUrl, {},
+            function (responseText, textStatus, XMLHttpRequest) {
+                dialog.dialog({
+                    close: function (event, ui) {
+                        dialog.remove();
+                        if (title != "Assessment")
+                            window.location.reload();
+                    },
+                    title: title,
+                    modal: true,
+                    open: function (event, ui) {
+                        $('div[role="dialog"]').find('.headermaindiv').parent(0).remove();
+                        $('div[role="dialog"]').find('.col-md-1').remove();
+                        $('div[role="dialog"]').find('.backbuttondiv').hide();
+                        $('div[role="dialog"]').find('.col-md-11').attr('class', 'col-md-12');
+                        $('div[role="dialog"]').find('.col-md-12').css('padding', '0px');
+                        $('div[role="dialog"]').find('.row').css('margin', '0px');
+                        $('div[role="dialog"]').find('.mainheadingdiv').hide();
+
+                        $('div[role="dialog"]').find('.contentmaindiv').attr('style', $('div[role="dialog"]').find('.contentmaindiv').attr('style') + ';margin:0px;background-color:rgba(116, 126, 130, 0.52);max-height:600px;overflow-y:auto;overflow-x:hidden;');
+                        $('div[role="dialog"]').css('background', 'rgba(67, 116, 136, 0.8)');
+                        $('.ui-widget-overlay').css('background-color', 'black');
+
+                        if ($('#divComments').length > 0)
+                            $('#divComments').remove();
+                        if (actn == 'view' && $('.buttonmaindiv').length > 0)
+                            $('.buttonmaindiv').remove();
+                    },
+                    width: 1200,
+                    classes: { "ui-dialog-titlebar": "popupheadingmaindiv", "ui-dialog-title": "popupheadingtext", "ui-button": "popupclosebutton", "ui-dialog": "popupmaindiv" },
+                    position: { my: "center" }
+                });
+                dialog.dialog("moveToTop");
+            });
+        return false;
+    }
+    //Pagination InterviewScheduled
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', PageCount);
+            loadScheduledInterview();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadScheduledInterview();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadScheduledInterview();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadScheduledInterview();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadScheduledInterview();
+    });
+    //Pagination InterviewCompleted
+    $('.paginationbtndivComNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMCompbtn').attr("name"));
+            CurrentPageIdCompleted = parseInt($(this).find('.paginationNUMCompbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMCompbtn').text());
+            LoadEachButton($('.paginationNUMCompbtn'), '.pgNumberB', 'paginationNUM-ACTVbtnComp', 'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp', PageCountCompleted);
+            loadCompletedInterView();
+            disableButtons($('#LSTbtnCTasks'), $('#NXTbtnCTasks'), $('#FRSTbtnCTasks'), $('#PRVbtnCTasks'), PageCountCompleted, loopVal);
+        });
+    });
+    $("#NXTbtnCTasks").click(function () {
+        CurrentPageIdCompleted = CurrentPageIdCompleted + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtnComp'), $('.paginationNUMMOREtxt-ActiveComp'), $('.paginationNUMMOREtxt1-ActiveComp'));
+        NextButtonClick($('.paginationNUMCompbtn'), $('.pgNumberB' + classId), $('.pgNumberB' + (classId + 1)), 'paginationNUM-ACTVbtnComp', PageCountCompleted,
+        'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+        disableButtons($('#LSTbtnCTasks'), $('#NXTbtnCTasks'), $('#FRSTbtnCTasks'), $('#PRVbtnCTasks'), PageCountCompleted, CurrentPageIdCompleted);
+        loadCompletedInterView();
+    });
+    $("#PRVbtnCTasks").click(function () {
+        CurrentPageIdCompleted = CurrentPageIdCompleted - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtnComp'), $('.paginationNUMMOREtxt-ActiveComp'), $('.paginationNUMMOREtxt1-ActiveComp'));
+        prevButtonClick($('.paginationNUMCompbtn'), $('.pgNumberB' + (classId - 1)), $('.pgNumberB' + classId), 'paginationNUM-ACTVbtnComp',
+        'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp', CurrentPageIdCompleted);
+        loadCompletedInterView();
+    });
+    $("#FRSTbtnCTasks").click(function () {
+        CurrentPageIdCompleted = 1;
+        FirstButonClick($('.paginationNUMCompbtn'), $('.pgNumberB1'), 'paginationNUM-ACTVbtnComp', CurrentPageIdCompleted,
+        'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+        loadCompletedInterView();
+    });
+    $("#LSTbtnCTasks").click(function () {
+        CurrentPageIdCompleted = PageCountCompleted;
+        LastButtonClick($('.paginationNUMCompbtn'), $('.pgNumberB5'), $('.pgNumberB' + CurrentPageIdCompleted), 'paginationNUM-ACTVbtnComp',
+         CurrentPageIdCompleted, 'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+        loadCompletedInterView();
+    });
+
+    function showIntervieweeDialog(AppId, title) {
+        var dialog = document.getElementById('dlgIntervieweeName');
+        $('#listInterviewSkills').empty();
+        $('#listInterviewTech').empty();
+        $('#dlgIntervieweeName').find('.popupheadingtext')[0].innerText = title;
+        $.ajax({
+            url: '/Recruitment/GetOpening',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            data: {
+                RowId: AppId, operation: 48
+            },
+            success: function (data) {
+                var resultVals = $.parseJSON(data);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    $('#txtIntName').val(resultVals[0].Name).attr("disabled", "disabled");
+                    $('#txtEmail').val(resultVals[0].EmailId).attr("disabled", "disabled");
+                    $('#txtMobile').val(resultVals[0].MobileNo).attr("disabled", "disabled");
+                    $('#txtAddress').val(resultVals[0].Address).attr("disabled", "disabled");
+                    $('#txtStreet').val(resultVals[0].Street).attr("disabled", "disabled");
+                    $('#txtIntCity').val(resultVals[0].city).attr("disabled", "disabled");
+                    $('#txtIntState').val(resultVals[0].State).attr("disabled", "disabled");
+                    if (resultVals[0].ZipCode != 0)
+                        $('#txtZip').val(resultVals[0].ZipCode);
+                    $('#txtIntCountry').val(resultVals[0].Country).attr("disabled", "disabled");
+                    if (resultVals[0].ExperianceinMonths != 0)
+                        $('#txtExp').val(resultVals[0].ExperianceinMonths);
+                    $('#txtQual').val(resultVals[0].HighestQualification).attr("disabled", "disabled");
+                    $('#txtJob').val(resultVals[0].CurrentJobTitle).attr("disabled", "disabled");
+                    $('#txtEmp').val(resultVals[0].CurrentEmployer).attr("disabled", "disabled");
+                    if (resultVals[0].CurrentCTC != 0)
+                        $('#txtCTCcurr').val(resultVals[0].CurrentCTC);
+                    if (resultVals[0].ExpectedCTC != 0)
+                        $('#txtCTCexp').val(resultVals[0].ExpectedCTC);
+                    $('#txtSkype').val(resultVals[0].SkypeID).attr("disabled", "disabled");
+                    $('#txtTwitt').val(resultVals[0].TwitterID).attr("disabled", "disabled");
+                    $('#txtLink').val(resultVals[0].LinkedInID).attr("disabled", "disabled");
+                    $('#txtPosTitle').val(resultVals[0].JobTitle).attr("disabled", "disabled");
+                    bindListData($("#listInterviewTech"), resultVals[0].Technologies);
+                    bindListData($("#listInterviewSkills"), resultVals[0].Skills);
+                    $('#txtInfo').val(resultVals[0].AdditionalInfo).attr("disabled", "disabled");
+                    $('.listclosbtn').hide();
+                    $('#txtZip').attr("disabled", "disabled");
+                    $('#txtExp').attr("disabled", "disabled");
+                    $('#txtCTCcurr').attr("disabled", "disabled");
+                    $('#txtCTCexp').attr("disabled", "disabled");
+                    $('#txtSkill').attr("disabled", "disabled");
+                    $('#txtTech').attr("disabled", "disabled");
+                }
+            },
+            error: function (xhr) {
+            }
+        });
+        dialog.showModal();
+    }
+    function bindListData(list, text) {
+        var listText = text.split(',');
+        if (listText.length > 0) {
+            for (var i = 0; i < listText.length; i++)
+                if (listText[i] != '')
+                    list.append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + listText[i] +
+                                    "</label></div><div class='listclosbtn' style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                        "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div>");
+        }
+    }
+    function showPostingTitleDialog(OppId) {
+        var dialogPostingTitle = document.getElementById('dlgPostingTitle');
+        $("#listRoles").empty();
+        $("#listTech").empty();
+        $("#listCert").empty();
+        $("#listDomain").empty();
+        $("#listSkills").empty();
+        $("#divAttach").empty();
+        $("#listManager").empty();
+        $("#listRecruit").empty();
+        LoadDdls('/projects/GetDepartment?opId=7', $('#ddlDepartment'), 'DepartmentId', 'DepartmentName');
+        $.ajax({
+            url: '/Recruitment/GetOpening',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            data: {
+                RowId: OppId, operation: 41
+            },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                if (results["Result"] == undefined || results["Result"] == null) {
+                    $('#dlgPostingTitle').find('.popupheadingtext')[0].innerText = results[0].JobTitle;
+                    $('#txtTitle').val(results[0].JobTitle).attr("disabled", "disabled");
+                    if (results[0].FK_Department != 0)
+                        $('#ddlDepartment').find('option[value="0"]').attr("selected", "selected");
+                    $('#ddlDepartment').find('option[value="' + results[0].FK_Department + '"]').attr("selected", "selected");
+                    $('#ddlStatus').find('option[value="' + results[0].JobOpeningStatus + '"]').attr("selected", "selected");
+                    $('#ddlJobType').find('option[value="' + results[0].JobType + '"]').attr("selected", "selected");
+                    $('#txtContract').attr("disabled", "disabled");;
+                    $("select").each(function () {
+                        $(this).attr("value", $(this).find('option:selected').val());
+                    });
+                    $('#txtVacant').val(results[0].NOOfVacancy).attr("disabled", "disabled");
+                    if ((results[0].CTC) == 0) {
+                        $('#txtCTC').val("").attr("disabled", "disabled");
+                    }
+                    else {
+                        $('#txtCTC').val(results[0].CTC).attr("disabled", "disabled");
+                    }
+                    $('#dateStart').val(customDateformat(parseInt(/\d+/.exec(results[0].StartDate)[0]), "MM/dd/yyyy")).attr("disabled", "disabled");
+                    $('#dateEnd').val(customDateformat(parseInt(/\d+/.exec(results[0].EndDate)[0]), "MM/dd/yyyy")).attr("disabled", "disabled");
+                    $('#txtContract').val(results[0].ContractPeriod).attr("disabled", "disabled");
+                    $('#txtIndus').val(results[0].Industry).attr("disabled", "disabled");
+                    $('#txtExpN').val(results[0].ExperienceRequired != 0 ? results[0].ExperienceRequired : "").attr("disabled", "disabled");
+                    $('#txtCity').val(results[0].City).attr("disabled", "disabled");
+                    $('#txtState').val(results[0].State).attr("disabled", "disabled");
+                    $('#txtCountry').val(results[0].Country).attr("disabled", "disabled");
+                    bindListData($("#listRoles"), results[0].RoleName);
+                    bindListData($("#listTech"), results[0].Technologies);
+                    bindListData($("#listCert"), results[0].Certification);
+                    bindListData($("#listDomain"), results[0].Domain);
+                    bindListData($("#listSkills"), results[0].Skills);
+                    $('#txtDesc').val(results[0].JobDescription).attr("disabled", "disabled");
+                    var filesStr = results[0].AttachmentPath.split('||');
+                    for (var i = 0; i < filesStr.length - 1; i++) {
+                        CheckExtension($('#divAttach'), filesStr[i], filesStr[i].split('\\').pop(), "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", $('#divAttach'), 1);
+                        $('#filehidden').val($('#filehidden').val() + filesStr[i] + "||");
+                    }
+                    if (results[0].FK_Manager != 0)
+                        $('#listManager').append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff;" +
+                        " min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + results[0].FK_Manager + "'>" + results[0].Manager +
+                        "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '></div></div>");
+
+                    $('#listRecruit').append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff;" +
+                    " min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + results[0].FK_Recruiter + "'>" + results[0].Recruiter +
+                    "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '></div></div>");
+                }
+                $(".listclosbtn").hide();
+                $(".closeImage").hide();
+                $("#ddlDepartment").attr("disabled", "disabled");
+                $("#ddlStatus").attr("disabled", "disabled");
+                $("#ddlJobType").attr("disabled", "disabled");
+                $("#txtManager").attr("disabled", "disabled");
+                $("#txtRecruit").attr("disabled", "disabled");
+                $("#txtRole").attr("disabled", "disabled");
+                $("#txtTech").attr("disabled", "disabled");
+                $("#txtCert").attr("disabled", "disabled");
+                $("#txtDom").attr("disabled", "disabled");
+                $("#txtSkill").attr("disabled", "disabled");
+            },
+            error: function (xhr) {
+            }
+        });
+
+        dialogPostingTitle.showModal();
+    }
+    function showInterviewStatusDialog(IntId) {
+        var IntStatusDialog = document.getElementById("dlgInterviewStatus");
+        $("#ddlIntStatus").empty();
+        $("#ddlIntStatus").prepend("<option value='' selected='selected'></option>");
+        $.ajax({
+            url: '/Recruitment/CancelDelete',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            data: {
+                RowId: IntId,EmpId:@Session["EmpId"], Operation: 14
+            },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                if (results["Result"] == undefined || results["Result"] == null) {
+                    if(results[0].FK_Recruiter==parseInt('@Session["EmpId"]')){
+                        LoadDdls('/Recruitment/BindDropdown?RowId='+results[0].FK_ApplicantIdStatus+'&Operation=26', $('#ddlIntStatus'), 'ApplicantStatusId', 'StatusName');
+                        recruiter=true;
+                    }
+                    else{
+                        LoadDdls('/Recruitment/BindDropdown?RowId='+results[0].FK_ApplicantIdStatus+'&Operation=25', $('#ddlIntStatus'), 'ApplicantStatusId', 'StatusName');
+                    }
+                    $('#hdnApplicantId').val(results[0].NewApplicantId);
+                    $('#hdnInterviewerId').val(results[0].InterviewerId);
+                }
+            },
+            error: function (xhr) {
+            }
+        });
+        IntStatusDialog.showModal();
+    }
+    function UploadInterviewFile() {
+        var projectFiles = $('#fileProject')[0].files;
+        var formData = new FormData();
+        if (projectFiles.length > 0) {
+            for (var i = 0; i < projectFiles.length; i++)
+                formData.append(projectFiles[i].name, projectFiles[i]);
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < projectFiles.length; i++) {
+                            $('#filehidden').val($('#filehidden').val() + json[projectFiles[i].name] + "||");
+                            CheckExtension($('#divAttach'), projectFiles[i].name, json[projectFiles[i].name], "<a title='Close' href='#'><div class='documentclosebutton closeImage preventDefault'>X</div></a>", $('#divAttach'), 1);
+                        }
+                    }
+                    $('#fileProject').val('');
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        }
+    }
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            $('#filehidden').val($('#filehidden').val().replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+            if ($('#divAttach').children().length == 0)
+                $('#divAttach').hide();
+        });
+        PreventDefaultClick();
+    }
+    function loadViewDetailsDialog(InterId)
+    {
+        var viewDetailsDialog = document.getElementById("dlgViewDetailsDialog");
+        $("#listInterviewer").empty();
+        $.ajax({
+            url: '/Recruitment/CancelDelete',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            data: {
+                RowId: InterId,EmpId:@Session["EmpId"], Operation: 16
+            },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                if (results["Result"] == undefined || results["Result"] == null) {
+                    $("#txtInterviewName").val(results[0].Name).attr("disabled","disabled");
+                    $("#txtInterviewPosting").val(results[0].JobTitle).attr("disabled","disabled");
+                    $("#txtInterviewType").val(results[0].TypeName).attr("disabled","disabled");
+                    $("#txtInterviewDate").val(FormatDate(results[0].Date, "mm/dd/yyyy")).attr("disabled","disabled");
+                    $("#txtInterviewTime").val(results[0].Time).attr("disabled","disabled");
+                    $("#txtInterviewLocation").val(results[0].Location).attr("disabled","disabled");
+                    $("#txtInterviewMobile").val(results[0].MobileNo).attr("disabled","disabled");
+                    if(results[0].ExperianceinMonths != 0)
+                        $("#txtInterviewExp").val(results[0].ExperianceinMonths).attr("disabled","disabled");
+                    else
+                    {
+                        results[0].ExperianceinMonths="";
+                        $("#txtInterviewExp").val(results[0].ExperianceinMonths).attr("disabled","disabled");
+                    }
+                    $("#txtInterviewQual").val(results[0].HighestQualification).attr("disabled","disabled");
+                    $("#txtInterviewJob").val(results[0].CurrentJobTitle).attr("disabled","disabled");
+                    $("#txtInterviewEmp").val(results[0].CurrentEmployer).attr("disabled","disabled");
+                    $("#txtInterviewSkills").val(results[0].Skills).attr("disabled","disabled");
+                    $("#txtInterviewTech").val(results[0].Technologies).attr("disabled","disabled");
+                    $("#txtInterviewAddition").val(results[0].AdditionalInfo).attr("disabled","disabled");
+                    $("#txtInterviewMobile").attr("disabled","disabled");
+
+                    $.ajax({
+                        url: '/Recruitment/GetOpening',
+                        dataType: "json",
+                        type: "GET",
+                        contentType: 'application/json; charset=utf-8',
+                        data: {
+                            RowId: results[0].CreateIntrviewId, operation: 74
+                        },
+                        success: function (data)
+                        {
+                            var resultValues = $.parseJSON(data);
+                            for(var i=0;i<resultValues.length;i++)
+                            {
+                                if(resultValues[i].InterviewerStatusId == 10 || resultValues[i].InterviewerStatusId == 11 || resultValues[i].InterviewerStatusId == 12 || resultValues[i].InterviewerStatusId == 14 )
+                                    $('#listInterviewer').append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label style='cursor:pointer'>" + resultValues[i].FirstName +"</label>"+
+                                    "<img src='../Images/documenticon.png' onclick='viewStatus("+resultValues[i].EmpId+","+results[0].CreateIntrviewId+","+results[0].NewApplicantId+","+results[i].InterviewerStatusId+","+resultValues[i].InterviewAssessmentId+");' class='divcompetancy' name='" + resultValues[i].EmpId + "' />"+
+                                    "</div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '></div></div>");
+                                else
+                                    $('#listInterviewer').append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label style='cursor:pointer'>" + resultValues[i].FirstName +"</label>"+
+                                    "</div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '></div></div>");
+                            }
+                        },
+                        error: function (xhr) {
+                        }
+                    });
+                }
+            },
+            error: function (xhr) {
+            }
+        });
+        viewDetailsDialog.showModal();
+        PreventDefaultClick();
+    }
+    function viewStatus(empId,schedId,applId,status,IntAssessmentId){
+        $("#hdnEmpId").val(empId);
+        $("#hdnAppId").val(applId);
+        $("#hdnStatusId").val(status);
+        $("#divAttachpop").empty();
+        if(IntAssessmentId != 0)
+            $("#divCandidateRating").show();
+        else
+            $("#divCandidateRating").hide();
+        var dialogInterStatus = document.getElementById("dlgInterStatus");
+        $.ajax({
+            url: '/Recruitment/CancelDelete',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            data: {
+                RowId: schedId,EmpId:empId, Operation: 10
+            },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                if(results.Result==undefined||results.Result==null||results.Result!="Error"){
+                    $('#txtStatuspop').val(results[0].StatusName).attr('disabled','disabled');
+                    $('#txtCommentspop').val(results[0].Comments).attr('disabled','disabled');
+                    var filesStr=results[0].Attachments.split('||');
+                    if(filesStr.length>1){
+                        for(var i=0;i<filesStr.length-1;i++)
+                            CheckExtension($('#divAttachpop'), filesStr[i], filesStr[i].split('\\').pop(), "", $('#divAttachpop'), 1);
+                        $('#divFilesattach').show();
+                    }
+                }
+
+            }
+        });
+        dialogInterStatus.showModal();
+    }
+    function loadCandidateRating(empId,applId,status)
+    {
+        if(status==14){
+            var dialogAssessment = document.getElementById("dlgCandidateRating");            
+            $.ajax({
+                url: '/Recruitment/CancelDelete',
+                dataType: "json",
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                data: {
+                    RowId: applId, EmpId:empId,Operation: 15
+                },
+                success: function (data) {
+                    var results = $.parseJSON(data);
+                    LoadDdls('/Recruitment/BindDropdown?RowId='+results[0].InterviewerStatusId+'&Operation=24', $('#ddlApplstatus'), 'ApplicantStatusId', 'StatusName');
+                    $.ajax({
+                        url: '/Recruitment/CancelDelete',
+                        dataType: "json",
+                        type: "GET",
+                        contentType: 'application/json; charset=utf-8',
+                        data: {
+                            RowId: results[0].CreateIntrviewId,EmpId:results[0].InterviewerId, Operation: 11
+                        },
+                        success: function (data) {
+                            var results = $.parseJSON(data);
+                            if(results.Result==undefined||results.Result==null||results.Result!="Error"){
+                                if(parseInt(results[0].TechinicalAbility)>0){
+                                    for(var i=1;i<=parseInt(results[0].TechinicalAbility);i++)
+                                        $('#divTechAb').find('input[value="'+i+'"]').prop('checked',true);
+                                }
+                                if(parseInt(results[0].InterpersonalSkills)>0){
+                                    for(var i=1;i<=parseInt(results[0].InterpersonalSkills);i++)
+                                        $('#divInterSk').find('input[value="'+i+'"]').prop('checked',true);
+                                }
+                                if(parseInt(results[0].PresentaitonSkills)>0){
+                                    for(var i=1;i<=parseInt(results[0].PresentaitonSkills);i++)
+                                        $('#divPresentSk').find('input[value="'+i+'"]').prop('checked',true);
+                                }
+                                if(parseInt(results[0].LeadershipSkills)>0){
+                                    for(var i=1;i<=parseInt(results[0].LeadershipSkills);i++)
+                                        $('#divLeaderSk').find('input[value="'+i+'"]').prop('checked',true);
+                                }
+                                if(parseInt(results[0].Teamwork)>0){
+                                    for(var i=1;i<=parseInt(results[0].Teamwork);i++)
+                                        $('#divTeam').find('input[value="'+i+'"]').prop('checked',true);
+                                }
+                                $('#ddlApplstatus option').remove();
+                                $('#ddlApplstatus').append('<option value="1">'+results[0].StatusName+'</option>');
+                                $('#ddlApplstatus').attr('value','1');
+                                $('#txtIntComments').val(results[0].Comments);
+                                $('#assessRating').find('input[type="radio"]').prop('disabled',true);
+                                $('#ddlApplstatus').attr('disabled','disabled');
+                                $('#txtIntComments').attr('disabled','disabled');
+                            }
+                            PreventDefaultClick();
+                        }
+                    });             
+                },
+                error: function (xhr) {
+                }
+            }); 
+            dialogAssessment.showModal();
+        }
+    }
+    function UpdateInterviewStatus() {
+        if (ValidateAll('divValidateAll','lblMsg')) {
+            var dtStatus = [{ Applicant:$('#hdnApplicantId').val(),InterviewerId:$('#hdnInterviewerId').val(),Status:$('#ddlIntStatus option:selected').val(),Attachments:$('#filehidden').val(),Comments:$('#txtComments').val() }];
+            $.ajax({
+                url: '/Recruitment/UpdateInterviewStatus',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    JsonStr: JSON.stringify(dtStatus),Operation:recruiter?1:2
+                },
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    if(result.Result==undefined||result.Result==null||result.Result!="Error"){
+                        $('#lblMsg').attr("class", "lblMessage");
+                        $('#lblMsg')[0].innerText = "Status Updated Successfully";
+                        loadScheduledInterview();
+                        loadCompletedInterView();
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+    }
+    function closeInterviewStatus()
+    {
+        $('#txtComments').val('');
+        $('#divAttach').html('');
+        document.getElementById('dlgInterviewStatus').close();
+    }
+</script>

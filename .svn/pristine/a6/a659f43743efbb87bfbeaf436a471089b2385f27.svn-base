@@ -1,0 +1,344 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<form id="frmExit" action="/HR/ExitDocument" method="post">
+    @Html.Hidden("EmpId", new { id = "EmpId", name = "EmpId" })
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/exit-interview-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Exit Interview Log</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv">
+
+        <div class="myprojectdiv">
+            <div class="myprojecttxt"> <a href="@Url.Action("ExitDocument","HR")">+New Exit Document</a></div>
+            <a class="backbuttondiv" href="@Url.Action("HRHome","HR")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="requestgridmaindiv">
+                    <table id="tblInterviewLog" width="100%" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                        <tbody>
+                            <tr class="requestgriddiv">
+                                @*<td class="requestgridheader" width="20%">Employee Name</td>
+                                <td class="requestgridheader" width="20%">Relieving Date</td>
+                                <td class="requestgridheader" width="20%">Attachment</td>
+                                <td class="requestgridheader" width="3%"><a href="#"><img src="../images/Filter.png" width="16" height="16" alt="" /></a></td>*@ 
+                                <td class="requestgridheader" width="20%">
+                                    Employee Name
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field1Xml" id="cbExitIntEmpName" name="employename" style="width:320px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbHRExitInt1" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbHRExitInt1" name='Field1Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="20%">
+                                    Relieving Date
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field2Xml" id="cbExitIntRelDate" name="relievingdate" style="width:320px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbHRExitInt2" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbHRExitInt2" name='Field2Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="20%">Attachment</td>
+                                <td class="requestgridheader" width="3%"><a href="#" id="hrefExitInterViewClearFilter"><img title="Clear" src="../images/ClearFilter.jpg" width="16" height="16" alt="" /></a></td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                    <div class="paginationmaindiv" id="divPageExitInterviewLog">
+                        <div class="paginationsubdiv">
+                            <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        @*<div class="buttonmaindiv">
+                <div class="buttondiv"><input class="submitbtn" type="button" /></div>
+                <div class="buttondiv"><input class="clearbtn" type="button" /></div>
+
+            </div>*@
+    </div>
+</div>
+<script>
+    var dictExitinterViewArray = {};
+    var IsPrimaryLoad = true;
+    var CurrentPageId = 1;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    var RowCount = 10;
+    var PageCount = 0;
+    $(document).ready(function () {
+        hideFilter();
+        dictExitinterViewArray = { "Field1Xml": "", "Field2Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        loadInterviewLog();
+        loadInterviewLogFilter();
+        $('#hrefExitInterViewClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictExitinterViewArray = { "Field1Xml": "", "Field2Xml": "" };
+            FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            loadInterviewLog();
+            showPages($('.paginationbtndivNum > a'), '.pgNumber', 1);
+        });
+    });
+
+    function loadInterviewLog() {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        //$("#tblInterviewLog").find("tr:gt(0)").remove();
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictExitinterViewArray), Operation: 16, ProjId: 0, TypeId: 1, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#tblInterviewLog > tbody').children("tr:gt(0)").remove();
+                $('#divPageExitInterviewLog').show();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCount = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                    disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+                    showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                    for (var i = 0; i < resultVals.length; i++) {
+                        var attach = "";
+                        var len = (resultVals[i]["RelievingAttachments"].split('||'))
+                        var anchor = "";
+                        for (var j = 0; j < len.length - 1; j++) {
+                            anchor = anchor + '\n<a href="' + len[j] + '" target="_blank" >' + TrimFileNameDummy(len[j]) + ' </a>' + ',';
+                        }
+                        //attach = attach.trim().slice(0, -1);
+                        $('#tblInterviewLog').append('<tr class="requestgriddiv2" > ' +
+                        '  <td class="requestgridsubheader" > <div class="documentlinkdiv"><a onclick="editDocument(' + resultVals[i]["EmpId"] + ')" href="#"> ' +
+                        resultVals[i]["FirstName"] + ' ' + resultVals[i]["LastName"] + ' </a></div></td> ' +
+                          '<td class="requestgridsubheader">' + FormatDate(resultVals[i]["RelievingDate"], "mm/dd/yyyy") + '</td>' +
+                          '<td class="requestgridsubheader"><div class="Attachlinkdiv">' + anchor.substr(0, anchor.length - 1) + '</div></td>' +
+                              '<td class="requestgridsubheader"><a onclick="removeDocument(' +
+                              resultVals[i]["EmpId"] + ')" href="#"><img title="Delete" src="../Images/delete.png" /></a></td><td style="display:none">' + resultVals[i]["EmpId"] + '</td>' +
+                             '</tr>');
+                    }
+                }
+                else
+                {
+                        $('#divPageExitInterviewLog').hide();
+                        $('#tblInterviewLog').append("<tr><td colspan='4' class='NoRecordsFound'>No Records Found</td></tr>");
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadInterviewLogFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictExitinterViewArray), Operation: 16, ProjId: 0, TypeId: 1, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                            CreateCheckBox($('#cbExitIntEmpName'), (resultVals[i]["FirstName"] + ' ' + resultVals[i]["LastName"]), 'Field1Xml');
+                            CreateCheckBox($('#cbExitIntRelDate'), FormatDate(resultVals[i]["RelievingDate"], "mm/dd/yyyy"), 'Field2Xml');
+                            DefineCheckboxClicks();
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function editDocument(EmpId) {
+        $('#EmpId').val(EmpId);
+        $('#frmExit').submit();
+    }
+    function removeDocument(EmpId) {
+
+        var Operation = 2;
+        $.ajax({
+            url: '/HR/removeDocument',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                EmpId: EmpId, Operation: Operation
+            },
+            success: function (data) {
+
+
+                loadInterviewLog();
+            },
+            error: function () {
+            }
+        });
+    }
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblInterviewLog')
+                dictTemp = dictExitinterViewArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblInterviewLog') {
+                dictExitinterViewArray = dictTemp;
+                FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                loadInterviewLog();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    //Pagination ExitInterviewLog
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', PageCount);
+            loadInterviewLog();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadInterviewLog();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadInterviewLog();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadInterviewLog();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadInterviewLog();
+    });
+</script>

@@ -1,0 +1,488 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> weekDays = ViewData["WeekDays"] as List<string>;
+    int desginFlag = 0;
+    if (Request["designFlag"] != null && Request["designFlag"] != "")
+    {
+        desginFlag = Convert.ToInt16(Request["designFlag"].ToString());
+    }
+
+}
+<form id="frmDoc" action="/Task/TaskName" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+    @Html.Hidden("TypeId", new { id = "TypeId", name = "TypeId" })
+</form>
+<script>
+    var idStr = "";
+    var EmpId = 0;
+    var designFlag=@desginFlag;
+    $(document).ready(function () {
+        if(designFlag==1)
+            $('#rowTaskddl').prepend('<div class="col-md-3" id="divMgrTS">'+
+                    '<div class="contentfielddiv">'+
+                        '<input id="txtResourceName" class="floating-input autocompleteEmp vinput" type="text" placeholder=" ">'+
+                        '<label class="float">Resource Name</label>'+
+                    '</div>'+
+                '</div>');
+        var CompareItems = new Array();
+        $(".autocompleteEmp").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/EmpInfoAdminView/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'EmpName': '" + request.term + "' }",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                            CompareItems.push(data[i]["Value"]);
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                    },
+                    failure: function (response) {
+                    }
+                });
+            },
+            change: function (event, ui) {
+                var val = $(this).val();
+                var exists = $.inArray(val, CompareItems);
+                if (exists < 0) {
+                    $(this).val("");
+                    return false;
+                }
+            },
+            select: function (e, i) {
+                empid = i.item.Id;
+                $(this).val(i.item.label);
+                LoadDdls('/timesheet/GetTasksList?EmpId='+empid, $('#ddlProject'), 'ProjectId', 'Name');
+            },
+            minLength: 1
+        });
+        if(designFlag==0)
+        LoadDdls('/timesheet/GetTasksList?EmpId=0', $('#ddlProject'), 'ProjectId', 'Name');
+        $('#hdnPrev').val($('#Day0')[0].innerText);
+        if(designFlag==0)
+        {
+            getTimesheet(FormatDate($('#Day6')[0].innerText.split('-')[1] + "/" + $('#Day6')[0].innerText.split('-')[0] + "/" + $('#Day6')[0].innerText.split('-')[2], "yyyy/mm/dd"));
+            updateTotal();
+        }
+
+        $('.timesheettimetextbox').keypress(function () {
+            return /[0-9]|Backspace|[.]|Tab/.test(event.key);
+        });
+    });
+
+    function bindTasks(){
+        $('#ddlTasks option[value!=""]').remove();
+        if($('#ddlProject').find('option:selected').text()!='')
+            LoadDdls('/timesheet/BindTasks?Project='+$('#ddlProject').find('option:selected').val(), $('#ddlTasks'), 'TaskId', 'TaskName');
+    }
+
+    function updateTotal() {
+        var allRow = $('#tblTasks').find('tr');
+        for (var i = 1; i < allRow.length - 1; i++) {
+            var totalRow = 0;
+            var allTd = $(allRow[i]).find('.timesheettimetextbox');
+            for (var j = 0; j < 7; j++)
+                totalRow = totalRow + ($(allTd[j]).val() == "" ? 0 : parseFloat($(allTd[j]).val()));
+            $(allRow[i]).find('.timesheettotal1')[0].innerText = +totalRow.toFixed(2);
+        }
+
+        var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        for (var i = 0; i < 7; i++) {
+            var totalCol = 0;
+            var allCells = $('#tblTasks').find("[title='" + days[i] + "']");
+            for (var j = 0; j < allCells.length; j++)
+                totalCol = totalCol + ($(allCells[j]).val() == "" ? 0 : parseFloat($(allCells[j]).val()));
+            $('.tot' + days[i])[0].innerText = +totalCol.toFixed(2);
+        }
+    }
+
+    function getTimesheet(date) {
+        $.ajax({
+            url: '/TimeSheet/GetTimesheetDetails',
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            data:{EmpId:0,weekendDate:date},
+            success: function (data) {
+                var allRows = $('#tblTasks').find('tr');
+                for (var i = 1; i < allRows.length - 1; i++)
+                    $(allRows[i]).remove();
+                if (data != "") {
+                    var results = JSON.parse(data);
+
+                    for (var i = 0; i < results.length; i++) {
+                        $('#tblTasks').find('tr:last').before("<tr class='requestgriddiv2'><td class='requestgridsubheader'><div class='documentlinkdiv'><a href='#' onclick='getSessionValueTask(" + results[i].FK_TaskId + ")'>" + results[i].TaskName + "</a></div></td><td class='requestgridsubheader'>"+results[i].ProjectName+"</td>" +
+                          "<td class='requestgridsubheader'><input class='timesheettimetextbox' onchange='return setTotal(this);' title='Sun' type='text' value='" + results[i].Date0 + "' "+results[i].Date0Class+"></td><td class='requestgridsubheader'><input title='Mon' value='" + results[i].Date1 + "' onchange='return setTotal(this);' class='timesheettimetextbox' type='text' "+results[i].Date1Class+"></td>" +
+                          "<td class='requestgridsubheader'><input class='timesheettimetextbox' onchange='return setTotal(this);' title='Tue' type='text' value='" + results[i].Date2 + "' "+results[i].Date2Class+"></td><td class='requestgridsubheader'><input title='Wed' value='" + results[i].Date3 + "' onchange='return setTotal(this);' class='timesheettimetextbox' type='text' "+results[i].Date3Class+"></td>" +
+                          "<td class='requestgridsubheader'><input class='timesheettimetextbox' onchange='return setTotal(this);' title='Thu' type='text' value='" + results[i].Date4 + "' "+results[i].Date4Class+"></td><td class='requestgridsubheader'><input title='Fri' value='" + results[i].Date5 + "' onchange='return setTotal(this);' class='timesheettimetextbox' type='text' "+results[i].Date5Class+"></td>" +
+                          "<td class='requestgridsubheader'><input class='timesheettimetextbox' onchange='return setTotal(this);' title='Sat' type='text' value='" + results[i].Date6 + "' "+results[i].Date6Class+"></td><td class='timesheettotal1'>0</td>" +
+                          "<td class='requestgridheader' ><a href='#' class='hreflink'><img title='Delete' src='../images/delete.png' width='14' height='14' onclick='DeleteRow(this);' alt=''/></a></td>" +
+                          "<input class='hdnTaskId' type='hidden' value='" + results[i].FK_TaskId + "'/><input type='hidden' class='hdnTimesheetId' value='" + results[i].TaskDetailsId + "'/></tr>");
+                    }
+                    PreventDefaultClick();
+                }
+            },
+            error: function (response) {
+
+            }
+        });
+        //setTimeout(function(){
+        var cells = $('.timesheettimetextbox');
+        if (parseInt($('#hdnPage').val()) > 2) {
+            if (cells.length > 0)
+                for (var i = 0; i < cells.length; i++)
+                    $(cells[i]).attr('readonly', 'readonly');
+            $('#rowTaskddl').hide();
+        }
+        else
+            $('#rowTaskddl').show();
+        //},500);
+    }
+    function getSessionValueTask(taskId, ProjectId) {
+        $('#hdnId').val(taskId);
+        $('#TypeId').val(3);
+        $('#frmDoc').submit();
+    }
+    function setTotal(obj) {
+        //if (floatNumbers(event)) {
+        var allTd = $(obj).closest('tr').find('input.timesheettimetextbox');
+        var allRow = $("[title='" + $(obj).attr('title') + "']");
+        var totalRow = 0, totalCol = 0;
+        for (var i = 0; i < allRow.length; i++)
+            totalRow = totalRow + ($(allRow[i]).val() == "" ? 0 : parseFloat($(allRow[i]).val()));
+        for (var i = 0; i < allTd.length; i++)
+            totalCol = totalCol + ($(allTd[i]).val() == "" ? 0 : parseFloat($(allTd[i]).val()));
+
+        if (totalRow <= 24) {
+            $('#lblMsg')[0].innerText = "";
+            $('.tot' + $(obj).attr('title'))[0].innerText = +totalRow.toFixed(2);
+            $(obj).closest('tr').find('.timesheettotal1')[0].innerText = +totalCol.toFixed(2);
+        }
+        else {
+            $('#lblMsg').removeAttr('class');
+            $('#lblMsg').attr('class','lblError');
+            $('#lblMsg')[0].innerText = "Total hours exceeds 24 for this day";
+            totalRow = 0;
+            totalCol = 0;
+            $(obj).val(0);
+            for (var i = 0; i < allRow.length; i++)
+                totalRow = totalRow + ($(allRow[i]).val() == "" ? 0 : parseFloat($(allRow[i]).val()));
+            for (var i = 0; i < allTd.length; i++)
+                totalCol = totalCol + ($(allTd[i]).val() == "" ? 0 : parseFloat($(allTd[i]).val()));
+            $('.tot' + $(obj).attr('title'))[0].innerText = +totalRow.toFixed(2);
+            $(obj).closest('tr').find('.timesheettotal1')[0].innerText = +totalCol.toFixed(2);
+        }
+    }
+
+    function AddTasktoGrid() {
+        var tasks = $('#tblTasks').find('.documentlinkdiv');
+        var notExist = true;
+        if (tasks.length > 0)
+            for (var i = 0; i < tasks.length; i++)
+                if ($(tasks[i]).find('a').text() == $('#ddlTasks').find('option:selected').text()) {
+                    notExist = false;
+                    $('#lblMsg').removeAttr('class');
+                    $('#lblMsg').attr('class','lblError');
+                    $('#lblMsg')[0].innerText = "Task already exists in grid";
+                    break;
+                }
+        if (notExist && $('#ddlTasks').find('option:selected').text()!=''){
+            $('#lblMsg')[0].innerText = "";
+            $.ajax({
+                url: '/Task/GetTaskDetails',
+                type: 'GET',
+                dataType: 'json',
+                async: false,
+                data: { TaskId: $('#ddlTasks').find('option:selected').val(), operationId: 1,Type:3 },
+                success: function (result) {
+                    var result = $.parseJSON(result);
+                    var disArr=new Array();
+                    var isToadd=false;
+                    if (result["Error"] == undefined || result["Error"] == null) {
+                        var startDate=new Date(result[0].StartDate);
+                        for(var i=0;i<7;i++){
+                            var dtArr=$('#Day'+i)[0].innerText.split('-');
+                            var currDate=new Date(dtArr[2],parseInt(dtArr[1])-1,dtArr[0]);
+                            if(currDate<startDate)
+                                disArr.push("disabled");
+                            else{
+                                disArr.push("");
+                                isToadd=true;
+                            }
+                        }
+                        if(isToadd)
+                            $('#tblTasks').find('tr:last').before("<tr class='requestgriddiv2'><td class='requestgridsubheader'><div class='documentlinkdiv'><a href='#' onclick='getSessionValueTask(" + $('#ddlTasks').val() + ")'>" + $('#ddlTasks').find('option:selected').text() + "</a></div></td><td class='requestgridsubheader'>"+$('#ddlProject').find('option:selected').text()+"</td>" +
+                              "<td class='requestgridsubheader'><input class='timesheettimetextbox' onchange='return setTotal(this);' title='Sun' type='text' "+disArr[0]+"></td><td class='requestgridsubheader'><input title='Mon' onchange='return setTotal(this);' class='timesheettimetextbox' type='text' "+disArr[1]+"></td>" +
+                              "<td class='requestgridsubheader'><input class='timesheettimetextbox' onchange='return setTotal(this);' title='Tue' type='text' "+disArr[2]+"></td><td class='requestgridsubheader'><input title='Wed' onchange='return setTotal(this);' class='timesheettimetextbox' type='text' "+disArr[3]+"></td>" +
+                              "<td class='requestgridsubheader'><input class='timesheettimetextbox' onchange='return setTotal(this);' title='Thu' type='text' "+disArr[4]+"></td><td class='requestgridsubheader'><input title='Fri' onchange='return setTotal(this);' class='timesheettimetextbox' type='text' "+disArr[5]+"></td>" +
+                              "<td class='requestgridsubheader'><input class='timesheettimetextbox' onchange='return setTotal(this);' title='Sat' type='text' "+disArr[6]+"></td><td class='timesheettotal1'>0</td>" +
+                              "<td class='requestgridheader' ><a href='#'><img title='Delete' src='../images/delete.png' width='14' height='14' onclick='DeleteRow(this);' alt=''/></a></td>" +
+                              "<input class='hdnTaskId' type='hidden' value='" + $('#ddlTasks').find('option:selected').val() + "'/><input type='hidden' class='hdnTimesheetId' value=''/></tr>");
+                        else{
+                            $('#lblMsg').removeAttr('class');
+                            $('#lblMsg').attr('class','lblError');
+                            $('#lblMsg')[0].innerText = "This task starts on "+ FormatDate(result[0].StartDate,"mm/dd/yyyy")+" only";
+                        }
+
+                    }
+                },
+                error: function (err) {
+                }
+            });
+        }
+    }
+
+
+    function setWeekDays(button) {
+        $('#lblMsg')[0].innerText = "";
+        $('#ddlTasks').find('option[value=""]').attr('selected', 'selected');
+        $('#ddlTasks').click();
+        var startDt = "";
+        if (button == "previous") {
+            startDt = $('#Day0')[0].innerText.split('-')[1] + "/" + $('#Day0')[0].innerText.split('-')[0] + "/" + $('#Day0')[0].innerText.split('-')[2];
+            $('#hdnPage').val(parseInt($('#hdnPage').val()) + 1);
+        }
+        else {
+            startDt = $('#Day6')[0].innerText.split('-')[1] + "/" + $('#Day6')[0].innerText.split('-')[0] + "/" + $('#Day6')[0].innerText.split('-')[2];
+            $('#hdnPage').val(parseInt($('#hdnPage').val()) - 1);
+        }
+        startDt = FormatDate(startDt, "yyyy/mm/dd");
+        $.ajax({
+            url: '/TimeSheet/SetWeekDays?Btn=' + button + "&date=" + startDt,
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                var tdDate = $('.timesheetdatetext');
+                var currDate = customDateformat(new Date(), "dd-MM-yyyy");
+                for (var i = 0; i < tdDate.length; i++) {
+                    $(tdDate[i])[0].innerText = data[i];
+                    if (data[i] == currDate)
+                        $('#btnNext').removeAttr('onclick');
+                }
+                if (button == "previous")
+                    $('#btnNext').attr("onclick", "setWeekDays('next');");
+                $('#hdnPrev').val(data[0]);
+                $('#hdnNext').val(data[6]);
+            },
+            error: function (response) {
+
+            }
+        });        
+            getTimesheet(FormatDate($('#Day6')[0].innerText.split('-')[1] + "/" + $('#Day6')[0].innerText.split('-')[0] + "/" + $('#Day6')[0].innerText.split('-')[2], "yyyy/mm/dd"));
+            updateTotal();
+    }
+
+    function SubmitTimesheet() {
+        $('.submitbtn').attr('disabled','disabled');
+        var allRows = $('#tblTasks').find('tr');
+        var taskJson = new Array();
+        if(designFlag==0)
+            EmpId=parseInt($('#hdnEmpId').val());
+        for (var i = 1; i < allRows.length - 1; i++) {
+            var dateBoxes = $(allRows[i]).find('.timesheettimetextbox');
+            var taskIds = $('.hdnTimesheetId');
+            var weekEnddt = $('#Day6')[0].innerText.split('-')[1] + "/" + $('#Day6')[0].innerText.split('-')[0] + "/" + $('#Day6')[0].innerText.split('-')[2];
+            for (var k = 0; k < taskIds.length; k++)
+                if ($(taskIds[k]).val() != "")
+                    idStr = idStr + $(taskIds[k]).val();
+
+            for (var j = 0; j < 7; j++) {
+                if ($(dateBoxes[j]).val() != "" &&parseFloat($(dateBoxes[j]).val())!=0) {
+                    var dt = $('#Day' + j)[0].innerText.split('-')[1] + "/" + $('#Day' + j)[0].innerText.split('-')[0] + "/" + $('#Day' + j)[0].innerText.split('-')[2];
+                    taskJson.push({ IsApproved: 0, FKTaskId: parseInt($(allRows[i]).find('.hdnTaskId').val()), EmpId: EmpId,
+                        Hour: parseFloat($(dateBoxes[j]).val()).toString(), Date: FormatDate(dt, "yyyy/mm/dd"), WeekEndDate: FormatDate(weekEnddt, "yyyy/mm/dd"),
+                        Status: 1, TicketStatusId: 1, FK_RespondedBy: 0, AssignedTo:@ViewBag.Manager });
+                }
+            }
+        }
+        $.ajax({
+            url: '/timesheet/SubmitTimesheet',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonStr: JSON.stringify(taskJson),
+                ids: idStr
+            },
+            success: function (data) {
+                var result = JSON.parse(data);
+                if (result["Error"] == undefined || result["Error"] == null) {
+                    $('#lblMsg').removeAttr('class');
+                    $('#lblMsg').attr('class','lblMessage');
+                    $('#lblMsg')[0].innerText = "Timesheet Updated Successfully";
+                    getTimesheet(FormatDate($('#Day6')[0].innerText.split('-')[1] + "/" + $('#Day6')[0].innerText.split('-')[0] + "/" + $('#Day6')[0].innerText.split('-')[2], "yyyy/mm/dd"));
+                    updateTotal();
+                    $('.submitbtn').removeAttr('disabled');
+                }
+            },
+            error: function () { }
+        });
+    }
+    function DeleteRow(obj) {
+        $('#lblMsg')[0].innerText = "";
+        idStr = idStr + $(obj).closest('tr').find('.hdnTimesheetId').val();
+        $(obj).closest('tr').remove();
+        updateTotal();
+    }
+
+    function getPreviousPage() {
+        if (designFlag == 0) {
+            $("#frmDoc").attr("action", "/Home/Home");
+        }
+        else if (designFlag == 1) {
+            $("#frmDoc").attr("action", "/USRecruitment/Home");
+        }
+        $('#frmDoc').submit();
+    }
+
+</script>
+<input type="hidden" value="@Request.RequestContext.HttpContext.Session["EmpID"]" id="hdnEmpId" />
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv">
+                    <div class="mainheadericon">
+                        <img src="~/Images/my-timesheet-sm.png" width="45" height="45" alt="" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">New Timesheet</div>
+            </div>
+            <div class="col-sm-5">
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" href="#" onclick="getPreviousPage()"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div class="row" id="rowTaskddl">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select" id="ddlProject" onchange="bindTasks();" onclick="this.setAttribute('value', this.value);" value="">
+                        <option value=""></option>
+                    </select>
+                    <label class="float">Project name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select" id="ddlTasks" onclick="this.setAttribute('value', this.value);" value="">
+                        <option value=""></option>
+                    </select>
+                    <label class="float">Task name</label>
+                </div>  
+            </div>
+            <div class="col-md-1">
+                <div title="Add" class="taskaddbtn" onclick="AddTasktoGrid();"><a href="#">+</a></div>
+            </div>
+
+
+        </div>
+
+        <div class="space"></div>
+        <div class="academicaddmaindiv">
+
+            <div title="Previous" class="timesheetleftarrow"><a href="#" id="btnPrev" onclick="setWeekDays('previous');">&#8810;</a></div>
+
+            <div title="Next" class="timesheetrightarrow"><a href="#" id="btnNext">&#8811;</a></div>
+            <input type="hidden" id="hdnPage" value="1" />
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="requestgridmaindiv">
+
+                    <table id="tblTasks" width="100%" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                        <tbody>
+                            <tr class="requestgriddiv">
+                                <input type="hidden" id="hdnPrev" />
+                                <input type="hidden" id="hdnNext" />
+                                <td class="timesheetgridheader" width="10%">Task Name</td>
+                                <td class="timesheetgridheader" width="10%">Project Name</td>
+
+                                <td class="timesheetgridheader" width="10%">
+                                    <div class="timesheetdatetext" id="Day0">@weekDays[0]</div>
+                                    <div class="timesheetdaytext">Sun</div>
+
+                                </td>
+                                <td class="timesheetgridheader" width="10%">
+                                    <div class="timesheetdatetext" id="Day1">@weekDays[1]</div>
+                                    <div class="timesheetdaytext">Mon</div>
+
+                                </td>
+                                <td class="timesheetgridheader" width="10%">
+                                    <div class="timesheetdatetext" id="Day2">@weekDays[2]</div>
+                                    <div class="timesheetdaytext">Tue</div>
+
+                                </td>
+                                <td class="timesheetgridheader" width="10%">
+                                    <div class="timesheetdatetext" id="Day3">@weekDays[3]</div>
+                                    <div class="timesheetdaytext">Wed</div>
+
+                                </td>
+                                <td class="timesheetgridheader" width="10%">
+                                    <div class="timesheetdatetext" id="Day4">@weekDays[4]</div>
+                                    <div class="timesheetdaytext">Thu</div>
+
+                                </td>
+                                <td class="timesheetgridheader" width="10%">
+                                    <div class="timesheetdatetext" id="Day5">@weekDays[5]</div>
+                                    <div class="timesheetdaytext">Fri</div>
+
+                                </td>
+                                <td class="timesheetgridheader" width="10%">
+                                    <div class="timesheetdatetext" id="Day6">@weekDays[6]</div>
+                                    <div class="timesheetdaytext">Sat</div>
+
+                                </td>
+                                <td class="timesheetgridheader" width="5%">Total</td>
+
+                                <td class="requestgridheader" width="5%"></td>
+                            </tr>
+                            <tr class="requestgriddiv">
+                                <td class="requestgridsubheader" colspan="2">Total</td>
+                                <td class="requestgridsubheader totSun">0</td>
+                                <td class="requestgridsubheader totMon">0</td>
+                                <td class="requestgridsubheader totTue">0</td>
+                                <td class="requestgridsubheader totWed">0 </td>
+                                <td class="requestgridsubheader totThu">0</td>
+                                <td class="requestgridsubheader totFri">0</td>
+                                <td class="requestgridsubheader totSat">0</td>
+                                <td class="timesheettotal1 totTot"></td>
+                                <td class="requestgridheader"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv">
+                <input title="Save" class="submitbtn" type="button" onclick="SubmitTimesheet();" />
+            </div>
+            <div class="ErrorLabel">
+                <label id="lblMsg" class="lblMessage"></label>
+            </div>
+        </div>
+
+    </div>
+</div>
+

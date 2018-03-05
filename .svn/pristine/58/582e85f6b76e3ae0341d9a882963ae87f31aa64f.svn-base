@@ -1,0 +1,190 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    var dt = new Date();
+    $(document).ready(function () {
+        if ($('.calendarmainbg').length > 0) {
+            getmonthCalendar(dt.getFullYear(), parseInt(dt.getMonth()) + 1);
+            bindEvents(dt.getFullYear(), parseInt(dt.getMonth()) + 1, 17);
+        }
+    });
+
+    function toggleSlid(obj) {
+        $(obj).parents('div.calendareventsmaindiv').find(".slidingDiv1").slideToggle();
+        PreventDefaultClick();
+    }
+
+    function getSessionValueTask(taskId) {
+        $('#hdnId').val(taskId);
+        $('#eventForm').submit();
+    }
+
+    function bindEvents(yr, mon) {
+        $.ajax({
+            url: '/home/GetAllEvents',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            data: { year: yr, month: mon, Operation: 3 },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                var cancellink = "";
+                for (var i = 0; i < results.length; i++) {
+                    var dt = new Date(results[i].EventDate);
+                    var td = $('.calendarmainbg').find('td.' + results[i].Month + '[name="' + dt.getDate() + '"]');
+                    if ($(td).find('.calendareventsmaindiv').length < 1)
+                        $(td).append('<div class="calendareventsmaindiv"></div>');
+                    var calDiv = $(td).find('.calendareventsmaindiv');
+                    var dat = dateFormat();
+                    if (results[i].Status == "True")
+                        if (results[i].EventDate >= dat)
+                            cancellink = "<div class='calendarevent01img'><a onclick='deleteEvent(this," + results[i].EventId + ",37);' href='#'><img title='Cancel' style='float:right' src='../Images/cancel.png' /></a></div>";
+                        else
+                            cancellink = "";
+                    else
+                        cancellink = "";
+                    if (results[i].Status == "True")
+                    {
+                        if ($(calDiv).find('.calendarevent01').length < 2)
+                            $(calDiv).append('<div class="calendareventouterdiv"><div class="calendarevent01"><a id="cancelEvent" href="#" onclick="getSessionValueTask(' + results[i].EventId + ');">' + results[i].Title +
+                             '</a><div class="calendarevent01img"><a href="#" onclick="deleteEvent(this,' + results[i].EventId + ',58);"><img title="Delete" style="float:right" src="../images/delete.png"/></a>' +
+                             '</div>' + cancellink + '<input type="hidden" value="' +
+                             results[i].EventId + '" /></div></div>');
+                        else {
+                            if ($(calDiv).find('.slidingDiv1').length == 0)
+                                $(calDiv).append('<div class="calendareventsMORE" onclick="toggleSlid(this);"><a class="PreventHref" style="display:block" href="#">' +
+                                     '<img src="../images/more.png" width="18" height="18" alt=""/></a></div><div style="display:none" class="slidingDiv1">' +
+                                    '<div class="resourceclosebtn" onclick="toggleSlid(this);"><a class="PreventHref" title="Close" href="#">X</a></div><div class="slidingsubDiv"></div></div>');
+                            var slidDiv = $(calDiv).find('.slidingsubDiv');
+                            $(slidDiv).append('<div class="calendareventouterdiv"><div class="calendarevent01"><a href="#" onclick="getSessionValueTask(' +
+                             results[i].EventId + ');">' + results[i].Title + '</a><div class="calendarevent01img"><a onclick="deleteEvent(this,' + results[i].EventId + ',58);" href="#" >' +
+                             '<img title="Delete" style="float:right" src="../images/delete.png"/></a></div>' + cancellink + '<input type="hidden" value="' + results[i].EventId + '" /></div></div>');
+                        }
+                    }
+                    else
+                    {
+                        if ($(calDiv).find('.calendarevent01').length < 2)
+                            $(calDiv).append('<div class="calendareventouterdiv01"><div class="calendarevent01"><a id="cancelEvent" href="#" onclick="getSessionValueTask(' + results[i].EventId + ');">' + results[i].Title +
+                             '</a><div class="calendarevent01img"><a href="#" onclick="deleteEvent(this,' + results[i].EventId + ',58);"><img title="Delete" style="float:right" src="../images/delete.png"/></a>' +
+                             '</div>' + cancellink + '<input type="hidden" value="' +
+                             results[i].EventId + '" /></div></div>');
+                        else {
+                            if ($(calDiv).find('.slidingDiv1').length == 0)
+                                $(calDiv).append('<div class="calendareventsMORE" onclick="toggleSlid(this);"><a class="PreventHref" style="display:block" href="#">' +
+                                     '<img src="../images/more.png" width="18" height="18" alt=""/></a></div><div style="display:none" class="slidingDiv1">' +
+                                    '<div class="resourceclosebtn" onclick="toggleSlid(this);"><a class="PreventHref" title="Close" href="#">X</a></div><div class="slidingsubDiv"></div></div>');
+                            var slidDiv = $(calDiv).find('.slidingsubDiv');
+                            $(slidDiv).append('<div class="calendareventouterdiv01"><div class="calendarevent01"><a href="#" onclick="getSessionValueTask(' +
+                             results[i].EventId + ');">' + results[i].Title + '</a><div class="calendarevent01img"><a onclick="deleteEvent(this,' + results[i].EventId + ',58);" href="#" >' +
+                             '<img title="Delete" style="float:right" src="../images/delete.png"/></a></div>' + cancellink + '<input type="hidden" value="' + results[i].EventId + '" /></div></div>');
+                        }
+                    }
+
+                    PreventDefaultClick();
+                }
+                $('.calendareventsMORE > a').click(function (e) {
+                    e.preventDefault();
+                });
+                $('.calendarevent01img > a').click(function (e) {
+                    e.preventDefault();
+                });
+            },
+            error: function (xhr) {
+            }
+        });
+    }
+    function deleteEvent(obj,eventId, OperationId) {
+        if (OperationId == 37)
+            $(obj).parents(':eq(2)').css('background-color', "#C0C0C0;");
+        $.ajax({
+            url: '/hr/DeleteEvent',
+            dataType: "json",
+            type: "POST",
+            data: { EventId: eventId, OperationId: OperationId },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                var monthYr = $('#monthYeardiv')[0].innerText;
+                var mon = months.indexOf(monthYr.split(' ')[0]) + 1;
+                var year = monthYr.split(' ')[1];
+                //window.location.reload();
+                if ($('.calendarmainbg').length > 0) {
+                    getmonthCalendar(year, mon);
+                    bindEvents(year, mon, 17);
+                }
+            },
+            //error: function (xhr) {
+            //}
+        });
+    }
+    function dateFormat()
+    {
+        var date = new Date();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var formatedDate = date.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+        return formatedDate;
+    }
+</script>
+<form id="eventForm" method="post" action="/HR/AddEvents">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/sm-events.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Events</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+
+        <div class="myprojectdiv">
+
+            <a class="backbuttondiv" href="@Url.Action("HRHome","HR")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            <div class="myprojecttxt"> <a href="@Url.Action("AddEvents","HR")">+Add Event</a></div>
+        </div>
+
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="calendarmaindiv">
+                    <div class="academicaddmaindiv" style="text-align:center;margin: 0px 0px 0px 12px;overflow:hidden;">
+
+                        <div title="Previous" class="timesheetleftarrow calPrev" onclick="calendarPrevious(this);"><a href="#" id="btnPrev">&#8810;</a></div>
+                        <label id="monthYeardiv" class="popupheadingtext1"></label>
+                        <div title="Next" class="timesheetrightarrow calNext" onclick="calendarNext(this);"><a href="#" id="btnNext">&#8811;</a></div>
+                        <input type="hidden" id="hdnPage" value="0" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="calendarmaindiv">
+                    <div class="calendarsubdiv">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="calendarmainbg">
+                            <tr>
+                                <td class="calendarheader-SUN">Sun</td>
+                                <td class="calendarheader">Mon</td>
+                                <td class="calendarheader">Tue</td>
+                                <td class="calendarheader">Wed</td>
+                                <td class="calendarheader">Thu</td>
+                                <td class="calendarheader">Fri</td>
+                                <td class="calendarheader-SUN">Sat</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

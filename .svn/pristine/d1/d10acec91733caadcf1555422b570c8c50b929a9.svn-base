@@ -1,0 +1,914 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{968BC6F5-F9B8-4B4E-A140-E55AAAAC86C5}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NuPortal</RootNamespace>
+    <AssemblyName>NuPortal</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>D:\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common Library\Attributes.cs" />
+    <Compile Include="Common Library\Constants.cs" />
+    <Compile Include="Common Library\GeneralFunctions.cs" />
+    <Compile Include="Common Library\ServiceCall.cs" />
+    <Compile Include="Controllers\AdminHomeController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\EmpInfoAdminViewController.cs" />
+    <Compile Include="Controllers\EmpInfoUserViewController.cs" />
+    <Compile Include="Controllers\EmployeeInfoController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HRController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NewContactsController.cs" />
+    <Compile Include="Controllers\NewRequestController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\RecruitmentController.cs" />
+    <Compile Include="Controllers\ReimbursementController.cs" />
+    <Compile Include="Controllers\RequestMainController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\TimeSheetController.cs" />
+    <Compile Include="Controllers\USRecruitmentController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClientInfo.cs" />
+    <Compile Include="Models\Competency.cs" />
+    <Compile Include="Models\EmpInfoAdminView.cs" />
+    <Compile Include="Models\EmpInfoUserView.cs" />
+    <Compile Include="Models\EmployeeDetails.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\NewClient.cs" />
+    <Compile Include="Models\NewContacts.cs" />
+    <Compile Include="Models\PersonalInfo.cs" />
+    <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\TaskDocuments.cs" />
+    <Compile Include="Models\TimeSheet.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\NuPortalAdminService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\NuPortalDBService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\NuPortalEmpService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\NuPortalHRService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\NuPortalProjectService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\NuPortalRecruitmentService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\NuPortalRequestService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\NuPortalUSRecService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Site.css" />
+    <Content Include="css\bootstrap-datetimepicker.min.css" />
+    <Content Include="css\bootstrap-theme.css" />
+    <Content Include="css\bootstrap-theme.min.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\images\download-btn.png" />
+    <Content Include="css\images\email-btn.png" />
+    <Content Include="css\images\print-btn.png" />
+    <Content Include="css\images\print.png" />
+    <Content Include="css\images\submitandnew.png" />
+    <Content Include="css\images\ui-icons_444444_256x240.png" />
+    <Content Include="css\images\ui-icons_555555_256x240.png" />
+    <Content Include="css\images\ui-icons_777620_256x240.png" />
+    <Content Include="css\images\ui-icons_777777_256x240.png" />
+    <Content Include="css\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\jquery-ui-timepicker-addon.css" />
+    <Content Include="css\jquery-ui.css" />
+    <Content Include="css\styles.css" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblAcademic.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblAllowance.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblCategory.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblClientAddress.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblClientInfo.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblCompany.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblCompetency.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblCountry.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblCustomResources.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblDepartment.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblDeptEmployees.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblDesignation.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblEmployee.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblEmployeeAddress.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblEmploymentType.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblEmpType.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblEmpTypeHierarchy.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblExperience.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblGroupMembers.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblGroups.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblIdentityDetails.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblIdentityMaster.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblLeaveConfig.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblLeaveSettings.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblLeaveTransaction.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblLeaveWFSettings.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblLocation.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblLogin.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblMangersForProjects.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblProjectContactPerson.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblProjectDocument.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblProjects.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblProjectTask.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblProjectTaskResources.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblProjectTaskStatus.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblReimbursement.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblRequests.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblRequestTypes.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblResourcesForProjects.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblRole.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblTaskDetails.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\tblTicketStatus.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspAutoComplete.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspClientInfoOper.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspDeleteTaskDetails.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspEmployeeOper.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspEmployeeProfileCompleted.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspGenarateRandomString.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspGetDDLBox.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspGetLoginInfo.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspGetTimeSheetReport.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspGridOperations.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspGridUpdate.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspLeaveBalance.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspProjectContactPersonOper.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspProjectDocumentOper.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspProjectTaskOper.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspSaveAllowance.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspSaveLeaveRequest.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspSaveRequests.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspSearchAllowanceReimbursement.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspSelectTaskDetails.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspSetEmployeeInfo.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspSetMangersForProjects.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspSetPersonalInfo.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspSetProjects.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspUpdateCancelLeaves.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspUpdateClientInfo.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspUpdateEmployeeInfo.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspUpdateProjectContactPerson.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\UspUpdateProjects.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\vueRequestCategory.sql" />
+    <Content Include="DatabaseObject\NuPortal Script\NuPortal Script\vueSharedType.sql" />
+    <Content Include="font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="font-awesome-4.7.0\less\font-awesome.css" />
+    <Content Include="font-awesome-4.7.0\scss\font-awesome.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\accept.png" />
+    <Content Include="Images\add-group.png" />
+    <Content Include="Images\add-icon.png" />
+    <Content Include="Images\add-User-sm.png" />
+    <Content Include="Images\add-user.png" />
+    <Content Include="Images\Add.png" />
+    <Content Include="Images\administration-sm.png" />
+    <Content Include="Images\administrator.png" />
+    <Content Include="Images\allowance-sm.png" />
+    <Content Include="Images\allowance.png" />
+    <Content Include="Images\announcement-sm.png" />
+    <Content Include="Images\announcement.png" />
+    <Content Include="Images\applicans.png" />
+    <Content Include="Images\applicants.png" />
+    <Content Include="Images\assessment-sm.png" />
+    <Content Include="Images\assessment.png" />
+    <Content Include="Images\assessmenticon.png" />
+    <Content Include="Images\Assign-to-group.png" />
+    <Content Include="Images\assign.png" />
+    <Content Include="Images\associate.png" />
+    <Content Include="Images\attachment-icon.png" />
+    <Content Include="Images\attachment.png" />
+    <Content Include="Images\back-button.png" />
+    <Content Include="Images\background-images\4e81b8475e56f173dd296e2c3d0790f8.jpg" />
+    <Content Include="Images\background-images\background-th.jpg" />
+    <Content Include="Images\background-images\login-bg.jpg" />
+    <Content Include="Images\background-images\userprofile-bg.jpg" />
+    <Content Include="Images\Calendar.png" />
+    <Content Include="Images\Cancel-new.png" />
+    <Content Include="Images\cancel.png" />
+    <Content Include="Images\candidate-sm.png" />
+    <Content Include="Images\candidate.png" />
+    <Content Include="Images\clean.png" />
+    <Content Include="Images\ClearFilter.jpg" />
+    <Content Include="Images\client-logo.png" />
+    <Content Include="Images\computer-acc.png" />
+    <Content Include="Images\Conference.png" />
+    <Content Include="Images\contract-sm.png" />
+    <Content Include="Images\contract.png" />
+    <Content Include="Images\create-department.png" />
+    <Content Include="Images\create-structure.png" />
+    <Content Include="Images\customization.png" />
+    <Content Include="Images\delete.png" />
+    <Content Include="Images\documenticon.png" />
+    <Content Include="Images\documents.png" />
+    <Content Include="Images\download-btn.png" />
+    <Content Include="Images\edit.png" />
+    <Content Include="Images\employee-rating-sm.png" />
+    <Content Include="Images\employee-rating.png" />
+    <Content Include="Images\employee-Search.png" />
+    <Content Include="Images\enter.png" />
+    <Content Include="Images\events.png" />
+    <Content Include="Images\excel.png" />
+    <Content Include="Images\exit-interview-sm.png" />
+    <Content Include="Images\exit-interview.png" />
+    <Content Include="Images\female.png" />
+    <Content Include="Images\Filter.png" />
+    <Content Include="Images\general.png" />
+    <Content Include="Images\header-bg-hg.png" />
+    <Content Include="Images\header-bg.png" />
+    <Content Include="Images\home-sm.png" />
+    <Content Include="Images\home.png" />
+    <Content Include="Images\hr-sm.png" />
+    <Content Include="Images\Hr.png" />
+    <Content Include="Images\Hr1.png" />
+    <Content Include="Images\interview-sm.png" />
+    <Content Include="Images\interview.png" />
+    <Content Include="Images\invoice-sm.png" />
+    <Content Include="Images\invoice.png" />
+    <Content Include="Images\job-openings-sm.png" />
+    <Content Include="Images\job-openings.png" />
+    <Content Include="Images\lead-sm.png" />
+    <Content Include="Images\lead.png" />
+    <Content Include="Images\leave-sm.png" />
+    <Content Include="Images\leave.png" />
+    <Content Include="Images\login-inner-bg.png" />
+    <Content Include="Images\login-logo.png" />
+    <Content Include="Images\login-logo1.png" />
+    <Content Include="Images\login-logo2.png" />
+    <Content Include="Images\login-logo3.png" />
+    <Content Include="Images\login-logo6.png" />
+    <Content Include="Images\Logo-placeholder.jpg" />
+    <Content Include="Images\logo-placeholder.png" />
+    <Content Include="Images\logo-small.png" />
+    <Content Include="Images\logout.png" />
+    <Content Include="Images\male.png" />
+    <Content Include="Images\more.png" />
+    <Content Include="Images\my-document.png" />
+    <Content Include="Images\my-project-task-sm.png" />
+    <Content Include="Images\my-project-task.png" />
+    <Content Include="Images\my-task-sm.png" />
+    <Content Include="Images\my-task.png" />
+    <Content Include="Images\my-tickets-sm.png" />
+    <Content Include="Images\my-tickets.png" />
+    <Content Include="Images\my-timesheet-sm.png" />
+    <Content Include="Images\my-timesheet.png" />
+    <Content Include="Images\mydocuments-sm.png" />
+    <Content Include="Images\myproject-edit.png" />
+    <Content Include="Images\nav-divider.png" />
+    <Content Include="Images\new-client-sm.png" />
+    <Content Include="Images\new-client.png" />
+    <Content Include="Images\new-contact-sm.png" />
+    <Content Include="Images\new-contact.png" />
+    <Content Include="Images\new-project-sm.png" />
+    <Content Include="Images\new-project.png" />
+    <Content Include="Images\next-inactive.png" />
+    <Content Include="Images\next.png" />
+    <Content Include="Images\NoImage.jpg" />
+    <Content Include="Images\Nuvento-200x200.png" />
+    <Content Include="Images\onhold.png" />
+    <Content Include="Images\opportunity-sm.png" />
+    <Content Include="Images\Opportunity.png" />
+    <Content Include="Images\pdf.jpg" />
+    <Content Include="Images\personal-info-icon.png" />
+    <Content Include="Images\poll-details-sm.png" />
+    <Content Include="Images\poll-details.png" />
+    <Content Include="Images\prevbtn-inactive.png" />
+    <Content Include="Images\prevbtn.png" />
+    <Content Include="Images\process-chart-sm.png" />
+    <Content Include="Images\process-chart.png" />
+    <Content Include="Images\profile-icon.png" />
+    <Content Include="Images\progress-chart.jpg" />
+    <Content Include="Images\project-document-sm.png" />
+    <Content Include="Images\project-document.png" />
+    <Content Include="Images\project-sm.png" />
+    <Content Include="Images\project-status-update.png" />
+    <Content Include="Images\project-timesheet-sm.png" />
+    <Content Include="Images\project-timesheet.png" />
+    <Content Include="Images\project.png" />
+    <Content Include="Images\ProjectReport.png" />
+    <Content Include="Images\recru-sm.png" />
+    <Content Include="Images\recut.png" />
+    <Content Include="Images\reimbursement-sm.png" />
+    <Content Include="Images\reimbursement.png" />
+    <Content Include="Images\reject.png" />
+    <Content Include="Images\report-sm.png" />
+    <Content Include="Images\reports.png" />
+    <Content Include="Images\request-new-sm.png" />
+    <Content Include="Images\request-new.png" />
+    <Content Include="Images\request-sm.png" />
+    <Content Include="Images\request.png" />
+    <Content Include="Images\save.png" />
+    <Content Include="Images\search-icon.png" />
+    <Content Include="Images\slider-arrow.png" />
+    <Content Include="Images\sm-add group.png" />
+    <Content Include="Images\sm-assign resource.png" />
+    <Content Include="Images\sm-create department.png" />
+    <Content Include="Images\sm-create structure.png" />
+    <Content Include="Images\sm-employee-Search.png" />
+    <Content Include="Images\sm-events.png" />
+    <Content Include="Images\sm-training.png" />
+    <Content Include="Images\star-rating.png" />
+    <Content Include="Images\stationary-new.png" />
+    <Content Include="Images\stationary.png" />
+    <Content Include="Images\status-update-sm.png" />
+    <Content Include="Images\status-update.png" />
+    <Content Include="Images\submissioins.png" />
+    <Content Include="Images\submissions-sm.png" />
+    <Content Include="Images\submit.png" />
+    <Content Include="Images\supervisor-pic.png" />
+    <Content Include="Images\task.png" />
+    <Content Include="Images\timesheet-search.png" />
+    <Content Include="Images\timesheet.png" />
+    <Content Include="Images\training.png" />
+    <Content Include="Images\transgender.png" />
+    <Content Include="Images\upload.gif" />
+    <Content Include="Images\upload.png" />
+    <Content Include="Images\us-recruitment-left.png" />
+    <Content Include="Images\US-recruitment-LFT.png" />
+    <Content Include="Images\us-recruitment-sm.png" />
+    <Content Include="Images\us-recruitment.png" />
+    <Content Include="Images\user-info.png" />
+    <Content Include="Images\user-pic.png" />
+    <Content Include="Images\user-profile.png" />
+    <Content Include="Images\vendors-sm.png" />
+    <Content Include="Images\vendors.png" />
+    <Content Include="Images\view.png" />
+    <Content Include="Images\ViewProject.png" />
+    <Content Include="Images\visa-sm.png" />
+    <Content Include="Images\visa.png" />
+    <Content Include="Images\word.png" />
+    <Content Include="Images\work-from-home.png" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CustomScript.js" />
+    <Content Include="Scripts\drum.js" />
+    <Content Include="Scripts\drum.min.js" />
+    <Content Include="Scripts\jquery-1.7.2.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.ui.datepicker.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="css\bootstrap-theme.css.map" />
+    <Content Include="css\bootstrap-theme.min.css.map" />
+    <Content Include="css\bootstrap.css.map" />
+    <Content Include="css\bootstrap.min.css.map" />
+    <Content Include="font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="font-awesome-4.7.0\less\animated.less" />
+    <Content Include="font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="font-awesome-4.7.0\less\core.less" />
+    <Content Include="font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="font-awesome-4.7.0\less\icons.less" />
+    <Content Include="font-awesome-4.7.0\less\larger.less" />
+    <Content Include="font-awesome-4.7.0\less\list.less" />
+    <Content Include="font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="font-awesome-4.7.0\less\path.less" />
+    <Content Include="font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="font-awesome-4.7.0\less\variables.less" />
+    <Content Include="font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="font-awesome-4.7.0\scss\_variables.scss" />
+    <None Include="Properties\PublishProfiles\NuPortal.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Scripts\jqueryUI.js" />
+    <Content Include="Scripts\Moment.js" />
+    <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\Table2Excel.js" />
+    <Content Include="Uploads\tintu.jpg" />
+    <Content Include="Views\EmployeeInfo\Competency.cshtml" />
+    <Content Include="Views\EmpInfoAdminView\EmpInfoAdminView.cshtml" />
+    <Content Include="Views\EmpInfoUserView\EmpInfoUserView.cshtml" />
+    <Content Include="Views\AdminHome\AdminHome.cshtml" />
+    <Content Include="Views\NewContacts\NewContacts.cshtml" />
+    <Content Include="Views\Projects\Projects.cshtml" />
+    <Content Include="Views\Projects\ProjectName.cshtml" />
+    <Content Include="Views\Client\NewClient.cshtml" />
+    <Content Include="Views\Client\ClientInfo.cshtml" />
+    <Content Include="Views\Projects\NewDocument.cshtml" />
+    <Content Include="Views\RequestMain\IconsView.cshtml" />
+    <Content Include="Views\RequestMain\AllRequests.cshtml" />
+    <Content Include="Views\NewRequest\NewRequest.cshtml" />
+    <Content Include="Views\Projects\view.cshtml">
+      <BrowseToURL>~/Projects/view</BrowseToURL>
+    </Content>
+    <Content Include="Views\Projects\Create.cshtml" />
+    <Content Include="Views\RequestMain\AllAllowances.cshtml" />
+    <Content Include="Views\RequestMain\NewAllowance.cshtml" />
+    <Content Include="Views\Task\NewTask.cshtml" />
+    <Content Include="Views\Reimbursement\Reimbursement.cshtml" />
+    <Content Include="Views\Task\TasksLog.cshtml" />
+    <Content Include="Views\Reimbursement\AllReimbursements.cshtml" />
+    <Content Include="Views\RequestMain\NewLeave.cshtml" />
+    <Content Include="Views\Projects\Document.cshtml" />
+    <Content Include="Views\TimeSheet\TimeSheet.cshtml" />
+    <Content Include="Views\TimeSheet\TimeSheetReport.cshtml" />
+    <Content Include="Views\TimeSheet\TimeSheetFilter.cshtml" />
+    <Content Include="Views\Task\MyTask.cshtml" />
+    <Content Include="Views\Home\MyTickets.cshtml" />
+    <Content Include="Views\TimeSheet\TimeSheetGridView.cshtml" />
+    <Content Include="Views\Task\TaskName.cshtml" />
+    <Content Include="Views\Task\Status.cshtml" />
+    <Content Include="Views\RequestMain\LeaveCalendar.cshtml" />
+    <Content Include="Views\Task\ProgressChart.cshtml" />
+    <Content Include="Views\Login\PasswordReset.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Projects\MyDocument.cshtml" />
+    <Content Include="Views\HR\AddEvents.cshtml" />
+    <Content Include="Views\HR\AddAnnouncement.cshtml" />
+    <Content Include="Views\HR\HRHome.cshtml" />
+    <Content Include="Views\HR\AnnouncementLog.cshtml" />
+    <Content Include="Views\HR\Announcement.cshtml" />
+    <Content Include="Views\Home\Events.cshtml" />
+    <Content Include="Views\Projects\UserDocument.cshtml" />
+    <Content Include="Views\Recruitment\RecHome.cshtml" />
+    <Content Include="Views\Recruitment\JobOpenings.cshtml" />
+    <Content Include="Views\Recruitment\ApplicantsLog.cshtml" />
+    <Content Include="Views\Recruitment\InterviewLog.cshtml" />
+    <Content Include="Views\Recruitment\NewApplicant.cshtml" />
+    <Content Include="Views\Recruitment\CreateInterview.cshtml" />
+    <Content Include="Views\Recruitment\Interview.cshtml" />
+    <Content Include="Views\Recruitment\InterviewAssesment.cshtml" />
+    <Content Include="Views\HR\TrainingLog.cshtml" />
+    <Content Include="Views\HR\NewTraining.cshtml" />
+    <Content Include="Views\HR\TrainingDetails.cshtml" />
+    <Content Include="Views\HR\TrainingAssesment.cshtml" />
+    <Content Include="Views\HR\ExitInterviewLog.cshtml" />
+    <Content Include="Views\HR\ExitDocument.cshtml" />
+    <Content Include="Views\HR\Events.cshtml" />
+    <Content Include="Views\Recruitment\NewOpening.cshtml" />
+    <Content Include="Views\Home\RateOtherEmployee.cshtml" />
+    <Content Include="Views\AdminHome\CustomizeRequest.cshtml" />
+    <Content Include="Views\AdminHome\CustomizeGroups.cshtml" />
+    <Content Include="Views\Recruitment\Status.cshtml" />
+    <Content Include="Views\AdminHome\AssignGroup.cshtml" />
+    <Content Include="Views\TimeSheet\TimesheetCalendar.cshtml" />
+    <Content Include="Views\AdminHome\CreateDepartments.cshtml" />
+    <Content Include="Views\Task\StatusUpdate.cshtml" />
+    <Content Include="Views\Recruitment\Assessment.cshtml" />
+    <Content Include="Views\TimeSheet\TimesheetApproval.cshtml" />
+    <Content Include="Views\EmployeeInfo\SearchEmployee.cshtml" />
+    <Content Include="Views\HR\OfficePoll.cshtml" />
+    <Content Include="Views\HR\OfficePollLog.cshtml" />
+    <Content Include="Views\HR\HRView.cshtml" />
+    <Content Include="Views\HR\LeaveCalendar.cshtml" />
+    <Content Include="Views\Recruitment\OpeningsPopup.cshtml" />
+    <Content Include="Views\HR\EmployeeProgressChart.cshtml" />
+    <Content Include="Views\USRecruitment\Home.cshtml" />
+    <Content Include="Views\USRecruitment\ScheduleInterview.cshtml" />
+    <Content Include="Views\USRecruitment\AssociateOpportunity.cshtml" />
+    <Content Include="Views\USRecruitment\CreateOpportunity.cshtml" />
+    <Content Include="Views\USRecruitment\AddLead.cshtml" />
+    <Content Include="Views\USRecruitment\InvoiceDetails.cshtml" />
+    <Content Include="Views\USRecruitment\NewContract.cshtml" />
+    <Content Include="Views\USRecruitment\VendorDetails.cshtml" />
+    <Content Include="Views\USRecruitment\OpportunityLog.cshtml" />
+    <Content Include="Views\USRecruitment\LeadLog.cshtml" />
+    <Content Include="Views\USRecruitment\SubmissionLog.cshtml" />
+    <Content Include="Views\USRecruitment\CandidateLog.cshtml" />
+    <Content Include="Views\USRecruitment\InterviewLog.cshtml" />
+    <Content Include="Views\USRecruitment\ContractLog.cshtml" />
+    <Content Include="Views\USRecruitment\InvoiceLog.cshtml" />
+    <Content Include="Views\USRecruitment\VisaLog.cshtml" />
+    <Content Include="Views\USRecruitment\VisaProcessing.cshtml" />
+    <Content Include="Views\HR\PollDetailsLog.cshtml" />
+    <Content Include="Views\AdminHome\AddUser.cshtml" />
+    <Content Include="Views\USRecruitment\Vendors.cshtml" />
+    <None Include="Web References\NuPortalAdminService\NuPortalAdminService.wsdl" />
+    <Content Include="Web References\NuPortalAdminService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\NuPortalAdminService\NuPortalAdminService.disco" />
+    <None Include="Web References\NuPortalDBService\NuPortalService.wsdl" />
+    <Content Include="Web References\NuPortalDBService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\NuPortalEmpService\NuPortalEmployeeService.wsdl" />
+    <None Include="Web References\NuPortalDBService\NuPortalService.disco" />
+    <Content Include="Web References\NuPortalEmpService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\NuPortalEmpService\NuPortalEmployeeService.disco" />
+    <None Include="Web References\NuPortalHRService\NuPortalHRService.wsdl" />
+    <Content Include="Web References\NuPortalHRService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\NuPortalHRService\NuPortalHRService.disco" />
+    <None Include="Web References\NuPortalProjectService\NuPortalProjectService.wsdl" />
+    <Content Include="Web References\NuPortalProjectService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\NuPortalRecruitmentService\NuPortalRecruitmentService.wsdl" />
+    <None Include="Web References\NuPortalProjectService\NuPortalProjectService.disco" />
+    <Content Include="Web References\NuPortalRecruitmentService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\NuPortalRecruitmentService\NuPortalRecruitmentService.disco" />
+    <None Include="Web References\NuPortalRequestService\NuPortalRequestService.wsdl" />
+    <Content Include="Web References\NuPortalRequestService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\NuPortalUSRecService\NuPortalUSRecService.disco" />
+    <None Include="Web References\NuPortalRequestService\NuPortalRequestService.disco" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <None Include="Web References\NuPortalUSRecService\NuPortalUSRecService.wsdl" />
+    <Content Include="Web References\NuPortalUSRecService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Login\LoginView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Login\SiteAdminView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EmployeeInfo\EmployeeDetails.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ApplicationInsights.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EmployeeInfo\PersonalInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://192.168.1.18:97/NuPortalAdminService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\NuPortalAdminService\</RelPath>
+      <UpdateFromURL>http://192.168.1.18:97/NuPortalAdminService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NuPortal_NuPortalAdminService_NuPortalAdminService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://192.168.1.18:97/NuPortalEmployeeService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\NuPortalEmpService\</RelPath>
+      <UpdateFromURL>http://192.168.1.18:97/NuPortalEmployeeService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NuPortal_NuPortalEmpService_NuPortalEmployeeService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://192.168.1.18:97/NuPortalHRService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\NuPortalHRService\</RelPath>
+      <UpdateFromURL>http://192.168.1.18:97/NuPortalHRService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NuPortal_NuPortalHRService_NuPortalHRService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://192.168.1.18:97/NuPortalProjectService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\NuPortalProjectService\</RelPath>
+      <UpdateFromURL>http://192.168.1.18:97/NuPortalProjectService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NuPortal_NuPortalProjectService_NuPortalProject</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://192.168.1.18:97/NuPortalRecruitmentService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\NuPortalRecruitmentService\</RelPath>
+      <UpdateFromURL>http://192.168.1.18:97/NuPortalRecruitmentService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NuPortal_NuPortalRecruitmentService_Recruitment</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://192.168.1.18:97/NuPortalRequestService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\NuPortalRequestService\</RelPath>
+      <UpdateFromURL>http://192.168.1.18:97/NuPortalRequestService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NuPortal_NuPortalRequestService_NuPortalRequestService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://192.168.1.18:97/NuPortalService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\NuPortalDBService\</RelPath>
+      <UpdateFromURL>http://192.168.1.18:97/NuPortalService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NuPortal_NuPortalDBService_NuPortalService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://192.168.1.18:97/NuPortalUSRecService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\NuPortalUSRecService\</RelPath>
+      <UpdateFromURL>http://192.168.1.18:97/NuPortalUSRecService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NuPortal_NuPortalUSRecService_NuPortalUSRecService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3100</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:3100/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CreateClient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Website" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PurchaseOrderNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyLogo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateClientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateClientResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetClientAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonClientAddress" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetClientAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetClientAddressResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateContact">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ClientId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPerson" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Extension" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Designation" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Department" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateContactResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateContactResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateProject">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ClientId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ContactId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="URL" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Priority" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectStatus" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectCategory" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PlannedHours" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKDepartment" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CostCenter" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Technologies" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateProjectResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateProjectResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetMangersForProjects">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonMangersForProjects" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetMangersForProjectsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetMangersForProjectsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetResourcesForProjects">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonResourcesForProjects" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetResourcesForProjectsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetResourcesForProjectsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateContact">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ContactId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPerson" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Extension" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Designation" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Department" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateContactResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateContactResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateClient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ClientId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Website" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PurchaseOrderNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyLogo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateClientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateClientResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateProject">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ProjectId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ClientId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ContactId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="URL" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Priority" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectStatus" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectCategory" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PlannedHours" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKDepartment" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CostCenter" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Technologies" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateProjectResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateProjectResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProjectTaskOper">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TaskId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ProjectId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TaskName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="PlannedHours" type="s:float" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectPhase" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TaskStatusId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TaskDetails" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Priority" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Billable" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProjectTaskOperResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectTaskOperResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetResourceForTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonResourceForTask" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetResourceForTaskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetResourceForTaskResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProjectDocumentsOper">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DocumentId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ProjectId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="SharedTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKRoleId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProjectDocumentsOperResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectDocumentsOperResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetCustomDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonCustomResource" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetCustomDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetCustomDocumentsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetTaskDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonTaskDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetTaskDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetTaskDetailsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTimeSheetReport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EmpIdData" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ProjectId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Offset" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RowCount" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTimeSheetReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTimeSheetReportResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="selectTaskDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="WeekEnd" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="selectTaskDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="selectTaskDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateClientSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateClient" />
+  </wsdl:message>
+  <wsdl:message name="CreateClientSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetClientAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:SetClientAddress" />
+  </wsdl:message>
+  <wsdl:message name="SetClientAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:SetClientAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateContactSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateContact" />
+  </wsdl:message>
+  <wsdl:message name="CreateContactSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateContactResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateProjectSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateProject" />
+  </wsdl:message>
+  <wsdl:message name="CreateProjectSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateProjectResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetMangersForProjectsSoapIn">
+    <wsdl:part name="parameters" element="tns:SetMangersForProjects" />
+  </wsdl:message>
+  <wsdl:message name="SetMangersForProjectsSoapOut">
+    <wsdl:part name="parameters" element="tns:SetMangersForProjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetResourcesForProjectsSoapIn">
+    <wsdl:part name="parameters" element="tns:SetResourcesForProjects" />
+  </wsdl:message>
+  <wsdl:message name="SetResourcesForProjectsSoapOut">
+    <wsdl:part name="parameters" element="tns:SetResourcesForProjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateContactSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateContact" />
+  </wsdl:message>
+  <wsdl:message name="UpdateContactSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateContactResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateClientSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateClient" />
+  </wsdl:message>
+  <wsdl:message name="UpdateClientSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProjectSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateProject" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProjectSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateProjectResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectTaskOperSoapIn">
+    <wsdl:part name="parameters" element="tns:ProjectTaskOper" />
+  </wsdl:message>
+  <wsdl:message name="ProjectTaskOperSoapOut">
+    <wsdl:part name="parameters" element="tns:ProjectTaskOperResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetResourceForTaskSoapIn">
+    <wsdl:part name="parameters" element="tns:SetResourceForTask" />
+  </wsdl:message>
+  <wsdl:message name="SetResourceForTaskSoapOut">
+    <wsdl:part name="parameters" element="tns:SetResourceForTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProjectDocumentsOperSoapIn">
+    <wsdl:part name="parameters" element="tns:ProjectDocumentsOper" />
+  </wsdl:message>
+  <wsdl:message name="ProjectDocumentsOperSoapOut">
+    <wsdl:part name="parameters" element="tns:ProjectDocumentsOperResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetCustomDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:SetCustomDocuments" />
+  </wsdl:message>
+  <wsdl:message name="SetCustomDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:SetCustomDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetTaskDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:SetTaskDetails" />
+  </wsdl:message>
+  <wsdl:message name="SetTaskDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:SetTaskDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTimeSheetReportSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTimeSheetReport" />
+  </wsdl:message>
+  <wsdl:message name="GetTimeSheetReportSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTimeSheetReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="selectTaskDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:selectTaskDetails" />
+  </wsdl:message>
+  <wsdl:message name="selectTaskDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:selectTaskDetailsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="NuPortalProjectSoap">
+    <wsdl:operation name="CreateClient">
+      <wsdl:input message="tns:CreateClientSoapIn" />
+      <wsdl:output message="tns:CreateClientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetClientAddress">
+      <wsdl:input message="tns:SetClientAddressSoapIn" />
+      <wsdl:output message="tns:SetClientAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateContact">
+      <wsdl:input message="tns:CreateContactSoapIn" />
+      <wsdl:output message="tns:CreateContactSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProject">
+      <wsdl:input message="tns:CreateProjectSoapIn" />
+      <wsdl:output message="tns:CreateProjectSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetMangersForProjects">
+      <wsdl:input message="tns:SetMangersForProjectsSoapIn" />
+      <wsdl:output message="tns:SetMangersForProjectsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetResourcesForProjects">
+      <wsdl:input message="tns:SetResourcesForProjectsSoapIn" />
+      <wsdl:output message="tns:SetResourcesForProjectsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateContact">
+      <wsdl:input message="tns:UpdateContactSoapIn" />
+      <wsdl:output message="tns:UpdateContactSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateClient">
+      <wsdl:input message="tns:UpdateClientSoapIn" />
+      <wsdl:output message="tns:UpdateClientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProject">
+      <wsdl:input message="tns:UpdateProjectSoapIn" />
+      <wsdl:output message="tns:UpdateProjectSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProjectTaskOper">
+      <wsdl:input message="tns:ProjectTaskOperSoapIn" />
+      <wsdl:output message="tns:ProjectTaskOperSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetResourceForTask">
+      <wsdl:input message="tns:SetResourceForTaskSoapIn" />
+      <wsdl:output message="tns:SetResourceForTaskSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProjectDocumentsOper">
+      <wsdl:input message="tns:ProjectDocumentsOperSoapIn" />
+      <wsdl:output message="tns:ProjectDocumentsOperSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetCustomDocuments">
+      <wsdl:input message="tns:SetCustomDocumentsSoapIn" />
+      <wsdl:output message="tns:SetCustomDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetTaskDetails">
+      <wsdl:input message="tns:SetTaskDetailsSoapIn" />
+      <wsdl:output message="tns:SetTaskDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTimeSheetReport">
+      <wsdl:input message="tns:GetTimeSheetReportSoapIn" />
+      <wsdl:output message="tns:GetTimeSheetReportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="selectTaskDetails">
+      <wsdl:input message="tns:selectTaskDetailsSoapIn" />
+      <wsdl:output message="tns:selectTaskDetailsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NuPortalProjectSoap" type="tns:NuPortalProjectSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateClient">
+      <soap:operation soapAction="http://tempuri.org/CreateClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetClientAddress">
+      <soap:operation soapAction="http://tempuri.org/SetClientAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateContact">
+      <soap:operation soapAction="http://tempuri.org/CreateContact" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProject">
+      <soap:operation soapAction="http://tempuri.org/CreateProject" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetMangersForProjects">
+      <soap:operation soapAction="http://tempuri.org/SetMangersForProjects" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetResourcesForProjects">
+      <soap:operation soapAction="http://tempuri.org/SetResourcesForProjects" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateContact">
+      <soap:operation soapAction="http://tempuri.org/UpdateContact" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateClient">
+      <soap:operation soapAction="http://tempuri.org/UpdateClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProject">
+      <soap:operation soapAction="http://tempuri.org/UpdateProject" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProjectTaskOper">
+      <soap:operation soapAction="http://tempuri.org/ProjectTaskOper" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetResourceForTask">
+      <soap:operation soapAction="http://tempuri.org/SetResourceForTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProjectDocumentsOper">
+      <soap:operation soapAction="http://tempuri.org/ProjectDocumentsOper" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetCustomDocuments">
+      <soap:operation soapAction="http://tempuri.org/SetCustomDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetTaskDetails">
+      <soap:operation soapAction="http://tempuri.org/SetTaskDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTimeSheetReport">
+      <soap:operation soapAction="http://tempuri.org/GetTimeSheetReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="selectTaskDetails">
+      <soap:operation soapAction="http://tempuri.org/selectTaskDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NuPortalProjectSoap12" type="tns:NuPortalProjectSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateClient">
+      <soap12:operation soapAction="http://tempuri.org/CreateClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetClientAddress">
+      <soap12:operation soapAction="http://tempuri.org/SetClientAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateContact">
+      <soap12:operation soapAction="http://tempuri.org/CreateContact" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProject">
+      <soap12:operation soapAction="http://tempuri.org/CreateProject" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetMangersForProjects">
+      <soap12:operation soapAction="http://tempuri.org/SetMangersForProjects" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetResourcesForProjects">
+      <soap12:operation soapAction="http://tempuri.org/SetResourcesForProjects" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateContact">
+      <soap12:operation soapAction="http://tempuri.org/UpdateContact" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateClient">
+      <soap12:operation soapAction="http://tempuri.org/UpdateClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProject">
+      <soap12:operation soapAction="http://tempuri.org/UpdateProject" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProjectTaskOper">
+      <soap12:operation soapAction="http://tempuri.org/ProjectTaskOper" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetResourceForTask">
+      <soap12:operation soapAction="http://tempuri.org/SetResourceForTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProjectDocumentsOper">
+      <soap12:operation soapAction="http://tempuri.org/ProjectDocumentsOper" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetCustomDocuments">
+      <soap12:operation soapAction="http://tempuri.org/SetCustomDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetTaskDetails">
+      <soap12:operation soapAction="http://tempuri.org/SetTaskDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTimeSheetReport">
+      <soap12:operation soapAction="http://tempuri.org/GetTimeSheetReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="selectTaskDetails">
+      <soap12:operation soapAction="http://tempuri.org/selectTaskDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NuPortalProject">
+    <wsdl:port name="NuPortalProjectSoap" binding="tns:NuPortalProjectSoap">
+      <soap:address location="http://192.168.1.18:97/NuPortalProjectService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="NuPortalProjectSoap12" binding="tns:NuPortalProjectSoap12">
+      <soap12:address location="http://192.168.1.18:97/NuPortalProjectService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

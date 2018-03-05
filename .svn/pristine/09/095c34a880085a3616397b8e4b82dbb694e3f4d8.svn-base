@@ -1,0 +1,351 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var id = 0;
+    int typeId = 0;
+
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt32(Request["hdnId"]);
+    }
+    if (Request["TypeId"] != null && Request["TypeId"] != "")
+    {
+        typeId = Convert.ToInt16(Request["TypeId"]);
+    }
+}
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/allowance-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div id="divAllowanceHeading" class="mainheaderdiv">Add Allowance</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+
+            <a class="backbuttondiv" id="hrefBack" href="@Url.Action("AllAllowances","RequestMain")"><img title="Back" alt="Back" width="30" height="30" src="~/Images/back-button.png" /></a>
+
+        </div>
+        <div class="space"></div>
+        <div id="divClear">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlAllowanceType" class="floating-select vselect" onclick="this.setAttribute('value', this.value);" value="" placeholder=" "s>
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Allowance Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="dtAllowanceDate" class="floating-input datetext vdate" type="text" placeholder=" ">
+                        <label class="float">Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="nuAmount" class="floating-input vinput vnumeric" type="text" placeholder=" ">
+                        <label class="float">Amount</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                        <textarea id="txtAllowanceDesc" class="floating-input floating-textarea" placeholder=" "></textarea>
+
+                        <label class="float">Description</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="uploadbtns" class="row">
+
+                <div class="col-md-4">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td width="90%"><div class="contentfielddiv"><input type="hidden" id="filehidden" value="" class=".filehidden" /><input multiple="multiple" allowmultiple="true" id="fileUploadAttachment" type="file" class="contenttextfield" placeholder="Attachment"></div></td>
+                                <td width="10%" align="right"><div class="uploadbutton"><a href="#"><img title="Upload" id="imgExpFileUpload" src="~/Images/upload.gif" width="25" height="25" alt="" /></a></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="divEmpDocs" class="docDiv">
+
+                </div>
+            </div>
+            <div id="divSave" class="buttonmaindiv ">
+                <div class="buttondiv"><input title="Save" onclick="saveAllowanceDetails(1)" class="submitbtn" type="button"></div>
+                <div class="buttondiv"><input title="SaveAndNew" onclick="saveAllowanceDetails()" class="submitandnewbtn" type="button"></div>
+                <div class="buttondiv"><input title="Clear" id="btnClearAll" onclick="return ClearAllControlValues('divClear');" class="clearbtn" type="button"></div>
+                <div class="labelmessage"><label id="lblMessage" class="lblMessage"></label></div>
+            </div>
+        </div>
+    </div>
+    <div class="buttonmaindiv" id="divAccept">
+        <div id="btnAccept" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/accept.png" width="14" height="14" alt="" />Approve</a></div>
+        <div id="btnReject" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/reject.png" width="14" height="14" alt="" />Reject</a></div>
+        <div id="btnOnHold" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/onhold.png" width="14" height="14" alt="" />On Hold</a></div>
+        <div class="labelmessage"><label id="lblUpdateMessage" class="lblMessage"></label></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var id=@id;
+    var typeId=@typeId;
+    $(document).ready(function () {
+        $('#divAccept').hide();
+        $('#divSave').hide();
+        
+        LoadDdls("/RequestMain/GetRequestType", $('#ddlAllowanceType'), "CategoryId", "CategoryName");
+        fillDataforView();
+
+        if(typeId==0)//save view
+        {
+            DefineDatePicker($("#dtAllowanceDate"));
+            $('#divAccept').hide();
+            $('#divSave').show();
+        }
+        else if(typeId==1){//my tickets view
+            $('#divAccept').show();
+            $('#divSave').hide();
+            $("#hrefBack").attr("href", "@Url.Action("MyTickets", "Home")");
+        }
+
+    });
+    //Used to Show Data in View Form
+    function fillDataforView() {
+        if(id != 0) {
+            var allowanceID = id;
+            $.ajax({
+                url: '/RequestMain/getAllowanceInfoforID',
+                type: 'Get',
+                dataType: 'json',
+                data: { allowanceID: allowanceID },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    var DateVal=FormatDate(resultVals[0]["Date"], "mm/dd/yyyy");
+                    $('#dtAllowanceDate').val(DateVal=="01/01/1753"?"":DateVal);
+                    $('#ddlAllowanceType').val(resultVals[0]["FK_CategoryId"]);
+                    $("#nuAmount").val(resultVals[0]["Amount"]);
+                    $("#txtAllowanceDesc").val(resultVals[0]["Description"]);
+                    $('#ddlAllowanceType').click();
+                    if(resultVals[0]["TicketStatusId"]== 2 || resultVals[0]["TicketStatusId"] == 3)
+                    {
+                        $('#divAccept').hide();
+                        $('#divSave').hide();
+                    }
+                    showAttachments(resultVals[0]["Attachments"]);
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+            $('#ddlAllowanceType').attr('disabled','disabled');
+            $('#dtAllowanceDate').attr('readonly', true);
+            $('#nuAmount').attr('readonly', true);
+            $('#txtAllowanceDesc').attr('readonly', true);
+            $('#divAllowanceHeading').text('View Allowance');
+            $('#titleAllowance').text('View Allowance');
+            $('#ddlAllowanceType').click();
+            $('#uploadbtns').hide();
+
+
+        }
+        else {
+            $('#ddlAllowanceType').attr('disabled',false);
+            $('#dtAllowanceDate').attr('readonly', false);
+            $('#nuAmount').attr('readonly', false);
+            $('#txtAllowanceDesc').attr('readonly', false);
+            $('#divAllowanceHeading').text('Add Allowance');
+            $('#titleAllowance').text('Add Allowance');
+            $('#uploadbtns').show();
+        }
+    }
+
+    //To Show Attachments in View Forms
+    function showAttachments(attachmentURLs) {
+        attachmentURLs = attachmentURLs.split('||');
+        var docElement = $('#divEmpDocs');
+        for (var i = 0; i < (attachmentURLs.length - 1); i++) {
+            CheckExtension(docElement, "", attachmentURLs[i], "", null, 1);
+        }
+    }
+
+    $('#btnAccept').click(function () {
+        DisableHref();
+        var empId = parseInt(@Session["EmpID"]);
+        var operation = 1;
+
+        $.ajax({
+            url: '/RequestMain/UpdateStatus',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                requestId: id, empId: empId, statusId: 2, operation: operation
+            },
+            success: function (data) {
+                $('#lblUpdateMessage').text("Allowance Approved successfully");
+                //ShowAlert(data, "Status");
+
+            },
+            error: function () {
+                //alert('error');
+            }
+        });
+    });
+    $('#btnReject').click(function () {
+        DisableHref();
+        var empId = parseInt(@Session["EmpID"]);
+        var operation = 1;
+
+        $.ajax({
+            url: '/RequestMain/UpdateStatus',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                requestId: id, empId: empId, statusId: 3, operation: operation
+            },
+            success: function (data) {
+                $('#lblUpdateMessage').text("Allowance Rejected successfully");
+            },
+            error: function () {
+                //alert('error');
+            }
+        });
+    });
+    $('#btnOnHold').click(function () {
+        var empId = parseInt(@Session["EmpID"]);
+        var operation = 1;
+
+        $.ajax({
+            url: '/RequestMain/UpdateStatus',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                requestId: id, empId: empId, statusId: 6, operation: operation
+            },
+            success: function (data) {
+                $('#lblUpdateMessage').text("Allowance updated successfully");
+            },
+            error: function () {
+                //alert('error');
+            }
+        });
+    });
+
+    //Adding Allowance method..
+    function saveAllowanceDetails(flag) {       
+        if (ValidateAll('divClear','lblMessage')) {           
+             var allowanceDate = $("#dtAllowanceDate").val();
+            allowanceDate = FormatDate(allowanceDate,"yyyy/mm/dd");
+            $.ajax({
+                url: '/RequestMain/addAllowance',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    Amount: $("#nuAmount").val(), AttachmentUrl: $('#filehidden').val(), StartDate: allowanceDate, EndDate: '', 
+                    Description: $("#txtAllowanceDesc").val(), CategoryId: $("#ddlAllowanceType").val(), CategoryTypeId: 1
+                },
+                success: function (data) {
+                    var AllType =  $("#ddlAllowanceType option:selected").text();
+                    ClearAllControlValues('divClear');
+                    $('#lblMessage').text("Allowance request for "+AllType+" placed successfully");
+                    if(flag==1){
+                        document.getElementById("hrefBack").click();
+                    }
+                },
+                error: function () {
+                    //alert('error');
+                }
+            });
+        }
+    }
+    $("#imgExpFileUpload").click(function () {
+
+        //var divId = getCurrentDiv();
+        var fileElement = $('#fileUploadAttachment');
+        var hiddenfield = $('#filehidden');
+        var fileCount = hiddenfield.val().split('||').length;
+        var expDocUpload = fileElement.get(0);
+        var docElement = $('#divEmpDocs');
+        var expDocFiles = expDocUpload.files;
+        if ((fileCount + expDocFiles.length) > 16) {
+            alert('File count cannot exceed 15!');
+            fileElement.val('');
+            return;
+        }
+        else if ((fileCount + expDocFiles.length) > 6) {
+            alert('File count cannot exceed 5!');
+            fileElement.val('');
+            return;
+        }
+        else {
+            var uploadedFilePath = "";
+            var ExpAttachments = new FormData();
+            //if (expDocFiles.length > 0) {
+            for (i = 0; i < expDocFiles.length; i++) {
+                ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+            }
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: ExpAttachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < expDocFiles.length; i++) {
+                            hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                            CheckExtension(docElement, expDocFiles[i].name, json[expDocFiles[i].name], "<a href='#'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                        }
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+            fileElement.val('');
+        }
+
+    }
+    );
+    //To Clear All Fields
+    //function clearAllAllowanceFields() {
+    //    $("#dtAllowanceDate").val('');
+    //    $("#nuAmount").val('');
+    //    $("#txtAllowanceDesc").val('');
+    //    $('#ddlAllowanceType').prop('selectedIndex', 0);
+    //    $("#divEmpDocs").empty();
+    //    $('#dtAllowanceDate').datepicker();
+    //    $('#filehidden').val('');
+    //}
+
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            var docDivs = $('#divEmpDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+
+        });
+    };
+</script>

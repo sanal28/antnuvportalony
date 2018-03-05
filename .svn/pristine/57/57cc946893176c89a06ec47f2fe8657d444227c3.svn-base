@@ -1,0 +1,360 @@
+﻿
+@{
+    ViewBag.Title = "AnnouncementLog";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form id="frmAnnouncements" action="/HR/AddAnnouncement" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+    @Html.Hidden("TypeId", new { id = "TypeId", name = "TypeId" })
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/announcement-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Announcement Log</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <div class="myprojecttxt"> <a href="@Url.Action("AddAnnouncement","HR")">+ Add Announcement</a></div>
+            <a class="backbuttondiv" href="@Url.Action("HRHome","HR")"><img title="Back" alt="Back" width="30" height="30" src="~/Images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="requestgridmaindiv">
+                    <table width="100%" border="0" cellspacing="1" cellpadding="0" id="tblAnnouncement" class="requesttablediv">
+                        <tbody>
+                            <tr class="requestgriddiv">
+                                @*<td class="requestgridheader" width="50%">Title</td>
+                                <td class="requestgridheader" width="10%">Start Date</td>
+                                <td class="requestgridheader" width="10%">End Date</td>
+                                <td class="requestgridheader" width="3%" colspan="2"><a href="#"><img src="../images/Filter.png" width="16" height="16" alt="" /></a></td>*@
+
+                                <td class="requestgridheader" width="40%">
+                                    Title
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field1Xml" id="cbAnnouncementTitle" name="title" style="width:470px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbAnnouncementSelectAll1" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbAnnouncementSelectAll1" name='Field1Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="20%">
+                                    Start Date
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field2Xml" id="cbAnnouncementStartDate" name="startdate" style="width:225px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbAnnouncementSelectAll2" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbAnnouncementSelectAll2" name='Field2Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="20%">
+                                    End Date
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field3Xml" id="cbAnnouncementEndDate" name="enddate" style="width:225px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbAnnouncementSelectAll3" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbAnnouncementSelectAll3" name='Field3Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="3%" colspan="2"><a href="#" id="hrefAnnouncementClearFilter"><img title="Clear" src="../images/ClearFilter.jpg" width="16" height="16" alt="" /></a></td>
+                            </tr>
+                        </tbody>
+                    </table>      
+                    <div class="paginationmaindiv" id="divPageAnnouncementLog">
+                        <div class="paginationsubdiv">
+                            <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var dictAnnouncementArray = {};
+    var IsPrimaryLoad = true;
+    var CurrentPageId = 1;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    var RowCount = 10;
+    var PageCount = 0;
+    $(document).ready(function () {
+        dictAnnouncementArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+        hideFilter();
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        loadAnnouncements();
+        loadAnnouncementsFilter();
+        $('#hrefAnnouncementClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictAnnouncementArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "" };
+            FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            loadAnnouncements();
+            showPages($('.paginationbtndivNum > a'), '.pgNumber', 1);
+        });
+    });
+    function loadAnnouncements() {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictAnnouncementArray), Operation: 11, ProjId: 0, TypeId: 1, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                //$("#tblAnnouncement").find("tr:gt(0)").remove();
+                var resultVals = $.parseJSON(result);
+                var cancellink = "";
+                var Today = new Date();
+                Today.setHours(0, 0, 0, 0);
+                $('#tblAnnouncement > tbody').children("tr:gt(0)").remove();
+                $('#divPageAnnouncementLog').show();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCount = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                    disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+                    showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                    for (var i = 0; i < resultVals.length; i++) {
+                        var endDate = FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy");
+                        if (resultVals[i]["IsCancelled"] == 0 && (new Date(endDate)>=Today))
+                            cancellink = "<a class='PreventHref' onclick='removeAnnouncement(" + resultVals[i]["AnnouncementId"] + ",51)' href='#'><img title='Cancel' src='../Images/cancel.png' /></a>";
+                        else
+                            cancellink = "";
+                        var startDate =FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy");
+                        $('#tblAnnouncement').append('<tr class="requestgriddiv2" ><td class="requestgridsubheader" >' +
+                            '<a class="PreventHref" href="#" onclick="updateTempData(' + resultVals[i]["AnnouncementId"] + ',2)">' + resultVals[i]["Title"] +
+                            '</a></td><td class="requestgridsubheader">' + startDate + '</td><td class="requestgridsubheader">' +
+                            endDate + '</td><td class="requestgridsubheader">' + cancellink + '<div width="5px"></div></td><td class="requestgridsubheader">' +
+                            '<a onclick="removeAnnouncement(' + resultVals[i]["AnnouncementId"]
+                            + ',36)" href="#" class="PreventHref"><img title="Delete" src="../Images/delete.png" /></a></td></tr>');
+                    }
+                    PreventDefaultClick();
+                }
+                else
+                {
+                        $('#divPageAnnouncementLog').hide();
+                        $('#tblAnnouncement').append("<tr><td colspan='4' class='NoRecordsFound'>No Records Found</td></tr>");
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadAnnouncementsFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictAnnouncementArray), Operation: 11, ProjId: 0, TypeId: 1, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        var startDate = FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy");
+                        var endDate = FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy");
+                        CreateCheckBox($('#cbAnnouncementTitle'), resultVals[i]["Title"], 'Field1Xml');
+                        CreateCheckBox($('#cbAnnouncementStartDate'), startDate, 'Field2Xml');
+                        CreateCheckBox($('#cbAnnouncementEndDate'), endDate, 'Field3Xml');
+                        DefineCheckboxClicks();
+                    }
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    function removeAnnouncement(idval,Operation) {
+        $.ajax({
+            url: '/HR/DeleteAnnouncement',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                rowId: idval,
+                Operation : Operation
+            },
+            success: function (data) {
+                loadAnnouncements();
+            },
+            error: function () {
+            }
+        });
+    }
+    function updateTempData(announcementId, TypeId) {
+        $('#hdnId').val(announcementId);
+        $('#TypeId').val(TypeId);
+        $('#frmAnnouncements').submit();
+    }
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblAnnouncement')
+                dictTemp = dictAnnouncementArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblAnnouncement') {
+                dictAnnouncementArray = dictTemp;
+                FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                loadAnnouncements();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    //Pagination AnnouncementLog
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', PageCount);
+            loadAnnouncements();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadAnnouncements();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadAnnouncements();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadAnnouncements();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadAnnouncements();
+    });
+</script>
+

@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "AssociateOpportunity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var SubId = 0;
+    if (Request["hdnSubId"] != null && Request["hdnSubId"] != "")
+    {
+        SubId = Convert.ToInt32(Request["hdnSubId"]);
+    }
+}
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="../images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Associate Opportunity</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtCandidateName" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Candidate Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtClientName" class="floating-input" type="text" placeholder=" ">
+                    <input type="hidden" value="" id="hdnOppId"/>
+                    <label class="float">Client Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtPositionTitle" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Position Title</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtRate" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Rate</label>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div id="divSubmittedDocs">
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Document Submitted</div>
+            </div>
+            <div id="divFiles">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var FileInputCount = 0;
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Home/GetSelectData',
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            data: { Id: @SubId, Operation: 47 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    $("#txtCandidateName").val(resultVals[0]["name"]).attr("disabled","disabled");
+                    $("#txtClientName").val(resultVals[0]["ClientName"]).attr("disabled","disabled");
+                    $("#txtPositionTitle").val(resultVals[0]["PositionTitle"]).attr("disabled","disabled");
+                    $("#txtRate").val(resultVals[0]["Rate"]).attr("disabled","disabled");
+                    $('#divFiles').empty();
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (resultVals[i]["DocType"] != null) {
+                            if($('#divFiles').find('.USRECdocument[name=' + resultVals[i]["FK_DocTypeId"] + ']').length==0){
+                                $('#divFiles').append("<div class='row'>" +
+                                    "<div class='col-md-3'>" +
+                                        "<div class='contentfielddiv'>" +
+                                            "<div class='USRECdocument docTypeId' name = '" + resultVals[i]["FK_DocTypeId"] + "'>" + resultVals[i]["DocType"] + "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='col-md-5'><div class='docDiv' id='divDocuments" + FileInputCount + "'></div></div>" +
+                                "</div>");
+                            }
+                            showOpportunityAttachments(resultVals[i]["DocPath"], resultVals[i]["FK_DocTypeId"]);
+                            FileInputCount++;
+                        }
+                        else
+                            $('#divSubmittedDocs').hide();
+                    }
+                }
+            },
+            error : function (err){
+            }
+        });
+    });
+    function defineExpUploads()
+    {
+
+    }
+    function showOpportunityAttachments(attachmentURLs,docTypeId) {
+        attachmentURLs = attachmentURLs.split('||');
+        //var docElement = $('#divDocuments' + FileInputCount);
+        var docElement = $('#divFiles').find('.USRECdocument[name=' + docTypeId + ']').closest('.row').find('.docDiv');
+        for (var i = 0; i <= (attachmentURLs.length - 1) ; i++) {
+            CheckExtension(docElement, "", attachmentURLs[i], "", null, 2);
+        }
+    }
+</script>

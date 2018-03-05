@@ -1,0 +1,131 @@
+﻿@model NuPortal.Models.Project
+@{
+    ViewBag.Title = "MyProjectName";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt16(Request["hdnId"].ToString());
+    }
+}
+
+<form id="frmProjectName" action="" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+</form>
+
+@using (Html.BeginForm())
+{
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/project-sm.png" width="45" height="45" alt="" /></div></div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="mainheaderdiv">@Html.DisplayFor(model => model.ProjectName)</div>
+                </div>
+            </div>
+        </div>
+        <div class="contentmaindiv">
+            <div id="divClear">
+                <div class="myprojectdiv">
+                    <a class="backbuttondiv" href="@Url.Action("Projects", "Projects")"><img title="Back" alt="back" width="30" height="30" src="~/Images/back-button.png" /></a>
+
+                </div>
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.StartDate, "", new { required = "required", @class = "floating-input", placeholder = " ", @ViewBag.Disabled })
+                            <label class="float">Start Date</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.EndDate, "", new { required = "required", @class = "floating-input", placeholder = " ", @ViewBag.Disabled })
+                            <label class="float">End Date</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.Status, "", new { required = "required", @class = "floating-input", placeholder = " ", @ViewBag.Disabled })
+                            <label class="float">Status</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.Priority, "", new { required = "required", @class = "floating-input", placeholder = " ", @ViewBag.Disabled })
+                            <label class="float">Priority</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.Plann, "", new { required = "required", @class = "floating-input", placeholder = " ", @ViewBag.Disabled })
+                            <label class="float">Planned Hours</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.ClientName, "", new { required = "required", @class = "floating-input", placeholder = " ", @ViewBag.Disabled })
+                            <input id="hfProjectId" type="hidden" value="" />
+                            <label class="float">Client Name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="myprojecttaskmaindiv">
+                            <div class="leaveicon">
+                                <a onclick="postProjectId(1);" href="#">
+                                    <img src="~/Images/my-project-task.png" width="80" height="80" alt="" />
+                                </a>
+                            </div>
+                            <div class="myprojecttaskname"><a onclick="postProjectId(1);" href="#">Task</a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="myprojecttaskmaindiv">
+                            <div class="leaveicon">
+                                <a onclick="postProjectId(2);" href="#">
+                                    <img src="~/Images/project-document.png" width="80" height="80" alt="" />
+                                </a>
+                            </div>
+                            <div class="myprojecttaskname"><a onclick="postProjectId(2);" href="#">Documents</a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="myprojecttaskmaindiv">
+                            <div class="leaveicon">
+                                <a onclick="postProjectId(3);" href="#">
+                                    <img src="~/Images/ProjectReport.png" width="80" height="80" alt="" />
+                                </a>
+                            </div>
+                            <div class="myprojecttaskname"><a onclick="postProjectId(3);" href="#">Report</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    function postProjectId(ActionFlag) {
+        $('#hdnId').val(@id);
+        if (ActionFlag == 1) {
+            $("#frmProjectName").attr("action", "/Task/TasksLog");
+        }
+        else if (ActionFlag == 2) {
+            $("#frmProjectName").attr("action", "/Projects/Document");
+        }
+        else if (ActionFlag == 3) {
+            $("#frmProjectName").attr("action", "/TimeSheet/TimeSheetReport");
+        }
+        $('#frmProjectName').submit();
+
+    }
+</script>

@@ -1,0 +1,424 @@
+﻿
+@{
+    ViewBag.Title = "CreateOpportunity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/opportunity-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Create Opportunity</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" id="hrefBack" href="@Url.Action("OpportunityLog","USRecruitment")"><img title="Back"  alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div id="divClear">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+
+                        <input class="floating-input vinput" type="text" id="txtClientName" placeholder=" ">
+                        <label class="float">Client Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtContactPerson">
+                        <label class="float">Contact Person</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtLocation">
+                        <label class="float">Office Location</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+
+                        <input class="floating-input vnumeric" type="text" placeholder=" " id="txtNoOfOpenings">
+                        <label class="float">No of Openings</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input vinput" type="text" placeholder=" " id="txtPositionTitle">
+                        <label class="float">Position Title</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+
+                        <input class="floating-input" type="text" placeholder=" " id="txtWorkExp">
+                        <label class="float">Work Experience</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtStreet">
+                        <label class="float">Street</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtCity">
+                        <label class="float">City</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+
+                        <input class="floating-input" type="text" placeholder=" " id="txtState">
+                        <label class="float">State</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtCountry">
+                        <label class="float">Country</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtZip">
+                        <label class="float">Zip</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input vphone" type="text" placeholder=" " id="txtContact1">
+                        <label class="float">Contact 1</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input vphone" type="text" placeholder=" " id="txtContact2">
+                        <label class="float">Contact 2</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input vemail" type="text" placeholder=" " id="txtEmail">
+                        <label class="float">Email</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input vphone vfax" type="text" placeholder=" " id="txtFax">
+                        <label class="float">Fax</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtWebsite">
+                        <label class="float">Website</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtRate">
+                        <label class="float">Rate</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input vfloat" type="text" placeholder=" " id="txtHours">
+                        <label class="float">Hours</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="" id="ddlPositionType">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Position Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtProfileType">
+                        <label class="float">Profile Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="" id="ddlIndustry">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Industry</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtTargetDate">
+                        <label class="float">Target Date</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext">Primary Skills</div>
+                        <div class="contenttextarea">
+                            <div id="listPrimarySkills" class="list competancylist"></div><input type="text" class="competancy" id="txtPrimarySkills" placeholder="+ Click to Add" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext">Secondary Skills</div>
+                        <div class="contenttextarea">
+                            <div id="listSecondarySkills" class="list competancylist"></div><input type="text" class="competancy" id="txtSecondarySkills" placeholder="+ Click to Add" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext">Required Documents</div>
+                        <div class="contenttextarea">
+                            <div id="listReqDocs" class="list competancylist"></div><input type="text" class="competancy" id="txtReqDocs" placeholder="+ Click to Add" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <textarea class="floating-input floating-textarea" placeholder=" " id="txtNote"></textarea>
+                        <label class="float">Note</label>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="contentfielddiv">
+                        <textarea class="floating-input floating-textarea" placeholder=" " id="txtDescription"></textarea>
+                        <label class="float">Description</label>
+                    </div>
+                </div>
+                @*<div class="col-md-4" id="hideuploaddiv">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td width="90%">
+                                    <div class="contentfielddiv">
+                                        <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                        <input type="file" multiple="multiple" allowmultiple="true" id="fileUploadAttachment" class="contenttextfield" placeholder="Attachment">
+                                    </div>
+                                </td>
+                                <td width="10%" align="right"><div class="uploadbutton"><a href="#"><img title="Upload" id="imgExpFileUpload" src="~/Images/upload.gif" width="25" height="25" alt="" /></a></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>*@
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="USRECdocumentfilebtndiv">
+                        <label for="fileReqDocUpload" class="USRECdocumentfilebtn">Choose from File</label>
+                        <input type="hidden" id="filehidden" value="" />
+                        <input type="file" id="fileReqDocUpload" multiple style="display: none">
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="weeklyoffmaindiv">
+                        <div class="workstarttimediv" style="max-height:50px;">
+                            <div class="row">
+                                <div id="divReqDocs" class="docDiv">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buttonmaindiv">
+                <div class="buttondiv"><input title="Save" class="submitbtn" type="button" /></div>
+                <div class="buttondiv"><input title="SubmitAndNew" class="submitandnewbtn" type="button" /></div>
+                <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" /></div>
+                <div class="labelmessage"><label id="lblMessage" class="lblMessage"></label></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        DefineCompetancies($("#listPrimarySkills"), $('#txtPrimarySkills'));
+        DefineCompetancies($("#listSecondarySkills"), $('#txtSecondarySkills'));
+        DefineCompetancies($("#listReqDocs"), $('#txtReqDocs'));
+        LoadDdls("/USRecruitment/GetPositionType", $('#ddlPositionType'), "TypeId", "TypeName");
+        LoadDdls("/USRecruitment/GetIndustry", $('#ddlIndustry'), "IndustryId", "IndustryName");
+        $('.submitbtn').click(function () {
+            SaveToDB(1);
+        });
+        $('.submitandnewbtn').click(function () {
+            SaveToDB(0);
+        });
+        $('.clearbtn').click(function () {
+            ClearAllControlValues('divClear');
+        });
+        DefineDatePicker($('#txtTargetDate'));
+        $('#fileReqDocUpload').change(function () {
+            var fileElement = $(this);
+            var expDocUpload = fileElement.get(0);
+            var expDocFiles = expDocUpload.files;
+            if (expDocFiles.length > 0) {
+                var ExpAttachments = new FormData();
+                for (i = 0; i < expDocFiles.length; i++) {
+                    ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+                }
+                $.ajax({
+                    url: '/EmpInfoUserView/UploadFiles',
+                    type: "POST",
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    data: ExpAttachments,
+                    success: function (result) {
+                        var json = $.parseJSON(result);
+                        if (json["Error"] == undefined || json["Error"] == null) {
+                            for (var i = 0; i < expDocFiles.length; i++) {
+                                $('#filehidden').val($('#filehidden').val() + json[expDocFiles[i].name] + "||");
+                                CheckExtension($('.docDiv'), expDocFiles[i].name, json[expDocFiles[i].name],
+                                    "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                                PreventDefaultClick();
+                            }
+                        }
+                    },
+                    error: function (err) {
+                        //alert(err.statusText);
+                    }
+                });
+                fileElement.val('');
+            }
+        });
+    });
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            $('#filehidden').val($('#filehidden').val().replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+        });
+    }
+
+    function SaveToDB(flag) {
+        if (ValidateAll('divClear', 'lblMessage')) {
+            var newdate = new Date();
+            newdate.setDate(newdate.getDate() + 14);
+            $.ajax({
+                url: '/USRecruitment/SaveOpportunity',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    OppId: 0, ClientName: $('#txtClientName').val(), ContactPerson: $('#txtContactPerson').val(), Location: $('#txtLocation').val(),
+                    NoOfOpenings: $('#txtNoOfOpenings').val() != "" ? parseInt($('#txtNoOfOpenings').val()) : 1,
+                    Street: $('#txtStreet').val(), City: $('#txtCity').val(), State: $('#txtState').val(),
+                    Country: $('#txtCountry').val(), Zip: $('#txtZip').val(), Contact1: $('#txtContact1').val(), Contact2: $('#txtContact2').val(),
+                    Email: $('#txtEmail').val(), Fax: $('#txtFax').val(), Website: $('#txtWebsite').val(), PositionTitle: $('#txtPositionTitle').val(),
+                    WorkExp: $('#txtWorkExp').val(), Rate: $('#txtRate').val(),
+                    Hours: $("#txtHours").val() != "" ? parseFloat($("#txtHours").val()) : 0,
+                    PositionType: $("#ddlPositionType").val() == "" ? 0 : $("#ddlPositionType").val(), ProfileType: $('#txtProfileType').val(),
+                    Industry: $('#ddlIndustry').val() == "" ? 0 : $('#ddlIndustry').val(),
+                    TargetDate: $("#txtTargetDate").val() == "" ? (FormatDate(newdate, "yyyy/mm/dd")) : $("#txtTargetDate").val(),
+                    Note: $('#txtNote').val(), AttachmentPath: $("#filehidden").val(), JobDescription: $('#txtDescription').val(), Operation: 1
+                },
+                success: function (data) {
+                    var returnval = $.parseJSON(data);
+                    var OppId = parseInt(returnval[0]["OppId"]);
+                    if (OppId > 0) {
+                        var dtReqSkillsArray = new Array();
+                        $('#listPrimarySkills').find(".divcompetancy").each(function () {
+                            dtReqSkillsArray.push({ "FKOpportunityId": OppId, "Skill": $(this).text(), "TypeId": 0 });
+                        });
+                        $('#listSecondarySkills').find(".divcompetancy").each(function () {
+                            dtReqSkillsArray.push({ "FKOpportunityId": OppId, "Skill": $(this).text(), "TypeId": 1 });
+                        });
+                        //if (dtReqSkillsArray.length > 0) {
+                            $.ajax({
+                                url: '/USRecruitment/SaveSkills',
+                                type: 'POST',
+                                async: false,
+                                dataType: 'json',
+                                data: {
+                                    OppId: OppId,
+                                    jsonData: JSON.stringify(dtReqSkillsArray)
+                                },
+                                success: function (data) {
+
+                                },
+                                error: function () {
+                                    //alert('error');
+                                }
+                            });
+                        //}
+                        var dtReqDocsArray = new Array();
+                        $('#listReqDocs').find(".divcompetancy").each(function () {
+                            dtReqDocsArray.push({ "Fk_OppId": OppId, "DocType": $(this).text() });
+                        });
+                        //if (dtReqDocsArray.length > 0) {
+                            $.ajax({
+                                url: '/USRecruitment/SaveReqDocs',
+                                type: 'POST',
+                                async: false,
+                                dataType: 'json',
+                                data: {
+                                    OppId: OppId,
+                                    jsonData: JSON.stringify(dtReqDocsArray)
+                                },
+                                success: function (data) {
+
+                                    //ClearAllControlValues('divClear');
+                                    //$('#lblMessage').addClass('lblMessage');
+                                    //$('#lblMessage').removeClass('lblError');
+                                    //$('#lblMessage').text("Opportunity added successfully");
+                                },
+                                error: function () {
+                                    //alert('error');
+                                }
+                            });
+                        //}
+                        ClearAllControlValues('divClear');
+                        $('#lblMessage').addClass('lblMessage');
+                        $('#lblMessage').removeClass('lblError');
+                        $('#lblMessage').text("Opportunity created successfully");
+                        if (flag == 1) {
+                            document.getElementById("hrefBack").click();
+                        }
+                    }
+                    else {
+                        $('#lblMessage').removeClass('lblMessage');
+                        $('#lblMessage').addClass('lblError');
+                        $('#lblMessage').text("Opportunity Save failed");
+                    }
+                },
+                error: function () {
+                    //alert('error');
+                }
+            });
+        }
+    }
+</script>
+ 
+
+

@@ -1,0 +1,1719 @@
+﻿
+@{
+    ViewBag.Title = "InterviewLog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<dialog id="dlgOpportunityData" class="popupmaindiv" style="width:70%;background: transparent;left: 8%;border: none;margin:-150px 0px 0px 112px;background-color:rgba(67, 116, 136, 0.8) !important;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext"></div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="$('#dlgOpportunityData')[0].close();">X</a></div>
+            </div>
+            <div style="overflow-y:auto;overflow-x:hidden;max-height:570px;">
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="divOpportunity">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input type="hidden" id="hdnOppId" value="" />
+                                        <input id="txtOppStatus" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Opportunity Status</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtLastUpdate" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Last updated</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtCreatedBy" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Created By</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtCreatedDate" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Created Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppClient" class="floating-input vinput" type="text" placeholder=" ">
+                                        <label class="float">Client Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtContPerson" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Contact Person</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtLocation" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Locations</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtNoOpen" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">No. of Openings</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtStreet" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Street</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtCity" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">City</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtState" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">State</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtCountry" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Country</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtZip" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Zip</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtContact1" class="floating-input vphone" type="text" placeholder=" ">
+                                        <label class="float">Contact 1</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtContact2" class="floating-input vphone" type="text" placeholder=" ">
+                                        <label class="float">Contact 2</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtEmail" class="floating-input vemail" type="text" placeholder=" ">
+                                        <label class="float">Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtFax" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Fax</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtWebsite" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Website</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtPosTitle" class="floating-input vinput" type="text" placeholder=" ">
+                                        <label class="float">Position Title</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtWorkExp" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Work Experience</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppRate" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Rate</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtHours" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Hours</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <select id="ddlPosType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                        </select>
+                                        <label class="float">Position Type</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtProfileType" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Profile Type</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <select id="ddlIndustry" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                        </select>
+                                        <label class="float">Industry</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtTargetDate" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Target Date</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <div class="weeklytext">Primary Skills</div>
+                                        <div class="contenttextarea">
+                                            <div id="listPrimarySkills" class="list competancylist"></div><input type="text" class="competancy" id="txtPrimarySkills" placeholder="+ Click to Add" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <div class="weeklytext">Secondary Skills</div>
+                                        <div class="contenttextarea">
+                                            <div id="listSecondarySkills" class="list competancylist"></div><input type="text" class="competancy" id="txtSecondarySkills" placeholder="+ Click to Add" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <div class="weeklytext">Required Documents</div>
+                                        <div class="contenttextarea">
+                                            <div id="listReqDoc" class="list competancylist"></div><input type="text" class="competancy" id="txtReqDoc" placeholder="+ Click to Add" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <textarea id="txtOppNote" class="floating-input floating-textarea" placeholder=" "></textarea>
+                                        <label class="float">Note</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <textarea id="txtJobDes" class="floating-input floating-textarea" placeholder=" "></textarea>
+                                        <label class="float">Job Description</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="weeklyoffmaindiv divdocuments">
+                                    <div class="workstarttimediv">
+                                        <div class="row">
+                                            <div id="divOppReqDocs" class="docDiv">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<dialog id="dlgLead" style="width:70%;background: transparent;border: none;">
+    <div class="popupmaindiv" style="padding:5px;">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext"></div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgLead').close();">X</a></div>
+            </div>
+            <div style="overflow-y:auto;overflow-x:hidden;max-height:570px;">
+                <div class="row" id="divValidate">
+                    <div class="col-md-12">
+                        <div class="space"></div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadFirstName" class="floating-input vinput" type="text" placeholder=" ">
+                                    <label class="float">First Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadLastName" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Last Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadMobNo" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Mobile No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <select id="ddlLeadVisaType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                        <option value=""></option>
+                                    </select>
+                                    <label class="float">Visa Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadStreet" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Street</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadCity" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">City</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadState" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">State</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadCountry" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Country</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadZip" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Zip</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadDob" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">DOB</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <select id="ddlLeadGender" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                        <option value=""></option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="TransGender">TransGender</option>
+                                    </select>
+                                    <label class="float">Gender</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadEmail" class="floating-input vemail" type="text" placeholder=" ">
+                                    <label class="float">Email</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <select id="ddlLeadEmpType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                        <option value=""></option>
+                                    </select>
+                                    <label class="float">Employee Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadExperience" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Experience in months</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadQualification" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Highest Qualification</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadCurrentEmployer" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Current Employer</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadCurrentDesignation" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Current Designation</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadCurrentCtc" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Current CTC</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadCurrentLocation" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Current Location</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <select id="ddlLeadType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                        <option value=""></option>
+                                    </select>
+                                    <label class="float">Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadRate" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Rate</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadHours" class="floating-input vfloat" type="text" placeholder=" ">
+                                    <label class="float">Hours</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <select id="ddlLeadEmployeementType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                        <option value=""></option>
+                                    </select>
+                                    <label class="float">Employment Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadSource" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Source</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="divCreated">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtLeadCreatedBy" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Created By</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtLeadCreatedDate" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Created Date</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divAssinedDate" class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtLeadAssignedDate" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Assigned Date</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <div class="weeklytext">Skills</div>
+                                    <div class="contenttextarea">
+                                        <div id="lstLeadSkills" class="list"></div><input type="text" class="competancy" id="txtLeadSkills" placeholder="+ Click to Add" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <div class="weeklytext">Technologies</div>
+                                    <div class="contenttextarea">
+                                        <div id="lstLeadTechnologies" class="list"></div><input type="text" class="competancy" id="txtLeadTechnologies" placeholder="+ Click to Add" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <div class="weeklytext">Certifications</div>
+                                    <div class="contenttextarea">
+                                        <div id="lstLeadCertifications" class="list"></div><input type="text" class="competancy" id="txtLeadCertifications" placeholder="+ Click to Add" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <textarea id="txtLeadNote" class="floating-input floating-textarea" placeholder=" "></textarea>
+                                    <label class="float">Note</label>
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                            <div class="col-md-8">
+                                <div class="weeklyoffmaindiv divdocuments">
+                                    <div class="workstarttimediv">
+                                        <div class="row">
+                                            <div id="divLeadReqDocs" class="docDiv">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>   
+<dialog id="dlgInterviewSchedule" style="width:70%;background: transparent;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px"> 
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Interview Schedule</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="closedlg();">X</a></div>
+            </div> 
+            <div class="space"></div>                     
+                <div style="overflow-y:auto;overflow-x:hidden;max-height:270px;">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtCandidateName" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Candidate Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtClientName" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Client Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtPostionTitle" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Position Title</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <select id="ddlInterviewType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                <option value=""></option>
+                            </select>
+                            <label class="float">Interview Type</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtInterviewDate" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Interview Date</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtInterviewTime" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Interview Time</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtInterviewLocation" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Interview Location</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="contentfielddiv">
+                            <textarea id="txtNote" class="floating-input floating-textarea" placeholder=" "></textarea>
+                            <label class="float">Note</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    @*<div class="col-md-2 fileuploads">
+                        <div class="USRECdocumentfilebtndiv ">
+                            <label for="fileUploadAttachment" class="USRECdocumentfilebtn">Choose from File</label>
+                            <input type="hidden" id="filehidden" value="" />
+                            <input type="file" id="fileUploadAttachment" allow multiple="true" style="display: none">
+                        </div>
+                    </div>*@
+                    <div class="col-md-10">
+                        <div class="weeklyoffmaindiv divdocuments">
+                            <div class="workstarttimediv" style="max-height:50px;">
+                                <div class="row">
+                                    <div id="divReqDocs" class="docDiv">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space"></div>
+                <input type="hidden" id="hdnInterviewLog" value="" />
+                <input type="hidden" id="hdnSubmissionId" value="" />
+                <input type="hidden" id="hdnTicketStatusId" value="" />
+
+                @*<div class="buttonmaindiv hideButtons">
+                    <div class="buttondiv"><input onclick="updateInerviewSchedule();" id="btnSave" title="Save" class="submitbtn" type="button" /></div>
+                    <div class="buttondiv"><input id="btnSaveAndNew" title="Save and New" class="submitandnewbtn" type="button" /></div>
+                    <div class="buttondiv"><input id="btnClear" title="Clear" class="clearbtn" type="button" /></div>
+                    <div class="ErrorLabel"><label id="lblMessage" class="lblMessage"></label></div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</dialog>
+<div>
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv">
+                        <div class="mainheadericon">
+                            <img src="~/Images/interview-sm.png" width="45" height="45" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="mainheaderdiv">Interview</div>
+                </div>
+                <div class="col-sm-5">
+                </div>
+            </div>
+        </div>
+        <div class="contentmaindiv">
+            <div class="myprojectdiv">
+                    <a class="backbuttondiv" href="@Url.Action("Home", "USRecruitment")">
+                        <img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" />
+                    </a>
+            </div>
+            <div class="space"></div>
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Interviews-Open</div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="requestgridmaindiv">
+                        <table width="100%" id="tblInterviewOpen" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                            <tr class="requestgriddiv">
+                                <td class="requestgridheader" width="12%">
+                                    Client Name
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field1Xml" id="cbIntOpenClientName" name="clientname" style="width:140px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntOpen1" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbIntOpen1" name='Field1Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="14%">
+                                    Candidate Name
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field2Xml" id="cbIntOpenCanName" name="candidatename" style="width:170px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntOpen2" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbIntOpen2" name='Field2Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="11%">
+                                    Position Title
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field3Xml" id="cbIntOpenPostTitle" name="postingtitle" style="width:130px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntOpen3" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbIntOpen3" name='Field3Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="12%">
+                                    Interview Type
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field4Xml" id="cbIntOpenIntType" name="interviewtype" style="width:140px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntOpen4" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbIntOpen4" name='Field4Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="17%">
+                                    Interview DateTime
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field5Xml" id="cbIntOpenIntDateTime" name="interviewdatetime" style="width:200px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntOpen5" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbIntOpen5" name='Field5Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="14%">
+                                    Location
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field6Xml" id="cbIntOpenIntLocation" name="interviewstatus" style="width:165px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntOpen6" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbIntOpen6" name='Field6Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="3%" colspan="3">
+                                    <a href="#" id="hrefIntOpenClearFilter">
+                                        <img title="Clear" src="../images/ClearFilter.jpg" width="14" height="14" alt="" />
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="paginationmaindiv" id="divPage" style="display:none">
+                            <div class="paginationsubdiv">
+                                <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                    <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                    <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                    <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                    <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="space"></div>
+                <div class="popupheadingmaindiv">
+                    <div class="popupheadingtext">Interviews-Completed</div>
+                </div>
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="requestgridmaindiv">
+                            <table width="100%" id="tblIntComp" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                                <tr class="requestgriddiv">
+                                    <td class="requestgridheader" width="14%">
+                                        Client Name
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field1Xml" id="cbIntCompClientName" name="clientname" style="width:130px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntComp1" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbIntComp1" name='Field1Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="17%">
+                                        Candidate Name
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field2Xml" id="cbIntCompCanName" name="candidatename" style="width:160px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntComp2" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbIntComp2" name='Field2Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="14%">
+                                        Position Title
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field3Xml" id="cbIntCompPostTitle" name="postingtitle" style="width:135px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntComp3" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbIntComp3" name='Field3Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="15%">
+                                        Interview Type
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field4Xml" id="cbIntCompIntType" name="interviewtype" style="width:140px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntComp4" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbIntComp4" name='Field4Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="15%">
+                                        Date&Time
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field5Xml" id="cbIntCompIntDateTime" name="interviewdatetime" style="width:140px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntComp5" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbIntComp5" name='Field5Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="11%">
+                                        Location
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field6Xml" id="cbIntCompIntLocation" name="interviewstatus" style="width:150px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntComp6" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbIntComp6" name='Field6Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="20%">
+                                        Interview Status
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field7Xml" id="cbIntCompStatus" name="status" style="width:100px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbIntComp7" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbIntComp7" name='Field7Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="3%" colspan="3">
+                                        <a href="#" id="hrefIntCompClearFilter">
+                                            <img title="Clear" src="../images/ClearFilter.jpg" width="14" height="14" alt="" />
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="paginationmaindiv" id="divPageCTasks" style="display:none">
+                                <div class="paginationsubdiv">
+                                    <div class="paginationbtndiv" id="FRSTbtnCTasks" title="First">
+                                        <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                                    </div>
+                                    <div class="paginationbtndiv" id="PRVbtnCTasks" title="Previous">
+                                        <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                                    </div>
+                                    <div class="paginationbtndiv paginationbtndivComNum" id="divPgfirstCTasks">
+                                        <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMCompbtn paginationNUM-ACTVbtnComp  pagination pgNumberB1">1</div></a>
+                                    </div>
+                                    <div class="paginationbtndiv paginationbtndivComNum">
+                                        <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB2">2</div></a>
+                                    </div>
+                                    <div class="paginationbtndiv paginationbtndivComNum">
+                                        <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB3">3</div></a>
+                                    </div>
+                                    <div class="paginationbtndiv paginationbtndivComNum">
+                                        <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB4">4</div></a>
+                                    </div>
+                                    <div class="paginationbtndiv paginationbtndivComNum" id="divPglastCTasks">
+                                        <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB5">5</div></a>
+                                    </div>
+                                    <div class="paginationbtndiv" id="NXTbtnCTasks" title="Next">
+                                        <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                                    </div>
+                                    <div class="paginationbtndiv" id="LSTbtnCTasks" title="Last">
+                                        <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+
+        
+    </div>
+</div>
+<script>
+
+    var dictOpenInterviewArray = {};
+    var dictClosedInterviewArray = {};
+    var IsPrimaryLoad = true;
+    var CurrentPageId = 1;
+    var CurrentPageIdCompleted = 1;
+    var RowCount = 10;
+    var PageCount = 0;
+    var PageCountCompleted = 0;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    $(document).ready(function () {
+        dictOpenInterviewArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "" };
+        dictClosedInterviewArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "", "Field7Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        hideFilter();
+        loadOpenInterview();
+        loadOpenInterviewFilter();
+        loadClosedInterview();
+        loadClosedInterviewFilter();
+        $('#hrefIntOpenClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictOpenInterviewArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "" };
+            FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            loadOpenInterview();
+            showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+        });
+
+        $('#hrefIntCompClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictClosedInterviewArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "", "Field7Xml": "" };
+            FirstButonClick($('.paginationNUMCompbtn'), $('.pgNumberB1'), 'paginationNUM-ACTVbtnComp', 1,
+            'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+            CurrentPageIdCompleted = 1;
+            loadClosedInterview();
+            showAndHidePages(PageCountCompleted, CurrentPageIdCompleted, $('.paginationbtndivComNum > a'), '.pgNumberB');
+        });
+        LoadDdls("/USRecruitment/GetInterviewType", $('#ddlInterviewType'), "InterviewTypeId", "InterviewType");
+        DefineDatePicker($('#txtInterviewDate'));
+        LoadDdls("/USRecruitment/GetVisaType", $('#ddlLeadVisaType'), "visatypeid", "visatype");
+        LoadDdls("/USRecruitment/GetEmploymentType", $('#ddlLeadEmployeementType'), "TypeId", "TypeName");
+        LoadDdls("/USRecruitment/GetLeadType", $('#ddlLeadType'), "LeadTypeId", "LeadType");
+        LoadDdls("/USRecruitment/GetEmployeeType", $('#ddlLeadEmpType'), "EmpTypeId", "EmpType");
+        LoadDdls("/USRecruitment/GetIndustry", $('#ddlIndustry'), "IndustryId", "IndustryName");
+        LoadDdls("/USRecruitment/GetPositionType", $('#ddlPosType'), "TypeId", "TypeName");
+        PreventDefaultClick();
+    });
+
+    function loadOpenInterview() {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictOpenInterviewArray), Operation: 35, ProjId: 0, TypeId: 1, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#tblInterviewOpen > tbody').children("tr:gt(0)").remove();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCount = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                    disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+                    showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                    for (var i = 0; i < resultVals.length; i++) {
+                        $('#tblInterviewOpen').append('<tr class="requestgriddiv2" ><td class="requestgridsubheader"><div class="documentlinkdiv"><a onclick="loadScheduleInterview(' + resultVals[i]["InterviewId"] + ',' + resultVals[i]["FK_SubmissionId"] + ',' + resultVals[i]["FK_TicketStatusId"] + ');" href="#">' +
+                            resultVals[i]["ClientName"] + '</a></div></td><td class="requestgridsubheader" ><div class="documentlinkdiv"><a href="#" class="hreflink" onClick="loadLeadData(\'' + resultVals[i]["name"] + '\',\'' + resultVals[i]["LeadId"] + '\');">' + resultVals[i]["name"] + '</a>' +
+                            '</div></td><td class="requestgridsubheader"><div class="documentlinkdiv"><a href="#" class="hreflink" onClick="loadOppData(\'' + resultVals[i]["PositionTitle"] + '\',\'' + resultVals[i]["OppId"] + '\')">' +
+                            resultVals[i]["PositionTitle"] + '</td><td class="requestgridsubheader" >' + resultVals[i]["TypeName"] +
+                            '</td><td class="requestgridsubheader">' + resultVals[i]["Dateandtime"] + '</td><td class="requestgridsubheader">' +
+                            resultVals[i]["Location"] + '</td><td class="requestgridsubheader">');
+                    }
+                    $('#divPage').show();
+                    PreventDefaultClick();
+                }
+                else
+                {
+                        $('#divPage').hide();
+                        $('#tblInterviewOpen').append("<tr><td colspan='9' class='NoRecordsFound'>No Records Found</td></tr>");
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadOpenInterviewFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictOpenInterviewArray), Operation: 35, ProjId: 0, TypeId: 1, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                            CreateCheckBox($('#cbIntOpenClientName'), resultVals[i]["ClientName"], 'Field1Xml');
+                            CreateCheckBox($('#cbIntOpenCanName'), resultVals[i]["name"], 'Field2Xml');
+                            CreateCheckBox($('#cbIntOpenPostTitle'), resultVals[i]["PositionTitle"], 'Field3Xml');
+                            CreateCheckBox($('#cbIntOpenIntType'), resultVals[i]["TypeName"], 'Field4Xml');
+                            CreateCheckBox($('#cbIntOpenIntDateTime'), resultVals[i]["Dateandtime"], 'Field5Xml');
+                            CreateCheckBox($('#cbIntOpenIntLocation'), resultVals[i]["Location"], 'Field6Xml');
+                            DefineCheckboxClicks();
+                    }
+                    PreventDefaultClick();
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    function loadScheduleInterview(intId,subId,ticStatId) {
+        $('#divReqDocs').empty();
+        $("#hdnInterviewLog").val(intId);
+        $("#hdnSubmissionId").val(subId);
+        $("#hdnTicketStatusId").val(ticStatId);
+
+        $.ajax({
+            url: '/Home/GetSelectData',
+            type: "Get",
+            dataType: 'json',
+            data: { Id: intId, Operation: 49 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);                
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    $("#txtCandidateName").val(resultVals[0]["CandidateName"]).attr('disabled', 'disabled');
+                    $("#txtClientName").val(resultVals[0]["ClientName"]).attr('disabled', 'disabled');
+                    $("#txtPostionTitle").val(resultVals[0]["PositionTitle"]).attr('disabled', 'disabled');
+                    if (resultVals[0]["FK_Interviewtype"] != 0) {
+                        $("#ddlInterviewType").val(resultVals[0]["FK_Interviewtype"]);
+                        $("#ddlInterviewType").click();
+                        $("#ddlInterviewType").attr('disabled', 'disabled');
+                    }
+                    else {
+                        $("#ddlInterviewType").val("").attr('disabled', 'disabled');
+                    }
+                    $("#txtInterviewDate").val(FormatDate(resultVals[0]["InterviewDate"],'mm/dd/yyyy')).attr('disabled', 'disabled');
+                    $("#txtInterviewTime").val(resultVals[0]["InterviewTime"]).attr('disabled', 'disabled');
+                    $("#txtInterviewLocation").val(resultVals[0]["Location"]).attr('disabled', 'disabled');
+                    $("#txtNote").val(resultVals[0]["Note"]).attr('disabled', 'disabled');
+                    showAttachments(resultVals[0]["Attachments"], "divReqDocs");
+                    $("#filehidden").val(resultVals[0]["Attachments"]);
+                    $(".fileuploads").hide();
+                    $(".closeImage").hide();
+                    $(".hideButtons").hide();                                                                                               
+                }
+            },
+        });
+
+        $("#dlgInterviewSchedule")[0].showModal();
+    }
+    function closedlg() {
+        $("#dlgInterviewSchedule")[0].close();
+    }
+
+    //function editInterviewSchedule() {
+    //    $('#lblMessage').text("");
+    //    $("#txtCandidateName").attr('disabled', 'disabled');
+    //    $("#txtClientName").attr('disabled', 'disabled');
+    //    $("#txtPostionTitle").attr('disabled', 'disabled');
+        
+    //    $("#ddlInterviewType").attr('disabled', false);
+    //    $("#txtInterviewDate").attr('disabled', false);
+    //    $("#txtInterviewTime").attr('disabled', false);
+    //    $("#txtInterviewLocation").attr('disabled', false);
+    //    $("#txtNote").attr('disabled', false);
+    //   // DefineDatePicker($('#txtInterviewDate'));
+    //    $(".fileuploads").show();
+    //    $(".closeImage").show();
+    //    $(".hideButtons").show();
+    //    $("#btnSaveAndNew").hide();
+    //    $("#btnClear").hide();
+    //}
+    //function updateInerviewSchedule() {
+    //    $('#lblMessage').text("");
+    //    $.ajax({
+    //        url: '/USRecruitment/SaveInterView',
+    //        type: 'POST',
+    //        dataType: 'json',
+    //        data: {
+    //            InterviewId: $("#hdnInterviewLog").val(), Attachments: $("#filehidden").val(), Fk_Interviewtype: $("#ddlInterviewType").val() == "" ? 0 : parseInt($("#ddlInterviewType").val()),
+    //            Fk_SubmissionId: $("#hdnSubmissionId").val(), Fk_TicketStatusId: $("#hdnTicketStatusId").val(), InterviewDate: FormatDate($("#txtInterviewDate").val(), "yyyy/mm/dd"),
+    //            InterviewTime: $('#txtInterviewTime').val(), Note: $('#txtNote').val(), Location: $('#txtInterviewLocation').val(), Operation: 2
+    //        },
+
+    //        success: function (data) {
+    //            //$('#lblMessage').addClass('lblMessage');
+    //            //$('#lblMessage').removeClass('lblError');
+    //            $('#lblMessage').text("Interview Updated successfully");
+    //        },
+    //        error: function () {
+    //            //alert('error');
+    //        }
+    //    });
+
+
+    //}
+    //$('#fileUploadAttachment').change(function () {
+    //    var fileElement = $(this);
+    //    var fileCount = $('#filehidden').val().split('||').length;
+    //    var expDocUpload = fileElement.get(0);
+    //    var expDocFiles = expDocUpload.files;
+    //    if (expDocFiles.length > 0) {
+    //        var uploadedFilePath = "";
+    //        var ExpAttachments = new FormData();
+    //        for (i = 0; i < expDocFiles.length; i++) {
+    //            ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+    //        }
+    //        $.ajax({
+    //            url: '/EmpInfoUserView/UploadFiles',
+    //            type: "POST",
+    //            async: false,
+    //            contentType: false,
+    //            processData: false,
+    //            data: ExpAttachments,
+    //            success: function (result) {
+    //                var json = $.parseJSON(result);
+    //                if (json["Error"] == undefined || json["Error"] == null) {
+    //                    for (var i = 0; i < expDocFiles.length; i++) {
+    //                        $('#filehidden').val($('#filehidden').val() + json[expDocFiles[i].name] + "||");
+    //                        CheckExtension($('.docDiv'), expDocFiles[i].name, json[expDocFiles[i].name],
+    //                            "<a href='#' class='hreflink'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 1);
+    //                        PreventDefaultClick();
+    //                        defineExpUploads();
+    //                    }
+    //                }
+    //            },
+    //            error: function (err) {
+    //            }
+    //        });
+    //        fileElement.val('');
+    //    }
+    //});
+    function showAttachments(attachmentURLs,divId) {
+        attachmentURLs = attachmentURLs.split('||');
+        var docElement = $('#' + divId + '');
+        for (var i = 0; i < (attachmentURLs.length - 1) ; i++) {
+            CheckExtension(docElement, "", attachmentURLs[i], "", null, 1);
+        }
+    }
+    //function defineExpUploads() {
+    //    $('.closeImage').click(function () {
+    //        var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+    //        var divDocuments = $("#divdocuments");
+    //        var docDivs = $('#divReqDocs');
+    //        var hidden = $('#filehidden');
+    //        var value = hidden.val();
+    //        hidden.val(value.replace(filepath + '||', ''));
+    //        $(this).closest('.profilethumbnaildiv').parent().remove();
+    //        if (docDivs.children().length == 0)
+    //            divDocuments.hide();
+    //    });
+    //};
+    function loadClosedInterview() {
+        OffsetVal = ((CurrentPageIdCompleted - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictClosedInterviewArray), Operation: 36, ProjId: 0, TypeId: 1, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#tblIntComp > tbody').children("tr:gt(0)").remove();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCountCompleted = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCountCompleted = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                    disableButtons($('#LSTbtnCTasks'), $('#NXTbtnCTasks'), $('#FRSTbtnCTasks'), $('#PRVbtnCTasks'), PageCountCompleted, CurrentPageIdCompleted);
+                    showAndHidePages(PageCountCompleted, CurrentPageIdCompleted, $('.paginationbtndivComNum > a'), '.pgNumberB');
+                    for (var i = 0; i < resultVals.length; i++) {
+                        $('#tblIntComp').append('<tr class="requestgriddiv2" ><td class="requestgridsubheader"><div class="documentlinkdiv"><a onclick="loadScheduleInterview(' + resultVals[i]["InterviewId"] + ',' + resultVals[i]["FK_SubmissionId"] + ',' + resultVals[i]["FK_TicketStatusId"] + ');" href="#">' +
+                            resultVals[i]["ClientName"] + '</a></div></td><td class="requestgridsubheader" ><div class="documentlinkdiv"><a href="#" class="hreflink" onClick="loadLeadData(\'' + resultVals[i]["name"] + '\',\'' + resultVals[i]["LeadId"] + '\');"">' + resultVals[i]["name"] + '</a></div>' +
+                            '</td><td class="requestgridsubheader"><div class="documentlinkdiv"><a href="#" class="hreflink" onClick="loadOppData(\'' + resultVals[i]["PositionTitle"] + '\',\'' + resultVals[i]["OppId"] + '\')">' +
+                            resultVals[i]["PositionTitle"] + '</a></div></td><td class="requestgridsubheader" >' + resultVals[i]["TypeName"] +
+                            '</td><td class="requestgridsubheader">' + resultVals[i]["Dateandtime"] + '</td><td class="requestgridsubheader">' +
+                            resultVals[i]["Location"] + '</td><td class="requestgridsubheader">' +
+                            resultVals[i]["StatusName"] + '</td><td class="requestgridsubheader">');
+                    }
+                    $('#divPageCTasks').show();
+                    PreventDefaultClick();
+                }
+                else
+                {
+                        $('#divPageCTasks').hide();
+                        $('#tblIntComp').append("<tr><td colspan='9' class='NoRecordsFound'>No Records Found</td></tr>");
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadClosedInterviewFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictClosedInterviewArray), Operation: 36, ProjId: 0, TypeId: 1, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                            CreateCheckBox($('#cbIntCompClientName'), resultVals[i]["ClientName"], 'Field1Xml');
+                            CreateCheckBox($('#cbIntCompCanName'), resultVals[i]["name"], 'Field2Xml');
+                            CreateCheckBox($('#cbIntCompPostTitle'), resultVals[i]["PositionTitle"], 'Field3Xml');
+                            CreateCheckBox($('#cbIntCompIntType'), resultVals[i]["TypeName"], 'Field4Xml');
+                            CreateCheckBox($('#cbIntCompIntDateTime'), resultVals[i]["Dateandtime"], 'Field5Xml');
+                            CreateCheckBox($('#cbIntCompIntLocation'), resultVals[i]["Location"], 'Field6Xml');
+                            CreateCheckBox($('#cbIntCompStatus'), resultVals[i]["StatusName"], 'Field7Xml');
+                            DefineCheckboxClicks();
+                    }
+                    PreventDefaultClick();
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblInterviewOpen')
+                dictTemp = dictOpenInterviewArray;
+            else
+                dictTemp = dictClosedInterviewArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        //SearchVal = CheckExceptionTexts(SearchVal, ColValue, "Field3Xml", "");
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                //SearchVal = CheckExceptionTexts(SearchVal, ColValue, "Field3Xml", "");
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblInterviewOpen') {
+                dictOpenInterviewArray = dictTemp;
+                FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                loadOpenInterview();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            else {
+                dictClosedInterviewArray = dictTemp;
+                FirstButonClick($('.paginationNUMCompbtn'), $('.pgNumberB1'), 'paginationNUM-ACTVbtnComp', 1,
+                'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+                CurrentPageIdCompleted = 1;
+                loadClosedInterview();
+                showAndHidePages(PageCountCompleted, CurrentPageIdCompleted, $('.paginationbtndivComNum > a'), '.pgNumberB');
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    //Pagination OpenInterView
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', PageCount);
+            loadOpenInterview();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadOpenInterview();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadOpenInterview();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadOpenInterview();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadOpenInterview();
+    });
+    //Pagination Closed InterView
+    $('.paginationbtndivComNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMCompbtn').attr("name"));
+            CurrentPageIdCompleted = parseInt($(this).find('.paginationNUMCompbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMCompbtn').text());
+            LoadEachButton($('.paginationNUMCompbtn'), '.pgNumberB', 'paginationNUM-ACTVbtnComp', 'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp', PageCountCompleted);
+            loadClosedInterview();
+            disableButtons($('#LSTbtnCTasks'), $('#NXTbtnCTasks'), $('#FRSTbtnCTasks'), $('#PRVbtnCTasks'), PageCountCompleted, loopVal);
+        });
+    });
+    $("#NXTbtnCTasks").click(function () {
+        CurrentPageIdCompleted = CurrentPageIdCompleted + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtnComp'), $('.paginationNUMMOREtxt-ActiveComp'), $('.paginationNUMMOREtxt1-ActiveComp'));
+        NextButtonClick($('.paginationNUMCompbtn'), $('.pgNumberB' + classId), $('.pgNumberB' + (classId + 1)), 'paginationNUM-ACTVbtnComp', PageCountCompleted,
+        'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+        disableButtons($('#LSTbtnCTasks'), $('#NXTbtnCTasks'), $('#FRSTbtnCTasks'), $('#PRVbtnCTasks'), PageCountCompleted, CurrentPageIdCompleted);
+        loadClosedInterview();
+    });
+    $("#PRVbtnCTasks").click(function () {
+        CurrentPageIdCompleted = CurrentPageIdCompleted - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtnComp'), $('.paginationNUMMOREtxt-ActiveComp'), $('.paginationNUMMOREtxt1-ActiveComp'));
+        prevButtonClick($('.paginationNUMCompbtn'), $('.pgNumberB' + (classId - 1)), $('.pgNumberB' + classId), 'paginationNUM-ACTVbtnComp',
+        'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp', CurrentPageIdCompleted);
+        loadClosedInterview();
+    });
+    $("#FRSTbtnCTasks").click(function () {
+        CurrentPageIdCompleted = 1;
+        FirstButonClick($('.paginationNUMCompbtn'), $('.pgNumberB1'), 'paginationNUM-ACTVbtnComp', CurrentPageIdCompleted,
+        'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+        loadClosedInterview();
+    });
+    $("#LSTbtnCTasks").click(function () {
+        CurrentPageIdCompleted = PageCountCompleted;
+        LastButtonClick($('.paginationNUMCompbtn'), $('.pgNumberB5'), $('.pgNumberB' + CurrentPageIdCompleted), 'paginationNUM-ACTVbtnComp',
+         CurrentPageIdCompleted, 'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+        loadClosedInterview();
+    });
+    function loadLeadData(title, leadId) {
+        var dialogLead = document.getElementById("dlgLead");
+        $('#dlgLead').find('.popupheadingtext')[0].innerText = title;
+        var date = "";
+        $.ajax({
+            url: '/Home/GetSelectData',
+            dataType: "json",
+            type: "GET",
+            data: { Id: leadId, Operation: 42 },
+            success: function (data) {
+                var resultVals = $.parseJSON(data);
+                date = FormatDate(resultVals[0]["DOB"], "mm/dd/yyyy");
+                assignDate = FormatDate(resultVals[0]["AssignedDate"], "mm/dd/yyyy");
+                $("#txtLeadFirstName").val(resultVals[0]["FirstName"]).attr('disabled', true);
+                $("#txtLeadLastName").val(resultVals[0]["LastName"]).attr('disabled', true);
+                $("#txtLeadMobNo").val(resultVals[0]["MobileNo"] == 0 ? "" : resultVals[0]["MobileNo"]).attr('disabled', true);
+                $("#ddlLeadVisaType").val(resultVals[0]["VisaType"]);
+                $("#ddlLeadVisaType").click();
+                $("#ddlLeadVisaType").attr('disabled', true);
+                $("#txtLeadStreet").val(resultVals[0]["Street"]).attr('disabled', true);
+                $("#txtLeadCity").val(resultVals[0]["City"]).attr('disabled', true);
+                $("#txtLeadState").val(resultVals[0]["State"]).attr('disabled', true);
+                $("#txtLeadCountry").val(resultVals[0]["Country"]).attr('disabled', true);
+                $("#txtLeadZip").val(resultVals[0]["Zip"] == 0 ? "" : resultVals[0]["Zip"]).attr('disabled', true);
+                $("#txtLeadDob").val(date != "01/01/1753" ? date : "").attr('disabled', true);
+                $("#ddlLeadGender").val(resultVals[0]["Gender"]);
+                $("#ddlLeadGender").click();
+                $("#ddlLeadGender").attr('disabled', true);
+                $("#txtLeadEmail").val(resultVals[0]["EmailId"]).attr('disabled', true);
+                $("#ddlLeadEmpType").val(resultVals[0]["EmployeeType"]);
+                $("#ddlLeadEmpType").click();
+                $("#ddlLeadEmpType").attr('disabled', true);
+                $("#txtLeadExperience").val(resultVals[0]["ExperienceInMonths"] != "" ? resultVals[0]["ExperienceInMonths"] : "").attr('disabled', true);
+                $("#txtLeadQualification").val(resultVals[0]["HighestQualification"]).attr('disabled', true);
+                $("#txtLeadCurrentEmployer").val(resultVals[0]["CurrentEmployer"]).attr('disabled', true);
+                $("#txtLeadCurrentDesignation").val(resultVals[0]["CurrentDesignation"]).attr('disabled', true);
+                $("#txtLeadCurrentCtc").val(resultVals[0]["CurrentCTC"]).attr('disabled', true);
+                $("#txtLeadCurrentLocation").val(resultVals[0]["CurrentLocation"]).attr('disabled', true);
+                $("#ddlLeadType").val(resultVals[0]["LeadType"]);
+                $("#ddlLeadType").click();
+                $("#ddlLeadType").attr('disabled', true);
+                $("#txtLeadRate").val(resultVals[0]["Rate"] == 0 ? "" : resultVals[0]["Rate"]).attr('disabled', true);
+                $("#txtLeadHours").val(resultVals[0]["Hours"] != "" ? resultVals[0]["Hours"] : "").attr('disabled', true);
+                $("#ddlLeadEmployeementType").val(resultVals[0]["EmploymentType"]);
+                $("#ddlLeadEmployeementType").click();
+                $("#ddlLeadEmployeementType").attr('disabled', true);
+                $("#txtLeadSource").val(resultVals[0]["Source"]).attr('disabled', true);
+                $("#txtLeadCreatedBy").val(resultVals[0]["CreatedBy"]).attr('disabled', true);
+                $("#txtLeadCreatedDate").val(FormatDate(resultVals[0]["CreatedDate"], "mm/dd/yyyy")).attr('disabled', true);
+                $("#txtLeadAssignedDate").val(assignDate != "01/01/1753" ? assignDate : "").attr('disabled', true);
+                $("#txtLeadNote").val(resultVals[0]["Note"]).attr('disabled', true);
+                $('#divLeadReqDocs').empty();
+                showAttachments(resultVals[0]["Attachments"], "divLeadReqDocs");
+                getTextAreaData(leadId, "view");
+                $(".competancy").attr('disabled', true);
+                $('#txtLeadSkills').hide();
+                $('#txtLeadCertifications').hide();
+                $('#txtLeadTechnologies').hide();
+            },
+            error: function (err) {
+            }
+        });
+        dialogLead.showModal();
+    }
+    function getTextAreaData(LeadId, mode) {
+        $("#lstLeadSkills").empty();
+        $("#lstLeadTechnologies").empty();
+        $("#lstLeadCertifications").empty();
+        $.ajax({
+            url: '/Home/GetEmpData',
+            dataType: "json",
+            type: "GET",
+            data: { Id: LeadId, Operation: 87 },
+            success: function (data) {
+                var resultSet = $.parseJSON(data);
+                if (resultSet["Result"] == undefined || resultSet["Result"] == null) {
+                    var listObject = "";
+                    for (var i = 0; i < resultSet.length; i++) {
+                        if (resultSet[i]["Skills"] != "") {
+                            if (resultSet[i]["TypeId"] == 1) {
+                                listObject = $("#lstLeadSkills");
+                            }
+                            else if (resultSet[i]["TypeId"] == 2) {
+                                listObject = $("#lstLeadTechnologies");
+                            }
+                            else if (resultSet[i]["TypeId"] == 3) {
+                                listObject = $("#lstLeadCertifications");
+                            }
+                            if (listObject != undefined) {
+                                listObject.append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; " +
+                       "min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + resultSet[i]["Skills"] +
+                        "</label></div><div id='closeButton' style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                        "<a title='Close' class='hreflink' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'></a></div></div>");
+                            }
+                        }
+                    }
+                    PreventDefaultClick();
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadOppData(title, OppId) {
+        var dialogSub = document.getElementById("dlgOpportunityData");
+        $('.docDiv').empty();
+        $('#listPrimarySkills').empty();
+        $('#listSecondarySkills').empty();
+        $('#listReqDoc').empty();
+        var listObject = "";
+        DefineCompetancies($("#listPrimarySkills"), $('#txtPrimarySkills'));
+        DefineCompetancies($("#listSecondarySkills"), $('#txtSecondarySkills'));
+        DefineCompetancies($("#listReqDoc"), $('#txtReqDoc'));
+        DefineDatePicker($('#txtTargetDate'));
+        $.ajax({
+            url: '/Home/GetSelectData',
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            data: { Id: OppId, Operation: 41 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#dlgOpportunityData').find('.popupheadingtext')[0].innerText = resultVals[0]["PositionTitle"];
+                $("#txtOppClient").val(resultVals[0]["ClientName"]).attr('disabled', true);
+                $("#txtContPerson").val(resultVals[0]["ContactPerson"]).attr('disabled', true);
+                $("#txtLocation").val(resultVals[0]["Location"]).attr('disabled', true);
+                $("#txtNoOpen").val(resultVals[0]["NoOfOpenings"]).attr('disabled', true);
+                $("#txtStreet").val(resultVals[0]["Street"]).attr('disabled', true);
+                $("#txtCity").val(resultVals[0]["City"]).attr('disabled', true);
+                $("#txtState").val(resultVals[0]["State"]).attr('disabled', true);
+                $("#txtZip").val(resultVals[0]["ZipCode"]).attr('disabled', true);
+                $("#txtContact1").val(resultVals[0]["Contact1"]).attr('disabled', true);
+                $("#txtContact2").val(resultVals[0]["Contact2"]).attr('disabled', true);
+                $("#txtEmail").val(resultVals[0]["Email"]).attr('disabled', true);
+                $("#txtFax").val(resultVals[0]["Fax"]).attr('disabled', true);
+                $("#txtWorkExp").val(resultVals[0]["WorkExperience"]).attr('disabled', true);
+                $("#txtOppRate").val(resultVals[0]["Rate"] == 0 ? "" : resultVals[0]["Rate"]).attr('disabled', true);
+                $("#txtHours").val(resultVals[0]["Hours"] == 0 ? "" : resultVals[0]["Hours"]).attr('disabled', true);
+                $("#txtProfileType").val(resultVals[0]["ProfileType"]).attr('disabled', true);
+                $("#txtTargetDate").val(FormatDate(resultVals[0]["TargetDate"], "mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[0]["TargetDate"], "mm/dd/yyyy")).attr('disabled', true);
+                $("#txtOppNote").val(resultVals[0]["Note"]).attr('disabled', true);
+                $("#txtJobDes").val(resultVals[0]["JobDescription"]).attr('disabled', true);
+                $("#txtPosTitle").val(resultVals[0]["PositionTitle"]).attr('disabled', true);
+                $("#txtWebsite").val(resultVals[0]["Website"]).attr('disabled', true);
+                $("#ddlPosType").val(resultVals[0]["FK_PositionType"]).attr('disabled', true);
+                $("#ddlIndustry").val(resultVals[0]["FK_Industry"]).attr('disabled', true);
+                $("#txtCountry").val(resultVals[0]["Country"]).attr('disabled', true);
+                $('#ddlPosType').click();
+                $("#ddlIndustry").click();
+                $("#txtCreatedDate").val(FormatDate(resultVals[0]["CreatedDate"], "mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[0]["CreatedDate"], "mm/dd/yyyy")).attr('disabled', true);
+                $("#txtLastUpdate").val(FormatDate(resultVals[0]["ModifiedDate"], "mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[0]["ModifiedDate"], "mm/dd/yyyy")).attr('disabled', true);
+                $('#txtPrimarySkills').hide();
+                $("#txtCreatedBy").val(resultVals[0]["CreatedBy"]).attr('disabled', true);;
+                $("#txtOppStatus").val(resultVals[0]["OpportunityStatus"]).attr('disabled', true);;
+                $('#filehidden').val(resultVals[0]["Attachments"]);
+                $('#txtSecondarySkills').hide();
+                $('#divOppReqDocs').empty();
+                $('#txtReqDoc').hide();
+                showAttachments(resultVals[0]["Attachments"], "divOppReqDocs");
+
+                $.ajax({
+                    url: '/Home/GetSelectData',
+                    type: "GET",
+                    async: false,
+                    dataType: 'json',
+                    data: { Id: OppId, Operation: 44 },
+                    success: function (result) {
+                        var resultVals = $.parseJSON(result);
+                        if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                            for (var i = 0; i < resultVals.length; i++) {
+                                if (resultVals[i]["Skills"] != "") {
+                                    if (resultVals[i]["TypeId"] == false)
+                                        listObject = $("#listPrimarySkills");
+                                    else
+                                        listObject = $("#listSecondarySkills");
+                                    if (listObject != undefined)
+                                        listObject.append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; " +
+                               "min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + resultVals[i]["Skills"] +
+                                "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                "</div></div>");
+                                }
+                            }
+                        }
+                        $.ajax({
+                            url: '/Home/GetSelectData',
+                            type: "GET",
+                            async: false,
+                            dataType: 'json',
+                            data: { Id: OppId, Operation: 43 },
+                            success: function (result) {
+                                var resultVals = $.parseJSON(result);
+                                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                                    for (var i = 0; i < resultVals.length; i++) {
+                                        if (resultVals[i]["DocType"] != "") {
+                                            listObject = $("#listReqDoc");
+                                            if (listObject != undefined)
+                                                listObject.append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; " +
+                                       "min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + resultVals[i]["DocType"] +
+                                        "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                        "</div></div>");
+                                        }
+                                    }
+                                }
+
+                            },
+                            error: function (err) {
+                            }
+                        });
+                    },
+                    error: function (err) {
+                    }
+                });
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+        dialogSub.showModal();
+    }
+    function defineExpUploads() {
+    };
+</script>

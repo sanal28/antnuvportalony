@@ -1,0 +1,429 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/poll-details-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Poll Details Log</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv">
+
+        <div class="myprojectdiv">
+
+           <a class="backbuttondiv" href="@Url.Action("Home","Home")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="requestgridmaindiv">
+
+                    <table id="tblPollDetailsLog" width="100%" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                        <tbody>
+                            <tr class="requestgriddiv">
+                                @*<td class="requestgridheader" width="20%">End Date</td>
+                                    <td class="requestgridheader" width="60%">Title</td>*@
+                                <td class="requestgridheader" width="30%">
+                                    End Date
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field1Xml" id="cbOffPollEndDate" name="enddate" style="width:320px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbHROffPoll2" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbHROffPoll2" name='Field1Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="30%">
+                                    Title
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field2Xml" id="cbOffPollTitle" name="title" style="width:320px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbHROffPoll1" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbHROffPoll1" name='Field2Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="30%">Result</td>
+                                <td class="requestgridheader" width="3%"><a href="#" id="hrefOfficePollLogClearFilter"><img title="Clear" src="../images/ClearFilter.jpg" width="16" height="16" alt="" /></a></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="paginationmaindiv" id="divPagePollDetails" style="display:none">
+                        <div class="paginationsubdiv">
+                            <div class="paginationbtndiv" id="FRSTbtnPollDetails" title="First">
+                                <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="PRVbtnPollDetails" title="Previous">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="NXTbtnPollDetails" title="Next">
+                                <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="LSTbtnPollDetails" title="Last">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <dialog id="dlgPollDetailsResults" style="width:70%;background: transparent;top: 25%;left: 5%;border: none;">
+            <div class="questionPopupmaindiv">
+
+                <div class="popupheadingmaindiv">
+                    <div class="popupheadingtext">Poll Details</div>
+                    <div class="popupclosebutton"><a href="#" onclick="closePollResults();">X</a></div>
+                </div>
+                <div class="Popupcontentmaindiv">
+                    <div class="pollresultsdiv">
+                    </div>
+                </div>
+
+
+            </div>
+
+        </dialog>
+    </div>
+</div>
+<script>
+    var dictPollDetails = {};
+    var IsPrimaryLoad = true;
+    var CurrentPageId = 1;
+    var RowCount = 10;
+    var PageCount = 0;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    $(document).ready(function () {
+        hideFilter();
+        dictPollDetails = { "Field1Xml": "", "Field2Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        loadPollDetails();
+        loadPollDetailsFilter();
+        $('#hrefOfficePollLogClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictPollDetails = { "Field1Xml": "", "Field2Xml": "" };
+            FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            loadPollDetails();
+            showPages($('.paginationbtndivNum > a'), '.pgNumber', 1);
+        });
+    });
+    function closePollResults() {
+        $('#dlgPollDetailsResults')[0].close();
+    }
+    function loadPollDetails() {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictPollDetails), Operation: 23, ProjId: 0, TypeId: 1, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#tblPollDetailsLog > tbody').children("tr:gt(0)").remove();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCount = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10  ) + 1;
+                    disableButtons($('#LSTbtnPollDetails'), $('#NXTbtnPollDetails'), $('#FRSTbtnPollDetails'), $('#PRVbtnPollDetails'), PageCount,
+                        CurrentPageId, $('.paginationNUM-ACTVbtn'));
+                    showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                    for (var i = 0; i < resultVals.length; i++) {
+                        $('#tblPollDetailsLog').append('<tr class="requestgriddiv2" > ' +
+                                    '<td class="requestgridsubheader">' + FormatDate(resultVals[i]["Date"], "mm/dd/yyyy") + '</td>' +
+                                    '<td class="requestgridsubheader">' + resultVals[i]["Title"] + '</td>' +
+                                    '<td class="requestgridsubheader"><div class="documentlinkdiv"><a  onclick="viewPollResult(' + resultVals[i]["QuestionId"] + ',' + resultVals[i]["FK_QuestionTypeId"] + ',' + resultVals[i]["PublishTypeId"] + ')"href="#">Result</a></div></td><td class="requestgridsubheader"></td></tr>');
+                    }
+                    $('#divPagePollDetails').show();
+                }
+                else
+                {
+                        $('#divPagePollDetails').hide();
+                        $('#tblPollDetailsLog').append("<tr><td colspan='4' class='NoRecordsFound'>No Records Found</td></tr>");
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadPollDetailsFilter() {
+        $.ajax({
+            url: '/HR/loadPollDetails',
+            type: "GET",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictPollDetails), Operation: 23, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                            CreateCheckBox($('#cbOffPollEndDate'), FormatDate(resultVals[i]["Date"], "mm/dd/yyyy"), 'Field1Xml');
+                            CreateCheckBox($('#cbOffPollTitle'), resultVals[i]["Title"], 'Field2Xml');
+                            DefineCheckboxClicks();
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblPollDetailsLog')
+                dictTemp = dictPollDetails;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblPollDetailsLog') {
+                dictPollDetails = dictTemp;
+                FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                loadPollDetails();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+
+    function viewPollResult(QuestionId, QuestionTypeID, PublishedTypeId) {
+        if (QuestionTypeID == 1) {//txtbox
+            $.ajax({
+                url: '/HR/getPollResults',
+                type: "GET",
+                dataType: 'json',
+                data: { qId: QuestionId, Operation: 67 },
+                success: function (result) {
+                    $('.pollresultsdiv').empty();
+                    var Option = "";
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        for (var i = 0; i < resultVals.length; i++) {
+                            Option = Option + "<div class='row'>" +
+                                             "<div class='col-sm-4'>" +
+                                                "<p>" + resultVals[i]["OptionText"] + "</p>" +
+                                             "</div>" +
+                                         "</div>";
+                        }
+                        $('.pollresultsdiv').append("<div class='row'><div class='col-sm-8'> <p>" + resultVals[0]['Question'] + "</p></div></div>" + Option);
+                        //$('.pollresultsdiv').append(Option);
+                    }
+                    $('#dlgPollDetailsResults')[0].showModal();
+                },
+                error: function (err) {
+                }
+            });
+        }
+        else {//chkbox,ddl,radio
+            if (PublishedTypeId == 1)//Complete Result O-64
+            {
+                $.ajax({
+                    url: '/HR/getPollResults',
+                    type: "GET",
+                    dataType: 'json',
+                    data: { qId: QuestionId, Operation: 64 },
+                    success: function (result) {
+                        var resultVals = $.parseJSON(result);
+                        if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                            $('.pollresultsdiv').empty();
+                            var Percentage = 0;
+                            var PercentageCount = 0;
+                            var Option = "";
+                            for (var i = 0; i < resultVals.length; i++) {
+                                Percentage = (resultVals[i]["ResultCount"] * 100) / resultVals[i]["Total"];
+                                PercentageCount = resultVals[i]["ResultCount"];
+                                Option = Option + "<div class='row'>" +
+                                                     "<div class='col-sm-4'>" +
+                                                        "<p>" + resultVals[i]["OptionText"] + "</p>" +
+                                                     "</div>" +
+                                                     "<div class='col-sm-8'>" +
+                                                         "<div class='pollresultsProgressdiv'>" +
+                                                             "<div class='row'>" +
+                                                             "<div class='col-sm-10'><div class='prgsbackgroundresults'> <div class='prgspercentresults' style='width:" + Percentage + "%;'></div></div></div>" +
+                                                             "<div class='col-sm-2'><div class='prgspercenttext'>" + PercentageCount + "</div></div>" +
+                                                         "</div>" +
+                                                        " </div>" +
+                                                    " </div>" +
+                                                 "</div>";
+                            }
+                            $('.pollresultsdiv').append("<div class='row'><div class='col-sm-4'> <p>" + resultVals[0]['Question'] + "</p></div></div>" + Option);
+                            $('#dlgPollDetailsResults')[0].showModal();
+                        }
+                    },
+                    error: function (err) {
+                    }
+                });
+            }
+            else {//Max Vote & No Of Votes-65
+                $.ajax({
+                    url: '/HR/getPollResults',
+                    type: "GET",
+                    dataType: 'json',
+                    data: { qId: QuestionId, Operation: 65 },
+                    success: function (result) {
+                        $('.pollresultsdiv').empty();
+                        var Option = "";
+                        var resultVals = $.parseJSON(result);
+                        if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                            // for (var i = 0; i < resultVals.length; i++) {
+                            if (PublishedTypeId == 2) {
+                                Option = Option + "<div class='row'>" +
+                                                 "<div class='col-sm-4'>" +
+                                                    "<p>" + resultVals[0]["OptionText"] + "</p>" +
+                                                 "</div>" +
+                                                // "<div class='col-sm-8'>" +
+                                                //     "<p>" + resultVals[i]["Total"] + "</p>" +
+                                                //" </div>" +
+                                             "</div>";
+                            }
+                            if (PublishedTypeId == 3) {
+                                Option = Option + "<div class='row'>" +
+                                                 "<div class='col-sm-4'>" +
+                                                    "<p>" + resultVals[0]["OptionText"] + "</p>" +
+                                                 "</div>" +
+                                                 "<div class='col-sm-8'>" +
+                                                     "<p>" + resultVals[0]["ResultCount"] + "</p>" +
+                                                " </div>" +
+                                             "</div>";
+                            }
+                            // }
+                            $('.pollresultsdiv').append("<div class='row'><div class='col-sm-8'> <p>" + resultVals[0]['Question'] + "</p></div></div>" + Option);
+                        }
+
+                        $('#dlgPollDetailsResults')[0].showModal();
+                    },
+                    error: function (err) {
+                    }
+                });
+            }
+        }
+    }
+    //Pagination PollDetails
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', PageCount);
+            loadPollDetails();
+            disableButtons($('#LSTbtnPollDetails'), $('#NXTbtnPollDetails'), $('#FRSTbtnPollDetails'), $('#FRSTbtnPollDetails'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtnPollDetails").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtnPollDetails'), $('#NXTbtnPollDetails'), $('#FRSTbtnPollDetails'), $('#PRVbtnPollDetails'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadPollDetails();
+    });
+    $("#PRVbtnPollDetails").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtnPollDetails'), $('#NXTbtnPollDetails'), $('#FRSTbtnPollDetails'), $('#PRVbtnPollDetails'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadPollDetails();
+    });
+    $("#FRSTbtnPollDetails").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtnPollDetails'), $('#NXTbtnPollDetails'), $('#FRSTbtnPollDetails'), $('#PRVbtnPollDetails'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadPollDetails();
+    });
+    $("#LSTbtnPollDetails").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtnPollDetails'), $('#NXTbtnPollDetails'), $('#FRSTbtnPollDetails'), $('#PRVbtnPollDetails'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadPollDetails();
+    });
+</script>

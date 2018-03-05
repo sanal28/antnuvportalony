@@ -1,0 +1,997 @@
+﻿
+@{
+    ViewBag.Title = "InvoiceLog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<dialog id="dlgOpportunityData" class="popupmaindiv" style="width:70%;background: transparent;left: 10%;border: none;margin:-150px 0px 0px 112px;background-color:rgba(67, 116, 136, 0.8) !important;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext"></div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="$('#dlgOpportunityData')[0].close();">X</a></div>
+            </div>
+            <div style="overflow-y:auto;overflow-x:hidden;max-height:570px;">
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="space"></div>
+                        <div id="divOpportunity">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input type="hidden" id="hdnOppId" value="" />
+                                        <input id="txtOppStatus" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Opportunity Status</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppLastUpdate" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Last updated</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppCreatedBy" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Created By</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppCreatedDate" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Created Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppClient" class="floating-input vinput" type="text" placeholder=" ">
+                                        <label class="float">Client Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppContPerson" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Contact Person</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppLocation" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Locations</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppNoOpen" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">No. of Openings</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppStreet" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Street</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppCity" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">City</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppState" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">State</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppCountry" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Country</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppZip" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Zip</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppContact1" class="floating-input vphone" type="text" placeholder=" ">
+                                        <label class="float">Contact 1</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppContact2" class="floating-input vphone" type="text" placeholder=" ">
+                                        <label class="float">Contact 2</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppEmail" class="floating-input vemail" type="text" placeholder=" ">
+                                        <label class="float">Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppFax" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Fax</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppWebsite" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Website</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppPosTitle" class="floating-input vinput" type="text" placeholder=" ">
+                                        <label class="float">Position Title</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppWorkExp" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Work Experience</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppRate" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Rate</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppHours" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Hours</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <select id="ddlOppPosType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                        </select>
+                                        <label class="float">Position Type</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppProfileType" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Profile Type</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <select id="ddlOppIndustry" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                        </select>
+                                        <label class="float">Industry</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtOppTargetDate" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Target Date</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <div class="weeklytext">Primary Skills</div>
+                                        <div class="contenttextarea">
+                                            <div id="listOppPrimarySkills" class="list competancylist"></div><input type="text" class="competancy" id="txtOppPrimarySkills" placeholder="+ Click to Add" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <div class="weeklytext">Secondary Skills</div>
+                                        <div class="contenttextarea">
+                                            <div id="listOppSecondarySkills" class="list competancylist"></div><input type="text" class="competancy" id="txtOppSecondarySkills" placeholder="+ Click to Add" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <div class="weeklytext">Required Documents</div>
+                                        <div class="contenttextarea">
+                                            <div id="listOppReqDoc" class="list competancylist"></div><input type="text" class="competancy" id="txtOppReqDoc" placeholder="+ Click to Add" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <textarea id="txtOppNote" class="floating-input floating-textarea" placeholder=" "></textarea>
+                                        <label class="float">Note</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <textarea id="txtOppJobDes" class="floating-input floating-textarea" placeholder=" "></textarea>
+                                        <label class="float">Job Description</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="weeklyoffmaindiv divdocuments">
+                                    <div class="workstarttimediv" style="max-height:50px;">
+                                        <div class="row">
+                                            <div id="divOppReqDocs" class="docDiv">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<dialog id="dlgInvoiceForm" class="popupmaindiv" style="width:70%;background: transparent;left: 8%;border: none;margin:-150px 0px 0px 112px;background-color:rgba(67, 116, 136, 0.8) !important;">
+    <div class="popupmaindiv"  style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext"></div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="closeDlgInvoiceForm();">X</a></div>
+            </div>
+            <div style="overflow-y:scroll;overflow-x:hidden;height:auto;">
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtName" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtEmail" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtTerms" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Terms</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <select id="ddlBillingCycle" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                @*<option value="1">Cycle1</option>*@
+                                <option value=""></option>
+                            </select>
+                            <label class="float">Billing Cycle</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtStreet" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Street</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtCity" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">City</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtState" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">State</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtCountry" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Country</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtZip" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Zip</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <div class="weeklytext">Cc List</div>
+                            <div class="contenttextarea" id="divCCList">
+                                <div id="listCcList" class="list competancylist"></div><input type="text" class="competancy" id="txtCcList" placeholder="+ Click to Add" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space"></div>
+                <div id="divContacts">
+                    <div class="popupheadingmaindiv">
+                        <div class="popupheadingtext">Contact  Details</div>
+                    </div>
+                    <div class="space"></div>
+                    <table style="width:100%" id="tblInvoiceDetails">
+                        <tbody id="tbyNewClient">
+                            <tr id="tr1">
+                                <td>
+                                    <div class="academicaddmaindiv">
+                                    </div>
+                                    <div class="space"></div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="contentfielddiv">
+                                                <input id="txtCDName" class="floating-input" type="text" placeholder=" ">
+                                                <label class="float">Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="contentfielddiv">
+                                                <input id="txtCDEmail" class="floating-input" type="text" placeholder=" ">
+                                                <label class="float">Email</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="contentfielddiv">
+                                                <input id="txtCDTerms" class="floating-input" type="text" placeholder=" ">
+                                                <label class="float">Terms</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="contentfielddiv">
+                                                <select id="ddlContactType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                                    <option value=""></option>
+                                                </select>
+                                                <label class="float">Contact Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="contentfielddiv">
+                                                <input id="txtCDStreet" class="floating-input" type="text" placeholder=" ">
+                                                <label class="float">Street</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="contentfielddiv">
+                                                <input id="txtCDCity" class="floating-input" type="text" placeholder=" ">
+                                                <label class="float">City </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="contentfielddiv">
+                                                <input id="txtCDState" class="floating-input" type="text" placeholder=" ">
+                                                <label class="float">State</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="contentfielddiv">
+                                                <input id="txtCDCountry" class="floating-input" type="text" placeholder=" ">
+                                                <label class="float">Country</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="contentfielddiv">
+                                                <input id="txtCDZip" class="floating-input" type="text" placeholder=" ">
+                                                <label class="float">Zip </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="contentfielddiv">
+                                                <input id="txtCDPhone" class="floating-input" type="text" placeholder=" ">
+                                                <label class="float">Phone</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ErrorLabel">
+                    <label id="lblMessage" class="lblMessage"></label>
+                </div>
+            </div>
+        </div>
+        </div>
+</dialog>
+<div>
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv">
+                        <div class="mainheadericon">
+                            <img src="~/Images/invoice-sm.png" width="45" height="45" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="mainheaderdiv">Invoice</div>
+                </div>
+                <div class="col-sm-5">
+                </div>
+            </div>
+        </div>
+        <div class="contentmaindiv">
+            <div class="myprojectdiv">
+                    <a class="backbuttondiv" href="@Url.Action("Home", "USRecruitment")">
+                        <img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" />
+                    </a>
+            </div>
+            <div class="space"></div>
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Invoice</div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="requestgridmaindiv">
+                        <table width="100%" id="tblInvoice" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                            <tr class="requestgriddiv">
+                                <td class="requestgridheader" width="11%">
+                                    Candidate Name
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field1Xml" id="cbCandidateName" name="invoicedate" style="width:210px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbInvoice1" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbInvoice1" name='Field1Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="12%">
+                                    Client Name
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field2Xml" id="cbClientName" name="candidatename" style="width:230px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbInvoice2" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbInvoice2" name='Field2Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="14%">
+                                    Position Title
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field3Xml" id="cbPositionTitle" name="clientname" style="width:270px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbInvoice3" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbInvoice3" name='Field3Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="12%">
+                                    Terms
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field4Xml" id="cbTerms" name="status" style="width:230px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbInvoice4" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbInvoice4" name='Field4Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>                                
+                                <td class="requestgridheader" width="3%" colspan="3">
+                                    <a href="#" id="hrefInvoiceClearFilter">
+                                        <img title="Clear" src="../images/ClearFilter.jpg" width="14" height="14" alt="" />
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="paginationmaindiv" id="divPage" style="display:none">
+                            <div class="paginationsubdiv">
+                                <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                    <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                    <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                    <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                    <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var IsPrimaryLoad = true;
+    var dictInvoice = {};
+    var CurrentPageId = 1;
+    var RowCount = 10;
+    var PageCount = 0;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    dictInvoice = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "" };
+    $(document).ready(function () {
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+        hideFilter();
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        LoadInvoice();
+        LoadInvoiceFilter();
+        $('#hrefInvoiceClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictInvoice = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "" };
+            FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            LoadInvoice();
+            showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+        });
+        LoadDdls("/USRecruitment/GetIndustry", $('#ddlOppIndustry'), "IndustryId", "IndustryName");
+        LoadDdls("/USRecruitment/GetPositionType", $('#ddlOppPosType'), "TypeId", "TypeName");
+        PreventDefaultClick();
+    });
+    function closeDlgInvoiceForm() {
+        $('#dlgInvoiceForm')[0].close();
+        $("#ddlBillingCycle").empty();
+    }
+    function LoadInvoice()
+    {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+            $.ajax({
+                url: '/Home/GetGridData',
+                type: "POST",
+                dataType: 'json',
+                data: { jsonData: JSON.stringify(dictInvoice), Operation: 40, ProjId: 0, TypeId: 1, OffSet: OffsetVal, RowCount: RowCount },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    $('#tblInvoice > tbody').children("tr:gt(0)").remove();
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                            PageCount = resultVals[0]["TotalRowCount"] / 10;
+                        else
+                            PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+                        showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                        for (var i = 0; i < resultVals.length; i++) {
+                            InvoiceDate = FormatDate(resultVals[i]["CreatedDate"], "mm/dd/yyyy");
+                            $('#tblInvoice').append('<tr class="requestgriddiv2" ><td class="requestgridsubheader"><div class="documentlinkdiv"><a class="hreflink" href="#" onClick="loadInvoiceData(\'' + resultVals[i]["InvoiceId"] + '\')">' +
+                            resultVals[i]["CandidateName"] + '</a></div></td><td class="requestgridsubheader" >' + resultVals[i]["ClientName"] + '</td>' +
+                                '<td class="requestgridsubheader"><div class="documentlinkdiv"><a href="#" class="hreflink" onClick="loadOppData(\'' + resultVals[i]["PositionTitle"] + '\',\'' + resultVals[i]["OppId"] + '\')"">' + resultVals[i]["PositionTitle"] + '</a></div></td><td class="requestgridsubheader" > ' + resultVals[i]["Terms"] + '</td>' +
+                                '<td class="requestgridsubheader"></td></tr>');
+                        }
+                        $('#divPage').show();
+                        PreventDefaultClick();
+                    }
+                    else
+                    {
+                            $('#divPage').hide();
+                            $('#tblInvoice').append("<tr><td colspan='8' class='NoRecordsFound'>No Records Found</td></tr>");
+                    }
+                },
+                error: function (err) {
+                }
+            });
+    }
+    function LoadInvoiceFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictInvoice), Operation: 40, ProjId: 0, TypeId: 1, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (IsPrimaryLoad) { //condition to load checkbox only in first load, not in searched data load
+                            CreateCheckBox($('#cbCandidateName'), resultVals[i]["CandidateName"], 'Field1Xml');
+                            CreateCheckBox($('#cbClientName'), resultVals[i]["ClientName"], 'Field2Xml');
+                            CreateCheckBox($('#cbPositionTitle'), resultVals[i]["PositionTitle"], 'Field3Xml');
+                            CreateCheckBox($('#cbTerms'), resultVals[i]["Terms"], 'Field4Xml');
+                            DefineCheckboxClicks();
+                        }
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblInvoice')
+                dictTemp = dictInvoice;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblInvoice') {
+                dictInvoice = dictTemp;
+                FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                LoadInvoice();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    function loadInvoiceData(InvoiceId)
+    {
+        var dialog = document.getElementById('dlgInvoiceForm');
+        $.ajax({
+            url: '/Home/GetSelectData',
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            data: { Id: InvoiceId, Operation: 50 },
+            success: function (result) {
+                $("#ddlBillingCycle").empty();
+                $('#listCcList').empty();
+                var resultVals = $.parseJSON(result);
+                var rowObject;
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    $('#dlgInvoiceForm').find('.popupheadingtext')[0].innerText = "Invoice Details - " + resultVals[0]["LeadName"];
+                    $("#txtName").val(resultVals[0]["Name"]).attr('disabled', true);
+                    $("#txtTerms").val(resultVals[0]["Terms"]).attr('disabled', true);
+                    $("#txtEmail").val(resultVals[0]["Email"]).attr('disabled', true);
+                    if (resultVals[0].BillingCycleType != null) {
+                        $('#ddlBillingCycle').append($('<option></option>').val(0).html(resultVals[0].BillingCycleType));
+                        $("#ddlBillingCycle option:contains(" + resultVals[0]["BillingCycleType"] + ")").attr('selected', 'selected');
+                        $('#ddlBillingCycle').click();
+                    }
+                        $('#ddlBillingCycle').attr('disabled', 'disabled');
+                    
+                    $("#txtStreet").val(resultVals[0]["Street"]).attr('disabled', true);
+                    $("#txtCity").val(resultVals[0]["City"]).attr('disabled', true);
+                    $("#txtState").val(resultVals[0]["State"]).attr('disabled', true);
+                    $("#txtCountry").val(resultVals[0]["Country"]).attr('disabled', true);
+                    $("#txtZip").val(resultVals[0]["Zip"]).attr('disabled', true);
+                    
+                    if (resultVals[0]["CcList"] !="")
+                    {
+                        for (i = 0; i < resultVals[0]["CcList"].split('|').length - 1; i++) {
+                            $('#listCcList').append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; " +
+                            "min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + resultVals[0]["CcList"].split('|')[i] +
+                            "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '></div>" +
+                            "</div>");
+                        }
+                    }
+                    $('#txtCcList').hide();
+                }
+            },
+            error: function (err) {
+            }
+        });
+        $.ajax({
+            url: '/Home/GetSelectData',
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            data: { Id: InvoiceId, Operation: 51 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                var rowObject;
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (i > 0) {
+                            addRow($('#tblInvoiceDetails'), $('lblMessage'));
+                        }
+                        rowObject = $('#tblInvoiceDetails').find("tr:nth-child(" + (i + 1) + ")");
+                        rowObject.find('#txtCDName').val(resultVals[i]["Name"]).attr('disabled', true);
+                        rowObject.find('#txtCDEmail').val(resultVals[i]["Email"]).attr('disabled', true);
+                        rowObject.find('#txtCDTerms').val(resultVals[i]["Terms"]).attr('disabled', true);
+                        rowObject.find('#txtCDStreet').val(resultVals[i]["Street"]).attr('disabled', true);
+                        rowObject.find('#txtCDCity').val(resultVals[i]["City"]).attr('disabled', true);
+                        rowObject.find('#txtCDState').val(resultVals[i]["State"]).attr('disabled', true);
+                        rowObject.find('#txtCDCountry').text(resultVals[i]["Country"]).attr('disabled', true);
+                        rowObject.find('#txtCDZip').val(resultVals[i]["Zip"]).attr('disabled', true);
+                        rowObject.find('#ddlContactType').val(resultVals[i]["FK_ContractType"]).attr('disabled', true);
+                        rowObject.find('#txtCDPhone').val(resultVals[i]["Phone"]).attr('disabled', true);
+                    }
+                }
+                else
+                    $('#divContacts').hide();
+
+            },
+            error: function (err) {
+            }
+        });
+        dialog.showModal();
+    }
+    //Pagination InvoiceLog
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', PageCount);
+            LoadInvoice();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        LoadInvoice();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        LoadInvoice();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        LoadInvoice();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        LoadInvoice();
+    });
+    function loadOppData(title, OppId) {
+        var dialogSub = document.getElementById("dlgOpportunityData");
+        $('.docDiv').empty();
+        $('#listOppPrimarySkills').empty();
+        $('#listOppSecondarySkills').empty();
+        $('#listOppReqDoc').empty();
+        var listObject = "";
+        DefineCompetancies($("#listOppPrimarySkills"), $('#txtOppPrimarySkills'));
+        DefineCompetancies($("#listOppSecondarySkills"), $('#txtOppSecondarySkills'));
+        DefineCompetancies($("#listOppReqDoc"), $('#txtOppReqDoc'));
+        DefineDatePicker($('#txtOppTargetDate'));
+        $.ajax({
+            url: '/Home/GetSelectData',
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            data: { Id: OppId, Operation: 41 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#dlgOpportunityData').find('.popupheadingtext')[0].innerText = resultVals[0]["PositionTitle"];
+                $("#txtOppClient").val(resultVals[0]["ClientName"]).attr('disabled', true);
+                $("#txtOppContPerson").val(resultVals[0]["ContactPerson"]).attr('disabled', true);
+                $("#txtOppLocation").val(resultVals[0]["Location"]).attr('disabled', true);
+                $("#txtOppNoOpen").val(resultVals[0]["NoOfOpenings"]).attr('disabled', true);
+                $("#txtOppStreet").val(resultVals[0]["Street"]).attr('disabled', true);
+                $("#txtOppCity").val(resultVals[0]["City"]).attr('disabled', true);
+                $("#txtOppState").val(resultVals[0]["State"]).attr('disabled', true);
+                $("#txtOppZip").val(resultVals[0]["ZipCode"]).attr('disabled', true);
+                $("#txtOppContact1").val(resultVals[0]["Contact1"]).attr('disabled', true);
+                $("#txtOppContact2").val(resultVals[0]["Contact2"]).attr('disabled', true);
+                $("#txtOppEmail").val(resultVals[0]["Email"]).attr('disabled', true);
+                $("#txtOppFax").val(resultVals[0]["Fax"]).attr('disabled', true);
+                $("#txtOppWorkExp").val(resultVals[0]["WorkExperience"]).attr('disabled', true);
+                $("#txtOppRate").val(resultVals[0]["Rate"] == 0 ? "" : resultVals[0]["Rate"]).attr('disabled', true);
+                $("#txtOppHours").val(resultVals[0]["Hours"] == 0 ? "" : resultVals[0]["Hours"]).attr('disabled', true);
+                $("#txtOppProfileType").val(resultVals[0]["ProfileType"]).attr('disabled', true);
+                $("#txtOppTargetDate").val(FormatDate(resultVals[0]["TargetDate"], "mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[0]["TargetDate"], "mm/dd/yyyy")).attr('disabled', true);
+                $("#txtOppNote").val(resultVals[0]["Note"]).attr('disabled', true);
+                $("#txtOppJobDes").val(resultVals[0]["JobDescription"]).attr('disabled', true);
+                $("#txtOppPosTitle").val(resultVals[0]["PositionTitle"]).attr('disabled', true);
+                $("#txtOppWebsite").val(resultVals[0]["Website"]).attr('disabled', true);
+                $("#ddlOppPosType").val(resultVals[0]["FK_PositionType"]).attr('disabled', true);
+                $("#ddlOppIndustry").val(resultVals[0]["FK_Industry"]).attr('disabled', true);
+                $("#txtOppCountry").val(resultVals[0]["Country"]).attr('disabled', true);
+                $('#ddlOppPosType').click();
+                $("#ddlOppIndustry").click();
+                $("#txtOppCreatedDate").val(FormatDate(resultVals[0]["CreatedDate"], "mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[0]["CreatedDate"], "mm/dd/yyyy")).attr('disabled', true);
+                $("#txtOppLastUpdate").val(FormatDate(resultVals[0]["ModifiedDate"], "mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[0]["ModifiedDate"], "mm/dd/yyyy")).attr('disabled', true);
+                $('#txtOppPrimarySkills').hide();
+                $("#txtOppCreatedBy").val(resultVals[0]["CreatedBy"]).attr('disabled', true);;
+                $("#txtOppStatus").val(resultVals[0]["OpportunityStatus"]).attr('disabled', true);
+                $('#txtOppSecondarySkills').hide();
+                $('#txtOppReqDoc').hide();
+                $('#divOppReqDocs').empty();
+                showAttachments(resultVals[0]["Attachments"]);
+
+                $.ajax({
+                    url: '/Home/GetSelectData',
+                    type: "GET",
+                    async: false,
+                    dataType: 'json',
+                    data: { Id: OppId, Operation: 44 },
+                    success: function (result) {
+                        var resultVals = $.parseJSON(result);
+                        if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                            for (var i = 0; i < resultVals.length; i++) {
+                                if (resultVals[i]["Skills"] != "") {
+                                    if (resultVals[i]["TypeId"] == false)
+                                        listObject = $("#listOppPrimarySkills");
+                                    else
+                                        listObject = $("#listOppSecondarySkills");
+                                    if (listObject != undefined)
+                                        listObject.append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; " +
+                               "min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + resultVals[i]["Skills"] +
+                                "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                "</div></div>");
+                                }
+                            }
+                        }
+                        $.ajax({
+                            url: '/Home/GetSelectData',
+                            type: "GET",
+                            async: false,
+                            dataType: 'json',
+                            data: { Id: OppId, Operation: 43 },
+                            success: function (result) {
+                                var resultVals = $.parseJSON(result);
+                                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                                    for (var i = 0; i < resultVals.length; i++) {
+                                        if (resultVals[i]["DocType"] != "") {
+                                            listObject = $("#listOppReqDoc");
+                                            if (listObject != undefined)
+                                                listObject.append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; " +
+                                       "min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + resultVals[i]["DocType"] +
+                                        "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                        "</div></div>");
+                                        }
+                                    }
+                                }
+
+                            },
+                            error: function (err) {
+                            }
+                        });
+                    },
+                    error: function (err) {
+                    }
+                });
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+        dialogSub.showModal();
+    }
+    function showAttachments(attachmentURLs) {
+        attachmentURLs = attachmentURLs.split('||');
+        var docElement = $("#divOppReqDocs");
+        for (var i = 0; i < (attachmentURLs.length - 1) ; i++) {
+            CheckExtension(docElement, "", attachmentURLs[i], "", null, 1);
+        }
+        PreventDefaultClick();
+    }
+    function defineExpUploads() {
+    };
+</script>
+
+

@@ -1,0 +1,268 @@
+﻿
+@{
+    ViewBag.Title = "AddAnnouncement";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = 0;
+    int typeId = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt32(Request["hdnId"]);
+    }
+    if (Request["TypeId"] != null && Request["TypeId"] != "")
+    {
+        typeId = Convert.ToInt16(Request["TypeId"]);
+    }
+}
+@using (Html.BeginForm())
+{
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/announcement-sm.png" width="45" height="45" alt="" /></div></div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="mainheaderdiv" id="divHeading">Add Announcement</div>
+                </div>
+                <div class="col-sm-5">
+                </div>
+            </div>
+        </div>
+        <div class="contentmaindiv">
+            <div id="DivClearAll">
+                <div class="myprojectdiv">
+                    <a class="backbuttondiv" id="hrefBack" href="@Url.Action("AnnouncementLog","HR")"><img title="Back" alt="Back" width="30" height="30" src="~/Images/back-button.png" /></a>
+                </div>
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input vinput" type="text" id="txtTitle"placeholder=" ">
+                            <label class="float">Title</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input vinput vdate vsdate " type="text" id="txtStartDate" placeholder=" ">
+                            <label class="float">Start Date</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input vinput vdate vedate" type="text" id="txtEndDate" placeholder=" ">
+                            <label class="float">End Date</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="contentfielddiv">
+                            <textarea class="floating-input floating-textarea" id="txtDescription" placeholder=" "></textarea>
+                            <label class="float">Description</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <table width="100%" border="0" cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td width="90%">
+                                            <div class="contentfielddiv">
+                                                <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                                <input type="file" id="fileUploadAttachment" accept="image/x-png, image/gif, image/jpeg,image/jpg,.pdf" class="fileUploadAttachment contenttextfield" placeholder="Attachment" multiple />
+                                            </div>
+                                        </td>
+                                        <td width="10%">
+                                            <div class="uploadbutton">
+                                                <img title="Upload" id="fileUrl" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="weeklyoffmaindiv">
+                            <div class="workstarttimediv" style="max-height:50px;">
+                                <div id="divAnnouncementDocs" class="docDiv">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttonmaindiv" id="divSave">
+                    <div class="buttondiv"><input title="Save" class="submitbtn" type="button" id="btnSaveAnnouncement"/></div>
+                    <div class="buttondiv"><input title="Save And New" class="submitandnewbtn" type="button" id="btnSaveandnewAnnouncement" /></div>
+                    <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onClick="return ClearAllControlValues('DivClearAll')" /></div>
+                    <div class="ErrorLabel">
+                        <label id="lblMessage" class="lblMessage"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    var announcementId=@id;
+    var typeId=@typeId;
+    $(document).ready(function () {
+        DefineDatePicker($('#txtStartDate'));
+        DefineDatePicker($('#txtEndDate'));
+        if(announcementId!=0)
+        {
+            LoadDataFromDB();
+        }
+    });
+    $(function () {
+
+        var pgId = 0;
+        $("#btnSaveAnnouncement").click(function () {
+        
+            pgId = $(this).attr("id");
+            $("#btnSaveandnewAnnouncement").trigger("click");
+      
+
+        });
+        $("#btnSaveandnewAnnouncement").click(function () {
+            if (ValidateAll('DivClearAll','lblMessage')) {
+                if(typeId==2)
+                {
+                    $.ajax({
+                        url: '/HR/UpdateAnnouncement',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            Title: $("#txtTitle").val(), StartDate: FormatDate($("#txtStartDate").val(), 'yyyy/mm/dd'),
+                            EndDate: FormatDate($("#txtEndDate").val(), 'yyyy/mm/dd'), Description: $("#txtDescription").val(),
+                            UploadedFileUrl: $('#filehidden').val(),announcementId:announcementId
+                        },
+                        success: function (result) {
+                            //ClearAllControlValues('DivClearAll');
+                            $('#lblMessage').text("Announcement updated Successfully.");
+
+                        },
+                        error: function () {
+                        }
+                    });
+                }
+                else
+                    {
+                    $.ajax({
+                        url: '/HR/NewAnnouncement',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            Title: $("#txtTitle").val(), StartDate: FormatDate($("#txtStartDate").val(), 'yyyy/mm/dd'),
+                            EndDate: FormatDate($("#txtEndDate").val(), 'yyyy/mm/dd'), Description: $("#txtDescription").val(),
+                            UploadedFileUrl: $('#filehidden').val()
+                        },
+                        success: function (result) {
+                            ClearAllControlValues('DivClearAll');
+                            $('#lblMessage').text("Announcement created Successfully.");
+                            
+                            if (pgId == "btnSaveAnnouncement") {
+                                document.getElementById("hrefBack").click();
+                                pgId = 0;
+                            }
+
+                        },
+                        error: function () {
+                        }
+                    });
+                }
+            }
+        });
+        $(".imgExpFileUpload").click(function () {
+            //var divId = getCurrentDiv();
+            var fileElement = $('#fileUploadAttachment');
+            var hiddenfield = $('#filehidden');
+            var fileCount = hiddenfield.val().split('||').length;
+            //var divDocuments = $("#divdocuments");
+            var expDocUpload = fileElement.get(0);
+            var docElement = $('#divAnnouncementDocs');
+            var expDocFiles = expDocUpload.files;
+            var uploadedFilePath = "";
+            var ExpAttachments = new FormData();
+            if (fileCount + expDocFiles.length > 25) {
+                alert('File count cannot exceed 24!');
+                fileElement.val('');
+                return;
+            }
+            for (i = 0; i < expDocFiles.length; i++) {
+                ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+            }
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: ExpAttachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < expDocFiles.length; i++) {
+                            hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                            CheckExtension(docElement, expDocFiles[i].name, json[expDocFiles[i].name], "<a href='#' title='Close'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                        }
+                    }
+                },
+                error: function (err) {
+
+                }
+            });
+            fileElement.val('');
+        });
+    });
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            var docDivs = $('#divAnnouncementDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+        });
+    };
+    function LoadDataFromDB() {
+        var operationId = 39;
+        var Today = new Date();
+        Today.setHours(0, 0, 0, 0);
+        $.ajax({
+            url: '/HR/GetAnnouncement',
+            type: 'GET',
+            dataType: 'json',
+            data: { announcementId: announcementId, operationId: operationId },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                var endDate=FormatDate(resultVals[0]["EndDate"], "mm/dd/yyyy");
+                $('.clearbtn').hide();
+                $('.submitandnewbtn').hide();
+                $('#divHeading').text(resultVals[0]["Title"]);
+                $('#txtTitle').val(resultVals[0]["Title"]);
+                $('#txtStartDate').val(FormatDate(resultVals[0]["StartDate"], "mm/dd/yyyy"));
+                $('#txtEndDate').val(endDate);
+                $('#txtDescription').val(resultVals[0]["Description"]);
+                $('#filehidden').val(resultVals[0]["AttachmentPath"]);
+                showAttachments(resultVals[0]["AttachmentPath"], $('#divAnnouncementDocs'));
+                if (resultVals[0]["IsCancelled"] == true || (new Date(endDate)<Today)){
+                    $('#divSave').hide();
+                    $("#DivClearAll input,textarea").prop("disabled", true);
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function showAttachments(attachmentURL, docElement) {
+        var attachmentURLs = attachmentURL.split('||');
+        for (var i = 0; i < attachmentURLs.length - 1; i++) {
+            CheckExtension(docElement, attachmentURLs[i], attachmentURLs[i].split('\\').pop(), "<a href='#' title='Close'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+        }
+    }
+</script>

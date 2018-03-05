@@ -1,0 +1,1171 @@
+﻿@model NuPortal.Models.Project
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt16(Request["hdnId"].ToString());
+    }
+}
+
+@{
+    bool view = false;
+    var item = new NuPortal.Models.Project();
+    List<SelectListItem> statusItems = new List<SelectListItem>();
+    statusItems.Add(new SelectListItem { Text = "", Value = "" });
+    statusItems.Add(new SelectListItem { Text = "Completed", Value = "Completed" });
+    statusItems.Add(new SelectListItem { Text = "In Progress", Value = "In Progress" });
+    statusItems.Add(new SelectListItem { Text = "Not Started", Value = "Not Started" });
+
+    List<SelectListItem> priorItems = new List<SelectListItem>();
+    priorItems.Add(new SelectListItem { Text = "", Value = "" });
+    priorItems.Add(new SelectListItem { Text = "Low", Value = "Low" });
+    priorItems.Add(new SelectListItem { Text = "Medium", Value = "Medium" });
+    priorItems.Add(new SelectListItem { Text = "High", Value = "High" });
+
+}
+@if (@ViewBag.proName != "")
+{
+    view = true;
+    item = (ViewData["filProjects"] as List<NuPortal.Models.Project>).ToList()[0];
+    statusItems.First(status => status.Text == item.Status).Selected = true;
+    priorItems.First(prior => prior.Text == item.Priority).Selected = true;
+}
+
+<script>
+    var popupClose=0;
+    var resources=new Array();
+    var managers=new Array(),roles=new Array();
+    var ProjId=@id;
+    var addArray = new Array();
+    var removeArray = new Array();
+    var loadResourceArray = new Array();
+    $(document).ready(function () {
+        $("#divResource").click(function () {
+            $("#txtResource").focus();
+        });
+        $("#divManager").click(function () {
+            $("#txtManager").focus();
+        });
+        LoadDdls('/projects/GetDepartment?opId=7',$('#ddldept'),'DepartmentId','DepartmentName');
+        LoadDdls('/projects/GetDepartment?opId=10',$('#ddlRole'),'RoleId','RoleName');
+        $('#txtpopClient').click(function(){
+            $('#dlgClient')[0].showModal();
+        });
+
+        $('#txtManager').keydown(function(){
+            AutoComplete($(this).attr('id'),"listManager");
+        });
+        $('#txtResource').keydown(function(){
+            AutoComplete($(this).attr('id'),"listResources");
+        });
+        sliding();
+        DefineDatePicker($('#dateStart'));
+        DefineDatePicker($('#dateEnd'));
+        var proj = '@ViewBag.proName';
+        var resource=new Array(),manager=new Array(),resourceArr="";
+        if (ProjId == 0) {
+            var dialog = document.getElementById('dlgProject');
+            $('#divClientInfonav').hide();
+            $('#ddlContact').attr('disabled','disabled');
+            dialog.showModal();
+        }
+        else{
+            $('#divProject')[0].innerText=proj;
+            var managertxt='@item.Manager';
+            if (@Html.Raw(Json.Encode(@ViewData["Resources"])) != "")
+                resourceArr = JSON.parse(@Html.Raw(Json.Encode(@ViewData["Resources"])));
+            //else
+            //    $(".myprojectroleassign").hide();
+            var managerArr=managertxt.split(',');
+            for(var i=0;i<resourceArr.length;i++){
+                //resources.push({id:resourceArr[i].split('#')[0],name:resourceArr[i].split('#')[1]});
+                resources.push({id:resourceArr[i]["FK_Resources"],name:resourceArr[i]["FirstName"]});
+                loadResourceArray.push(resourceArr[i]["FK_Resources"]);
+                $('#txtResource').parent().find("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px;"+
+                    " color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + resourceArr[i]["FK_Resources"] + "'>" +
+                    resourceArr[i]["FirstName"] +"</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                    "<a title='Close' href='#' style='color: #fff;' onclick='RemoveDiv(this,1,"+resourceArr[i]["FK_Resources"]+");'>X</a></div></div>");
+                roles.push({
+                    Name:resourceArr[i]["FirstName"],
+                    Resource:resourceArr[i]["FK_Resources"],
+                    Role:resourceArr[i]["FK_RoleId"],
+                    RoleName:resourceArr[i]["RoleName"],
+                    Rate:resourceArr[i]["RatePerHour"],
+                    BillingHours:resourceArr[i]["BillingHours"],
+                    Percent:resourceArr[i]["Allocation"],
+                    Billable:resourceArr[i]["BillingStatus"]==true?1:0
+                });
+            }
+            for(var i=0;i<managerArr.length;i++){
+                managers.push({id:managerArr[i].split('#')[0],name:managerArr[i].split('#')[1]});
+                $('#txtManager').parent().find("#listManager").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; "+
+                    "min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + managerArr[i].split('#')[0] + "'>" + managerArr[i].split('#')[1] +
+                    "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                   "<a title='Close' href='#' style='color: #fff;' onclick='RemoveDiv(this,2," + managerArr[i].split('#')[0] + ");'>X</a></div></div>");
+            }
+            $('#ddldept').val(@item.DepartmentId!=0?@item.DepartmentId:"");
+            if(@item.DepartmentId!=0)
+                $('#ddldept').click();
+            if(@item.ClientId!=0)
+                BindContact(@item.ClientId);
+            else
+                $('#ddlContact').attr('disabled','disabled');
+
+            var filesStr='@item.Attachments'.split('||');
+            for(var i=0;i<filesStr.length-1;i++){
+                CheckExtension($('#divAttach'), filesStr[i], filesStr[i].split('\\').pop(), "<a href='#' title='Close'><div class='documentclosebutton closeImage'>X</div></a>", $('#divAttach'), 1);
+                $('#filehidden').val($('#filehidden').val() + filesStr[i] + "||");
+            }
+
+            $('#divAttach').show();
+            $('select').each(function () {
+                //if($(this).val()!="")
+                $(this).click();
+            });
+
+            if ('@item.ClientName' == "")
+                $(".myprojecttxt").hide();
+            if ('@item.EndDate' == "01-01-1753" )
+                $("#dateEnd").val("");
+            else
+                $("#dateEnd").val(FormatDate('@item.EndDate',"mm/dd/yyyy"));
+            if ('@item.StartDate' == "01-01-1753" )
+                $("#dateStart").val("");
+            else
+                $("#dateStart").val(FormatDate('@item.StartDate',"mm/dd/yyyy"));
+            if (@item.PlannedHours == 0 )
+                $("#txtHrs").val("");
+            else
+                $("#txtHrs").val('@item.PlannedHours');
+            if('@item.ProjectDescription' != "")
+                $("#txtDesc").val('@item.ProjectDescription');
+            $('#btnClear').hide();
+        }
+
+        $.ajax({
+            url: '/projects/GetDepartment?opId=5',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var ClientLogo="";
+                var results=$.parseJSON(data);
+                //var table=$('#dlgClient').find('table');
+                for(var i=0;i<results.length;i++)
+                {
+                    ClientLogo="";
+                    //$(table).append("<tr onclick='SelectClient(this);'><td>"+results[i].CompanyName+"</td><td style='display:none'>"+results[i].ClientId+"</td></tr>");
+                    //$('#divClient').append("<div class='col-md-3' onclick='SelectClient(this);'><div class='clientinfologo'><img src='"+results[i].CompanyLogo+"' width='142' height='50' alt='' /></div>"+
+                    //    "<div class='clientname'>"+results[i].CompanyName+"</div><input type='hidden' value='"+results[i].ClientId+"'></div>");
+                    if(results[i].CompanyLogo=="")
+                        ClientLogo="../Images/logo-placeholder.png";
+                    else
+                        ClientLogo=results[i].CompanyLogo;
+                    $('#divClient').append("<div class='clientinfopopupsubdiv' onclick='SelectClient(this);'>"+
+                                "<div class='clientinfologo'><img src='"+ClientLogo+"' width='150' height='100' alt='' /></div>"+
+                                "<div class='clientname'>"+results[i].CompanyName+"</div><input type='hidden' value='"+results[i].ClientId+"'></div>"+
+                            "</div>");
+                }
+            },
+            error: function (xhr) {
+            }
+        });
+        PreventDefaultClick();
+    });
+
+    function RemoveDiv(obj,type,resId)
+    {
+        obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
+        if(type==1)
+        {
+            resources = $.grep(resources, function(e){
+                return e.id != resId;
+            });
+            roles = $.grep(roles, function(e){
+                return e.Resource != resId;
+            });
+            if($.inArray(resId, addArray) !== -1)
+            {
+                addArray = $.grep(addArray, function(value) {
+                    return value != resId;
+                });                                                               
+            }
+            if($.inArray(resId,loadResourceArray) !== -1)
+               removeArray.push(resId);
+        }
+        else
+        {
+            managers = $.grep(managers, function(e){
+                return e.id != resId;
+            });
+        }
+    }
+
+    function CheckProject() {
+        var total=null;
+       
+        try{    
+            
+            
+            var given=$('#txtProject').val();
+            if(given!=""){
+                total=JSON.parse(@Html.Raw(Json.Encode(ViewData["AllProjects"])));
+                var Exist=false;
+                if(total.length>0){
+                    for(var i=0;i<total.length;i++){
+                        if(total[i]["Name"].toUpperCase()==given.toUpperCase()){
+                            Exist=true;
+                            $("#projMsg")[0].innerText="Project name already exist. Please use any other name.";
+                            break;
+                        }
+                    }
+                }
+                
+                if(!Exist){
+                    $('#divProject')[0].innerText=given;
+                    $('#prjectName').attr('value',given);
+                    $("#projMsg")[0].innerText="";
+                    var dialog = document.getElementById('dlgProject');
+                    popupClose=0;
+                    dialog.close();
+                }
+            }
+            else
+            {
+                $("#projMsg")[0].innerText="Please enter a valid Project Name";
+            }
+           
+        }
+        catch(err){}
+        finally{
+            total=null;
+        }
+    }
+
+    function dlgEditProject()
+    {
+        popupClose=1;                   
+        $("#txtProject").val($('#divProject')[0].innerHTML);
+        $('#dlgProject')[0].showModal();
+        
+    }
+
+    function dlgProject()
+    {
+        $("#projMsg")[0].innerText="";
+        if(popupClose==1)
+        {
+            popupClose=0;
+            $("#dlgProject")[0].close();
+        }
+        else
+        {
+            $("#dlgProject")[0].close();
+            window.location.href="/Projects/Projects";
+        }
+        
+    }
+
+    function SelectClient(obj){
+        $('#popClient').val($(obj).find('input').val());
+        $('#txtpopClient').val($(obj).find('.clientname')[0].innerText);
+        $('#ddlContact').removeAttr('disabled');
+        BindContact($(obj).find('input').val());
+        //$(".myprojecttxt").show();
+        $('#dlgClient')[0].close();
+    }
+
+    function BindContact(id){
+        $('#ddlContact')[0].innerHTML="";
+        $.ajax({
+            url: '/projects/GetContact?clientId='+id,
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var results=$.parseJSON(data);
+                $('#ddlContact').append($('<option>', {
+                    value: "",
+                    text: ""
+                }));
+                for(var i=0;i<results.length;i++)
+                    $('#ddlContact').append($('<option>', {
+                        value: results[i].ContactId,
+                        text: results[i].ContactPerson
+                    }));
+                $('#ddlContact').val(@item.ContactId!=0?@item.ContactId:"");
+                if(@item.ContactId!=0)
+                    $('#ddlContact').click();
+            },
+            error: function (xhr) {
+            }
+        });
+    }
+    function AutoComplete(tab,listObject){
+        $(".txtManager").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/EmpInfoAdminView/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'EmpName': '" + request.term.split(/,\s*/).pop() + "' }",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                    },
+                    failure: function (response) {
+                    }
+                });
+            },
+            //focus: function() {
+            //    return false;
+            //},
+            select: function (e, i) {
+                var type=1;
+                if(listObject=='listManager')
+                    type=2;
+                if(CheckIsNotSelected(i.item.Id,'#'+listObject)){
+                    $('#'+tab).parent().find("#"+listObject+"").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff;"+
+                        " min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                        "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                       "<a title='Close' href='#' style='color: #fff;' onclick='RemoveDiv(this,"+type+","+i.item.Id+");'>X</a></div></div>");
+                    if(tab.indexOf('Resource')>=0)
+                    {
+                        if(resources.find(function(x){return x.id==i.item.Id;})==undefined)
+                        {
+                            resources.push({id:i.item.Id,name:i.item.label});
+                            var emp = parseInt(i.item.Id);
+                            if($.inArray(emp, removeArray) !== -1)
+                            {
+                                removeArray = $.grep(removeArray, function(value) {
+                                    return value != emp;
+                                });                                                               
+                            }
+                            if($.inArray(emp,loadResourceArray) == -1)
+                            addArray.push(emp);
+                        }
+                    }
+                    else
+                    {
+                        if(managers.find(function(x){return x.id==i.item.Id;})==undefined)
+                            managers.push({id:i.item.Id,name:i.item.label});
+                    }
+                    $('.div2').find('a').click(function(e){
+                        e.preventDefault();
+                    });
+                    var terms = this.value.split(/,\s*/);
+                    terms.pop();
+                    terms.push( i.item.value );
+                    terms.push( "" );
+                }
+                this.value="";
+                PreventDefaultClick();
+                return false;
+            },
+            minLength: 1
+        });
+    }
+
+    function updateselectedRole(obj){
+        $("#dlgRole").find(".currentResource").removeAttr("style");
+        $("#dlgRole").find(".currentResource").removeAttr("class");
+        $(obj).find('a').attr("class","currentResource");
+        $(obj).find('a').attr("style","color: #27c3fe;text-decoration: none;");
+        var roleExist=roles.find(function(x){
+            if(x.Resource==$(obj).find('input').val())
+                return x;
+        });
+        if(roleExist!=undefined){
+            $("#ddlRole").val(roleExist.Role);
+            $("#ddlRole").click();
+            $('#txtRate').val(roleExist.Rate==0?"":roleExist.Rate);
+            $('#txtBillingHrs').val(roleExist.BillingHours==0?"":roleExist.BillingHours);
+            roleExist.Billable==1?$('#myonoffswitch').attr('checked','checked'):$('#myonoffswitch').removeAttr('checked');
+            //slid.slider("value",parseInt(roleExist.Percent));
+            $('.lblPercentage').text(roleExist.Percent);
+            $('#lblPercentage').innerText=roleExist.Percent;
+            $("#lblRoleMsg").innerText="";
+        }
+        else{
+            $("#ddlRole").attr('value','');
+            $('#txtRate').val("");
+            $('#txtBillingHrs').val("");
+            $('#myonoffswitch').attr('checked','checked');
+            $('.lblPercentage').text(0);
+            //slid.slider("value",0);
+            $('#lblPercentage').innerText="0";
+            $("#lblRoleMsg").innerText="";
+        }
+        sliding();
+    }
+
+    function AssignRole(){
+        $('#ddlRole').removeClass("ErrorFocus");
+        $('#divResList')[0].innerHTML="";
+        if(resources.length>0){
+            for(var i=0;i<resources.length;i++){
+                $('#divResList').append("<div class='resourcesnames' onclick='updateselectedRole(this);'><a href='#'>"+resources[i].name+"</a><input type='hidden' value='"+resources[i].id+"'></div>");
+            }
+            var roleExist=roles.find(function(x){
+                if(x.Resource==resources[0].id)
+                    return x;
+            });
+            if(roleExist!=undefined){
+                $("#ddlRole").val(roleExist.Role);
+                $("#ddlRole").click();
+                $('#txtRate').val(""+(roleExist.Rate==0?"":roleExist.Rate)+"");
+                $('#txtBillingHrs').val(roleExist.BillingHours==0?"":roleExist.BillingHours);
+                roleExist.Billable==1?$('#myonoffswitch').attr('checked','checked'):$('#myonoffswitch').removeAttr('checked');
+                //var slid=$('#divSliders').slider(function(){value:0});
+                //slid.slider("value",parseInt(roleExist.Percent));
+                $('.lblPercentage').text(roleExist.Percent);
+                sliding();
+                $('#lblPercentage')[0].innerText=roleExist.Percent;
+                $("#lblRoleMsg")[0].innerText="";
+            }
+            else
+            {
+                $("#ddlRole").attr('value','');
+                $('#txtRate').val("");
+                $('#txtBillingHrs').val("");
+                $('#myonoffswitch').attr('checked','checked');
+                $('.lblPercentage').text(0);
+                $('#lblPercentage').innerText="0";
+                $("#lblRoleMsg").innerText="";
+            }
+        }
+        $('.resourcesnames:first').find('a').attr("class","currentResource");
+        $('.resourcesnames:first').find('a').attr("style","color: #27c3fe;text-decoration: none;");
+        $('#dlgRole')[0].showModal();
+    }
+
+    function ToggleBillable (){
+        $('#myonoffswitch').attr('checked', !$('#myonoffswitch').is(':checked'));
+    }
+
+    function CreateRole(){
+        if (ValidateAll('divAssignRole', 'lblRoleMsg')) {
+            var roleExist=roles.findIndex(function(x){
+                return x.Resource==$('#dlgRole').find('.currentResource').siblings('input').val();
+            });
+            if(roleExist!=-1)
+                roles.splice(roleExist,1);
+            roles.push({
+                Name:$('#dlgRole').find('.currentResource')[0].innerText,
+                Resource:$('#dlgRole').find('.currentResource').siblings('input').val(),
+                Role:$('#dlgRole').find('option:selected').val(),
+                RoleName:$('#dlgRole').find('option:selected').text(),
+                Rate:$('#txtRate').val()==""?0:$('#txtRate').val(),
+                BillingHours: $('#txtBillingHrs').val()==""?0:$('#txtBillingHrs').val(),
+                Percent:$('#lblPercentage')[0].innerText,
+                Billable:$('#myonoffswitch').is(':checked')?1:0
+            });
+            $('#lblRoleMsg').removeClass("lblError");
+            $('#lblRoleMsg').addClass("lblMessage");
+            $('#lblRoleMsg')[0].innerText="Updated Details for "+$('#dlgRole').find('.currentResource')[0].innerText+"";
+        }
+    }
+    function SubmitProject(flag){
+        var addEmp = '';
+        var removeEmp = '';
+        loadResourceArray = [];
+        if(ValidateAll('divallcontrol', 'lblMsg')) {
+            if(CheckManagerasResource()){
+                var dtProject=[{ClientId:$('#popClient').val(),ContactId:$('#ddlContact option:selected').val(),ProjectName:$('#divProject')[0].innerText,ProjectDescription:$('#txtDesc').val(),
+                    StartDate:FormatDate($('#dateStart').val(),"yyyy/mm/dd"),EndDate:FormatDate($('#dateEnd').val(),"yyyy/mm/dd"),URL:$('#txtURL').val(),Priority:$('#ddlPrior option:selected').val(),Status:$('#ddlStatus option:selected').val(),ProjectType:$('#txtProjType').val(),
+                    ProjectCategory:$('#txtProjCat').val(),PlannedHours:$('#txtHrs').val(),DepartmentId:$('#ddldept option:selected').val(),CostCentre:$('#txtCost').val(),Technologies:$('#txtTech').val(),Attachments:$('#filehidden').val()}]
+
+                $.ajax({
+                    url: '/Projects/CreateProject',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        projID:@ViewBag.ID,
+                        jsonData: JSON.stringify(dtProject)
+                    },
+                    success: function (data) {
+                        var result= JSON.parse(data);
+
+                        var managerData=new Array(),resourceData=new Array();
+                        var resourceText=new Array();
+                        $("#listManager").find(".divcompetancy").each(function () {
+                            //managerData.push(parseInt($(this).attr("name")));
+                            managerData.push({id:parseInt($(this).attr("name")),name:$(this).text()});
+
+                        });
+                        $("#listResources").find(".divcompetancy").each(function () {
+                            resourceText.push({'Name':$(this).text(),'Id':$(this).attr("name")});
+                            loadResourceArray.push(parseInt($(this).attr("name")));
+                        });
+                        if(resourceText.length>0){
+                            var filtered;
+                            var IsAssignedRole;
+                            for(var i=0;i<resourceText.length;i++){
+                                IsAssignedRole=false;
+                                filtered=roles.find(function(x){
+                                    if(x.Name.trim()==resourceText[i]["Name"].trim()){
+                                        IsAssignedRole = true;
+                                        resourceData.push({Resource:x.Resource,Role:x.Role,Rate:x.Rate,Percent:x.Percent,Billable:x.Billable,BillingHours:x.BillingHours});
+                                        return {Resource:x.Resource,Role:x.Role,Rate:x.Rate,Percent:x.Percent,Billable:x.Billable,BillingHours:x.BillingHours};
+                                    }
+                                });
+                                if(!IsAssignedRole)
+                                    resourceData.push({Resource:parseInt(resourceText[i]["Id"]),Role:0,Rate:0,Percent:0,Billable:1,BillingHours:0});
+                                //resourceData.push(filtered);
+                            }
+                        }
+
+                        if(managerData.length>0){
+                            $.ajax({
+                                url: '/Projects/UpdateManager',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    projID:result[0].ProjectId,
+                                    jsonData: JSON.stringify(managerData)
+                                },
+                                success: function () {
+                                },
+                                error: function () {
+                                }
+                            });
+                        }
+                        //if(resourceData.length>0){
+                        $.ajax({
+                            url: '/Projects/UpdateResource',
+                            type: 'POST',
+                            dataType: 'json',
+                            async:false,
+                            data: {
+                                projID:result[0].ProjectId,
+                                jsonData: JSON.stringify(resourceData)
+                            },
+                            success: function () {
+                            },
+                            error: function () {
+                            }
+                        });
+                        if(addArray.length != 0)
+                        {
+                            addEmp = addArray.join('|');
+                            addEmp = addEmp + '|';
+                            $.ajax({
+                                url: '/Projects/SendEmailToResource',
+                                type: 'POST',
+                                dataType: 'json',
+                                async : false,
+                                data: {
+                                    ProjId:result[0].ProjectId,
+                                    EmpId: addEmp,
+                                    OperationId: 1
+                                },
+                                success: function () {
+                                },
+                                error: function () {
+                                }
+                            });
+                        }
+                        if(removeArray.length != 0)
+                        {
+                            removeEmp = removeArray.join('|');
+                            removeEmp = removeEmp + '|';
+                            $.ajax({
+                                url: '/Projects/SendEmailToResource',
+                                type: 'POST',
+                                dataType: 'json',
+                                async:true,
+                                data: {
+                                    ProjId:result[0].ProjectId,
+                                    EmpId: removeEmp,
+                                    OperationId: 2
+                                },
+                                success: function () {
+                                },
+                                error: function () {
+                                }
+                            });
+                        }
+                        //}
+                        $("#lblMsg").removeClass("lblError");
+                        $("#lblMsg").addClass("lblMessage");
+                        addArray = [];
+                        removeArray = [];
+                        if(@ViewBag.ID==0)
+                        {
+                            $('#lblMsg')[0].innerText="Project Created Successfully";
+                            clearValues();
+                            if(flag==1)
+                            {
+                                window.location.href = '/Projects/Create';
+                            }
+                            else{
+                                window.location.href = '/Projects/Projects';
+                            }
+                            
+                        }
+
+                        else
+                        {
+                            $('#lblMsg')[0].innerText="Project Updated Successfully";
+                            //clearValues();
+                        }
+                    },
+                    error: function () {
+                        $('#lblMsg')[0].innerText="";
+                    }
+                });
+            }
+            else{
+                $('#lblMsg')[0].innerText="Can't consider same user as manager as well as resource";
+                $('#lblMsg').removeAttr('class');
+                $('#lblMsg').attr('class','lblError');
+            }
+        }
+    }
+
+    function isValid(){
+        $("#lblMsg").addClass("lblError");
+        if($('#dateStart').val()==""){
+            $("#dateStart").addClass("ErrorFocus");
+            $('#dateStart').focus();
+            $('#lblMsg')[0].innerText="Please fill all mandatory fields";
+            return false;
+        }
+        else if($('#ddlStatus option:selected').text()==""){
+            $("#ddlStatus").addClass("ErrorFocus");
+            $('#ddlStatus').focus();
+            $('#lblMsg')[0].innerText="Please fill all mandatory fields";
+            return false;
+        }
+        else if($('#ddlPrior option:selected').text()==""){
+            $("#ddlPrior").addClass("ErrorFocus");
+            $('#ddlPrior').focus();
+            $('#lblMsg')[0].innerText="Please fill all mandatory fields";
+            return false;
+        }
+        else if ($("#listManager").is(':empty')) {
+            $("#divManager").addClass("ErrorFocus");
+            $('#lblMsg')[0].innerText="Please fill all mandatory fields";
+            return false
+        }
+        else
+            $("#divManager").removeClass("ErrorFocus");
+        $("#ddlPrior").removeClass("ErrorFocus");
+        $("#ddlStatus").removeClass("ErrorFocus");
+        $("#dateStart").removeClass("ErrorFocus");
+        return true;
+    }
+
+    function UploadProjectFile(){
+        var projectFiles=$('#fileProject')[0].files;
+        var formData=new FormData();
+        var fileElement = $('#fileProject');
+        if(projectFiles.length>0){
+            for(var i=0;i<projectFiles.length;i++)
+                formData.append(projectFiles[i].name,projectFiles[i]);
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < projectFiles.length; i++){
+                            //filepathStr=filepathStr + json[projectFiles[i].name] + "||";
+                            $('#filehidden').val($('#filehidden').val() + json[projectFiles[i].name] + "||");
+                            CheckExtension($('#divAttach'), projectFiles[i].name, json[projectFiles[i].name], "<a href='#' title='Close'><div class='documentclosebutton closeImage'>X</div></a>",  $('#divAttach'), 1);
+                        }
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+            fileElement.val('');
+        }
+        //return filepathStr;
+    }
+
+    function FilterResources(){
+        var IsFirstElmt = true;
+        if($('#txtResSearch').val()!=""){
+            $('.resourcesnames').each(function(){
+                if($(this).find('a')[0].innerText.toLowerCase().indexOf($('#txtResSearch').val().toLowerCase())==-1)
+                    $(this).hide();
+                else
+                {
+                    if(IsFirstElmt)
+                    {
+                        updateselectedRole(this);
+                        IsFirstElmt=false;
+                    }
+                    $(this).show();
+                }
+            });
+        }
+        else{
+            $('.resourcesnames').each(function(){
+                if(IsFirstElmt){
+                    updateselectedRole(this);
+                    IsFirstElmt=false;
+                }
+                $(this).show();
+            });
+        }
+    }
+    function postClientId() {
+        var clientId=$('#popClient').val();
+        $('#hdnId').val(clientId);
+        $('#ProjId').val(@id);
+        $("#frmProjectCreate").attr("action","/Client/ClientInfo");
+        $('#frmProjectCreate').submit();
+    }
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            $('#filehidden').val($('#filehidden').val().replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+            if ($('#divAttach').children().length == 0)
+                $('#divAttach').hide();
+        });
+    };
+
+    function clearValues(){
+        $('#filehidden').val("");
+        $('#divAttach')[0].innerHTML="";
+        resources=[];
+        $("#listManager")[0].innerHTML="";
+        $("#listResources")[0].innerHTML="";
+        $("input[type='text']").each(function(){
+            $(this).val('');
+        });
+        $("select").each(function(){
+            $(this).find('option[value=""]').attr('selected','selected');
+            $(this).click();
+        });
+        $('[class*="ErrorFocus"]').each(function(){
+            $(this).removeClass('ErrorFocus');
+        });
+        $('#lblMsg')[0].innerText="";
+    }
+
+    function clearClientName(){
+        $('#popClient').val("");
+        $('#txtpopClient').val("");
+        
+       
+    }
+    function CheckManagerasResource(){
+        var notExist=true;
+        var resources=$('#listResources').find('.divcompetancy');
+        $('#listManager').find('.divcompetancy').each(function(){
+            var manager=parseInt($(this).attr('name'));
+            resources.each(function(){
+                if(parseInt($(this).attr('name'))==manager){
+                    notExist= false;
+                }
+            });
+        });
+        return notExist;
+    }
+    function CloseAssignRole()
+    {
+        javascript:$('#dlgRole')[0].close();
+        $('#txtResSearch').val("");
+        ClearAllControlValues('divAssignRole');
+    }
+
+</script>
+
+<form id="frmProjectCreate" action="" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+    @Html.Hidden("ProjId", new { id = "ProjId", name = "ProjId" })
+</form>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/new-project-sm.png" width="45" height="45" alt="" /></div></div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="mainheaderdiv" id="divProject"></div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="headingeditbtn">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" onclick="dlgEditProject();"></i>
+                    </div>               
+                </div>
+                </div>
+            </div>
+     
+        <dialog id="dlgProject" style="width:50%;background: transparent;top: 25%;left: 5%;border: none;">
+            <div class="popupmaindiv" style="padding:5px">
+                <div class="popupmaindiv">
+                    <div class="popupheadingmaindiv" style="overflow:hidden">
+                        <div class="popupheadingtext">Project Name</div>
+                        <div class="popupclosebutton"><a title="Close" href="#" onclick="dlgProject();">X</a></div>
+                    </div>
+                    <div class="space"></div>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="contentfielddiv">
+                                <input class="floating-input" type="text" id="txtProject" placeholder=" ">
+                                <label class="float">Enter Project Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="myprojectenterdiv">
+                                <a href="#"><img title="Enter" src="../images/enter.png" style="cursor:pointer" id="btnProject" onclick="CheckProject();" width="30" height="30" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 ErrorLabel">
+                            <label id="projMsg" class="lblError"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+        @*<dialog id="dlgClient" style="width: 90%;background: transparent;top: 25%;left: 5%;border: none;cursor:pointer">
+                <div class="popupmaindiv" style="padding:5px">
+                    <div class="popupmaindiv">
+                        <div class="popupheadingmaindiv">
+                            <div class="popupheadingtext">Clients</div>
+                            <div class="popupclosebutton"><a href="#" onclick="javascript:$('#dlgClient')[0].close();">X</a></div>
+                        </div>
+                        <div class="row" id="divClient">
+
+                        </div>
+                    </div>
+                </div>
+            </dialog>*@
+        <dialog id="dlgClient" style="width: 65%;background: transparent;top: 25%;left: 5%;border: none;cursor:pointer">
+            <div class="popupmaindiv" style="padding:5px">
+                <div class="popupmaindiv">
+                    <div class="popupheadingmaindiv">
+                        <div class="popupheadingtext">Choose Client</div>
+                        <div class="popupclosebutton"><a title="Close" href="#" onclick="javascript:$('#dlgClient')[0].close();">X</a></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="clientinfopopupmaindiv" id="divClient">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+        <dialog id="dlgRole" style="width: 90%;background: transparent;top: 25%;left: 5%;border: none;">
+            <div class="col-md-12" id="divAssignRole">
+                <div class="popupmaindiv" style="padding:5px">
+                    <div class="popupmaindiv">
+                        <div class="popupheadingmaindiv">
+                            <div class="popupheadingtext">Assign Role for Resources</div>
+                            <div class="popupclosebutton"><a title="Close" href="#" onclick="CloseAssignRole()">X</a></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="resourcesearchmaindiv">
+                                <table width="95%" align="center" border="0" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                        <tr>
+                                            <td><input class="searchtext" type="text" id="txtResSearch" placeholder=" "></td>
+                                            <td><a href="#"><img title="Search" src="../images/search-icon.png" width="16" height="16" alt="" onclick="FilterResources();" /></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="addrolemaindiv" id="divResList">
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="contentfielddiv">
+                                        <select class="floating-select vselect ErrorFocus" id="ddlRole" value="" onclick="this.setAttribute('value', this.value);" placeholder=" ">
+                                            <option value=""></option>
+                                        </select>
+                                        <label class="float">Role</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="contentfielddiv">
+                                        <input type="text" class="floating-input" id="txtRate" placeholder=" " />
+                                        <label class="float">Rate Per Hour</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="contentfielddiv">
+                                        <input type="text" class="floating-input" id="txtBillingHrs" placeholder=" " />
+                                        <label class="float">Billing Hours</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="weeklyoffmaindiv">
+                                        <div class="weeklytext">Utilization</div>
+                                        <div class="priorityslidermaindiv">
+                                            <div class="sliders priorityslidermaindiv" id="divSliders">
+                                                <div class="percentageslider NewTaskSlider" id="divPerSlider"></div>
+                                                <label class="lblPercentage" id="lblPercentage" style="color: aliceblue;">0</label><font color="aliceblue">%</font>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="weeklyoffmaindiv">
+                                        <div class="weeklytext">Billing Status</div>
+                                        <div class="workstarttimediv">
+                                            <div class="onoffswitch" onclick="ToggleBillable();">
+                                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                                                <label class="onoffswitch-label" for="myonoffswitch">
+                                                    <span class="onoffswitch-inner"></span>
+                                                    <span class="onoffswitch-switch"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="buttonmaindiv">
+                                <div class="buttondiv">
+                                    <a href="#"> <img src="../images/save.png" onclick="CreateRole();" title="Save" width="22" height="22" alt="" /></a>
+                                </div>
+                                <div class="ErrorLabel">
+                                    <label id="lblRoleMsg" class="lblMessage"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </dialog>
+        <div class="contentmaindiv" id="divallcontrol">
+            <div class="myprojectdiv">
+                <div class="myprojecttxt" id="divClientInfonav"> <a onclick="postClientId();" href="#">Client Info</a></div>
+                <a class="backbuttondiv" href="/Projects/Projects"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4" style="display:none">
+                    <div class="contentfielddiv">
+                        @Html.EditorFor(model => model.ProjectName, @view ? (object)new { htmlAttributes = new { @readonly = "readonly", @class = "floating-input", @id = "prjectName", @Value = @item.ProjectName } } : new { htmlAttributes = new { @class = "floating-input", @id = "prjectName" } })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @Html.EditorFor(model => model.StartDate, @view ? (object)new { htmlAttributes = new { @class = "floating-input vinput vdate vsdate", @Value = @item.StartDate, @id = "dateStart", @required = "required", @placeholder = " " } } : new { htmlAttributes = new { @class = "floating-input vinput vdate vsdate", @id = "dateStart", @required = "required", @placeholder = " " } })
+                        <label class="float">Start Date</label>
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @Html.EditorFor(model => model.EndDate, @view ? (object)new { htmlAttributes = new { @class = "floating-input vdate vedate", @Value = @item.EndDate, @id = "dateEnd", @placeholder = " " } } : new { htmlAttributes = new { @class = "floating-input vdate vedate", @id = "dateEnd", @placeholder = " " } })
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                        <label class="float">End Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @Html.DropDownListFor(model => model.Status, statusItems, @view ? (object)new { @class = "floating-select vselect", @id = "ddlStatus", @placeholder = " " } : new { @class = "floating-select vselect", @id = "ddlStatus", @Value = "", onclick = "this.setAttribute('value', this.value);", @placeholder = " " })
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        <label class="float">Status</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @Html.DropDownListFor(model => model.Priority, priorItems, @view ? (object)new { @class = "floating-select vselect", @id = "ddlPrior", @placeholder = " " } : new { @class = "floating-select vselect", @id = "ddlPrior", @Value = "", onclick = "this.setAttribute('value', this.value);", @placeholder = " " })
+                        @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                        <label class="float">Priority</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @Html.EditorFor(model => model.PlannedHours, @view ? (object)new { htmlAttributes = new { @class = "floating-input vnumeric ", @Value = @item.PlannedHours, @id = "txtHrs", @placeholder = " " } } : new { htmlAttributes = new { @class = "floating-input vnumeric", @id = "txtHrs", @placeholder = " " } })
+                        @Html.ValidationMessageFor(model => model.PlannedHours, "", new { @class = "text-danger" })
+                        <label class="float">Planned Hours</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @Html.DropDownListFor(model => model.DepartmentId, new List<SelectListItem>(new[] { new SelectListItem() { Text = "", Value = "" } }), @view ? (object)new { @class = "floating-select", @id = "ddldept", @Value = "", onclick = "this.setAttribute('value', this.value);", @placeholder = " " } : new { @class = "floating-select", @id = "ddldept", @Value = "", onclick = "this.setAttribute('value', this.value);", @placeholder = " " })
+                        @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                        <label class="float">Department</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="contentfielddiv">
+                                @* <input type="text" id="txtpopClient" class="floating-input" style="cursor:pointer" />*@
+                                @Html.HiddenFor(model => model.ClientId, @view ? (object)new { @Value = @item.ClientId, @id = "popClient" } : new { @id = "popClient" })
+                                @Html.EditorFor(model => model.ClientName, @view ? (object)new { htmlAttributes = new { @class = "floating-input", @Value = @item.ClientName, @placeholder = " ", @id = "txtpopClient", @style = "cursor:pointer" } } : new { htmlAttributes = new { @class = "floating-input", @id = "txtpopClient", @style = "cursor:pointer", @placeholder = " " } })
+                                @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "text-danger" })
+                                <label class="float">Client Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                        <input title="Clear" class="clearbtn" onclick="clearClientName();" type="button" style="text-indent:-9999px" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @Html.DropDownListFor(model => model.ContactId, new List<SelectListItem>(new[] { new SelectListItem() { Text = "", Value = "" } }), @view ? (object)new { @class = "floating-select", @Value = "", onclick = "this.setAttribute('value', this.value);", @id = "ddlContact", @placeholder = " " } : new { @class = "floating-select", @id = "ddlContact", @Value = "", onclick = "this.setAttribute('value', this.value);", @placeholder = " " })
+                        @Html.ValidationMessageFor(model => model.ContactId, "", new { @class = "text-danger" })
+                        <label class="float">Client Contact</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @Html.EditorFor(model => model.ProjectType, @view ? (object)new { htmlAttributes = new { @class = "floating-input", @placeholder = " ", @Value = @item.ProjectType, @id = "txtProjType" } } : new { htmlAttributes = new { @class = "floating-input", @id = "txtProjType", @placeholder = " " } })
+                        @Html.ValidationMessageFor(model => model.ProjectType, "", new { @class = "text-danger" })
+                        <label class="float">Project Type</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @Html.EditorFor(model => model.ProjectCategory, @view ? (object)new { htmlAttributes = new { @class = "floating-input", @placeholder = " ", @Value = @item.ProjectCategory, @id = "txtProjCat" } } : new { htmlAttributes = new { @class = "floating-input", @id = "txtProjCat", @placeholder = " " } })
+                        @Html.ValidationMessageFor(model => model.ProjectCategory, "", new { @class = "text-danger" })
+                        <label class="float">Project Category</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @Html.EditorFor(model => model.URL, @view ? (object)new { htmlAttributes = new { @class = "floating-input", @placeholder = " ", @Value = @item.URL, @id = "txtURL" } } : new { htmlAttributes = new { @class = "floating-input", @id = "txtURL", @placeholder = " " } })
+                        @Html.ValidationMessageFor(model => model.URL, "", new { @class = "text-danger" })
+                        <label class="float">URL</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @Html.EditorFor(model => model.CostCentre, @view ? (object)new { htmlAttributes = new { @class = "floating-input", @placeholder = " ", @Value = @item.CostCentre, @id = "txtCost" } } : new { htmlAttributes = new { @class = "floating-input", @id = "txtCost", @placeholder = " " } })
+                        @Html.ValidationMessageFor(model => model.CostCentre, "", new { @class = "text-danger" })
+                        <label class="float">Cost Center</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @Html.EditorFor(model => model.Technologies, @view ? (object)new { htmlAttributes = new { @class = "floating-input", @placeholder = " ", @Value = @item.Technologies, @id = "txtTech" } } : new { htmlAttributes = new { @class = "floating-input", @id = "txtTech", @placeholder = " " } })
+                        @Html.ValidationMessageFor(model => model.Technologies, "", new { @class = "text-danger" })
+                        <label class="float">Technologies</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext" style="padding:0px !important;margin:0px !important;">Managers</div>
+                        <div class="floating-input autocomplete-textarea" id="divManager">
+                            <div id="listManager" class="list competancylist"></div>
+                            <input type="text" class="competancy txtManager vmanager " id="txtManager" placeholder=" " />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contentfielddiv">
+                        <div class="textarea-wrapper">
+                            @Html.TextAreaFor(model => model.ProjectDescription, @view ? (object)new { @class = "floating-textarea floating-input", @placeholder = " ", @Value = @item.ProjectDescription, @id = "txtDesc" }  : new { @class = "floating-textarea floating-input", @id = "txtDesc", @placeholder = " " } )
+                            @*@Html.EditorFor(model => model.ProjectDescription, @view ? (object)new { htmlAttributes = new { @class = "myprojecttextarea floating-input", @placeholder = " ", @Value = @item.ProjectDescription, @id = "txtDesc" } } : new { htmlAttributes = new { @class = "myprojecttextarea floating-input", @id = "txtDesc", @placeholder = " " } })*@
+                            @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger" })
+                            <label class="float">Project Description</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-11">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext" style="padding-left:0px !important">Resources</div>
+                        <div class="floating-input autocomplete-textarea" id="divResource">
+                            <div id="listResources" class="list competancylist"></div>
+                            <input type="text" class="competancy txtManager" id="txtResource" placeholder=" " />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="contentfielddiv">
+                        <div class="myprojectroleassign"><a href="#" onclick="AssignRole();">Assign Role</a></div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="weeklyoffmaindiv">
+                        <div class="weeklytext">Documents</div>
+                        <div class="workstarttimediv">
+                            <div class="col-md-4" id="divFile">
+                                <div class="contentfielddiv">
+                                    <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                    <input id="fileProject" type="file" class="contenttextfield" placeholder="Attachment" multiple>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="uploadbutton">
+                                    <img title="Upload" id="fileUrl" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" onclick="UploadProjectFile();" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="divAttach" style="display:none;max-width:inherit">
+
+            </div>
+            <div class="buttonmaindiv">
+                <div class="buttondiv"><input title="Save" type="button" class="submitbtn" onclick="SubmitProject();" /></div>
+                <div class="buttondiv"><input title="SaveAndNew" type="button" class="submitandnewbtn" onclick="SubmitProject(1);" /></div>
+                <div class="buttondiv" id="btnClear"><input title="Clear" class="clearbtn" onclick="clearValues();" type="button" style="text-indent:-9999px" /></div>
+                <div class="ErrorLabel">
+                    <label id="lblMsg" class="lblError"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="LoginInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDDListBox">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDDListBoxResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDDListBoxResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectGridInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectGridInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectGridInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectDetailsByMonth">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Month" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectDetailsByMonthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectDetailsByMonthResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelItemResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFilterForGrid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="JsonData" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Offset" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RowCount" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFilterForGridResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFilterForGridResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangePassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OldPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangePasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChangePasswordResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="LoginInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginInfo" />
+  </wsdl:message>
+  <wsdl:message name="LoginInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDDListBoxSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDDListBox" />
+  </wsdl:message>
+  <wsdl:message name="GetDDListBoxSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDDListBoxResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectGridInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectGridInfo" />
+  </wsdl:message>
+  <wsdl:message name="SelectGridInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectGridInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectDetailsByMonthSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectDetailsByMonth" />
+  </wsdl:message>
+  <wsdl:message name="SelectDetailsByMonthSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectDetailsByMonthResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelItemSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelItem" />
+  </wsdl:message>
+  <wsdl:message name="CancelItemSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFilterForGridSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFilterForGrid" />
+  </wsdl:message>
+  <wsdl:message name="GetFilterForGridSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFilterForGridResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangePassword" />
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangePasswordResponse" />
+  </wsdl:message>
+  <wsdl:portType name="NuPortalServiceSoap">
+    <wsdl:operation name="LoginInfo">
+      <wsdl:input message="tns:LoginInfoSoapIn" />
+      <wsdl:output message="tns:LoginInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDDListBox">
+      <wsdl:input message="tns:GetDDListBoxSoapIn" />
+      <wsdl:output message="tns:GetDDListBoxSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectGridInfo">
+      <wsdl:input message="tns:SelectGridInfoSoapIn" />
+      <wsdl:output message="tns:SelectGridInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectDetailsByMonth">
+      <wsdl:input message="tns:SelectDetailsByMonthSoapIn" />
+      <wsdl:output message="tns:SelectDetailsByMonthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelItem">
+      <wsdl:input message="tns:CancelItemSoapIn" />
+      <wsdl:output message="tns:CancelItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFilterForGrid">
+      <wsdl:input message="tns:GetFilterForGridSoapIn" />
+      <wsdl:output message="tns:GetFilterForGridSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <wsdl:input message="tns:ChangePasswordSoapIn" />
+      <wsdl:output message="tns:ChangePasswordSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NuPortalServiceSoap" type="tns:NuPortalServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="LoginInfo">
+      <soap:operation soapAction="http://tempuri.org/LoginInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDDListBox">
+      <soap:operation soapAction="http://tempuri.org/GetDDListBox" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectGridInfo">
+      <soap:operation soapAction="http://tempuri.org/SelectGridInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectDetailsByMonth">
+      <soap:operation soapAction="http://tempuri.org/SelectDetailsByMonth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelItem">
+      <soap:operation soapAction="http://tempuri.org/CancelItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilterForGrid">
+      <soap:operation soapAction="http://tempuri.org/GetFilterForGrid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap:operation soapAction="http://tempuri.org/ChangePassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NuPortalServiceSoap12" type="tns:NuPortalServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="LoginInfo">
+      <soap12:operation soapAction="http://tempuri.org/LoginInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDDListBox">
+      <soap12:operation soapAction="http://tempuri.org/GetDDListBox" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectGridInfo">
+      <soap12:operation soapAction="http://tempuri.org/SelectGridInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectDetailsByMonth">
+      <soap12:operation soapAction="http://tempuri.org/SelectDetailsByMonth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelItem">
+      <soap12:operation soapAction="http://tempuri.org/CancelItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilterForGrid">
+      <soap12:operation soapAction="http://tempuri.org/GetFilterForGrid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap12:operation soapAction="http://tempuri.org/ChangePassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NuPortalService">
+    <wsdl:port name="NuPortalServiceSoap" binding="tns:NuPortalServiceSoap">
+      <soap:address location="http://192.168.1.18:97/NuPortalService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="NuPortalServiceSoap12" binding="tns:NuPortalServiceSoap12">
+      <soap12:address location="http://192.168.1.18:97/NuPortalService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

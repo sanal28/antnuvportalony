@@ -1,0 +1,366 @@
+﻿
+@{
+    ViewBag.Title = "AddUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="../images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Add User</div>
+            </div>
+        </div>
+    </div>
+    <dialog id="dlgAddProfilepicture" style="width:80%;background: transparent;top: 25%;left: 5%;border: none;">
+        <div class="contentmaindiv" id="divCleardlg">
+            <div class="popupmaindiv" style="padding:5px">
+                <div class="popupmaindiv">
+                    <div class="popupheadingmaindiv">
+                        <div class="popupheadingtext">Add Profile Picture</div>
+                        <div class="popupclosebutton"><a href="#" onclick="$('#dlgAddProfilepicture')[0].close();">X</a></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <table width="100%" border="0" cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td width="90%">
+                                            <div class="contentfielddiv">
+                                                <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                                <input type="file" id="fileUploadAttachment" class="fileUploadAttachment contenttextfield" placeholder="Attachment" />
+                                            </div>
+                                        </td>
+                                        <td width="10%">
+                                            <div class="uploadbutton">
+                                                <img id="fileUrl" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="profilethumbnaildiv">
+                                <div class="workstarttimediv" style="max-height:50px;">
+                                    <div id="divProfileDocs" class="docDiv">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                        <div class="col-md-1">
+                            <div class="myprojectenterdiv">
+                                <a href="#"><img src="../images/enter.png" style="cursor:pointer" id="btnProject" onclick="SaveAndClose();" width="30" height="30" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="contentfielddiv">
+                                <textarea class="floating-input floating-textarea" id="txtQuotes" placeholder=" "></textarea>
+                                <label class="float">Quote</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            @*<div class="myprojecttxt"> <a>button</a></div>*@
+            <a class="backbuttondiv" href="#"><img alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                        <option value=""></option>
+                        <option value="1">Telephone</option>
+                        <option value="2">Face to Face</option>
+
+                    </select>
+                    <label class="float">Title</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">First Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Last Name</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Employee Code</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                        <option value=""></option>
+                        <option value="1">Telephone</option>
+                        <option value="2">Face to Face</option>
+                    </select>
+                    <label class="float">Designation</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Office Email ID</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                        <option value=""></option>
+                        <option value="1">Contract</option>
+                        <option value="2">Permanent</option>
+                    </select>
+                    <label class="float">Employee Type</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                        <option value=""></option>
+                        <option value="1">Dummy</option>
+                        <option value="2">Dummy</option>
+
+                    </select>
+                    <label class="float">Work Location</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Reporting To</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Training Date</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Confirmation Date</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Relieving Date</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Type Of Visa</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Insurance Paid By</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Visa Expiry Date</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Insurance Amount</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Salary Payment Type</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Preferred Job Location</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Rate</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Employee Status</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <input type="hidden" id="hdnProPicFile" value="" class=".filehidden" />
+                        <input type="file" id="imguploadprofile" accept="image/x-png, image/gif, image/jpeg,image/jpg" style="display:none" />
+                        <div id="divprofile" class="profilethumbnaildiv">
+                            <img src="~/Images/NoImage.jpg" id="propicUrl" width="40" height="40" alt="" />
+                        </div>
+                        <div class="profilepictext">Profile Pic</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="hidden" id="hdnPassportPicFile" value="" class=".filehidden" />
+                        <input type="file" id="imgUploadPassport" accept="image/x-png, image/gif, image/jpeg,image/jpg" style="display:none" />
+                        <div id="divpassport" class="profilethumbnaildiv">
+                            <img src="~/Images/NoImage.jpg" id="passportPicUrl" width="40" height="40" alt="" />
+                        </div>
+                        <div class="profilepictext">Passport size</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="hidden" id="hdnBackground" value="" class=".filehidden" />
+                        <input type="file" id="imgUploadBackground" accept="image/x-png, image/gif, image/jpeg,image/jpg" style="display:none" />
+                        <div id="divBackground" class="profilethumbnaildiv">
+                            <img src="~/Images/NoImage.jpg" id="backgroundUrl" width="40" height="40" alt="" />
+                        </div>
+                        <div class="profilepictext">Background</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Weekly Off</div>
+                    <div class="weeklyoffdiv">
+                        <div class="weeklydiv"><div class="weeklyofftext">S</div></div>
+                        <div class="weeklydiv"><div class="weeklyofftext">M</div></div>
+                        <div class="weeklydiv"><div class="weeklyofftext">T</div></div>
+                        <div class="weeklydiv"><div class="weeklyofftext">W</div></div>
+                        <div class="weeklydiv"><div class="weeklyofftext">T</div></div>
+                        <div class="weeklydiv"><div class="weeklyofftext">F</div></div>
+                        <div class="weeklydiv"><div class="weeklyofftext">S</div></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Work Start Time</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Work End Time</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="popupquestiontext">
+                        US-Bench
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="popupquestiontext">
+                        YES or no Toggle comes here
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input class="Saveaddbtn" type="button" /></div>
+            <div class="buttondiv"><input class="Savebtn" type="button" /></div>
+            <div class="buttondiv"><input class="clearbtn" type="button" /></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#divprofile').click(function () { $('#imguploadprofile').trigger('click'); });
+    $('#divpassport').click(function () { $('#dlgAddProfilepicture')[0].showModal(); });
+    $('#divBackground').click(function () { $('#imgUploadBackground').trigger('click'); });
+    $("#imguploadprofile").change(function () {
+        UploadEmpInfoFiles(this, $("#propicUrl"), $("#hdnProPicFile"),0);
+    });
+    $(".imgExpFileUpload").click(function () {
+        UploadEmpInfoFiles($("#fileUploadAttachment"), $("#passportPicUrl"), $("#hdnPassportPicFile"),1);
+    });
+    $("#imgUploadBackground").change(function () {
+        UploadEmpInfoFiles(this, $("#backgroundUrl"), $("#hdnBackground"),0);
+    });
+    function UploadEmpInfoFiles(fileObject, imageObject, hiddenfield, type) {
+        var Attachments = new FormData();
+        var uploadedFilePath = "";
+        var DocUpload = $(fileObject).get(0);
+        var DocFiles = DocUpload.files;
+        if (DocFiles.length > 0) {
+            Attachments.append(DocFiles[0].name, DocFiles[0]);
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: Attachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    var docElement = $('#divProfileDocs');
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        uploadedFilePath = json[DocFiles[0].name];
+                    }
+                    hiddenfield.val(uploadedFilePath);
+                    if (type == 0)
+                        readURL(fileObject, imageObject);
+                    else {
+                        $('#divProfileDocs').empty();
+                        //$(this).closest('.docDiv').empty();
+                        CheckExtension(docElement, DocFiles[0].name, uploadedFilePath, "<a href='#' class='hrefFileClose'><div class='documentclosebutton closeQuotes'>X</div></a>", null, 1);
+                        $('.closeQuotes').click(function () {
+                            $('#hdnPassportPicFile').val("");
+                        });
+                    }
+                    $(fileObject).val('');
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
+    }
+</script>
+

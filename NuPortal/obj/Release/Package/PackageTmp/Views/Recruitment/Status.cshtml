@@ -1,0 +1,239 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-11">
+    <dialog id="dlgAssign" style="width:50%;background: transparent;top: 25%;left: 5%;border: none;">
+        <div class="popupmaindiv" style="padding:5px">
+            <div class="popupmaindiv">
+                <div class="popupheadingmaindiv" style="overflow:hidden">
+                    <div class="popupheadingtext">Select Resource</div>
+                    <div class="popupclosebutton"><a href="#" onclick="javascript: $('#dlgAssign')[0].close();">X</a></div>
+                </div>
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="contentfielddiv">
+                            <div class="weeklytext" style="padding:0px !important;margin:0px !important;">Assigned To</div>
+                            <div class="floating-input autocomplete-textarea">
+                                <div id="listAssignTo" class="list competancylist"></div>
+                                <input type="text" class="competancy" id="txtAssign" placeholder=" " />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="myprojectenterdiv">
+                            <a href="#"><img src="../images/enter.png" style="cursor:pointer" id="btnProject" onclick="assigned();" width="30" height="30" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label id="projMsg" class="lblError"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="../images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Applicant Status</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv" id="divValidateAll">
+        <div class="myprojectdiv">
+           <a class="backbuttondiv" href="@Url.Action("ApplicantsLog","Recruitment")"><img alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select floatingddl vselect" value="" id="ddlStatus" onchange="openPopup();">
+                        <option value="0"></option>
+                    </select>
+                    <label class="float">Status</label>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="contentfielddiv">
+                    <div class="textarea-wrapper">
+                        <textarea class="floating-textarea floating-input" required id="txtComments" placeholder=" "></textarea>
+                        <label class="float">Comments</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" onclick="openupdateForm();" /></div>
+            <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onclick="clearValues();" /></div>
+            <div class="ErrorLabel">
+                <label id="lblMsg" class="lblError"></label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#txtAssign').keydown(function () {
+            AutoComplete();
+        });
+
+        $('.floatingddl').each(function () {
+            $(this).change(function () {
+                $(this).attr("value", $(this).find('option:selected').val());
+            })
+        });
+
+        LoadDdls('/Recruitment/BindDropdown?RowId=@Request["hdnStatusId"]&Operation=18', $('#ddlStatus'), 'ApplicantStatusId', 'StatusName');
+        $('#ddlStatus').find('option[value="@Request["hdnStatusId"]"]').attr('selected','selected');
+        $('#ddlStatus').attr('value',@Request["hdnStatusId"]);
+
+    });
+    function AutoComplete() {
+        if ($('#listAssignTo').find('.divcompetancy').length < 1) {
+            $("#txtAssign").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/EmpInfoAdminView/AutoComplete',
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: "{ 'EmpName': '" + request.term.split(/,\s*/).pop() + "' }",
+                        success: function (data) {
+                            var items = [];
+                            for (var i = 0; i < data.length; i++) {
+                                items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                            }
+                            response($.map(items, function (item) {
+                                return item;
+                            }))
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $('#listAssignTo').append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff;" +
+                        " min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                        "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                       "<a href='#' style='color: #fff;' onclick=\"javascript:$(this).parents(':eq(1)').remove();\">X</a></div></div>");
+                    this.value = "";
+                    return false;
+                },
+                minLength: 1
+            });
+        }
+    }
+    function assigned()
+    {
+        //if(("#listAssignTo").find(".divcompetancy").attr('name')=="")
+            if($('#listAssignTo')[0].innerHTML=="")
+        {
+            $("#btnProject").attr('disable',true);
+            $("#projMsg").text("Please Assign a name");
+        }
+        else{
+            $("#projMsg").text("");
+            $("#btnProject").attr('disable',false);
+            $('#dlgAssign')[0].close();
+        }
+    }
+    function openPopup() {
+        if ($('#ddlStatus option:selected').text() == "Assign for evaluation")
+            $('#dlgAssign')[0].showModal();
+
+        @*else if($('#ddlStatus option:selected').val() == 9&& parseInt('@Request["hdnStatusId"]')!=9)
+            showDialog('/recruitment/CreateInterview?hdnId='+@Request["hdnApplicant"],"Schedule Interview");
+        else if($('#ddlStatus option:selected').val() >=10&& $('#ddlStatus option:selected').val()<=14)
+            showDialog('/recruitment/Interview?hdnId='+@Request["hdnApplicant"],"Update Interview Status");
+        else if($('#ddlStatus option:selected').val() >=15&& $('#ddlStatus option:selected').val()<=19)
+            showDialog('/recruitment/Assessment?hdnId='+@Request["hdnApplicant"],"Submit Assessment");*@
+        else
+            $('#listAssignTo')[0].innerHTML="";
+    }
+
+    function openupdateForm(){
+        if($('#ddlStatus option:selected').val() == 9&& parseInt('@Request["hdnStatusId"]')!=9)
+            showDialog('/recruitment/CreateInterview?hdnId='+@Request["hdnApplicant"],"Schedule Interview");
+        else if($('#ddlStatus option:selected').val() >=10&& $('#ddlStatus option:selected').val()<=14)
+            showDialog('/recruitment/Interview?hdnId='+@Request["hdnApplicant"],"Update Interview Status");
+        else if($('#ddlStatus option:selected').val() >=15&& $('#ddlStatus option:selected').val()<=19)
+            showDialog('/recruitment/Assessment?hdnId='+@Request["hdnApplicant"],"Submit Assessment");
+        else
+            UpdateStatus();
+    }
+
+    function UpdateStatus() {
+        if (ValidateAll('divValidateAll','lblMsg')) {
+            var Assign = "";
+            if($('#listAssignTo').find('.divcompetancy').length>0)
+                Assign=$('#listAssignTo').find('.divcompetancy').attr('name');
+            var dtStatus = [{ Applicant:@Request["hdnApplicant"],Opening:@Request["hdnOpenId"],Status:$('#ddlStatus option:selected').val(),AssigedTo:Assign,Comments:$('#txtComments').val() }];
+            $.ajax({
+                url: '/Recruitment/UpdateApplicantStatus',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    JsonStr: JSON.stringify(dtStatus)
+                },
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    $('#lblMsg').attr("class", "lblMessage");
+                    $('#lblMsg')[0].innerText = "Status Updated Successfully";
+                    //clearValues();
+                },
+                error: function () {
+                }
+            });
+        }
+    }
+
+    function clearValues() {
+        $("input[type='text']").each(function () {
+            $(this).val('');
+        });
+        $('textarea').each(function () {
+            $(this).val('');
+        });
+        $('#listAssignTo')[0].innerHTML="";
+        $("select").each(function(){
+            $(this).find('option[value="0"]').attr('selected','selected');
+            $(this).attr("value", "");
+        });
+    }
+
+    function showDialog(dialogUrl, title) {
+        var dialog = $('<div id="updateDlg" style="display:none"></div>').appendTo('body');
+        dialog.load(dialogUrl, {},
+            function (responseText, textStatus, XMLHttpRequest) {
+                dialog.dialog({
+                    close: function (event, ui) {
+                        dialog.remove();
+                    },
+                    title: title,
+                    modal: true,
+                    open: function (event, ui) {
+                        $('div[role="dialog"]').find('.headermaindiv').parent(0).remove();
+                        $('div[role="dialog"]').find('.col-md-1').remove();
+                        $('div[role="dialog"]').find('.backbuttondiv').hide();
+                        $('div[role="dialog"]').find('.col-md-11').attr('class', 'col-md-12');
+                        $('div[role="dialog"]').find('.mainheadingdiv').hide();
+
+                        $('div[role="dialog"]').find('.contentmaindiv').attr('style', $('div[role="dialog"]').find('.contentmaindiv').attr('style') + ';margin:0px;background-color:rgba(116, 126, 130, 0.52);max-height:600px;overflow-y:auto;overflow-x:hidden;');
+                        $('div[role="dialog"]').attr('style', $('div[role="dialog"]').attr('style') + 'background: rgba(67, 116, 136, 0.8);');
+                    },
+                    width: 1250,
+                    classes: { "ui-dialog-titlebar": "popupheadingmaindiv", "ui-dialog-title": "popupheadingtext", "ui-button": "popupclosebutton", "ui-dialog": "popupmaindiv" },
+                    position: { at: "center top+50%" }
+                });
+                dialog.dialog( "moveToTop" );
+            });
+        return false;
+    }
+</script>

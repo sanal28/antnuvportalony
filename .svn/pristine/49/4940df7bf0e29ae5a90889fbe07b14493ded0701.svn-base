@@ -1,0 +1,467 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool StatusOnly = false;
+    if (!string.IsNullOrEmpty(Request["hdnAction"]))
+    {
+        StatusOnly = true;
+    }
+}
+<input type="hidden" id="hdnApplicantId" />
+<input type="hidden" id="hdnInterviewerId" />
+<div id="dlgInterStatus" style="display: none;">
+    <div id="statusPopup" style="padding: 5px">
+        <div id="navAssessment" style="display:none">
+        <div class="space"></div>
+        <div class="myprojectdiv">
+                <div class="myprojecttxt"><a style="background-color:transparent" id="anchAssess" href="#">Assessment</a></div>                
+            </div>
+            </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" " id="txtStatuspop" disabled>
+                    <label class="float">Interview Status</label>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="contentfielddiv">
+                    <div class="textarea-wrapper">
+                        <textarea class="floating-textarea floating-input" placeholder=" " required id="txtCommentspop" disabled></textarea>
+                        <label class="float">Comments</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divFilesattach" style="display:none">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Documents</div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="divAttachpop" style="display: none; max-width: inherit">
+        </div>
+            </div>
+    </div>
+</div>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv">
+                    <div class="mainheadericon">
+                        <img src="~/Images/interview-sm.png" width="45" height="45" alt="" /></div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Interview</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div id="divAppldetails">
+            <div class="myprojectdiv">
+
+                <a class="backbuttondiv" href="@Request.UrlReferrer.PathAndQuery">
+                    <img alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+
+                        <input class="floating-input" type="text" placeholder=" " id="txtName" disabled>
+                        <label class="float">Candidate Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+
+                        <input class="floating-input" type="text" placeholder=" " id="txtPosting" disabled>
+                        <label class="float">Posting Title</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+
+                        <input class="floating-input" type="text" placeholder=" " id="txtType" disabled>
+                        <label class="float">Interview Type</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtDate" disabled>
+                        <label class="float">Date</label>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtTime" disabled>
+                        <label class="float">Time</label>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtLocation" disabled>
+                        <label class="float">Location</label>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv" id="divApplicantEmail">
+                        <input class="floating-input" type="text" placeholder=" " id="txtMail" disabled>
+                        <label class="float">Email</label>
+                    </div>
+                    <div class="contentfielddiv" id="divInterviewer" style="display: none">
+                        <div class="weeklytext" style="padding: 0px !important; margin: 0px !important;">Interviewer</div>
+                        <div class="floating-input autocomplete-textarea">
+                            <div id="listInterviewer" class="list competancylist"></div>
+                            <input type="text" class="competancy" placeholder=" " disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtMobile" disabled>
+                        <label class="float">Mobile No</label>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtExp" disabled>
+                        <label class="float">Experience in Months</label>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtQual" disabled>
+                        <label class="float">Higest Qualification</label>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtJob" disabled>
+                        <label class="float">Current Job Titile</label>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input class="floating-input" type="text" placeholder=" " id="txtEmp" disabled>
+                        <label class="float">Current Employer</label>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="textarea-wrapper">
+                            <textarea class="floating-textarea floating-input" placeholder=" " required id="txtSkills" disabled></textarea>
+                            <label class="floating-label">Skills</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="textarea-wrapper">
+                            <textarea class="floating-textarea floating-input" placeholder=" " required id="txtTech" disabled></textarea>
+                            <label class="floating-label">Technologies</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="textarea-wrapper">
+                            <textarea class="floating-textarea floating-input" placeholder=" " required id="txtAddition" disabled></textarea>
+                            <label class="floating-label">Additional Info</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="divSubhead">
+                <div class="space"></div>
+                <div class="popupheadingmaindiv">
+                    <div class="popupheadingtext">Interviewer</div>
+                    @*<div class="popupclosebutton"><a href="#">X</a></div>*@
+                </div>
+            </div>
+        </div>
+
+        <div id="divStatus">
+            <div class="row" id="divValidateAll">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select class="floating-select vselect" onclick="this.setAttribute('value', this.value);" value="" id="ddlStatus">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Interview Status</label>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="contentfielddiv">
+                        <div class="textarea-wrapper">
+                            <textarea class="floating-textarea floating-input" placeholder=" " required id="txtComments"></textarea>
+                            <label class="float">Comments</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="divFilescont">
+                <div class="col-md-12">
+                    <div class="weeklyoffmaindiv">
+                        <div class="weeklytext">Documents</div>
+                        <div class="workstarttimediv">
+                            <div class="col-md-4" id="divFile">
+                                <div class="contentfielddiv">
+                                    <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                    <input id="fileProject" type="file" class="contenttextfield" placeholder="Attachment" multiple>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="uploadbutton">
+                                    <img title="Upload" id="fileUrl" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" onclick="UploadInterviewFile();" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="divAttach" style="display: none; max-width: inherit">
+            </div>
+        </div>
+        <div class="space"></div>
+
+        <div class="buttonmaindiv">
+            <div class="buttondiv">
+                <input title="Save" class="submitbtn" type="button" onclick="UpdateInterviewStatus();" /></div>
+            <div class="buttondiv">
+                <input title="Clear" class="clearbtn clearbutton" type="button" onclick="clearValues();" /></div>
+            <div class="ErrorLabel">
+                <label id="lblMsg" class="lblError"></label>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var recruiter=false;
+    $(document).ready(function () {
+        $(".clearbutton").hide();
+        $.ajax({
+            url: '/Recruitment/CancelDelete',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            data: {
+                RowId: @Request["hdnId"],EmpId:@Session["EmpId"], Operation: 14
+            },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                if(results[0].FK_Recruiter==parseInt('@Session["EmpId"]')){
+                    LoadDdls('/Recruitment/BindDropdown?RowId='+results[0].FK_ApplicantIdStatus+'&Operation=26', $('#ddlStatus'), 'ApplicantStatusId', 'StatusName');
+                    recruiter=true;
+                    //$('#ddlStatus option[value="11"]').remove();
+                }
+                else{
+                    LoadDdls('/Recruitment/BindDropdown?RowId='+results[0].FK_ApplicantIdStatus+'&Operation=25', $('#ddlStatus'), 'ApplicantStatusId', 'StatusName');
+                    //$("#ddlStatus").append('<option value="13">Interviewee absent</option>');
+                    //$("#ddlStatus").append('<option value="14">Interview completed</option>');
+                }
+                $('#txtName').val(results[0].Name);
+                $('#txtPosting').val(results[0].JobTitle);
+                $('#txtType').val(results[0].TypeName);
+                $('#txtDate').val(customDateformat(results[0].Date, "MM/dd/yyyy"));
+                $('#txtTime').val(results[0].Time);
+                $('#txtLocation').val(results[0].Location);
+                $('#txtMail').val(results[0].EmailId);
+                $('#txtMobile').val(results[0].MobileNo);
+                $('#txtExp').val(results[0].ExperianceinMonths==0?"":results[0].ExperianceinMonths);
+                $('#txtQual').val(results[0].HighestQualification);
+                $('#txtJob').val(results[0].CurrentJobTitle);
+                $('#txtEmp').val(results[0].CurrentEmployer);
+                $('#txtSkills').val(results[0].Skills);
+                $('#txtTech').val(results[0].Technologies);
+                $('#txtAddition').val(results[0].AdditionalInfo);
+                $('#hdnApplicantId').val(results[0].NewApplicantId);
+                $('#hdnInterviewerId').val(results[0].InterviewerId);
+
+                $.ajax({
+                    url: '/Recruitment/GetOpening',
+                    dataType: "json",
+                    type: "GET",
+                    contentType: 'application/json; charset=utf-8',
+                    data: {
+                        RowId: results[0].CreateIntrviewId, operation: 74
+                    },
+                    success: function (data) {
+                        var interviewers = $.parseJSON(data);
+                        $('#listInterviewer').append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label style='cursor:pointer'>" + interviewers[0].FirstName +"</label>"+
+                    "<img src='../Images/documenticon.png' onclick='viewStatus("+interviewers[0].EmpId+","+results[0].CreateIntrviewId+","+results[0].NewApplicantId+","+results[0].FK_ApplicantIdStatus+");' class='divcompetancy' name='" + interviewers[0].EmpId + "' />"+
+                    "</div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '></div></div>");
+                    }
+                });
+            },
+            error: function (xhr) {
+            }
+        });
+        if('@StatusOnly'=='True'){
+            if('@Request["hdnAction"]'=='update')
+                $('#divAppldetails').hide();
+            else{
+                $('#divStatus').hide();
+                $('#divSubhead').hide();
+                $('#divInterviewer').show();
+                $('#divApplicantEmail').hide();
+            }
+        }
+    });
+
+    function viewStatus(empId,schedId,applId,status){
+        if(status==14){
+            $('#navAssessment').show();
+            $('#navAssessment').find('a').attr("onclick","showDialog('/recruitment/assessment?hdnId="+applId+"&hdnAction=0','Assessment','assessDlg')");
+        }
+        $.ajax({
+            url: '/Recruitment/CancelDelete',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            data: {
+                RowId: schedId,EmpId:empId, Operation: 10
+            },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                if(results.Result==undefined||results.Result==null||results.Result!="Error"){
+                    $('#txtStatuspop').val(results[0].StatusName);
+                    $('#txtCommentspop').val(results[0].Comments);
+                    var filesStr=results[0].Attachments.split('||');
+                    if(filesStr.length>1){
+                        for(var i=0;i<filesStr.length-1;i++)
+                            CheckExtension($('#divAttachpop'), filesStr[i], filesStr[i].split('\\').pop(), "", $('#divAttachpop'), 1);
+                        $('#divFilesattach').show();
+                    }
+                }
+                
+            }
+        });
+        var statusPopup=$('#statusPopup').dialog({
+            close: function (event, ui) {
+                statusPopup.dialog( "destroy" );
+            },
+            title: 'Status',
+            modal: true,
+            open: function (event, ui) {                
+                $('div[role="dialog"]').css('background', 'rgba(67, 116, 136, 0.8)');
+                $('.ui-dialog-content').css('background-color','rgba(75, 136, 160, 0.52)');
+                $('.ui-widget-overlay').css('background-color','black');
+                $('div[role="dialog"]').find('.row').css('margin', '0px');
+            },
+            width: 1000,
+            classes: { "ui-dialog-titlebar": "popupheadingmaindiv", "ui-dialog-title": "popupheadingtext", "ui-button": "popupclosebutton", "ui-dialog": "popupmaindiv" },
+            position: { at: "center top+50%" }
+        });
+        statusPopup.dialog("moveToTop");
+    }
+
+    function UpdateInterviewStatus() {
+        if (ValidateAll('divValidateAll','lblMsg')) {
+            var dtStatus = [{ Applicant:$('#hdnApplicantId').val(),InterviewerId:$('#hdnInterviewerId').val(),Status:$('#ddlStatus option:selected').val(),Attachments:$('#filehidden').val(),Comments:$('#txtComments').val() }];
+            $.ajax({
+                url: '/Recruitment/UpdateInterviewStatus',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    JsonStr: JSON.stringify(dtStatus),Operation:recruiter?1:2
+                },
+                success: function (data) {
+                    var result = JSON.parse(data);
+                    if(result.Result==undefined||result.Result==null||result.Result!="Error"){
+                        $('#lblMsg').attr("class", "lblMessage");
+                        $('#lblMsg')[0].innerText = "Interview Status Updated Successfully";
+                        if($('#updateDlg').length>0){
+                            UpdateStatus();
+                            $('#updateDlg').parent().remove();
+                        }
+                        if($('#statusDlg').length>0){
+                            $('#statusDlg').parent().remove();
+                            window.location.reload();
+                        }
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+    }
+
+    function clearValues(){
+        $('#txtComments').val("");
+        $('#ddlStatus option[value="0"]').attr('selected','selected');
+        $('#ddlStatus').attr("value", "");
+        $('#filehidden').val("");
+        $('#divAttach')[0].innerHTML = "";
+        $('#fileProject').val('');
+    }
+
+    function UploadInterviewFile(){
+        var projectFiles = $('#fileProject')[0].files;
+        var formData = new FormData();
+        if (projectFiles.length > 0) {
+            for (var i = 0; i < projectFiles.length; i++)
+                formData.append(projectFiles[i].name, projectFiles[i]);
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < projectFiles.length; i++) {
+                            $('#filehidden').val($('#filehidden').val() + json[projectFiles[i].name] + "||");
+                            CheckExtension($('#divAttach'), projectFiles[i].name, json[projectFiles[i].name], "<a title='Close' href='#'><div class='documentclosebutton closeImage'>X</div></a>", $('#divAttach'), 1);
+                        }
+                    }
+                    $('#fileProject').val('');
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        }
+    }
+
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            $('#filehidden').val($('#filehidden').val().replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+            if ($('#divAttach').children().length == 0)
+                $('#divAttach').hide();
+        });
+    };
+
+</script>

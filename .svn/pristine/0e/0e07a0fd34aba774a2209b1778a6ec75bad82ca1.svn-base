@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="AnnouncementOrEventsOper">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="createdEmpId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AnnouncementOrEventsOperResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AnnouncementOrEventsOperResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveTraining">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="createdEmpId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Details" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="TrainerId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsAssessmentSent" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Subject" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveTrainingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveTrainingResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTrainingTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RespondedBy" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Trainee" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="TrainingId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="TicketStatusId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTrainingTicketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateTrainingTicketResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDataForCalendar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDataForCalendarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDataForCalendarResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveTrainingAssessment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AbilityToCompleteTaskOnTime" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="AbilityToLearnNewConcept" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="createdEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="AbilityToUnderstandConcept" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="AreasOfDevelopment" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AssistanceRequiredDuringCodeBuilding" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TrainingTicketId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ImplementationOfNewlyLearntConcept" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveTrainingAssessmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveTrainingAssessmentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOfficePoll">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Note" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="AttachmentPath" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsCancelled" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOfficePollResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveOfficePollResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveQuestion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PollId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QuestionTypeId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Question" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveQuestionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveQuestionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetOptionsForQuestion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jsonOptions" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetOptionsForQuestionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetOptionsForQuestionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveTbPollResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="QuestionId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TextValue" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveTbPollResultResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveTbPollResultResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOptionsPollResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jsonOptions" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOptionsPollResultResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveOptionsPollResultResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SavePollPublishType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="QuestionId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="PublishTypeId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TextVal" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SavePollPublishTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SavePollPublishTypeResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AnnouncementOrEventsOperSoapIn">
+    <wsdl:part name="parameters" element="tns:AnnouncementOrEventsOper" />
+  </wsdl:message>
+  <wsdl:message name="AnnouncementOrEventsOperSoapOut">
+    <wsdl:part name="parameters" element="tns:AnnouncementOrEventsOperResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveTrainingSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveTraining" />
+  </wsdl:message>
+  <wsdl:message name="SaveTrainingSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveTrainingResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTrainingTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTrainingTicket" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTrainingTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTrainingTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDataForCalendarSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDataForCalendar" />
+  </wsdl:message>
+  <wsdl:message name="GetDataForCalendarSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDataForCalendarResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveTrainingAssessmentSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveTrainingAssessment" />
+  </wsdl:message>
+  <wsdl:message name="SaveTrainingAssessmentSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveTrainingAssessmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOfficePollSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOfficePoll" />
+  </wsdl:message>
+  <wsdl:message name="SaveOfficePollSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOfficePollResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveQuestionSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveQuestion" />
+  </wsdl:message>
+  <wsdl:message name="SaveQuestionSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveQuestionResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetOptionsForQuestionSoapIn">
+    <wsdl:part name="parameters" element="tns:SetOptionsForQuestion" />
+  </wsdl:message>
+  <wsdl:message name="SetOptionsForQuestionSoapOut">
+    <wsdl:part name="parameters" element="tns:SetOptionsForQuestionResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveTbPollResultSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveTbPollResult" />
+  </wsdl:message>
+  <wsdl:message name="SaveTbPollResultSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveTbPollResultResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOptionsPollResultSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOptionsPollResult" />
+  </wsdl:message>
+  <wsdl:message name="SaveOptionsPollResultSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOptionsPollResultResponse" />
+  </wsdl:message>
+  <wsdl:message name="SavePollPublishTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:SavePollPublishType" />
+  </wsdl:message>
+  <wsdl:message name="SavePollPublishTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:SavePollPublishTypeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="NuPortalHRServiceSoap">
+    <wsdl:operation name="AnnouncementOrEventsOper">
+      <wsdl:input message="tns:AnnouncementOrEventsOperSoapIn" />
+      <wsdl:output message="tns:AnnouncementOrEventsOperSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveTraining">
+      <wsdl:input message="tns:SaveTrainingSoapIn" />
+      <wsdl:output message="tns:SaveTrainingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTrainingTicket">
+      <wsdl:input message="tns:UpdateTrainingTicketSoapIn" />
+      <wsdl:output message="tns:UpdateTrainingTicketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDataForCalendar">
+      <wsdl:input message="tns:GetDataForCalendarSoapIn" />
+      <wsdl:output message="tns:GetDataForCalendarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveTrainingAssessment">
+      <wsdl:input message="tns:SaveTrainingAssessmentSoapIn" />
+      <wsdl:output message="tns:SaveTrainingAssessmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOfficePoll">
+      <wsdl:input message="tns:SaveOfficePollSoapIn" />
+      <wsdl:output message="tns:SaveOfficePollSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveQuestion">
+      <wsdl:input message="tns:SaveQuestionSoapIn" />
+      <wsdl:output message="tns:SaveQuestionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetOptionsForQuestion">
+      <wsdl:input message="tns:SetOptionsForQuestionSoapIn" />
+      <wsdl:output message="tns:SetOptionsForQuestionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveTbPollResult">
+      <wsdl:input message="tns:SaveTbPollResultSoapIn" />
+      <wsdl:output message="tns:SaveTbPollResultSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOptionsPollResult">
+      <wsdl:input message="tns:SaveOptionsPollResultSoapIn" />
+      <wsdl:output message="tns:SaveOptionsPollResultSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SavePollPublishType">
+      <wsdl:input message="tns:SavePollPublishTypeSoapIn" />
+      <wsdl:output message="tns:SavePollPublishTypeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NuPortalHRServiceSoap" type="tns:NuPortalHRServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AnnouncementOrEventsOper">
+      <soap:operation soapAction="http://tempuri.org/AnnouncementOrEventsOper" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTraining">
+      <soap:operation soapAction="http://tempuri.org/SaveTraining" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTrainingTicket">
+      <soap:operation soapAction="http://tempuri.org/UpdateTrainingTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataForCalendar">
+      <soap:operation soapAction="http://tempuri.org/GetDataForCalendar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTrainingAssessment">
+      <soap:operation soapAction="http://tempuri.org/SaveTrainingAssessment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOfficePoll">
+      <soap:operation soapAction="http://tempuri.org/SaveOfficePoll" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveQuestion">
+      <soap:operation soapAction="http://tempuri.org/SaveQuestion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetOptionsForQuestion">
+      <soap:operation soapAction="http://tempuri.org/SetOptionsForQuestion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTbPollResult">
+      <soap:operation soapAction="http://tempuri.org/SaveTbPollResult" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOptionsPollResult">
+      <soap:operation soapAction="http://tempuri.org/SaveOptionsPollResult" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePollPublishType">
+      <soap:operation soapAction="http://tempuri.org/SavePollPublishType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NuPortalHRServiceSoap12" type="tns:NuPortalHRServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AnnouncementOrEventsOper">
+      <soap12:operation soapAction="http://tempuri.org/AnnouncementOrEventsOper" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTraining">
+      <soap12:operation soapAction="http://tempuri.org/SaveTraining" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTrainingTicket">
+      <soap12:operation soapAction="http://tempuri.org/UpdateTrainingTicket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataForCalendar">
+      <soap12:operation soapAction="http://tempuri.org/GetDataForCalendar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTrainingAssessment">
+      <soap12:operation soapAction="http://tempuri.org/SaveTrainingAssessment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOfficePoll">
+      <soap12:operation soapAction="http://tempuri.org/SaveOfficePoll" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveQuestion">
+      <soap12:operation soapAction="http://tempuri.org/SaveQuestion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetOptionsForQuestion">
+      <soap12:operation soapAction="http://tempuri.org/SetOptionsForQuestion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTbPollResult">
+      <soap12:operation soapAction="http://tempuri.org/SaveTbPollResult" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOptionsPollResult">
+      <soap12:operation soapAction="http://tempuri.org/SaveOptionsPollResult" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePollPublishType">
+      <soap12:operation soapAction="http://tempuri.org/SavePollPublishType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NuPortalHRService">
+    <wsdl:port name="NuPortalHRServiceSoap" binding="tns:NuPortalHRServiceSoap">
+      <soap:address location="http://192.168.1.18:97/NuPortalHRService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="NuPortalHRServiceSoap12" binding="tns:NuPortalHRServiceSoap12">
+      <soap12:address location="http://192.168.1.18:97/NuPortalHRService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

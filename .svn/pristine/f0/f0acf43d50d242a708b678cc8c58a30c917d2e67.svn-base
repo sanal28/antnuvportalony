@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="NuPortal.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="NuPortal_NuPortalAdminService_NuPortalAdminService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://192.168.1.18:97/NuPortalAdminService.asmx</Value>
+    </Setting>
+    <Setting Name="NuPortal_NuPortalEmpService_NuPortalEmployeeService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://192.168.1.18:97/NuPortalEmployeeService.asmx</Value>
+    </Setting>
+    <Setting Name="NuPortal_NuPortalHRService_NuPortalHRService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://192.168.1.18:97/NuPortalHRService.asmx</Value>
+    </Setting>
+    <Setting Name="NuPortal_NuPortalRecruitmentService_Recruitment" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://192.168.1.18:97/NuPortalRecruitmentService.asmx</Value>
+    </Setting>
+    <Setting Name="NuPortal_NuPortalProjectService_NuPortalProject" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://192.168.1.18:97/NuPortalProjectService.asmx</Value>
+    </Setting>
+    <Setting Name="NuPortal_NuPortalUSRecService_NuPortalUSRecService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://192.168.1.18:97/NuPortalUSRecService.asmx</Value>
+    </Setting>
+    <Setting Name="NuPortal_NuPortalRequestService_NuPortalRequestService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://192.168.1.18:97/NuPortalRequestService.asmx</Value>
+    </Setting>
+    <Setting Name="NuPortal_NuPortalDBService_NuPortalService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://192.168.1.18:97/NuPortalService.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

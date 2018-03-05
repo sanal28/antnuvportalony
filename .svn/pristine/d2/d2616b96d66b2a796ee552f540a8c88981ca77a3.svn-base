@@ -1,0 +1,606 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<dialog id="dlgAddProfilepicture" style="width:42%;background: transparent;left: 5%;border: none;">
+    <div class="contentEmpGallerymaindiv" id="divCleardlg">
+        <div class="popupmaindiv" style="padding:5px">
+            <div class="popupmaindiv">
+                <div class="popupheadingmaindiv">
+                    <div class="popupheadingtext">Add Profile Picture</div>
+                    <div class="popupclosebutton"><a title="Close" href="#" onclick="CloseQuotesPopup(this);">X</a></div>
+                </div>
+                <div class="row">
+                    <div id="divImage" class="userinfoEmpGalleryPopupmaindiv">
+                        <div class="empSlides Popupprofilepicimagediv">
+                            <div>
+                                <input type="file" id="fileUploadAttachement" accept="image/x-png, image/gif, image/jpeg,image/jpg,image/bmp" multiple="multiple" allowmultiple="true" style="display:none" onchange="previewImage();" />
+                                <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                <div class="divEmpGallery" onclick="BrowseImage();">                             
+                                </div>
+                            </div>
+                        </div>
+                        <a id="hrefAdminPrev" title="Previous" class="prevSlide" style="margin-top:0px;margin-left:10px;" onclick="plusSlides(-1)">❮</a>
+                        <a id="hrefAdminNxt" title="Next" class="nextSlide" style="margin-right:50px;margin-top:0px;" onclick="plusSlides(1)">❯</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+@model NuPortal.Models.EmpInfoAdminView
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.applicantId, new {@id="hdnApplicant",@value=0 })   
+    @Html.HiddenFor(model => model.imageUrl, new {id = "hdnimageUrl" })
+    @Html.HiddenFor(model => model.quoteText, new { id = "hdnquoteText" } )
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/add-User-sm.png" width="45" height="45" alt="" /></div></div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="mainheaderdiv">Add User</div>
+                </div>
+
+            </div>
+        </div>
+    
+        <div class="contentmaindiv">
+            <div class="myprojectdiv">
+                <a class="backbuttondiv" id="hrefBack" href="/AdminHome/AdminHome"><img title="Back" alt="Back" width="30" height="30" src="../Images/back-button.png" /></a>
+            </div>
+            <div class="space"></div>
+            <div id="DivClearAll">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.DropDownListFor(model => model.titleId, Model.title, "", new { @class = "floating-select", id="ddlTitle", value = "", onclick = "this.setAttribute('value', this.value);" })
+                            <label class="float">Title</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.firstName,new {  @class = "floating-input vinput", id= "txtFname", placeholder = " " })
+                            <label class="float">First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.lastName, new { @class = "floating-input", id= "txtLname", placeholder = " " })
+                            <label class="float">Last Name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.employeeCode, new { @class = "floating-input vinput", id= "txtEmpCode", placeholder = " " })
+                            <label class="float">Employee Code</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.DropDownListFor(model => model.designationId, Model.designation, "", new { @class = "floating-select vselect", id= "ddlDesignation", value = "", onclick = "this.setAttribute('value', this.value);" })
+                            <label class="float">Designation</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.officeEmailId, new { @class = "floating-input vemail vinput", id= "txtOfficeEmail", placeholder = " " })
+                            <label class="float">Office Email ID</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.DropDownListFor(model => model.employmentType, Model.employmentType, "", new { @class = "floating-select", id = "ddlEmptType", value = "", onclick = "this.setAttribute('value', this.value);" })
+                            <label class="float">Employee Type</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.DropDownListFor(model => model.officeLocationId, Model.officeLocation, "", new { @class = "floating-select vselect", id= "ddlLocation", value = "", onclick = "this.setAttribute('value', this.value);" })
+                            <label class="float">Office Location</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.workLocation, new { @class = "floating-input", id= "txtWorkLocation", placeholder = " " })
+                            <label class="float">Work Location</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.joiningDate, new { @class = "floating-input vdate vsdate vinput", @id= "txtJoinDate", placeholder = " " })
+                            <label class="float">Joining Date</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.confirmationDate, new { @class = "floating-input vdate vedate", @id = "txtConfirmDate", placeholder = " " })
+                            <label class="float">Confirmation Date</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.HiddenFor(model => model.reportingTo, new { id = "hfEmpId",name= "EmpId" })
+                            <input type="text" id="txtManager" name="FirstName" class="floating-input vinput" placeholder=" " />
+                            <label class="float">Reporting Manager</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.relievingDate, new { @class = "floating-input", @id = "txtRelievingDate", placeholder = " " })
+                            <label class="float">Relieving Date</label>
+                        </div>
+                    </div>                    
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                @*<input type="hidden" id="hdnProPicFile" value="" class=".filehidden" />*@
+                                @Html.HiddenFor(model => model.profilePicUrl, new { id = "hdnProPicFile" })
+                                <input type="file" id="imguploadprofile" accept="image/x-png, image/gif, image/jpeg,image/jpg" style="display:none" /><div id="divprofile" class="profilethumbnaildiv">
+                                    <img src="~/Images/NoImage.jpg" id="propicUrl" width="40" height="40" alt="" />
+                                </div>
+                                <div class="profilepictext">Profile Icon</div>
+                            </div>
+                            <div class="col-sm-4">
+                                @*<input type="hidden" id="hdnPassportPicFile" value="" class=".filehidden" />*@
+                                @Html.HiddenFor(model => model.passPicUrl, new { id = "hdnPassportPicFile" })
+                                <input type="file" id="imguploadpassport" accept="image/x-png, image/gif, image/jpeg,image/jpg" style="display:none" /><div id="divpassport" class="profilethumbnaildiv">
+                                    <img src="~/Images/NoImage.jpg" id="passportUrl" width="40" height="40" alt="" />
+                                </div>
+                                <div class="profilepictext">Profile Picture</div>
+                            </div>
+                            <div class="col-sm-4">
+                                @*<input type="hidden" id="hdnBgPicture" value="" class=".filehidden" />*@
+                                @Html.HiddenFor(model => model.bgPicUrl, new { id = "hdnBgPicture" })
+                                <input type="file" id="imguploadbground" accept="image/x-png, image/gif, image/jpeg,image/jpg" style="display:none" /><div id="divbground" class="profilethumbnaildiv">
+                                    <img src="~/Images/NoImage.jpg" id="bgimagepropicUrl" width="40" height="40" alt="" />
+                                </div>
+                                <div class="profilepictext">Background</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.DropDownListFor(model => model.employmentStatusId, Model.employmentStatus, "", new { @class = "floating-select", id = "ddlEmpstatus", value = "", onclick = "this.setAttribute('value', this.value);" })
+                            <label class="float">Employee Status</label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="weeklyoffmaindiv">
+                            <div class="weeklytext">Weekly Off</div>
+                            @Html.HiddenFor(model => model.weekOffDays, new { id = "hdnWeekOffDays" })
+                            <div class="weeklyoffdiv">
+                                <div class="weeklydiv"><div title="Sunday" name="1" class="weeklyofftext">S</div></div>
+                                <div class="weeklydiv"><div title="Monday" name="2" class="weeklyofftext">M</div></div>
+                                <div class="weeklydiv"><div title="Tuesday" name="3" class="weeklyofftext">T</div></div>
+                                <div class="weeklydiv"><div title="Wednesday" name="4" class="weeklyofftext">W</div></div>
+                                <div class="weeklydiv"><div title="Thursday" name="5" class="weeklyofftext">T</div></div>
+                                <div class="weeklydiv"><div title="Friday" name="6" class="weeklyofftext">F</div></div>
+                                <div class="weeklydiv"><div title="Saturday" name="7" class="weeklyofftext">S</div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="weeklyoffmaindiv">
+                            <div class="weeklytext">Work Start Time</div>
+                            <div class="workstarttimediv">
+                                @Html.TextBoxFor(model => model.workStartTime, new {@class = "contenttextfield" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="weeklyoffmaindiv">
+                            <div class="weeklytext">Work End Time</div>
+                            <div class="workstarttimediv">
+                                @Html.TextBoxFor(model => model.workEndTime, new {@class = "contenttextfield" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            <div class="buttonmaindiv">
+                <div class="buttondiv"><input title="Save" class="submitbtn" type="submit" onclick="return submitForm()" /></div>
+                <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onClick="ClearControls();" /></div>
+                @*<div class="ErrorLabel"><label id="lblAdminEmpError" class="lblError"></label></div>*@
+                @if (ViewBag.Message == "Employee Created Successfully")
+                {
+                    <div class="labelmessage"><label id="lblAdminEmpMsg" class="lblMessage">@ViewBag.Message</label></div>
+                }
+                else
+                {
+                    <div class="labelmessage"><label id="lblAdminEmpMsg" class="lblError">@ViewBag.Message</label></div>
+                    <script>
+                        $("#ddlTitle").click();
+                        $("#ddlDesignation").click();
+                        $("#ddlEmptType").click();
+                        $("#ddlLocation").click();
+                        $("#ddlEmpstatus").click();
+                    </script>
+                }
+            </div>
+        </div>
+</div>
+</div>
+}
+
+<script type="text/javascript">
+    var weekoffcount = 2;
+    var slideIndex;
+    var index = 0;
+    var hiddenfield = $('#filehidden');
+    var slideCount = 0;
+    $(document).ready(function () {
+        DefineDatePicker($('#txtJoinDate'));
+        DefineDatePicker($('#txtConfirmDate'));
+        DefineDatePicker($('#txtRelievingDate'));
+        DefineDatePicker($('#txtVisaExpiryDate'));
+        if ('@Model.firstName' != '') {
+            $('#txtOfficeEmail').removeClass('vinput');
+            $('#txtOfficeEmail').removeClass('vemail');
+        }
+        $('#cbIsVisaAdded').change(function () {
+            if ($(this).is(":checked")) {
+                $('#hdnIsVisaAdded').val(1);
+            }
+            else
+                $('#hdnIsVisaAdded').val(0);
+            $('.UsRec').toggle();
+            if ($('#ddlTypeOfVisa').is(':visible'))
+                $('#ddlTypeOfVisa').addClass('vselect');
+            else {
+                $('#ddlTypeOfVisa').removeClass('vselect');
+                $('#ddlTypeOfVisa').removeClass('ErrorFocus');
+            }
+            //}
+        });
+        $('#cbIsUSBench').change(function () {
+            if ($(this).is(":checked")) {
+                $('#hdnIsBench').val(1);
+            }
+            else
+                $('#hdnIsBench').val(0);
+        });
+        var CompareHRItems = new Array();
+        $("#txtResources").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/EmpInfoAdminView/AutoCompleteHR',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'EmpName': '" + request.term + "' }",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                            CompareHRItems.push(data[i]["Value"]);
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                    },
+                    failure: function (response) {
+                    }
+                });
+            },
+            change: function (event, ui) {
+                var val = $(this).val();
+                var exists = $.inArray(val, CompareHRItems);
+                if (exists < 0) {
+                    $(this).val("");
+                    return false;
+                }
+            },
+            select: function (e, i) {
+                $("#hfHREmpId").val(i.item.Id);
+                $("#txtResources").val(i.item.label);
+            },
+            minLength: 1
+        });
+    });
+
+    function ClearControls()
+    {
+        $('#txtQuotes').val('');
+        $('#propicUrl').attr("src", "/Images/NoImage.jpg");
+        $('#passportUrl').attr("src", "/Images/NoImage.jpg");
+        $('#bgimagepropicUrl').attr("src", "/Images/NoImage.jpg");
+        ClearAllControlValues('DivClearAll');
+    }
+    function ClosePopup()
+    {
+        if ($('#hdnPassportPicFile').val() == "") {
+            $('#txtQuotes').val("");
+            $('#passportUrl').attr("src", "/Images/NoImage.jpg");
+        }
+        $('#dlgAddProfilepicture')[0].close();
+    }
+    function SaveAndClose() {
+        if ($('#hdnPassportPicFile').val() == "") {
+            $('#passportUrl').attr("src", "/Images/NoImage.jpg");
+            $('#txtQuotes').val("");
+        }
+        else
+            $('#passportUrl').attr("src", $('#hdnPassportPicFile').val());
+        $('#dlgAddProfilepicture')[0].close();
+    }
+
+    $('#divprofile').click(function () { $('#imguploadprofile').trigger('click'); });
+    //$('#divpassport').click(function () { $('#imguploadpassport').trigger('click'); });
+    $('#divpassport').click(function ()
+    {
+        slideIndex = 1;
+        showSlides(slideIndex, false);
+        $('#dlgAddProfilepicture')[0].showModal();
+        $("#hrefAdminNxt").hide();
+        $("#hrefAdminPrev").hide();
+        if ($(".empSlides").length > 1) {
+            $("#hrefAdminNxt").show();
+            $("#hrefAdminPrev").show();
+        }
+    });
+    $('#divbground').click(function () { $('#imguploadbground').trigger('click'); });
+    $('.weeklydiv').click(function () {
+        if ($(this).css("background-color") == "rgb(255, 91, 37)") {
+            $(this).css("background-color", "rgba(255, 255, 255, 0.5)");
+            weekoffcount = weekoffcount - 1;
+        }
+        else {
+            if (weekoffcount < 2) {
+                $(this).css("background-color", "rgb(255, 91, 37)");
+                weekoffcount = weekoffcount + 1;
+            }
+        }
+    });
+    $("#imguploadprofile").change(function () {
+        UploadEmpInfoFiles(this, $("#propicUrl"), $("#hdnProPicFile"),0);
+    });
+    $(".imgExpFileUpload").click(function () {
+        UploadEmpInfoFiles($("#fileUploadAttachment"), $("#passportUrl"), $("#hdnPassportPicFile"),1);
+    });
+    $("#imguploadbground").change(function () {
+        UploadEmpInfoFiles(this, $("#bgimagepropicUrl"), $("#hdnBgPicture"),0);
+    });
+    function UploadEmpInfoFiles(fileObject, imageObject, hiddenfield,type) {
+        var Attachments = new FormData();
+        var uploadedFilePath = "";
+        var DocUpload = $(fileObject).get(0);
+        var DocFiles = DocUpload.files;
+        if (DocFiles.length > 0) {
+            Attachments.append(DocFiles[0].name, DocFiles[0]);
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: Attachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    var docElement = $('#divProfileDocs');
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        uploadedFilePath = json[DocFiles[0].name];
+                    }
+                    hiddenfield.val(uploadedFilePath);
+                    if (type == 0)
+                        readURL(fileObject, imageObject);
+                    else {
+                        CheckExtension(docElement, DocFiles[0].name, uploadedFilePath, "<a href='#' class='hrefFileClose'><div class='documentclosebutton closeQuotes'>X</div></a>", null, 1);
+                        $('.closeQuotes').click(function () {
+                            $('#hdnPassportPicFile').val("");
+                            $(this).closest('.docDiv').empty();
+                        });
+                    }
+                    $(fileObject).val('');
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        }
+    }
+    function submitForm() {
+        //if (Validate('EmpAdm')) {
+        if (ValidateAll('DivClearAll', 'lblAdminEmpMsg')) {
+            $("#hdnquoteText").val('');
+            if (parseInt($('#hfEmpId').val()) != 0) {
+                var weekOffDays = "";
+                $(".weeklyoffdiv > .weeklydiv > .weeklyofftext").each(function () {
+                    if ($(this).parent().css("background-color") == "rgb(255, 91, 37)")
+                        weekOffDays = weekOffDays + $(this).attr("name") + "|";
+                });
+                var offdays = weekOffDays.split("|");
+                var powerval = Math.pow(2, parseInt(offdays[0])) + Math.pow(2, parseInt(offdays[1]));
+                $("#hdnWeekOffDays").val(powerval);
+                $("#lblAdminEmpMsg").text("");
+                $("#lblAdminEmpMsg").removeClass("lblError");
+                $("#lblAdminEmpMsg").addClass("lblMessage");
+                $('#txtManager').removeClass("ErrorFocus");
+
+                $('.empSlides').each(function(i, obj) {
+                    if (i > 0 && $(this).find(".imgProfile").length > 0) {
+                        $("#hdnimageUrl").val($("#hdnimageUrl").val() + $(this).find(".imgProfile").attr("src") + '|');
+                        $("#hdnquoteText").val($("#hdnquoteText").val() + $(this).find(".txtQuote").val() + '|');
+                    }
+                    if(i==1)
+                        InitialImage = $(this).find(".imgProfile").attr("src");
+                        });
+                return true;
+            }
+            else {
+                $('#txtManager').addClass("ErrorFocus");
+                $("#lblAdminEmpMsg").addClass("lblError");
+                $("#lblAdminEmpMsg").removeClass("lblMessage");
+                $("#lblAdminEmpMsg").text("Please select a valid reporting person");
+                return false;
+            }
+        }
+        else { return false; }
+    }
+    $(function () {
+        var CompareItems = new Array();
+        $("#txtManager").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/EmpInfoAdminView/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'EmpName': '" + request.term + "' }",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                            CompareItems.push(data[i]["Value"]);
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        //alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        //alert(response.responseText);
+                    }
+                });
+            },
+            change: function (event, ui) {
+                var val = $(this).val();
+                var exists = $.inArray(val, CompareItems);
+                if (exists < 0) {
+                    $(this).val("");
+                    return false;
+                }
+            },
+            select: function (e, i) {
+                $("#hfEmpId").val(i.item.Id);
+                $("#txtManager").val(i.item.label);
+            },
+            minLength: 1
+        });
+    });
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            var docDivs = $('#divProfileDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+        });
+    };
+    function closeProfilePicdlg()
+    {
+        //$('#hfQuotes').attr('value', $('#txtQuotes').val());
+        $('#dlgAddProfilepicture')[0].close();
+    }
+    function previewImage() {
+        hiddenfield = $('#filehidden');
+        var expDocFiles = $('#fileUploadAttachement').get(0).files;
+        var ExpAttachments = new FormData();
+        for (i = 0; i < expDocFiles.length; i++) {
+            ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+        }
+        $.ajax({
+            url: '/EmpInfoUserView/UploadFiles',
+            type: "POST",
+            async: false,
+            contentType: false,
+            processData: false,
+            data: ExpAttachments,
+            success: function (result) {
+                var json = $.parseJSON(result);
+                if (json["Error"] == undefined || json["Error"] == null) {
+                    for (var i = 0; i < expDocFiles.length; i++) {
+                        hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                        $('#divImage').append("<div class='empSlides empGal'><div class='userinfoclosediv'><div class='profilepicclosebtn PreventDefault ' onclick='removeBrowsedImg(this);'><a href='#' title='Delete Image'>"
+                        + "<i class='fa fa-times' aria-hidden='true'></i></a></div></div><div class='Popupprofilepicimagediv'><div class='Popupprofilepic'><img class='imgProfile' src='" + json[expDocFiles[i].name] + "'></div></div>"
+                        + "<div class='Profilequotesmaindiv'><div class='Profilequotestextboxdiv'><div class='Profilequotestextboxsubdiv'><input Name='Quote' type='text' class='Profilequotestextbox txtQuote' maxlength='400' placeholder='Type Your Quotes Here'>"
+                        + "</div><div class='Profilepiccleartxtbox PreventDefault' onclick='clearQuote(this);'><a href='#' title='Remove Quote'><i class='fa fa-times-circle' aria-hidden='true' ></i></a></div></div></div></div></div>");
+                        index++;
+                        showSlides(slideIndex += 1, true);
+                    }
+                    PreventDefaultClick();
+                }
+            },
+            error: function (err) {
+                //alert(err);
+            }
+        });
+
+        $('#fileUploadAttachement').val('');
+        if ($(".empSlides").length > 1) {
+            $("#hrefAdminNxt").show();
+            $("#hrefAdminPrev").show();
+        }
+
+    }
+    function showSlides(n, IsFileUpload) {
+        var i;
+        var slides;
+        slides = document.getElementsByClassName("empSlides");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1 || IsFileUpload) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex - 1].style.display = "block";
+    }
+    function plusSlides(n) {
+        showSlides(slideIndex += n, false);
+    }
+    function BrowseImage() {
+        $("#fileUploadAttachement").click();
+    }
+    function CloseQuotesPopup() {
+        $('.empSlides.empGal').each(function (i, obj) {
+            if ($(this).find(".imgProfile").length > 0) {
+                InitialImage = $(this).find(".imgProfile").attr("src");
+                $("#passportUrl").attr('src', InitialImage);
+                return false;
+            }
+            else
+                $("#passportUrl").attr('src', '/Images/NoImage.jpg'); //If deleted all images
+        });
+        if ($(".empSlides.empGal").length = 0)
+            $("#passportUrl").attr('src', '/Images/NoImage.jpg'); //If no images in gallery
+        $('#dlgAddProfilepicture')[0].close()
+    }
+    function clearQuote(obj) {
+        $(obj).parent().find('.Profilequotestextbox').val('');
+        PreventDefaultClick();
+    }
+    function removeBrowsedImg(obj) {
+        var hidden = $('#filehidden');
+        hidden.val(hidden.val().replace($(obj).parent('div').siblings().find('.filehidden').val() + '||', ''));
+        $(obj).parent().siblings().remove();
+        $(obj).html('<div style="margin-right:170px;margin-top:120px;Height:305px"><label style="color:white;font-size:20px;">Image Deleted</label></div>')
+        PreventDefaultClick();
+
+    }
+    //function CloseOnX(obj) {
+    //    $('#dlgAddProfilepicture')[0].close();
+    //}
+    $('#divEmpPhoto').click(function () { $('#fileUploadAttachement').trigger('click'); });
+</script>
+
+

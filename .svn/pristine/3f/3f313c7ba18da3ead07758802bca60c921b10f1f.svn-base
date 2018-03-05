@@ -1,0 +1,426 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = 0;
+    int typeId = 0;
+
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt32(Request["hdnId"]);
+    }
+    if (Request["TypeId"] != null && Request["TypeId"] != "")
+    {
+        typeId = Convert.ToInt16(Request["TypeId"]);
+    }
+}
+<dialog id="dlgConfirmRequest" style="width:29%;background: transparent;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Confirm request</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgConfirmRequest').close();">X</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ErrorLabel">
+                        <label id="lblReqmsg" class="lblMessage"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                        <div id="btnCancel" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/reject.png" width="14" height="14" alt="" />Cancel</a></div>
+                        <div id="btnSumit" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/accept.png" width="14" height="14" alt="" />OK</a></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/request-new-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv" id="divHeader"></div>
+            </div>
+            <div class="col-sm-5">
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv" style="height:50px">
+            <a class="backbuttondiv" id="hrefBack" href="@Url.Action("AllRequests","RequestMain")"><img title="Back" alt="Back" width="30" height="30" src="~/Images/back-button.png" /></a>
+        </div>
+        <div id="divClear">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlRequestType" class="floating-select" onchange="ResetDate(this);" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+
+                        </select>
+                        <label class="float">Request Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="dtReqDate" class="floating-input datetext" required type="text" placeholder=" ">
+                        <label class="float">Requested Date</label>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                        <textarea id="txtReqDescription" class="floating-input floating-textarea" placeholder=" "></textarea>
+                        <label class="float">Request Description</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4" id="hideuploaddiv">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td width="90%">
+                                    <div class="contentfielddiv">
+                                        <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                        <input type="file" multiple="multiple" allowmultiple="true" id="fileUploadAttachment" class="contenttextfield" placeholder="Attachment">
+                                    </div>
+                                </td>
+                                <td width="10%" align="right"><div class="uploadbutton"><a href="#"><img title="Upload" id="imgExpFileUpload" src="~/Images/upload.gif" width="25" height="25" alt="" /></a></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div id="divTaskDocs" class="docDiv">
+
+                </div>
+            </div>
+            <div class="buttonmaindiv" id="divSave">
+                <div class="buttondiv"><input title="Save" id="btnSave" onclick="saveRequestDetails(1)" class="submitbtn" type="button"></div>
+                <div class="buttondiv"><input title="SaveAndNew" id="btnSave" onclick="saveRequestDetails()" class="submitandnewbtn" type="button"></div>
+                <div class="buttondiv"><input title="Clear" id="btnClearAll" onclick="return ClearAllControlValues('divClear');" class="clearbtn" type="button"></div>
+                <div class="labelmessage"><label id="lblMessage" class="lblMessage"></label></div>
+            </div>
+            </div>
+            <div class="buttonmaindiv" id="divAccept">
+                <div id="btnAccept" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/accept.png" width="14" height="14" alt="" />Approve</a></div>
+                <div id="btnReject" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/reject.png" width="14" height="14" alt="" />Reject</a></div>
+                <div id="btnOnHold" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/onhold.png" width="14" height="14" alt="" />On Hold</a></div>
+                <div class="labelmessage"><label id="lblUpdateMessage" class="lblMessage"></label></div>
+            </div>
+
+        </div>
+</div>
+<script type="text/javascript">
+
+
+    var id = @id;
+    var typeId=@typeId;
+
+    $(document).ready(function () {
+        $('#divAccept').hide();
+        $('#divSave').hide();
+        DefineDatePicker($("#dtReqDate"));
+        LoadDdls("/NewRequest/GetRequestType", $('#ddlRequestType'), "TypeId", "TypeName");
+        if(typeId==0)//save view
+        {
+            $('#divHeader').text('New Request');
+            $('#divAccept').hide();
+            $('#divSave').show();
+        }
+        else if(typeId==1){//my tickets view
+            $('#divHeader').text('View Request');
+            $('#divAccept').show();
+            $('#divSave').hide();
+            $("#hrefBack").attr("href", "@Url.Action("MyTickets", "Home")");
+        }
+        LoadRequest();
+        //$('#dtReqDate').attr('readonly', true);
+    });
+
+    function ResetDate(ddlObject)
+    {
+        ddlObject.setAttribute('value', ddlObject.value);
+        if(typeId==0)
+        {
+            //var selectedRequestType = ddlObject.value;
+            //if (selectedRequestType == 6 || selectedRequestType == 7) {
+            //    //$('#dtReqDate').attr('readonly', false);
+            //    DefineDatePicker($("#dtReqDate"));
+            //}
+            //else {
+                var tDate = new Date();
+                tDate = convertDate(tDate);
+                $('#dtReqDate').val(tDate);
+                //$('#dtReqDate').attr('readonly', true);
+                //$("#dtReqDate").datepicker("disable");
+            //}
+        }
+    }
+    $('#btnAccept').click(function () {
+        DisableHref();
+        var empId = parseInt(@Session["EmpID"]);
+        var operation = 3;
+
+        $.ajax({
+            url: '/RequestMain/UpdateStatus',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                requestId: id, empId: empId, statusId: 2, operation: operation
+            },
+            success: function (data) {
+                $('#lblUpdateMessage').text("Request Approved successfully");
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    });
+    $('#btnReject').click(function () {
+        DisableHref();
+        var empId = parseInt(@Session["EmpID"]);
+        var operation = 3;
+
+        $.ajax({
+            url: '/RequestMain/UpdateStatus',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                requestId: id, empId: empId, statusId: 3, operation: operation
+            },
+            success: function (data) {
+                $('#lblUpdateMessage').text("Request Rejected successfully");
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    });
+    $('#btnOnHold').click(function () {
+        var empId = parseInt(@Session["EmpID"]);
+        var operation = 3;
+
+        $.ajax({
+            url: '/RequestMain/UpdateStatus',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                requestId: id, empId: empId, statusId: 6, operation: operation
+            },
+            success: function (data) {
+                $('#lblUpdateMessage').text("Request updated successfully");
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    });
+
+
+
+    function LoadRequest() {
+        if(id!=0){
+            $.ajax({
+                url: '/NewRequest/getNewRequest',
+                type: "Post",
+                dataType: 'json',
+                data: { requestId: id },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        $('#ddlRequestType').val(resultVals[0]["RequestType"]);
+                        $("#dtReqDate").val(resultVals[0]["RequestedToDate"]!=""?FormatDate(resultVals[0]["RequestedToDate"], "mm/dd/yyyy"):"");
+                        $("#txtReqDescription").val(resultVals[0]["RequestText"]);
+                        showAttachments(resultVals[0]["Attachments"]);
+                        $('#hideuploaddiv').hide();
+                        $("#dtReqDate").datepicker("disable");
+                        $('#ddlRequestType').attr('disabled','disabled');
+                        $('#ddlRequestType').click();
+                        $('#dtReqDate').attr('readonly', true);
+                        $('#txtReqDescription').attr('readonly', true);
+                        if(resultVals[0]["RequestStatusId"]== 2 || resultVals[0]["RequestStatusId"] == 3)
+                        {
+                            $('#divAccept').hide();
+                            $('#divSave').hide();
+                        }
+                    }
+                },
+                error: function (err) {
+                }
+
+            });
+        }
+    }
+    function showAttachments(attachmentURLs) {
+        attachmentURLs = attachmentURLs.split('||');
+        var docElement = $('#divTaskDocs');
+        for (var i = 0; i < (attachmentURLs.length - 1); i++) {
+            CheckExtension(docElement, "", attachmentURLs[i], "", null, 1);
+        }
+    }
+
+    function convertDate(str) {
+        var date = new Date(str),
+            mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+            day = ("0" + date.getDate()).slice(-2);
+        return [mnth, day, date.getFullYear()].join("/");
+    }
+
+    $('#btnSumit').click(function(){
+        DisableHref();
+        saveRequest(0);
+    });
+
+    $('#btnCancel').click(function(){
+        document.getElementById('dlgConfirmRequest').close();
+    });
+    function saveRequest(flag)
+    {
+        var hiddenfield = $('#filehidden');
+        var reqDesc = $("#txtReqDescription").val();
+        var reqDate = $("#dtReqDate").val();
+       // var reqTypeText = $("#ddlRequestType option:selected").text();
+        var reqType = 1;
+        var EmpID = 0;
+        var tDate = new Date();
+        tDate = FormatDate(tDate, 'yyyy/mm/dd');
+        var sessionVal = parseInt(@Session["EmpID"]);
+        if (!isNaN(sessionVal) && sessionVal != "")
+            EmpID = parseInt(@Session["EmpID"]);
+        if (reqDate == '') reqDate = tDate; else reqDate = FormatDate(reqDate, 'yyyy/mm/dd');
+        $.ajax({
+            url: '/NewRequest/saveRequestDetails',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                RequestText: reqDesc, RequestType: $("#ddlRequestType option:selected").val(), AttachmentUrl: hiddenfield.val(), 
+                RequestedDate: tDate, RequestedToDate: reqDate, CreatedDate: tDate, CreatedEmpID: EmpID, ModifiedDate: tDate, ModifiedEmpID: EmpID, Status: 1
+            },
+            success: function (data) {
+                var ReqType =  $("#ddlRequestType option:selected").text()
+                ClearAllControlValues('divClear');
+                $('#lblMessage').text("Request for " + ReqType + " placed successfully");
+                if(flag==1){
+                    document.getElementById("hrefBack").click();
+                }
+                else
+                {
+                    document.getElementById('dlgConfirmRequest').close();
+                    EnableHref();
+                }
+            },
+            error: function () {
+                //alert('error');
+            }
+        });
+    }
+    function saveRequestDetails(flag) {
+        if (Validate('RequestForm')) {
+            var reqDate = $("#dtReqDate").val();
+            var tDate = new Date();
+            tDate = FormatDate(tDate, 'yyyy/mm/dd');
+            var sessionVal = parseInt(@Session["EmpID"]);
+            if (!isNaN(sessionVal) && sessionVal != "")
+                EmpID = parseInt(@Session["EmpID"]);
+            if (reqDate == '') reqDate = tDate; else reqDate = FormatDate(reqDate, 'yyyy/mm/dd');
+            $.ajax({
+                url: '/RequestMain/CheckIfReqApplied',
+                type: 'GET',
+                dataType: 'json',
+                async:false,
+                data: {
+                    RequestType: $("#ddlRequestType").val(), RequestedDate: reqDate 
+                },
+                success: function (result) {
+                    var resultVals=$.parseJSON(result);
+                    var ReqType =  $("#ddlRequestType option:selected").text();
+                    if(resultVals[0]["IsApplied"]>0)
+                    {
+                        $('#lblReqmsg').text("A request for " +ReqType + " has been placed on " +  FormatDate(reqDate, 'mm/dd/yyyy')+ ".Do you want to continue?");
+                        document.getElementById('dlgConfirmRequest').showModal();
+                    }
+                    else
+                        saveRequest(1); 
+                },
+                error: function () {
+                }
+            });
+
+        }
+    }
+
+    $("#imgExpFileUpload").click(function () {
+
+        var fileElement = $('#fileUploadAttachment');
+        var hiddenfield = $('#filehidden');
+        var fileCount = hiddenfield.val().split('||').length;
+
+        var expDocUpload = fileElement.get(0);
+        var docElement = $('#divTaskDocs');
+
+        var expDocFiles = expDocUpload.files;
+        if ((fileCount + expDocFiles.length) > 16) {
+            alert('File count cannot exceed 15!');
+            fileElement.val('');
+            return;
+        }
+        else if ((fileCount + expDocFiles.length) > 6) {
+            alert('File count cannot exceed 5!');
+            fileElement.val('');
+            return;
+        }
+        else {
+            var uploadedFilePath = "";
+            var ExpAttachments = new FormData();
+            for (i = 0; i < expDocFiles.length; i++) {
+                ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+            }
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: ExpAttachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < expDocFiles.length; i++) {
+                            hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                            CheckExtension(docElement, "", json[expDocFiles[i].name], "<a href='#'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                        }
+                    }
+                },
+                error: function (err) {
+                }
+            });
+            fileElement.val('');
+        }
+
+    });
+
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            var docDivs = $('#divEmpDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+        });
+    };
+</script>

@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace NuPortal.Models
+{
+    public class TimeSheet
+    {
+        public string EmpNames { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
+    }
+}

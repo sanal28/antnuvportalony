@@ -1,0 +1,473 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="frmDoc" action="/RequestMain/NewLeave" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+    @Html.Hidden("TypeId", new { id = "TypeId", name = "TypeId" })
+    @Html.Hidden("LeaveTypeId", new { id = "LeaveTypeId", name = "LeaveTypeId" })
+</form>
+<!--<div class="container">
+
+    <main>
+        <div class="row">-->
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/leave-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Leave Log</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <div class="myprojecttxt" style="cursor:pointer"> <a href="@Url.Action("NewLeave","RequestMain")">+ Leave Request</a></div>
+            <a class="backbuttondiv" href="@Url.Action("IconsView","RequestMain")"><img title="Back" alt="Back" width="30" height="30" src="/../images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-12" id="divLeavecount">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="requestgridmaindiv">
+                    <table id="tblAllLeaves" width="100%" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                        <tbody>
+                            <tr class="requestgriddiv">
+                                @*<td class="requestgridheader" width="10%">Leave Type</td>
+                                <td class="requestgridheader" width="10%">From</td>
+                                <td class="requestgridheader" width="10%">To</td>
+                                <td class="requestgridheader" width="30%">Reason</td>
+                                <td class="requestgridheader" width="10%">Days</td>
+                                <td class="requestgridheader" width="20%">Status</td>
+                                <td class="requestgridheader" width="3%"><a href="#"><img src="/../images/Filter.png" width="16" height="16" alt="" /></a></td>*@
+                                <td class="requestgridheader" width="15%">
+                                    Leave Type
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field1Xml" id="cbLeaveReqLeaveType" name="leavetype" style="width:145px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbLeaveReqSelectAll1" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbLeaveReqSelectAll1" name='Field1Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="12%">
+                                    From
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field2Xml" id="cbLeaveReqFrom" name="from" style="width:115px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbLeaveReqSelectAll2" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbLeaveReqSelectAll2" name='Field2Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="12%">
+                                    To
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field3Xml" id="cbLeaveReqTo" name="to" style="width:115px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbLeaveReqSelectAll3" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbLeaveReqSelectAll3" name='Field3Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="30%">Reason</td>
+                                <td class="requestgridheader" width="10%">
+                                    Days
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field4Xml" id="cbLeaveReqDays" name="days" style="width:95px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbLeaveReqSelectAll4" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbLeaveReqSelectAll4" name='Field4Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="16%">
+                                    Status
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field5Xml" id="cbLeaveReqStatus" name="status" style="width:200px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbLeaveReqSelectAll5" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbLeaveReqSelectAll5" name='Field5Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="3%"><a href="#" id="hrefLeaveClearFilter"><img title="Clear" src="/../images/ClearFilter.jpg" width="16" height="16" alt="" /></a></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="paginationmaindiv" id="divPageLeaveCalendar" style="display:none">
+                        <div class="paginationsubdiv">
+                            <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--</div>
+    </main>
+
+
+</div>-->
+<script type="text/javascript">
+    var hdnWeekOff;
+    var EmpId=0;
+    var dictLeaveLogArray = {};
+    var IsPrimaryLoad = true;
+    var CurrentPageId = 1;
+    var RowCount = 10;
+    var PageCount = 0;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    if(@Session["EmpID"]!=null && @Session["EmpID"]!=undefined)
+         EmpId=@Session["EmpID"];
+    $(document).ready(function () {
+        hideFilter();
+        dictLeaveLogArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": ""};
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        getAllLeavesFilter();
+        getAllLeavesforID();
+        getAvailableLeaves();
+       
+        
+        $('#hrefLeaveClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictLeaveLogArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": ""};
+            FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            getAllLeavesforID();
+            showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+        });
+    });
+
+    function getAvailableLeaves() {
+        $.ajax({
+            url: '/RequestMain/getAvailableLeaveInfo?Employee='+EmpId,
+            type: "GET",
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                //if (resultVals!= undefined) {
+                $('#divLeavecount').empty();
+                for (var i = 0; i < resultVals.length; i++) {
+                    $('#divLeavecount').append('<div class="leavemaindiv"><a href="#" onclick="redirectToLeave('+resultVals[i].LeaveTypeID+
+                                 ',1)"><div class="' + resultVals[i].LeaveName +
+                                'leavemaindiv">' + resultVals[i].LeaveName + '</div><div class="'+
+                                resultVals[i].LeaveName+'totalleavediv">' +
+                                (resultVals[i].LeaveName=="LOP"?0:resultVals[i].Balance) + '</div>' +
+                                '<div class="'+resultVals[i].LeaveName+'availedtext">Availed</div><div class="'+resultVals[i].LeaveName+'availedvalue">'
+                                + resultVals[i].AppliedLeaveCount + '</div></a></div>');
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);/RequestMain/NewLeave
+            }
+        });
+    }
+
+    function redirectToLeave(leaveId,type)
+    {
+        if(type==2)
+        {
+            $('#hdnId').val(leaveId);
+            $('#TypeId').val(2);
+            $('#LeaveTypeId').val(0);
+        }
+        else
+        {
+            $('#hdnId').val(0);
+            $('#TypeId').val(0);
+            $('#LeaveTypeId').val(leaveId);
+        }
+        $('#frmDoc').submit();
+    }
+    function getAllLeavesforID() {
+        //$("#tblAllLeaves").find("tr:gt(0)").remove();
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictLeaveLogArray), Operation: 8 ,ProjId: 0 ,TypeId: 2,OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                var reqType = '';
+                var Today=new Date();
+                $('#tblAllLeaves > tbody').children("tr:gt(0)").remove();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        var cancel = "";
+                        if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                            PageCount = resultVals[0]["TotalRowCount"] / 10;
+                        else
+                            PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+                        showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                        if (moment(resultVals[i].ToDate).format("YYYY-MM-DD") >= moment(Today).format("YYYY-MM-DD") && resultVals[i].TicketStatus != "Cancelled")
+                            cancel = '<a class="PreventHref" onclick="cancelExistingLeave(' + resultVals[i].LeaveTransId + ',' + resultVals[i].FK_LeaveTypeId + ')"  href="#">Cancel</a>';
+                        $('#tblAllLeaves').append('<tr class="requestgriddiv2" ><td class="requestgridsubheader" >'+
+                            '<a href="#" onclick="redirectToLeave('+resultVals[i].LeaveTransId+',2)">' + resultVals[i].DisplayName + '</a></td>' +
+                            '<td class="requestgridsubheader">' + FormatDate(resultVals[i]["FromDate"], "mm/dd/yyyy") + '</td>' +
+                            '<td class="requestgridsubheader">' + FormatDate(resultVals[i]["ToDate"], "mm/dd/yyyy") + '</td>' +
+                            '<td class="requestgridsubheader">' + resultVals[i].Reason + '</td>' +
+                            '<td class="requestgridsubheader">' + resultVals[i].LeaveAppliedDays + '</td>' +
+                            '<td class="requestgridsubheader">' + resultVals[i].TicketStatus + '</td>' +
+                            '<td class="requestgridsubheader" >' + cancel + '</td></tr>');
+                    }
+                    PreventDefaultClick();
+                    $('#divPageLeaveCalendar').show();
+                }
+                else
+                {
+                        $('#divPageLeaveCalendar').hide();
+                        $('#tblAllLeaves').append("<tr><td colspan='7' class='NoRecordsFound'>No Records Found</td></tr>");
+
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function getAllLeavesFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictLeaveLogArray), Operation: 8 ,ProjId: 0 ,TypeId: 2,OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                            CreateCheckBox($('#cbLeaveReqLeaveType'), resultVals[i].DisplayName, 'Field1Xml');
+                            CreateCheckBox($('#cbLeaveReqFrom'), FormatDate(resultVals[i]["FromDate"], "mm/dd/yyyy"), 'Field2Xml');
+                            CreateCheckBox($('#cbLeaveReqTo'), FormatDate(resultVals[i]["ToDate"], "mm/dd/yyyy"), 'Field3Xml');
+                            CreateCheckBox($('#cbLeaveReqDays'), resultVals[i].LeaveAppliedDays, 'Field4Xml');
+                            CreateCheckBox($('#cbLeaveReqStatus'), resultVals[i].TicketStatus, 'Field5Xml');
+                            DefineCheckboxClicks();
+                    }
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+    }
+
+
+    function cancelExistingLeave(idval,leaveTypeId) {
+        $.ajax({
+            url: '/RequestMain/CancelLeave',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                reqID: idval, leavetypeID: leaveTypeId, operation: 1,status:4,employee:EmpId
+            },
+            success: function (data) {
+                getAvailableLeaves();
+                getAllLeavesFilter();
+                getAllLeavesforID();
+            },
+            error: function () {
+                //alert('error');
+            }
+        });
+    }
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblAllLeaves')
+                dictTemp = dictLeaveLogArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblAllLeaves') {
+                dictLeaveLogArray = dictTemp;
+                FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                getAllLeavesforID();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    //Pagination LeaveCalendar
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active',PageCount);
+            getAllLeavesforID();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        getAllLeavesforID();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        getAllLeavesforID();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        getAllLeavesforID();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        getAllLeavesforID();
+    });
+</script>

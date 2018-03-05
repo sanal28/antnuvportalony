@@ -1,0 +1,834 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="frmDoc" action="" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+    @Html.Hidden("TypeId", new { id = "TypeId", name = "TypeId" })
+    @Html.Hidden("ProjectId", new { id = "ProjectId", name = "ProjectId" })
+</form>
+
+<div id="Statusdiv">
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/my-task-sm.png" width="45" height="45" alt="" /></div></div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="mainheaderdiv">My Tasks</div>
+                </div>
+                <div class="col-sm-5">
+                </div>
+            </div>
+        </div>
+        <div class="contentmaindiv">
+            <div class="myprojectdiv">
+                <a class="backbuttondiv" href="@Url.Action("Home","Home")"><img alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            </div>
+            <div class="space"></div>
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Open Task </div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="requestgridmaindiv">
+                        <table width="100%" id="tblOpenTask" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                            <tbody>
+                                <tr class="requestgriddiv">
+                                    @*<td class="requestgridheader" width="20%">Task Name</td>
+                                        <td class="requestgridheader" width="20%">Project</td>
+                                        <td class="requestgridheader" width="10%">Start Date</td>
+                                        <td class="requestgridheader" width="10%">End Date</td>
+                                        <td class="requestgridheader" width="10%">Priority</td>
+                                        <td class="requestgridheader" width="15%">Assigned By</td>
+                                        <td class="requestgridheader" width="10%">Status</td>*@
+                                    <td class="requestgridheader" width="20%">
+                                        Task Name
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field1Xml" id="cbTasks" name="taskname" style="width:200px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbSelectAll1" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbSelectAll1" name='Field1Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="requestgridheader" width="10%">
+                                        Project
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field2Xml" id="cbProjects" name="project" style="width:175px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbSelectAll2" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbSelectAll2" name='Field2Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="15%">
+                                        Start Date
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field3Xml" id="cbSDate" name="sDate">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbSelectAll3" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbSelectAll3" name='Field3Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="15%">
+                                        End Date
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field4Xml" id="cbEDate" name="eDate">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbSelectAll4" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbSelectAll4" name='Field4Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="10%">
+                                        Priority
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field5Xml" id="cbPriority" name="priority">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbSelectAll5" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbSelectAll5" name='Field5Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="15%">
+                                        Assigned By
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field6Xml" id="cbAssignedBy" name="assginedBy">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbSelectAll6" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbSelectAll6" name='Field6Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="10%">
+                                        Status
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field7Xml" id="cbStatus" name="status" style="right:40px">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbSelectAll7" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbSelectAll7" name='Field7Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="3%"><a href="#" id="hrefClearFilter"><img src="~/Images/ClearFilter.jpg" width="14" height="14" alt="" /></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationmaindiv" id="divPage" style="display:none">
+                            <div class="paginationsubdiv">
+                                <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                    <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                    <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                    <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                    <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space"></div>
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Completed Task </div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="requestgridmaindiv">
+                        <table width="100%" id="tblCompletedTask" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                            <tbody>
+                                <tr class="requestgriddiv">
+                                    @*<td class="requestgridheader" width="20%">Task Name</td>
+                                        <td class="requestgridheader" width="20%">Project</td>
+                                        <td class="requestgridheader" width="10%">Start Date</td>
+                                        <td class="requestgridheader" width="10%">End Date</td>
+                                        <td class="requestgridheader" width="10%">Priority</td>
+                                        <td class="requestgridheader" width="15%">Assigned By</td>
+                                        <td class="requestgridheader" width="10%">Status</td>
+                                        <td class="requestgridheader" width="3%"><a href="#"><img src="../images/Filter.png" width="14" height="14" alt="" /></a></td>*@
+                                    <td class="requestgridheader" width="20%">
+                                        Task Name
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field1Xml" id="cbCompTasks" name="taskname" style="width:200px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbCompSelectAll1" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbCompSelectAll1" name='Field1Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="10%">
+                                        Project
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field2Xml" id="cbCompProjects" name="project" style="width:175px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbCompSelectAll2" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbCompSelectAll2" name='Field2Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="15%">
+                                        Start Date
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field3Xml" id="cbCompSDate" name="sDate">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbCompSelectAll3" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbCompSelectAll3" name='Field3Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="15%">
+                                        End Date
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field4Xml" id="cbCompEDate" name="eDate">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbCompSelectAll4" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbCompSelectAll4" name='Field4Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="10%">
+                                        Priority
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field5Xml" id="cbCompPriority" name="priority">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbCompSelectAll5" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbCompSelectAll5" name='Field5Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="15%">
+                                        Assigned By
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field6Xml" id="cbCompAssignedBy" name="assginedBy">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbCompSelectAll6" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbCompSelectAll6" name='Field6Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="10%">
+                                        Status
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field7Xml" id="cbCompStatus" name="status" style="right:40px">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbCompSelectAll7" name="SelectAll"></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbCompSelectAll7" name='Field7Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="3%"><a href="#" id="hrefCompClearFilter"><img src="~/Images/ClearFilter.jpg" width="14" height="14" alt="" /></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationmaindiv" id="divPageCTasks" style="display:none">
+                            <div class="paginationsubdiv">
+                                <div class="paginationbtndiv" id="FRSTbtnCTasks" title="First">
+                                    <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="PRVbtnCTasks" title="Previous">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivComNum" id="divPgfirstCTasks">
+                                    <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMCompbtn paginationNUM-ACTVbtnComp  pagination pgNumberB1">1</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivComNum">
+                                    <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB2">2</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivComNum">
+                                    <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB3">3</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivComNum">
+                                    <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB4">4</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivComNum" id="divPglastCTasks">
+                                    <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB5">5</div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="NXTbtnCTasks" title="Next">
+                                    <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="LSTbtnCTasks" title="Last">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="buttonmaindiv">
+                    <div class="buttondiv"><input class="submitbtn" type="button" id="Submitbtn" /></div>
+                    <div class="buttondiv"><input class="clearbtn" type="button" /></div>
+                </div>*@
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    //var OpenTaskArray = new Array();
+    var dictOpenTaskArray = {};
+    var dictCompTaskArray = {};
+    var CurrentPageId = 1;
+    var CurrentPageIdCompleted = 1;
+    var RowCount = 10;
+    var PageCountOpen = 0;
+    var PageCountCompleted = 0;
+    var IsPrimaryLoad = true;
+    var PriorityArray = { "High": 3, "Medium": 2, "Low": 1 }; //to search priority by its id
+    var PriorityValArray = { 3: "High", 2: "Medium", 1: "Low" };
+    var ClassName = "";
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    $(document).ready(function () {
+        dictOpenTaskArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "", "Field7Xml": "" };
+        dictCompTaskArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "", "Field7Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        loadOpenTasksCheckBoxes();
+        loadCompletedTasksCheckBoxes();
+        loadOpenTasks();
+        loadCompletedTasks();
+        hideFilter();
+        $('#hrefClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictOpenTaskArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "", "Field7Xml": "" };
+            FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            loadOpenTasks();
+            showPages($('.paginationbtndivNum > a'), '.pgNumber', 1);
+        });
+        $('#hrefCompClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictCompTaskArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "", "Field7Xml": "" };
+            FirstButonClick($('.paginationNUMCompbtn'), $('.pgNumberB1'), 'paginationNUM-ACTVbtnComp', 1,
+            'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+            CurrentPageIdCompleted = 1;
+            loadCompletedTasks();
+            showPages($('.paginationbtndivComNum > a'), '.pgNumberB', 1);
+        });
+
+    });
+
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblOpenTask') {
+                dictTemp = dictOpenTaskArray;
+            }
+            else
+                dictTemp = dictCompTaskArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        SearchVal = CheckExceptionTexts(SearchVal, ColValue);
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                SearchVal = CheckExceptionTexts(SearchVal, ColValue);
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkbox check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkbox uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblOpenTask') {
+                dictOpenTaskArray = dictTemp;
+                FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                loadOpenTasks();
+                showAndHidePages(PageCountOpen, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                //showPages($('.paginationbtndivNum > a'), '.pgNumber', 1);
+            }
+            else {
+                dictCompTaskArray = dictTemp;
+                FirstButonClick($('.paginationNUMCompbtn'), $('.pgNumberB1'), 'paginationNUM-ACTVbtnComp', 1,
+                'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+                CurrentPageIdCompleted = 1;
+                loadCompletedTasks();
+                showAndHidePages(PageCountCompleted, CurrentPageIdCompleted, $('.paginationbtndivComNum > a'), '.pgNumberB');
+                //showPages($('.paginationbtndivComNum > a'), '.pgNumberB', 1);
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+
+    function CheckExceptionTexts(input, ColValue) {
+        if ((ColValue == 'Field3Xml' || ColValue == 'Field4Xml') && input == 'NA')
+            input = '1753-01-01'; //convert NA case to default date
+        else if (ColValue == 'Field5Xml')
+            input = PriorityArray[input]; //convert priority text to int val
+        return input;
+    }
+
+    function loadOpenTasks() {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictOpenTaskArray), Operation: 1, ProjId: 0, TypeId: 2, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                var Attachments = "";
+                $('#tblOpenTask > tbody').children("tr:gt(0)").remove();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    var className = "";
+                    var startDate = "", endDate = "";
+                    var dateVal = new Date();
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCountOpen = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCountOpen = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                    disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCountOpen, CurrentPageId);
+                    showAndHidePages(PageCountOpen, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                    for (var i = 0; i < resultVals.length; i++) {
+                        className = "", Attachments = "", startDate = "", endDate = "";
+                        startDate = FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy") == "01/01/1753" ? "NA" : FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy");
+                        endDate = FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy") == "01/01/1753" ? "NA" : FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy");
+                        if (resultVals[i]["Attachments"] != "")
+                            Attachments = "<img title='Attachment' src='../images/attachment-icon.png' width='14' height='14' alt='' />";
+                        if (moment(new Date(resultVals[i]["EndDate"])).format('MM-DD-YYYY') == moment(dateVal).format('MM-DD-YYYY') || endDate == "NA")
+                            className = "mytaskstatus-BLU";
+                        else if (CompareDates(resultVals[i]["EndDate"], dateVal))
+                            className = "mytaskstatus-RED";
+                        else
+                            className = "mytaskstatus-GRN";
+                        $('#tblOpenTask').append('<tr class="requestgriddiv2" ><td class="requestgridsubheader" > ' +
+                            '<div class="' + className + '"><a href="#" onclick="getSessionValueTask(' + resultVals[i]["restaskId"] + ',' + resultVals[i]["ProjectId"] + ',1)">' +
+                            resultVals[i]["TaskName"] + '</a></div></td><td class="requestgridsubheader">' +
+                            resultVals[i]["ProjectName"] + '</td><td class="requestgridsubheader">' + startDate +
+                            '</td><td class="requestgridsubheader">' + endDate +
+                            '</td><td class="requestgridsubheader">' + PriorityValArray[resultVals[i]["Priority"]] +
+                            '</td><td class="requestgridsubheader">' + resultVals[i]["FNameAssignedBy"] +
+                            '</td><td class="requestgridsubheader"><a href="#" onclick="getSessionValueTask(' + resultVals[i]["restaskId"] + ',' + resultVals[i]["ProjectId"] + ',2)">' +
+                            resultVals[i]["TaskStatus"] + '</a></td><td class="requestgridsubheader">' + Attachments + '</td><td style="display:none">' +
+                            resultVals[i]["TaskId"] + '</td></tr>');
+                    }
+                    $('#divPage').show();
+                }
+                else {
+                        $('#divPage').hide();
+                        $('#tblOpenTask').append("<tr><td colspan='8' class='NoRecordsFound'>No Records Found</td></tr>");
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadOpenTasksCheckBoxes() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictOpenTaskArray), Operation: 1, ProjId: 0, TypeId: 2, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    var startDate = "", endDate = "";
+                    for (var i = 0; i < resultVals.length; i++) {
+                        startDate = FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy") == "01/01/1753" ? "NA" : FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy");
+                        endDate = FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy") == "01/01/1753" ? "NA" : FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy");
+                        CreateCheckBox($('#cbTasks'), resultVals[i]["TaskName"], 'Field1Xml');
+                        CreateCheckBox($('#cbProjects'), resultVals[i]["ProjectName"], 'Field2Xml');
+                        CreateCheckBox($('#cbSDate'), startDate, 'Field3Xml');
+                        CreateCheckBox($('#cbEDate'), endDate, 'Field4Xml');
+                        CreateCheckBox($('#cbPriority'), PriorityValArray[resultVals[i]["Priority"]], 'Field5Xml');
+                        CreateCheckBox($('#cbAssignedBy'), resultVals[i]["FNameAssignedBy"], 'Field6Xml');
+                        CreateCheckBox($('#cbStatus'), resultVals[i]["TaskStatus"], 'Field7Xml');
+                        DefineCheckboxClicks();
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadCompletedTasksCheckBoxes() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictCompTaskArray), Operation: 2, ProjId: 0, TypeId: 2, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var startDate = "", endDate = "";
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCountCompleted = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCountCompleted = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                    for (var i = 0; i < resultVals.length; i++) {
+                        startDate = "", endDate = "";
+                        startDate = FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy") == "01/01/1753" ? "NA" : FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy");
+                        endDate = FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy") == "01/01/1753" ? "NA" : FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy");
+                        CreateCheckBox($('#cbCompTasks'), resultVals[i]["TaskName"], 'Field1Xml');
+                        CreateCheckBox($('#cbCompProjects'), resultVals[i]["ProjectName"], 'Field2Xml');
+                        CreateCheckBox($('#cbCompSDate'), startDate, 'Field3Xml');
+                        CreateCheckBox($('#cbCompEDate'), endDate, 'Field4Xml');
+                        CreateCheckBox($('#cbCompPriority'), PriorityValArray[resultVals[i]["Priority"]], 'Field5Xml');
+                        CreateCheckBox($('#cbCompAssignedBy'), resultVals[i]["FNameAssignedBy"], 'Field6Xml');
+                        CreateCheckBox($('#cbCompStatus'), resultVals[i]["TaskStatus"], 'Field7Xml');
+                        DefineCheckboxClicks();
+                    }
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    function loadCompletedTasks() {
+        OffsetVal = ((CurrentPageIdCompleted - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictCompTaskArray), Operation: 2, ProjId: 0, TypeId: 2, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var Attachments = "", startDate = "", endDate = "";
+                var resultVals = $.parseJSON(result);
+                $('#tblCompletedTask > tbody').children("tr:gt(0)").remove();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCountCompleted = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCountCompleted = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                    disableButtons($('#LSTbtnCTasks'), $('#NXTbtnCTasks'), $('#FRSTbtnCTasks'), $('#PRVbtnCTasks'), PageCountCompleted, CurrentPageIdCompleted);
+                    showAndHidePages(PageCountCompleted, CurrentPageIdCompleted, $('.paginationbtndivComNum > a'), '.pgNumberB');
+                    for (var i = 0; i < resultVals.length; i++) {
+                        Attachments = "", startDate = "", endDate = "";
+                        startDate = FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy") == "01/01/1753" ? "NA" : FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy");
+                        endDate = FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy") == "01/01/1753" ? "NA" : FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy");
+                        if (resultVals[i]["Attachments"] != "") {
+                            Attachments = "<img title='Attachment' src='../images/attachment-icon.png' width='14' height='14' alt='' />";
+                        }
+                        $('#tblCompletedTask').append('<tr class="requestgriddiv2" ><td class="requestgridsubheader" >' +
+                            '<div class="documentlinkdiv"><a href="#" onclick="getSessionValueTask(' + resultVals[i]["restaskId"] + ',' + resultVals[i]["ProjectId"] + ',1)">' + resultVals[i]["TaskName"] +
+                            '</a></div></td><td class="requestgridsubheader">' + resultVals[i]["ProjectName"] + '</td><td class="requestgridsubheader">' +
+                            startDate + '</td><td class="requestgridsubheader">' +
+                            endDate + ' </td><td class="requestgridsubheader">' +
+                            PriorityValArray[resultVals[i]["Priority"]] + '</td><td class="requestgridsubheader">' + resultVals[i]["FNameAssignedBy"] +
+                            '</td><td class="requestgridsubheader">' + resultVals[i]["TaskStatus"] +
+                            '</td><td class="requestgridsubheader">' + Attachments + '</td></tr>');
+                    }
+                    $('#divPageCTasks').show();
+                }
+                else {
+                        $('#divPageCTasks').hide();
+                        $('#tblCompletedTask').append("<tr><td colspan='8' class='NoRecordsFound'>No Records Found</td></tr>");
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function getSessionValueTask(taskId, ProjectId, ActionFlag) {
+        $('#hdnId').val(taskId);
+        $('#ProjectId').val(ProjectId);
+        $('#TypeId').val(1);
+        if (ActionFlag == 1) {
+            $("#frmDoc").attr("action", "/Task/TaskName");
+        }
+        else if (ActionFlag == 2) {
+            $("#frmDoc").attr("action", "/Task/Status");
+        }
+        $('#frmDoc').submit();
+    }
+
+    //Pagination OpenTask
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', PageCountOpen);
+            loadOpenTasks();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCountOpen, loopVal);
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCountOpen, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCountOpen, CurrentPageId);
+        loadOpenTasks();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCountOpen, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadOpenTasks();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCountOpen, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadOpenTasks();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCountOpen;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCountOpen, CurrentPageId);
+        loadOpenTasks();
+    });
+    //Pagination Completed Tasks
+    $('.paginationbtndivComNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMCompbtn').attr("name"));
+            CurrentPageIdCompleted = parseInt($(this).find('.paginationNUMCompbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMCompbtn').text());
+            LoadEachButton($('.paginationNUMCompbtn'), '.pgNumberB', 'paginationNUM-ACTVbtnComp', 'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp', PageCountCompleted);
+            loadCompletedTasks();
+            disableButtons($('#LSTbtnCTasks'), $('#NXTbtnCTasks'), $('#FRSTbtnCTasks'), $('#PRVbtnCTasks'), PageCountCompleted, loopVal);
+        });
+    });
+    $("#NXTbtnCTasks").click(function () {
+        CurrentPageIdCompleted = CurrentPageIdCompleted + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtnComp'), $('.paginationNUMMOREtxt-ActiveComp'), $('.paginationNUMMOREtxt1-ActiveComp'));
+        NextButtonClick($('.paginationNUMCompbtn'), $('.pgNumberB' + classId), $('.pgNumberB' + (classId + 1)), 'paginationNUM-ACTVbtnComp', PageCountCompleted,
+        'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+        disableButtons($('#LSTbtnCTasks'), $('#NXTbtnCTasks'), $('#FRSTbtnCTasks'), $('#PRVbtnCTasks'), PageCountCompleted, CurrentPageIdCompleted);
+        loadCompletedTasks();
+    });
+    $("#PRVbtnCTasks").click(function () {
+        CurrentPageIdCompleted = CurrentPageIdCompleted - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtnComp'), $('.paginationNUMMOREtxt-ActiveComp'), $('.paginationNUMMOREtxt1-ActiveComp'));
+        prevButtonClick($('.paginationNUMCompbtn'), $('.pgNumberB' + (classId - 1)), $('.pgNumberB' + classId), 'paginationNUM-ACTVbtnComp',
+        'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp', CurrentPageIdCompleted);
+        loadCompletedTasks();
+    });
+    $("#FRSTbtnCTasks").click(function () {
+        CurrentPageIdCompleted = 1;
+        FirstButonClick($('.paginationNUMCompbtn'), $('.pgNumberB1'), 'paginationNUM-ACTVbtnComp', CurrentPageIdCompleted,
+        'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+        loadCompletedTasks();
+    });
+    $("#LSTbtnCTasks").click(function () {
+        CurrentPageIdCompleted = PageCountCompleted;
+        LastButtonClick($('.paginationNUMCompbtn'), $('.pgNumberB5'), $('.pgNumberB' + CurrentPageIdCompleted), 'paginationNUM-ACTVbtnComp',
+         CurrentPageIdCompleted, 'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+        loadCompletedTasks();
+    });
+</script>

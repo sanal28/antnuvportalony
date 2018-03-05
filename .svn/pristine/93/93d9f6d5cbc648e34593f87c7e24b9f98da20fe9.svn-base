@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Login Success";
+}
+
+<h2>Login Success</h2>
+
+<body>
+  <a href="@Url.Action("EmployeeDetails", "EmployeeInfo")">Employee Details</a>
+</body>
+

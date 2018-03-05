@@ -1,0 +1,188 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = 0;
+
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt32(Request["hdnId"]);
+    }
+}
+
+<form id="frmGrid" action="/TimeSheet/TimeSheetGridView" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+    @Html.Hidden("projectId", new { id = "projectId", name = "projectId" })
+    @Html.Hidden("HoursType", new { id = "HoursType", name = "HoursType" })
+</form>
+<form id="formCalendar" action="/TimeSheet/TimeSheetCalendar" method="post">
+    @Html.Hidden("EmpId")
+    @Html.Hidden("Project")
+</form>
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/report-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv" id="divTSHeading"></div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" id="hrefBack" href="#"><img title="Back" alt="Back" width="30" height="30" src="../Images/back-button.png" /></a>
+        </div>
+        <div class="row">
+            @*<div class="col-md-12 divCalender">
+                <div class="contentfielddiv">
+                    <input class="floating-input autocomplete-textarea autopopulateText" id="txtCalenderResource" type="text" placeholder=" ">
+                    <label class="float">Resources</label>
+                </div>
+            </div>*@
+            <div class="col-md-6">
+                <div class="contentfielddiv">
+                    <div class="weeklytext" style="padding-left:0px !important">Resources</div>
+                    <div class="floating-input autocomplete-textarea" id="divResources">
+                        <div id="listResources" class="list competancylist"></div>
+                        <input type="text" class="competancy autopopulateText" id="txtResources" placeholder=" " />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="timesheetsearchdiv"><a href="#" id="hrefSearch"><img title="Search" src="../Images/timesheet-search.png" width="30" height="30" alt="" /></a></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 divReports">
+                <div class="contentfielddiv">
+                    <input id="radioActual" checked="checked" type="radio" name="hourType" value="1">
+                    <label class="float" for="radioActual" style="padding-left:5px;pointer-events:all !important">Actual Hours</label>
+                </div>
+            </div>
+            <div class="col-md-3 divReports">
+                <div class="contentfielddiv">
+                    <input id="radioBillable" type="radio" name="hourType" value="2">
+                    <label class="float" for="radioBillable" style="padding-left:5px;pointer-events:all !important">Billable Hours</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 divReports">
+                <div class="contentfielddiv">
+                    <input class="floating-input" id="txtStartDate" type="text" placeholder=" ">
+                    <label class="float">Start Date</label>
+                </div>
+            </div>
+            <div class="col-md-3 divReports">
+                <div class="contentfielddiv">
+                    <input class="floating-input" id="txtEndDate" type="text" placeholder=" ">
+                    <label class="float">End Date</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ErrorLabel"><label id="lblTsError" class="lblError"></label></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var Type = 0;
+    var ReportType = "";
+    $(document).ready(function () {
+        $('#hrefBack').click(function () {
+            $('#hdnId').val(@id);
+            $('#frmGrid').attr("action", "/TimeSheet/TimeSheetReport");
+            $('#frmGrid').submit();
+        });
+        DefineDatePicker($('#txtStartDate'));
+        DefineDatePicker($('#txtEndDate'));
+        ReportType = parseInt(@Session["TimeSheetType"]);
+        if (ReportType == 1) {
+            $('#divTSHeading').text("Calendar");
+            $('.divReports').hide();
+            //$('.divCalender').show();
+        }
+        else {
+            $('#divTSHeading').text("Reports");
+            $('.divReports').show();
+            //$('.divCalender').hide();
+        }
+    });
+    $(function () {
+        $("#hrefSearch").click(function () {
+
+            if (ReportType == 1) {
+                if ($("#listResources").find(".divcompetancy").length > 0) {
+                    $('#EmpId').val($("#listResources").find(".divcompetancy").attr("name"));
+                    $('#Project').val(@Request["hdnId"]);
+                    $('#formCalendar').submit();
+                }
+                else
+                    $("#lblTsError").text("Choose a valid Resource");
+            }
+            else {
+                if (Validate("TimeSheet")) {
+                    var Resources = '';
+                    $("#listResources").find(".divcompetancy").each(function () {
+                        Resources = Resources + parseInt($(this).attr("name")) + "|";
+                    });
+                    var SDate = $('#txtStartDate').val() != "" ? $('#txtStartDate').val() : 0;
+                    var EDate = $('#txtEndDate').val() != "" ? $('#txtEndDate').val() : 0;
+                    var jsonString = "{'Resources': '" + Resources + "','StartDate': '" + SDate +
+                     "','EndDate': '" + EDate + "'}";
+                    SetSession('/TimeSheet/SetSession', jsonString, "");
+                    $('#projectId').val(@id);
+                    $('#HoursType').val($("input[name=hourType]:checked").val());
+                    $('#frmGrid').submit();
+                }
+            }
+        });
+        $("#divResources").click(function () {
+            $("#txtResources").focus();
+        });
+        $(".autopopulateText").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Task/AutoCompleteResources',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'Project':@id,'EmpName': '" + request.term + "'}",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        //alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        //alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                if (i.item.label != "") {
+                    if (ReportType == 1)
+                        $("#listResources").empty();
+                    $("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                                 "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                             "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+                    $(this).val("");
+                    return false;
+                }
+            },
+            minLength: 1
+        });
+    });
+</script>

@@ -1,0 +1,448 @@
+﻿using Newtonsoft.Json;
+using NuPortal.Common_Library;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace NuPortal.Controllers
+{
+    [SessionTimeout]
+    public class HomeController : Controller
+    {
+        // GET: Home
+
+        public ActionResult Home()
+        {
+            return View();
+        }
+
+        public ActionResult MyTickets()
+        {
+            return View();
+        }
+        public ActionResult Events()
+        {
+            return View();
+        }
+        public ActionResult RateOtherEmployee()
+        {
+            return View();
+        }
+        public ActionResult RatingHistory()
+        {
+            return View();
+        }
+        [HttpGet]
+        public JsonResult GetEventById(int EventId)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                return Json(empService.SelectEmployeeInfo(EventId, 38), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally { empService.Dispose(); }
+        }
+
+        [HttpGet]
+        public JsonResult GetCalendar(int year, int month)
+        {
+            DataTable calendar = new DataTable();
+            //NuPortalDBService.NuPortalService portService = new NuPortalDBService.NuPortalService();
+            try
+            {
+                //DataTable events = JsonConvert.DeserializeObject<DataTable>(portService.SelectGridInfo(Convert.ToInt32(Session["CompanyId"]), opt));
+                calendar.Columns.Add("Sun");
+                calendar.Columns.Add("Mon");
+                calendar.Columns.Add("Tue");
+                calendar.Columns.Add("Wed");
+                calendar.Columns.Add("Thu");
+                calendar.Columns.Add("Fri");
+                calendar.Columns.Add("Sat");
+                string[] days = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+                DateTime monthStart = new DateTime(year, month, 1);
+                DateTime monthEnd = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+                monthStart = monthStart.AddDays(DayOfWeek.Sunday - monthStart.DayOfWeek);
+                monthEnd = monthEnd.AddDays(DayOfWeek.Saturday - monthEnd.DayOfWeek);
+                int dayCnt = 0;
+                DataRow day = calendar.NewRow();
+                for (DateTime dt = monthStart; dt <= monthEnd; dt = dt.AddDays(1))
+                {
+                    string dayStr = dt.Day.ToString();
+                    if (dt.Month == month)
+                        dayStr = dayStr + "|currentmonth";
+                    else if (dt.Month < month)
+                        dayStr = dayStr + "|prevmonth";
+                    else
+                        dayStr = dayStr + "|nextmonth";
+                    day[days[dayCnt]] = dayStr;
+                    dayCnt++;
+                    if (dayCnt == 7)
+                    {
+                        dayCnt = 0;
+                        calendar.Rows.Add(day);
+                        day = calendar.NewRow();
+                    }
+
+                }
+                return Json(JsonConvert.SerializeObject(calendar), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally { calendar = null; }
+        }
+
+        [HttpGet]
+        public JsonResult GetAllEvents(int year, int month, int Operation)
+        {
+            NuPortalHRService.NuPortalHRService hrService = new NuPortalHRService.NuPortalHRService();
+            hrService.Url = Constants.HRService;
+            DataTable events = new DataTable();
+            DataTable monthEvents = new DataTable();
+            try
+            {
+                DateTime monthStart = new DateTime(year, month, 1);
+                DateTime monthEnd = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+                monthStart = monthStart.AddDays(DayOfWeek.Sunday - monthStart.DayOfWeek);
+                monthEnd = monthEnd.AddDays(DayOfWeek.Saturday - monthEnd.DayOfWeek);
+                events = JsonConvert.DeserializeObject<DataTable>(hrService.GetDataForCalendar(Convert.ToInt32(Session["CompanyId"]), monthStart, monthEnd, Operation));
+
+                monthEvents.Columns.Add("EventDate");
+                monthEvents.Columns.Add("StartTime");
+                monthEvents.Columns.Add("EventId");
+                monthEvents.Columns.Add("Title");
+                monthEvents.Columns.Add("Month");
+                monthEvents.Columns.Add("Status");
+                if (events != null && events.Rows.Count > 0)
+                    foreach (DataRow row in events.Rows)
+                        if (Convert.ToDateTime(row["StartDate"]) <= monthEnd && Convert.ToDateTime(row["EndDate"]) >= monthStart)
+                            for (DateTime dt = Convert.ToDateTime(row["StartDate"]); dt <= Convert.ToDateTime(row["EndDate"]); dt = dt.AddDays(1))
+                                if (dt >= monthStart && dt <= monthEnd)
+                                    monthEvents.Rows.Add(dt.ToString("yyyy/MM/dd"), row["StartTime"], row["EventId"], row["Title"], dt.Month == month ? "currentmonth" : dt.Month <= month ? "prevmonth" : "nextmonth", row["Status"]);
+                return Json(JsonConvert.SerializeObject(monthEvents), JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally { hrService = null; events = null; monthEvents= null; }
+        }
+
+        [HttpGet]
+        public JsonResult GetOpenTickets()
+        {
+            NuPortalDBService.NuPortalService Dbservice = new NuPortalDBService.NuPortalService();
+            Dbservice.Url = Constants.DBService;
+            try
+            {
+                string JsonString = Dbservice.SelectGridInfo(Convert.ToInt32(Session["EmpId"]), 4);
+                if (JsonString != string.Empty)
+                {
+                    return Json(JsonString, JsonRequestBehavior.AllowGet);
+                }
+                else
+                    ViewBag.Message = "No Records Found";
+
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                Dbservice.Dispose();
+
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetClosedTickets()
+        {
+            NuPortalDBService.NuPortalService Dbservice = new NuPortalDBService.NuPortalService();
+            Dbservice.Url = Constants.DBService;
+            try
+            {
+                string JsonString = Dbservice.SelectGridInfo(Convert.ToInt32(Session["EmpId"]), 6);
+                if (JsonString != string.Empty)
+                {
+                    return Json(JsonString, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                Dbservice.Dispose();
+
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+        //[HttpGet]
+        //public JsonResult GetEmployeeRatings()
+        //{
+        //    NuPortalDBService.NuPortalService Dbservice = new NuPortalDBService.NuPortalService();
+        //    Dbservice.Url = Constants.DBService;
+        //    try
+        //    {
+        //        string jsonString = Dbservice.SelectGridInfo(Convert.ToInt32(Session["EmpId"]), 25);
+        //        if (jsonString != string.Empty)
+        //            return Json(jsonString, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        //    }
+        //    finally
+        //    {
+        //        Dbservice = null;
+        //    }
+        //    return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        //}
+        public JsonResult AutoCompleteEmployee(string EmpName)
+        {
+            Dictionary<string, string> oItems = new Dictionary<string, string>();
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            DataTable dtAutoComplete = JsonConvert.DeserializeObject<DataTable>(empService.ManagerAutoComplete(Convert.ToInt32(Session["CompanyId"]),
+                EmpName, Convert.ToInt32(Session["EmpId"]), 3));
+            if (dtAutoComplete != null && dtAutoComplete.Rows.Count > 0)
+            {
+                for (int i = 0; i < dtAutoComplete.Rows.Count; i++)
+                {
+                    oItems.Add(dtAutoComplete.Rows[i]["EmpId"].ToString(), dtAutoComplete.Rows[i]["FirstName"].ToString());
+                }
+            }
+
+
+            return Json(oItems.ToList());
+        }
+        [HttpPost]
+        public JsonResult SaveEmployeeRatings(int ratedto, int rating, int RatingFactorId)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                string jsonString = empService.UpdateEmployeeRating(0, ratedto, Convert.ToInt32(Session["EmpId"]), 
+                    rating, Convert.ToInt32(Session["EmpId"]), Convert.ToInt32(Session["EmpId"]), 1, RatingFactorId, 1);
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                empService = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetGridData(string jsonData, int Operation,int ProjId,int TypeId,int OffSet,int RowCount) 
+        {
+            NuPortalDBService.NuPortalService Dbservice = new NuPortalDBService.NuPortalService();
+            Dbservice.Url = Constants.DBService;
+            try
+            {
+                int SessionValue = 0;
+                string jsonString = string.Empty;
+                if (TypeId == 0)
+                    SessionValue = ProjId;
+                else if (TypeId == 1)
+                    SessionValue = Convert.ToInt32(Session["CompanyId"]);
+                else if(TypeId==2)
+                    SessionValue = Convert.ToInt32(Session["EmpId"]);
+                else if (TypeId == 3)
+                    SessionValue = ProjId;
+                jsonString = Dbservice.GetFilterForGrid(jsonData, SessionValue, OffSet, RowCount, Operation); //change value of offset as per pagination case
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                Dbservice = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetMonthlyRating(int Month,int Year,int Operation)
+        {
+            NuPortalDBService.NuPortalService Dbservice = new NuPortalDBService.NuPortalService();
+            Dbservice.Url = Constants.DBService;
+            try
+            {
+                string jsonString = Dbservice.SelectDetailsByMonth(Convert.ToInt32(Session["EmpId"]), Month,Year, Operation);
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                Dbservice = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetSelectData(int Id, int Operation)
+        {
+            NuPortalDBService.NuPortalService service = new NuPortalDBService.NuPortalService();
+            service.Url = Constants.DBService;
+            try
+            {
+                string jsonString = service.SelectGridInfo(Id, Operation);
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                service = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+        
+        [HttpGet]
+        public JsonResult GetEmpData(int Id, int Operation)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                string jsonString = empService.SelectEmployeeInfo(Id, Operation);
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                empService = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult CancelDelete(int Id, int Operation)
+        {
+            NuPortalDBService.NuPortalService DBService = new NuPortalDBService.NuPortalService();
+            DBService.Url = Constants.DBService;
+            try
+            {
+                string jsonString = DBService.CancelItem(Id, Convert.ToInt32(Session["EmpID"]), Operation);
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                DBService = null;
+
+            }
+
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SaveOppReason(int OppId, string Reason, int Operation)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                string jsonString = empService.ManagerAutoComplete(OppId, Reason, Convert.ToInt32(Session["EmpId"]), Operation);
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                empService = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetDdlData(int Id, int Operation)
+        {
+            Dictionary<string, string> outData = new Dictionary<string, string>();
+            NuPortalDBService.NuPortalService empService = new NuPortalDBService.NuPortalService();
+            empService.Url = Constants.DBService;
+            try
+            {
+                string jsonData = empService.GetDDListBox(Id, Operation);
+                if (jsonData != "")
+                    return Json(jsonData, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    outData = new Dictionary<string, string>();
+                    outData.Add("Error", "Error");
+                    return Json(JsonConvert.SerializeObject(outData), JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                outData = new Dictionary<string, string>();
+                outData.Add("Error", "Error");
+                return Json(JsonConvert.SerializeObject(outData), JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                empService = null;
+            }
+        }
+        [HttpPost]
+        public ActionResult changePassword(string OldPassword,string NewPassword, int Operation)
+        {
+            Dictionary<string, string> outData = new Dictionary<string, string>();
+            NuPortalDBService.NuPortalService Dbservice = new NuPortalDBService.NuPortalService();
+            Dbservice.Url = Constants.DBService;
+            try
+            {
+                string JsonString = Dbservice.ChangePassword(OldPassword, NewPassword, Convert.ToInt32(Session["EmpId"]), Operation);
+                if (JsonString != string.Empty)
+                    return Json(JsonString);
+            }
+            catch (Exception ex)
+            {
+                return Json("{\"Result\":\"" + ex.Message + "\"}");
+            }
+            finally
+            {
+                Dbservice = null;
+            }
+            return Json(Common_Library.Constants.JsonError);
+        }
+    }
+}

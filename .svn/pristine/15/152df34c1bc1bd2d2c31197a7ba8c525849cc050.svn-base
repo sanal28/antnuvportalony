@@ -1,0 +1,612 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var OpenindId = 0;
+    var backUrl = (Request.UrlReferrer == null) ? "" : Request.UrlReferrer.PathAndQuery;
+       // var backUrl = Request.UrlReferrer.PathAndQuery;
+
+    if (!string.IsNullOrEmpty(Request["hdnId"]))
+    {
+        OpenindId = Convert.ToInt32(Request["hdnId"]);
+    }
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/job-openings-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv" id="divHeader">New Opening</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv" id="divValidateall">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" id="hrefBack" href="@Url.Action("JobOpenings", "Recruitment")" id="anchBack"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input validation1 vinput" type="text" placeholder=" " id="txtTitle">
+                    <label class="float">Job Title</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select floatingddl" id="ddlDepartment" value="">
+                        <option value="0"></option>
+                    </select>
+                    <label class="float">Department Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input validation2 vinput vnumeric" type="text" placeholder=" " id="txtVacant">
+                    <label class="float">No of Vacancies</label>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="weeklytext" style="padding:0px !important;margin:0px !important;">Account Manager</div>
+                    <div class="floating-input autocomplete-textarea" id="divManager">
+                        <div id="listManager" class="list competancylist"></div>
+                        <input type="text" class="competancy txtManager" id="txtManager" placeholder=" " />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="weeklytext" style="padding:0px !important;margin:0px !important;">Assigned Recruiter</div>
+                    <div class="floating-input autocomplete-textarea vArecruiter " id="divRecruit">
+                        <div id="listRecruit" class="list competancylist"></div>
+                        <input type="text" class="competancy txtManager" id="txtRecruit" placeholder=" " />
+                    </div>
+                </div>
+            </div>
+            <div class="space"></div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" " id="txtCTC">
+                    <label class="float">CTC</label>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input validation3  vinput vdate vsdate" type="text" placeholder=" " id="dateStart">
+                    <label class="float">Date Opened</label>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input validation4 vinput vdate vedate" type="text" placeholder=" " id="dateEnd">
+                    <label class="float">Apply Before</label>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select  validation5  vselect" id="ddlJobType" value="">
+                        <option value=""></option>
+                        <option value="1">Contract</option>
+                        <option value="2">Permanent</option>
+                    </select>
+                    <label class="float">Job Type</label>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" " disabled="disabled" id="txtContract">
+                    <label class="float">Contract Period</label>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" " id="txtIndus">
+                    <label class="float">Industry</label>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" " id="txtExpN">
+                    <label class="float">Experience Required</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" " id="txtCity">
+                    <label class="float">City</label>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" " id="txtState">
+                    <label class="float">State</label>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" " id="txtCountry">
+                    <label class="float">Country</label>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select floatingddl  validation6 vselect" value="" id="ddlStatus">
+                        <option value=""></option>
+                        <option value="true">Open</option>
+                        <option value="false">Close</option>
+                    </select>
+                    <label class="float">Job Opening Status</label>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="contentfielddiv">
+                    <div class="textarea-wrapper">
+                        <textarea class="floating-input floating-textarea" id="txtDesc" required placeholder=" "></textarea>
+                        <label class="float">Job Description</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="weeklytext">Roles</div>
+                    <div class="contenttextarea">
+                        <div id="listRoles" class="list competancylist"></div><input type="text" class="competancy" id="txtRole" placeholder="+ Click to Add" />
+                    </div>
+                    @*<div class="textarea-wrapper">
+                            <textarea class="floating-textarea floating-input" required id="txtRole" placeholder=" "></textarea>
+                            <label class="float">Roles</label>
+                        </div>*@
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="weeklytext">Technologies</div>
+                    <div class="contenttextarea">
+                        <div id="listTech" class="list competancylist"></div><input type="text" class="competancy" id="txtTech" placeholder="+ Click to Add" />
+                    </div>
+                    @*<div class="textarea-wrapper">
+                            <textarea class="floating-input floating-textarea" required id="txtTech" placeholder=" "></textarea>
+                            <label class="float">Technologies</label>
+                        </div>*@
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="weeklytext">Certification</div>
+                    <div class="contenttextarea">
+                        <div id="listCert" class="list competancylist"></div><input type="text" class="competancy" id="txtCert" placeholder="+ Click to Add" />
+                    </div>
+                    @*<div class="textarea-wrapper">
+                            <textarea class="floating-input  floating-textarea" id="txtCert" required placeholder=" "></textarea>
+                            <label class="float">Certification</label>
+                        </div>*@
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="weeklytext">Domain</div>
+                    <div class="contenttextarea">
+                        <div id="listDomain" class="list competancylist"></div><input type="text" class="competancy" id="txtDom" placeholder="+ Click to Add" />
+                    </div>
+                    @*<div class="textarea-wrapper">
+                            <textarea class="floating-input floating-textarea" required id="txtDom" placeholder=" "></textarea>
+                            <label class="float">Domain</label>
+                        </div>*@
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="weeklytext">Skills</div>
+                    <div class="contenttextarea">
+                        <div id="listSkills" class="list competancylist"></div><input type="text" class="competancy" id="txtSkill" placeholder="+ Click to Add" />
+                    </div>
+                    @*<div class="textarea-wrapper">
+                            <textarea class="floating-input floating-textarea" required id="txtSkill" placeholder=" "></textarea>
+                            <label class="float">Skills</label>
+                        </div>*@
+                </div>
+            </div>    
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="weeklyoffmaindiv" id="divFileUpload">
+                    <div class="weeklytext">Documents</div>
+                    <div class="workstarttimediv">
+                        <div class="col-md-4" id="divFile">
+                            <div class="contentfielddiv">
+                                <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                <input id="fileProject" type="file" class="contenttextfield" placeholder="Attachment" multiple>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="uploadbutton">
+                                <img title="Upload" id="fileUrl" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" onclick="UploadOpeningFile();" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="divAttach" style="display:none;max-width:inherit">
+
+        </div>
+        <div class="buttonmaindiv" id="divBtn">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" onclick="saveOpenings(1);" /></div>
+            <div class="buttondiv"><input title="Saveandnew" class="submitandnewbtn" type="button" onclick="saveOpenings();" /></div>
+            <div class="buttondiv" id="btnClear"><input title="Clear" class="clearbtn" type="button" onclick="clearValues(true);" /></div>
+            <div class="ErrorLabel">
+                <label id="lblMsg" class="lblError"></label>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#anchBack').attr('href','@backUrl');
+        $('#ddlJobType').change(function () {                       //
+            if($(this).find('option:selected').text()=="Contract")
+                $('#txtContract').removeAttr("disabled");
+            else
+                $('#txtContract').attr("disabled","disabled");
+            if ($(this).find('option:selected').text() == "")
+                $('#ddlJobType').attr("value","");
+            else
+                $('#ddlJobType').attr("value", $(this).find('option:selected').val());
+        })
+
+        $('.floatingddl').each(function () {
+            $(this).change(function () {
+                $(this).attr("value", $(this).find('option:selected').val());
+            })
+        });
+
+        LoadDdls('/projects/GetDepartment?opId=7', $('#ddlDepartment'), 'DepartmentId', 'DepartmentName');
+
+        $('#txtManager').keydown(function () {
+            AutoComplete($(this).attr('id'), "listManager");
+        });
+        $('#txtRecruit').keydown(function () {
+            AutoComplete($(this).attr('id'), "listRecruit");
+        });
+
+        DefineCompetancies($("#listRoles"), $('#txtRole'));
+        DefineCompetancies($("#listTech"), $('#txtTech'));
+        DefineCompetancies($("#listCert"), $('#txtCert'));
+        DefineCompetancies($("#listDomain"), $('#txtDom'));
+        DefineCompetancies($("#listSkills"), $('#txtSkill'));
+
+        DefineDatePicker($('#dateStart'));
+        DefineDatePicker($('#dateEnd'));
+
+        if(@OpenindId!=0){
+            $.ajax({
+                url: '/Recruitment/GetOpening',
+                dataType: "json",
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                data:{
+                    RowId:@OpenindId,operation:41
+                },
+                success: function (data) {
+                    var results=$.parseJSON(data);
+                    $('#divHeader')[0].innerText=results[0].JobTitle;
+                    $('#txtTitle').val(results[0].JobTitle);
+                    $('#ddlDepartment').find('option[value="'+results[0].FK_Department+'"]').attr("selected","selected");
+                    $('#ddlStatus').find('option[value="'+results[0].JobOpeningStatus+'"]').attr("selected","selected");
+                    $('#ddlJobType').find('option[value="'+results[0].JobType+'"]').attr("selected","selected");
+                    if($('#ddlJobType').find('option:selected').text()=="Contract")
+                        $('#txtContract').removeAttr("disabled");
+                    $("select").each(function(){
+                        $(this).attr("value", $(this).find('option:selected').val());
+                    });
+                    $('#txtVacant').val(results[0].NOOfVacancy);
+                    if((results[0].CTC)==0)
+                    {
+                        $('#txtCTC').val("");
+                    }
+                    else{
+                        $('#txtCTC').val(results[0].CTC);}
+
+                    $('#dateStart').val(customDateformat(parseInt(/\d+/.exec(results[0].StartDate)[0]),"MM/dd/yyyy"));
+                    $('#dateEnd').val(customDateformat(parseInt(/\d+/.exec(results[0].EndDate)[0]),"MM/dd/yyyy"));
+                    $('#txtContract').val(results[0].ContractPeriod);
+                    $('#txtIndus').val(results[0].Industry);
+                    $('#txtExpN').val(results[0].ExperienceRequired!=0?results[0].ExperienceRequired:"");
+                    $('#txtCity').val(results[0].City);
+                    $('#txtState').val(results[0].State);
+                    $('#txtCountry').val(results[0].Country);
+                    //$('#txtRole').val(results[0].RoleName);
+                    //$('#txtTech').val(results[0].Technologies);
+                    //$('#txtCert').val(results[0].Certification);
+                    //$('#txtDom').val(results[0].Domain);
+                    //$('#txtSkill').val(results[0].Skills);
+                    bindListData($("#listRoles"), results[0].RoleName);
+                    bindListData($("#listTech"), results[0].Technologies);
+                    bindListData($("#listCert"), results[0].Certification);
+                    bindListData($("#listDomain"), results[0].Domain);
+                    bindListData($("#listSkills"), results[0].Skills);
+                    $('#txtDesc').val(results[0].JobDescription);
+                    var filesStr=results[0].AttachmentPath.split('||');
+                    for(var i=0;i<filesStr.length-1;i++){
+                        CheckExtension($('#divAttach'), filesStr[i], filesStr[i].split('\\').pop(), "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", $('#divAttach'), 1);
+                        $('#filehidden').val($('#filehidden').val() + filesStr[i] + "||");
+                    }
+
+                    var clickStr="<a title='Close' href='#' style='color: #fff;' onclick='javascript:$(this).parents(\":eq(1)\").remove();'>X</a>";
+                    if('@Request["hdnAction"]'=='view'){
+                        clickStr="";
+                        $('.closeImage').hide();
+                        $('.listclosbtn').remove();
+
+                    }
+                    if(results[0].FK_Manager!=0)
+                        $('#listManager').append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff;" +
+                        " min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + results[0].FK_Manager + "'>" + results[0].Manager +
+                        "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +clickStr+"</div></div>");
+
+                    $('#listRecruit').append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff;" +
+                    " min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + results[0].FK_Recruiter + "'>" + results[0].Recruiter +
+                    "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>"+clickStr+"</div></div>");
+                    $('#btnClear').hide();
+                    $(".submitandnewbtn").hide();
+                },
+                error: function (xhr) {
+                }
+            });
+        }
+        if('@Request["hdnAction"]'=='view'){
+            $('#divBtn').hide();
+            $('#divFileUpload').hide();
+            $('.documentclosebutton').remove();            
+            disableAll();
+        }
+    });
+
+    function bindListData(list,text){
+        var listText=text.split(',');
+        if(listText.length>0){
+            for(var i=0;i<listText.length;i++)
+                if(listText[i]!='')
+                    list.append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + listText[i] +
+                                    "</label></div><div class='listclosbtn' style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                        "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div>");
+        }
+    }
+
+    function disableAll(){
+        $("input[type='text']").each(function(){
+            $(this).attr("disabled", "disabled");
+        });
+        $("select").each(function(){
+            $(this).attr("disabled", "disabled");
+        });
+        $('textarea').each(function(){
+            $(this).click();
+            $(this).attr("disabled", "disabled");
+        });
+    }
+
+    function AutoComplete(tab, listObject) {
+        $(".txtManager").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/EmpInfoAdminView/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'EmpName': '" + request.term.split(/,\s*/).pop() + "' }",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                    },
+                    failure: function (response) {
+                    }
+                });
+            },
+            select: function (e, i) {
+                var type = 1;
+                if (listObject == 'listManager')
+                    type = 2;
+                if(CheckIsNotSelected(i.item.Id,"#" + listObject)&&$('#'+listObject).find('.divcompetancy').length<1){
+                    $('#' + tab).parent().find("#" + listObject + "").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff;" +
+                        " min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                        "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                       "<a title='Close' href='#' style='color: #fff;' onclick=\"javascript:$(this).parents(':eq(1)').remove();\">X</a></div></div>");
+                    var terms = this.value.split(/,\s*/);
+                    terms.pop();
+                    terms.push(i.item.value);
+                    terms.push("");
+                }
+                this.value = "";
+                return false;
+            },
+            minLength: 1
+        });
+    }
+
+    function UploadOpeningFile() {
+        var projectFiles = $('#fileProject')[0].files;
+        var formData = new FormData();
+        if (projectFiles.length > 0) {
+            for (var i = 0; i < projectFiles.length; i++)
+                formData.append(projectFiles[i].name, projectFiles[i]);
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < projectFiles.length; i++) {
+                            $('#filehidden').val($('#filehidden').val() + json[projectFiles[i].name] + "||");
+                            CheckExtension($('#divAttach'), projectFiles[i].name, json[projectFiles[i].name], "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", $('#divAttach'), 1);
+                        }
+                    }
+                    $('#fileProject').val('');
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        }
+    }
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            $('#filehidden').val($('#filehidden').val().replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+            if ($('#divAttach').children().length == 0)
+                $('#divAttach').hide();
+        });
+    };
+
+    function saveOpenings(flag) {
+        if (ValidateAll('divValidateall','lblMsg')) {
+            if($('#listRecruit').find('.divcompetancy').length==0){
+                $('#lblMsg')[0].innerText = "* Please Fill All the fields";
+                $('#divRecruit').css("border-bottom", "red solid 2px");
+                $('#txtRecruit').focus();
+            }
+            else if(new Date($('#dateEnd').val())<new Date($('#dateStart').val()))
+                $('#lblMsg')[0].innerText = "Apply before date should be greater than date open";
+            else{
+                var manager="",recruiter="";
+                if($('#listManager').find('.divcompetancy').length>0)
+                    manager=$('#listManager').find('.divcompetancy').attr('name')
+                if($('#listRecruit').find('.divcompetancy').length>0)
+                    recruiter=$('#listRecruit').find('.divcompetancy').attr('name')
+                
+                var roles="",techs="",certs="",doms="",skills="";
+                if($('#listRoles').find('.divcompetancy').length>0){
+                    var subDivs=$('#listRoles').find('.divcompetancy');
+                    for(var i=0;i<subDivs.length-1;i++)
+                        roles=roles+$(subDivs[i])[0].innerText+",";
+                    roles=roles+$(subDivs[subDivs.length-1])[0].innerText;
+                }
+                if($('#listTech').find('.divcompetancy').length>0){
+                    var subDivs=$('#listTech').find('.divcompetancy');
+                    for(var i=0;i<subDivs.length-1;i++)
+                        techs=techs+$(subDivs[i])[0].innerText+",";
+                    techs=techs+$(subDivs[subDivs.length-1])[0].innerText;
+                }
+                if($('#listCert').find('.divcompetancy').length>0){
+                    var subDivs=$('#listCert').find('.divcompetancy');
+                    for(var i=0;i<subDivs.length-1;i++)
+                        certs=certs+$(subDivs[i])[0].innerText+",";
+                    certs=certs+$(subDivs[subDivs.length-1])[0].innerText;
+                }
+                if($('#listDomain').find('.divcompetancy').length>0){
+                    var subDivs=$('#listDomain').find('.divcompetancy');
+                    for(var i=0;i<subDivs.length-1;i++)
+                        doms=doms+$(subDivs[i])[0].innerText+",";
+                    doms=doms+$(subDivs[subDivs.length-1])[0].innerText;
+                }
+                if($('#listSkills').find('.divcompetancy').length>0){
+                    var subDivs=$('#listSkills').find('.divcompetancy');
+                    for(var i=0;i<subDivs.length-1;i++)
+                        skills=skills+$(subDivs[i])[0].innerText+",";
+                    skills=skills+$(subDivs[subDivs.length-1])[0].innerText;
+                }
+
+                var dtOpen = [{Attachments: $('#filehidden').val(),Certification:certs,City:$('#txtCity').val(),Contract:$('#txtContract').val(),
+                    Country:$('#txtCountry').val(),CTC:$('#txtCTC').val(),Domain:doms,Experience:$('#txtExpN').val(),Department:$('#ddlDepartment option:selected').val(),
+                    Manager:manager,Recruiter:recruiter,Role:roles,Industry:$('#txtIndus').val(),Description:$('#txtDesc').val(),
+                    Status:$('#ddlStatus option:selected').val(),Title:$('#txtTitle').val(),JobType:$('#ddlJobType option:selected').val(),Vacancy:$('#txtVacant').val(),
+                    Skills:skills,State:$('#txtState').val(),Technologies:techs,EndDate:FormatDate($('#dateEnd').val(), "yyyy/mm/dd"),StartDate:FormatDate($('#dateStart').val(), "yyyy/mm/dd")}];
+                $.ajax({
+                    url: '/Recruitment/CreateOpening',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        OpenId:@OpenindId,
+                        JsonStr: JSON.stringify(dtOpen)
+                    },
+                    success: function (data) {
+                        var result = JSON.parse(data);
+                        $('#lblMsg').attr("class","lblMessage");
+                        if(@OpenindId!=0)
+                            $('#lblMsg')[0].innerText = "Opening Updated Successfully";
+                        else{
+                           
+                            $('#lblMsg')[0].innerText = "Opening Created Successfully";
+                            clearValues(false);
+                            if (flag==1)
+                            {
+                                document.getElementById("hrefBack").click();                            
+                            
+                            }
+                        }
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        }
+    }
+    function clearValues(clearLbl){           
+        $('#filehidden').val("");
+        $('#divAttach')[0].innerHTML="";
+        $('#listManager')[0].innerHTML="";
+        $('.competancylist').empty();
+        $('#listRecruit')[0].innerHTML="";
+        $('#txtContract').attr("disabled","disabled");
+        $("input[type='text']").each(function(){
+            $(this).val('');
+        });
+        $("select").each(function(){
+            $(this).find('option[value=""]').attr('selected','selected');
+            $(this).attr("value", "");
+        });
+        $('textarea').each(function(){
+            $(this).val('');
+        });
+        $('#fileProject').val('');
+        $('[class*="ErrorFocus"]').each(function(){
+            $(this).removeClass('ErrorFocus');
+        });
+        if(clearLbl)
+            $('#lblMsg')[0].innerText = "";
+    }
+</script>

@@ -1,0 +1,67 @@
+﻿@model NuPortal.Models.Login
+
+    @{
+        string msg = "";
+        if (Model != null)
+        {
+            msg = Model.ErrorMessage;
+        }
+    }
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/styles.css">
+    <link rel="stylesheet" href="~/css/bootstrap-theme.min.css">
+    <script src="~/Scripts/jquery-1.7.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+</head>
+
+<html>
+<body class="Loginmaindiv">
+    @using (Html.BeginForm())
+    {
+    <div class="logininnerdiv">
+        
+        <div class="loginlogo"><img src="../Images/login-logo6.png" width="155" height="155" alt="" /> </div>
+        <div class="loginsubdiv">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="loginusernamediv">
+                        @*<input type="text" class="contenttextfield" required />*@
+                        @Html.TextBoxFor(model => model.userName,new { @class = "floating-input", placeholder = " " })
+                        <label class="float">User Name</label>
+                        <div class="loginerrorlabel">* Enter User Name</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="loginusernamediv">
+                        
+                        @*<input type="password" class="contenttextfield" required />*@
+                        @Html.PasswordFor(model => model.password, new { @class = "floating-input", placeholder = " " })
+                        <label class="float">Password</label>
+                        <div class="loginerrorlabel">* Enter Password</div>
+                        <div class="ErrorLabel" style="padding-left:0px;">
+                            @Html.Label(msg, new { @class = "lblError" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="loginforgotpassword"><a href="@Url.Action("PasswordReset","Login")">Forgot Password?</a></div>
+            <div class="sigindiv">
+            <input class="signinbtn sigindiv" value="Sign In" type="submit" />
+            </div>
+        </div>
+    </div>
+    }
+</body>
+</html>
+
+

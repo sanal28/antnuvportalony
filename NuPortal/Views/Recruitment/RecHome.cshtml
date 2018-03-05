@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "IconsView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/recru-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Recruitment</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-4" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="@Url.Action("JobOpenings","Recruitment")"><img src="~/Images/job-openings.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("JobOpenings","Recruitment")">Openings</a></div>
+                </div>
+
+            </div>
+            <div class="col-md-4" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="@Url.Action("ApplicantsLog", "Recruitment")"><img src="~/Images/applicants.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("ApplicantsLog", "Recruitment")">Applicant</a></div>
+                </div>
+
+
+            </div>
+            <div class="col-md-4" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="@Url.Action("InterviewLog", "Recruitment")"><img src="~/Images/interview.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("InterviewLog", "Recruitment")">Interview</a></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

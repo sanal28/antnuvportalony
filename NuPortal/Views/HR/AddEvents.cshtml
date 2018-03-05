@@ -1,0 +1,184 @@
+﻿
+@{
+
+    //Event Id Hardcoded
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var id = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt32(Request["hdnId"]);
+    }
+}
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/sm-events.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv" id="divHeading">Add Events</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div id="div-clear-addEvents">
+
+            <div class="myprojectdiv">
+                <a class="backbuttondiv" id="hrefBack"href="@Url.Action("Events","HR")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            </div>
+
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtTitle" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Title</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtStartDate" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Start Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEndDate" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">End Date</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtStartTime" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Start Time</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEndTime" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">End Time</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                        <textarea id="txtDescription" class="floating-input floating-textarea" placeholder=" "></textarea>
+                        <label class="float">Description</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttonmaindiv">
+                <div class="buttondiv"><input title="Save" class="submitbtn" type="button" onclick="AddEvents(1)" /></div>
+                <div class="buttondiv"><input title="Save" class="submitandnewbtn" type="button" onclick="AddEvents()" /></div>
+                <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onclick="return ClearAllControlValues('div-clear-addEvents');" /></div>
+                <div class="ErrorLabel">
+                    <label id="lblMessage" class="lblMessage"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    var id = @id;
+    var eventId;
+    var Operation;
+    $(document).ready(function(){
+        DefineDatePicker($("#txtStartDate"));
+        DefineDatePicker($("#txtEndDate"));
+        fillEvents();
+    });
+
+    function fillEvents() {
+        if(id!=0){
+            var  eventId=id;
+            $.ajax({
+                url: '/HR/getEvents',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    eventId:eventId,Operation:38
+                },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    $('.clearbtn').hide();
+                    $('.submitandnewbtn').hide();
+                    $('#divHeading').text(resultVals[0]["Title"]);
+                    $("#txtTitle").val(resultVals[0]["Title"]);
+                    $("#txtStartDate").val(FormatDate(resultVals[0]["StartDate"], "mm/dd/yyyy"));
+                    $("#txtEndDate").val((FormatDate(resultVals[0]["EndDate"], "mm/dd/yyyy")));
+                    $("#txtStartTime").val(resultVals[0]["StartTime"]);
+                    $("#txtEndTime").val(resultVals[0]["EndTime"]);
+                    $("#txtDescription").val(resultVals[0]["Description"]);
+                },
+                error: function () {
+                    //alert('error');
+                }
+            });
+        }
+        else{
+            $("#txtTitle").val("");
+            $("#txtStartDate").val("");
+            $("#txtEndDate").val("");
+            $("#txtStartTime").val("");
+            $("#txtEndTime").val("");
+            $("#txtDescription").val("");
+        }
+    }
+
+    //Adding Events method..
+    function AddEvents(flag) {
+        if (id==0)
+        {
+            eventId=0
+            Operation=2
+        }
+        else
+        {
+            eventId=@id;
+            Operation=4;
+        }
+
+        if (Validate('AddEvents')) {
+            var StartDate = $("#txtStartDate").val();
+            StartDate = FormatDate(StartDate, "yyyy/mm/dd");
+
+            var EndDate = $("#txtEndDate").val();
+            EndDate = FormatDate(EndDate, "yyyy/mm/dd");
+
+            $.ajax({
+                url: '/HR/saveEvents',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    Id:eventId,Title: $("#txtTitle").val(), StartDate: StartDate, EndDate: EndDate, StartTime: $("#txtStartTime").val(), EndTime: $("#txtEndTime").val(),
+                    Description: $("#txtDescription").val(),Operation:Operation
+                },
+                success: function (data) {
+                    if(Operation==2){
+                        ClearAllControlValues('div-clear-addEvents');
+                        $('#lblMessage').text("Event Added Successfully");
+                        if(flag==1)
+                            document.getElementById("hrefBack").click();
+
+
+                    }
+                    else
+                        $('#lblMessage').text("Event Updated Successfully");                    
+                },
+                error: function () {
+                    //alert('error');
+                }
+            });
+        }
+
+    }
+</script>

@@ -1,0 +1,258 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int hdnId = 0;
+    int TrainId = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        hdnId = Convert.ToInt16(Request["hdnId"].ToString());
+    }
+    if (Request["TrainId"] != null && Request["TrainId"] != "")
+    {
+        TrainId = Convert.ToInt16(Request["TrainId"].ToString());
+    }
+}
+<form id="frmTrainDetails" action="" method="post">
+    @Html.Hidden("TrainId", new { id = "TrainId", name = "TrainId" })
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="../images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Training Assessment</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">      
+            <label id="hdnTrainId" type="hidden" class=".filehidden"></label>      
+            <a class="backbuttondiv" onclick="gotoTrainDetails();" href="#"><img alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+
+        <div class="space"></div>
+        <div class="popupheadingmaindiv">
+            <div class="popupheadingtext">Assessment</div>
+            <div class="popupclosebutton"><a href="#">X</a></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+
+                    <input id="txtTrainee" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Trainee</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtTrainer" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Trainer</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+
+                    <input id="txtFromDate" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">From</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtToDate" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">To</label>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="space"></div>
+        <div class="popupheadingmaindiv">
+            <div class="popupheadingtext">Employee Training Assessment</div>
+            <div class="popupclosebutton"><a href="#">X</a></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Ability to learn new concept</div>
+                    <div class="ratingdiv">
+                        <fieldset class="rating">
+                            <input type="radio" id="field1_star5" name="rating0" class="layoutRadio layoutRadio1" value="5" /><label class="full" for="field1_star5"></label>
+
+                            <input type="radio" id="field1_star4" name="rating0" class="layoutRadio layoutRadio1" value="4" /><label class="full" for="field1_star4"></label>
+
+                            <input type="radio" id="field1_star3" name="rating0" class="layoutRadio layoutRadio1" value="3" /><label class="full" for="field1_star3"></label>
+                             
+                            <input type="radio" id="field1_star2" name="rating0" class="layoutRadio layoutRadio1" value="2" /><label class="full" for="field1_star2"></label>
+
+                            <input type="radio" id="field1_star1" name="rating0" class="layoutRadio layoutRadio1" value="1" /><label class="full" for="field1_star1"></label>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Ability to complete task on time</div>
+                    <div class="ratingdiv">
+                        <fieldset class="rating">
+                            <input type="radio" id="field2_star5" name="rating1" class="layoutRadio layoutRadio2" value="5" /><label class="full" for="field2_star5"></label>
+
+                            <input type="radio" id="field2_star4" name="rating1" class="layoutRadio layoutRadio2" value="4" /><label class="full" for="field2_star4"></label>
+
+                            <input type="radio" id="field2_star3" name="rating1" class="layoutRadio layoutRadio2" value="3" /><label class="full" for="field2_star3"></label>
+
+                            <input type="radio" id="field2_star2" name="rating1" class="layoutRadio layoutRadio2" value="2" /><label class="full" for="field2_star2"></label>
+
+                            <input type="radio" id="field2_star1" name="rating1" class="layoutRadio layoutRadio2" value="1" /><label class="full" for="field2_star1"></label>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Ability to understand concept</div>
+                    <div class="ratingdiv">
+                        <fieldset class="rating">
+                            <input type="radio" id="field3_star5" name="rating2" class="layoutRadio layoutRadio3" value="5" /><label class="full" for="field3_star5"></label>
+
+                            <input type="radio" id="field3_star4" name="rating2" class="layoutRadio layoutRadio3" value="4" /><label class="full" for="field3_star4"></label>
+
+                            <input type="radio" id="field3_star3" name="rating2" class="layoutRadio layoutRadio3" value="3" /><label class="full" for="field3_star3"></label>
+
+                            <input type="radio" id="field3_star2" name="rating2" class="layoutRadio layoutRadio3" value="2" /><label class="full" for="field3_star2"></label>
+
+                            <input type="radio" id="field3_star1" name="rating2" class="layoutRadio layoutRadio3" value="1" /><label class="full" for="field3_star1"></label>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Assistance required during code building</div>
+                    <div class="ratingdiv">
+                        <fieldset class="rating">
+                            <input type="radio" id="field4_star5" name="rating3" class="layoutRadio layoutRadio4" value="5" /><label class="full" for="field4_star5"></label>
+
+                            <input type="radio" id="field4_star4" name="rating3" class="layoutRadio layoutRadio4" value="4" /><label class="full" for="field4_star4"></label>
+
+                            <input type="radio" id="field4_star3" name="rating3" class="layoutRadio layoutRadio4" value="3" /><label class="full" for="field4_star3"></label>
+
+                            <input type="radio" id="field4_star2" name="rating3" class="layoutRadio layoutRadio4" value="2" /><label class="full" for="field4_star2"></label>
+
+                            <input type="radio" id="field4_star1" name="rating3" class="layoutRadio layoutRadio4" value="1" /><label class="full" for="field4_star1"></label>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Implementation of newly learnt concept</div>
+                    <div class="ratingdiv">
+                        <fieldset class="rating">
+                            <input type="radio" id="field5_star5" name="rating4" class="layoutRadio layoutRadio5" value="5" /><label class="full" for="field5_star5"></label>
+
+                            <input type="radio" id="field5_star4" name="rating4" class="layoutRadio layoutRadio5" value="4" /><label class="full" for="field5_star4"></label>
+
+                            <input type="radio" id="field5_star3" name="rating4" class="layoutRadio layoutRadio5" value="3" /><label class="full" for="field5_star3"></label>
+
+                            <input type="radio" id="field5_star2" name="rating4" class="layoutRadio layoutRadio5" value="2" /><label class="full" for="field5_star2"></label>
+
+                            <input type="radio" id="field5_star1" name="rating4" class="layoutRadio layoutRadio5" value="1" /><label class="full" for="field5_star1"></label>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="contentfielddiv">
+                    <div class="textarea-wrapper">
+                        <textarea id="txtAOD" class="myprojecttextarea" required></textarea>
+                        <span class="floating-label">Areas of development</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="contentfielddiv">
+                    <div class="textarea-wrapper">
+                        <textarea id="txtComment" class="myprojecttextarea" required></textarea>
+                        <span class="floating-label">Comments</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input class="submitbtn" type="button" /></div>
+            <div class="buttondiv"><input class="clearbtn" type="button" /></div>
+            <div class="buttondiv"><input class="printbtn1" type="button" /></div>
+            <div class="buttondiv"><input class="emailbtn" type="button" /></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        DefineDatePicker($('#txtFromDate'));
+        DefineDatePicker($('#txtToDate'));
+        loadAssesment();
+
+    });
+
+    function loadAssesment() {
+        var Operation=22;
+        $.ajax({
+            url: '/HR/getTrainingAssesment',
+            type:'Get',
+            dataType: 'json',
+            data: {idval:@hdnId,Operation:Operation},
+            success: function (result) {
+                var resultVals=$.parseJSON(result);
+                if (resultVals["result"] == undefined || resultVals["result"] == null) {
+
+                    $("#txtTrainee").val(resultVals[0]["TraineeFName"] +" "+ resultVals[0]["TraineeLName"]);
+                    $("#txtTrainer").val(resultVals[0]["TrainerFName"] +" "+ resultVals[0]["TrainerLName"]);
+                    $("#txtFromDate").val(FormatDate(resultVals[0]["StartDate"],"mm/dd/yyyy"));
+                    $("#txtToDate").val(FormatDate(resultVals[0]["EndDate"],"mm/dd/yyyy"));
+
+                    var arr= new Array("AbilityToLearnNewConcept","AbilityToCompleteTaskOnTime","AbilityToUnderstandConcept","AssistanceRequiredDuringCodeBuilding","ImplementationOfNewlyLearntConcept");
+                    var l=0;
+                    var i=0;
+                    for (k=1;k<=5; i++,k++,l++) {
+                        l=arr[i];
+                        for (var j = 0; j <=resultVals[0][l] ; j++) {
+
+                            $('.rating').find('.layoutRadio'+k+'[value=' + j + ']').attr('checked', 'checked');
+                        }
+                        }
+                   
+                    $("#txtAOD").text(resultVals[0]["AreasOfDevelopment"]);
+                    $("#txtComment").val(resultVals[0]["Comments"]);
+
+                }
+            },
+            error: function () { }
+
+        });
+    }
+    function gotoTrainDetails(){
+        $("#TrainId").val(@TrainId);
+        $("#frmTrainDetails").attr("action", "/HR/TrainingDetails");
+        $('#frmTrainDetails').submit();
+    }
+
+</script>

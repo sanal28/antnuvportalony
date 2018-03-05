@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "HRView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form action="/HR/LeaveCalendar" method="post" id="frmLeaveLayouts">
+    @Html.Hidden("EmpLeaveType");
+</form>
+<form action="/HR/EmployeeProgressChart" method="post" id="frmChartLayouts">
+    @Html.Hidden("EmpProgressChat");
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/hr-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">View</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="row">
+            <div class="col-md-1">
+                <a class="backbuttondiv" href="@Url.Action("HRHome","HR")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a id="hrefLeaveEmpSearch" href="#"><img src="~/Images/announcement.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a id="hrefLeaveEmpSearchLink" href="#">Employee Leave</a></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a id="hrefEmpProgressChart" href="#">
+                            <img src="~/Images/announcement.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname"><a id="hrefEmpProgressChartLink" href="#">Employee Performance</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#hrefLeaveEmpSearch').click(function () {
+        $('#EmpLeaveType').val(1);
+        $('#frmLeaveLayouts').submit();
+    });
+    $('#hrefLeaveEmpSearchLink').click(function () {
+        $('#EmpLeaveType').val(1);
+        $('#frmLeaveLayouts').submit();
+    });
+    $('#hrefEmpProgressChart').click(function () {
+        $('#EmpProgressChat').val(1);
+        $('#frmChartLayouts').submit();
+    });
+    $('#hrefEmpProgressChartLink').click(function () {
+        $('#EmpProgressChat').val(1);
+        $('#frmChartLayouts').submit();
+    });
+
+</script>
+

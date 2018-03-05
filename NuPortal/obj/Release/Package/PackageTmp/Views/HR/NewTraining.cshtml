@@ -1,0 +1,285 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/sm-training.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">New Training</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div id="divclearNewTraining">
+            <div class="myprojectdiv">
+
+                <a class="backbuttondiv" id="hrefBack" href="@Url.Action("TrainingLog","HR")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtSubject" class="floating-input vinput" type="text" placeholder=" ">
+                        <label class="float">Subject</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtFromDate" class="floating-input vinput" type="text" placeholder=" ">
+                        <label class="float">From Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtToDate" class="floating-input vinput" type="text" placeholder=" ">
+                        <label class="float">To Date</label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtStartTime" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Time Starts</label>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEndTime" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Time Ends</label>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="contentfielddiv">
+                                <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                <input type="file" id="fileUploadAttachment" class="contenttextfield" placeholder="Attachment" multiple />
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="uploadbutton"><a href="#"><img title="Upload" src="../images/upload.gif" width="25" height="25" alt="" /></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext" style="padding:0px !important;margin:0px !important;">Trainer</div>
+                        <div class="floating-input autocomplete-textarea vinput" id="divResources">
+                            <div id="listResources" class="list competancylist"></div>
+                            <input type="text" class="competancy autopopulateText" id="txtResources" placeholder=" " />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="textarea-wrapper">
+                            <textarea id="txtDetails" class="myprojecttextarea" required></textarea>
+                            <span class="floating-label">Details</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="weeklyoffmaindiv">
+                        <div class="workstarttimediv" style="max-height:50px;">
+                            <div id="divTaskDocs" class="docDiv">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buttonmaindiv">
+                <div class="buttondiv"><input title="Save" id="btnSave" class="submitbtn" type="button" /></div>
+                <div class="buttondiv"><input title="Save" id="btnSaveandnew" class="submitandnewbtn" type="button" /></div>
+                <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onclick="return ClearAllControlValues('divclearNewTraining')" /></div>
+                <div class="ErrorLabel"><label id="lblMessage" class="lblMessage"></label></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        DefineDatePicker($('#txtFromDate'));
+        DefineDatePicker($('#txtToDate'));
+
+    });
+    var pgId = 0;
+    $("#btnSave").click(function () {
+
+        pgId = $(this).attr("id");
+        $("#btnSaveandnew").trigger("click");
+
+
+    });
+
+    $("#btnSaveandnew").click(function () {
+        if (Validate("NewTraining")) {
+            $.ajax({
+                url: '/HR/saveNewTraining',
+                type: "POST",
+                dataType: 'JSON',
+                data: {
+                    Subject: $("#txtSubject").val(), Trainer: parseInt($("#listResources").find(".divcompetancy").attr("name")), StartDate: FormatDate($("#txtFromDate").val(), "yyyy/mm/dd"), EndDate: FormatDate($("#txtToDate").val(), "yyyy/mm/dd"), StartTime: $("#txtStartTime").val(),
+                    EndTime: $("#txtEndTime").val(), Details: $("#txtDetails").val(), Attachment: $("#filehidden").val()
+                },
+                success: function (result) {
+                    ClearAllControlValues('divclearNewTraining');
+                    $("#lblMessage").text("New Training Added Successfully");
+
+                    if (pgId == "btnSave") {
+                        document.getElementById("hrefBack").click();
+                        pgId = 0;
+                    }
+                    //ClearAllControlValues('divclearNewTraining');
+                    //setTimeout(function () { ClearAllControlValues('divclearNewTraining'); }, 3000);
+                    //setTimeout(function () { $("#lblMessage").text(""); }, 3000);
+                },
+                error: function () {
+                    $("#lblMessage").text("Error Saving Document");
+                }
+
+            });
+
+        }
+
+    });
+
+
+    $('.uploadbutton').click(function () {
+        var divId = getCurrentDiv();
+        var fileElement = $('#fileUploadAttachment');
+        var hiddenfield = $('#filehidden');
+        var fileCount = hiddenfield.val().split('||').length;
+        var expDocUpload = fileElement.get(0);
+        var docElement = $('#divTaskDocs');
+        var expDocFiles = expDocUpload.files;
+        var uploadedFilePath = "";
+        var ExpAttachments = new FormData();
+        if (fileCount + expDocFiles.length > 25) {
+            alert('File count cannot exceed 24!');
+            fileElement.val('');
+            return;
+        }
+        for (i = 0; i < expDocFiles.length; i++) {
+            ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+        }
+        $.ajax({
+            url: '/EmpInfoUserView/UploadFiles',
+            type: "POST",
+            async: false,
+            contentType: false,
+            processData: false,
+            data: ExpAttachments,
+            success: function (result) {
+                var json = $.parseJSON(result);
+                if (json["Error"] == undefined || json["Error"] == null) {
+                    for (var i = 0; i < expDocFiles.length; i++) {
+                        hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                        CheckExtension(docElement, expDocFiles[i].name, json[expDocFiles[i].name], "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+        fileElement.val('');
+    });
+
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            var docDivs = $('#divTaskDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+        });
+    };
+
+    $(function () {
+        $("#txtTrainer").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/EmpInfoAdminView/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'EmpName': '" + request.term + "' }",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        //alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        //alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#hfTrainerId").val(i.item.Id);
+                $("#txtTrainer").val(i.item.label);
+            },
+            minLength: 1
+        });
+
+    });
+    $("#txtResources").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: '/EmpInfoAdminView/AutoComplete',
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: "{ 'EmpName': '" + request.term + "' }",
+                success: function (data) {
+                    var items = [];
+                    for (var i = 0; i < data.length; i++) {
+                        items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                    }
+                    response($.map(items, function (item) {
+                        return item;
+                    }))
+                },
+                error: function (response) {
+                },
+                failure: function (response) {
+                }
+            });
+        },
+        select: function (e, i) {
+            if (i.item.label != "") {
+                $("#listResources").empty();
+                $("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                             "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                         "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+                $(this).val("");
+                return false;
+            }
+        },
+        minLength: 1
+    });
+</script>
+

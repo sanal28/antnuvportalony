@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/administration-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Administration</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="@Url.Action("EmpInfoAdminView", "EmpInfoAdminView")"><img src="~/Images/add-user.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("EmpInfoAdminView", "EmpInfoAdminView")">Add User</a></div>
+                </div>
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("CustomizeRequest", "AdminHome")">
+                            <img src="~/Images/create-structure.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("CustomizeRequest", "AdminHome")">Customize Request</a></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("CreateDepartments", "AdminHome")">
+                            <img src="~/Images/create-department.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("CreateDepartments", "AdminHome")">Add Departments</a></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("AssignGroup", "AdminHome")">
+                            <img src="~/Images/Assign-to-group.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("AssignGroup", "AdminHome")">Assign Group</a></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("CustomizeGroups", "AdminHome")">
+                            <img src="~/Images/add-group.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("CustomizeGroups", "AdminHome")">Add Group</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

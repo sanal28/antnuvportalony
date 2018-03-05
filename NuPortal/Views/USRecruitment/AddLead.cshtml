@@ -1,0 +1,426 @@
+﻿
+@{
+    ViewBag.Title = "AddLead";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/lead-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Add Lead</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div id="DivClearAll">
+            <div class="myprojectdiv">
+                <a class="backbuttondiv" href="@Url.Action("LeadLog","USRecruitment")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+                @*<div id="divAssociate">
+                    <div class="myprojecttxt"> <a>Submitted(3)</a></div>
+                    <div class="myprojecttxt"> <a>Interviewed(3)</a></div>
+                    <div title="Associate" class="feedsassociatebtn"><a href="#"><i class="fa fa-link" aria-hidden="true"></i></a></div>
+                </div>
+                <div id="divEdit" title="Edit" class="feedsassociatebtn"><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></div>*@
+            </div>
+            <div id="divSpace" class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtFirstName" class="floating-input vinput" type="text" placeholder=" ">
+                        <label class="float">First Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtLastName" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Last Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtMobNo" class="floating-input vphone" type="text" placeholder=" ">
+                        <label class="float">Mobile No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlVisaType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Visa Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtStreet" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Street</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtCity" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">City</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtState" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">State</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtCountry" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Country</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtZip" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Zip</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtDob" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">DOB</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlGender" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">TransGender</option>
+                        </select>
+                        <label class="float">Gender</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEmail" class="floating-input vemail" type="text" placeholder=" ">
+                        <label class="float">Email</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlEmpType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Employee Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtExperience" class="floating-input vnumeric" type="text" placeholder=" ">
+                        <label class="float">Experience in months</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtQualification" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Highest Qualification</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtCurrentEmployer" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Current Employer</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtCurrentDesignation" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Current Designation</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtCurrentCtc" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Current CTC</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtCurrentLocation" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Current Location</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtRate" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Rate</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtHours" class="floating-input vfloat" type="text" placeholder=" ">
+                        <label class="float">Hours</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlEmployeementType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Employment Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtSource" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Source</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext">Skills</div>
+                        <div class="contenttextarea">
+                            <div id="lstSkills" class="list"></div><input type="text" class="competancy" id="txtSkills" placeholder="+ Click to Add" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext">Technologies</div>
+                        <div class="contenttextarea">
+                            <div id="lstTechnologies" class="list"></div><input type="text" class="competancy" id="txtTechnologies" placeholder="+ Click to Add" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext">Certifications</div>
+                        <div class="contenttextarea">
+                            <div id="lstCertifications" class="list"></div><input type="text" class="competancy" id="txtCertifications" placeholder="+ Click to Add" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <textarea id="txtNote" class="floating-input floating-textarea" placeholder=" "></textarea>
+                        <label class="float">Note</label>
+                    </div>
+                </div>
+                <div class="space"></div>               
+                <div class="col-md-2">
+                    <div class="USRECdocumentfilebtndiv">
+                        <label for="fileReqDocUpload" class="USRECdocumentfilebtn">Choose from File</label>
+                        <input type="hidden" id="filehidden" value="" />
+                        <input type="file" id="fileReqDocUpload" multiple style="display: none">
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="weeklyoffmaindiv">
+                        <div class="workstarttimediv" style="max-height:50px;">
+                            <div class="row">
+                                <div id="divReqDocs" class="docDiv">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buttonmaindiv">
+                    <div class="buttondiv"><input title="Save" id="btnSave" class="submitbtn" type="button" /></div>
+                    <div class="buttondiv"><input title="Save and New" id="btnSaveAndNew" class="submitandnewbtn" type="button" onclick="$('#lblMessage').text('');" /></div>
+                    <div class="buttondiv"><input title="Clear" id="btnClear" onclick="clearValues();" class="clearbtn" type="button" /></div> 
+                <div class="labelmessage"><label id="lblMessage" class="lblMessage"></label></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        LoadDdls("/USRecruitment/GetEmployeeType", $('#ddlEmpType'), "EmpTypeId", "EmpType");
+        LoadDdls("/USRecruitment/GetLeadType", $('#ddlType'), "LeadTypeId", "LeadType");
+        LoadDdls("/USRecruitment/GetEmploymentType", $('#ddlEmployeementType'), "TypeId", "TypeName");
+        LoadDdls("/USRecruitment/GetVisaType", $('#ddlVisaType'), "visatypeid", "visatype");
+        DefineDatePicker($('#txtDob'));
+        DefineCompetancies($("#lstSkills"), $('#txtSkills'));
+        DefineCompetancies($("#lstTechnologies"), $('#txtTechnologies'));
+        DefineCompetancies($("#lstCertifications"), $('#txtCertifications'));
+       
+    });
+    $("#ddlEmpType").change(function () {
+        if ($("#ddlEmpType option:selected").val() == 1) {
+            $("#txtExperience").val("");
+            $("#txtExperience").attr('disabled', true);
+            $("#txtCurrentEmployer").val("");
+            $("#txtCurrentEmployer").attr('disabled', true);
+            $("#txtCurrentDesignation").val("");
+            $("#txtCurrentDesignation").attr('disabled', true);
+            $("#txtCurrentCtc").val("");
+            $("#txtCurrentCtc").attr('disabled', true);
+            $("#txtCurrentLocation").val("");
+            $("#txtCurrentLocation").attr('disabled', true);
+
+        }
+        else {
+            $("#txtExperience").attr('disabled', false);
+            $("#txtCurrentEmployer").attr('disabled', false);
+            $("#txtCurrentDesignation").attr('disabled', false);
+            $("#txtCurrentCtc").attr('disabled', false);
+            $("#txtCurrentLocation").attr('disabled', false);
+        }
+    });
+    $("#btnSaveAndNew").click(function () {
+        SaveLead(0,1);
+    });
+    $("#btnSave").click(function () {
+        SaveLead(1,1);
+    });
+    $('#fileReqDocUpload').change(function () {
+        var fileElement = $(this);
+        var expDocUpload = fileElement.get(0);
+        var expDocFiles = expDocUpload.files;
+        if (expDocFiles.length > 0) {
+            var ExpAttachments = new FormData();
+            for (i = 0; i < expDocFiles.length; i++) {
+                ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+            }
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: ExpAttachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < expDocFiles.length; i++) {
+                            $('#filehidden').val($('#filehidden').val() + json[expDocFiles[i].name] + "||");
+                            CheckExtension($('.docDiv'), expDocFiles[i].name, json[expDocFiles[i].name],
+                                "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                            PreventDefaultClick();
+                        }
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+            fileElement.val('');
+        }
+    });    
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            $('#filehidden').val($('#filehidden').val().replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+        });
+    }
+    function SaveLead(flag, Operation) {
+        if (ValidateAll('DivClearAll', 'lblMessage')) {
+            $.ajax({
+                url: '/USRecruitment/AddLeadData',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    LeadId: 0, FirstName: $("#txtFirstName").val(), LastName: $("#txtLastName").val(), MobileNumber: $("#txtMobNo").val(),
+                    VisaType: $("#ddlVisaType").val() == "" ? 0 : parseInt($("#ddlVisaType").val()), Street: $("#txtStreet").val(),
+                    City: $("#txtCity").val(), State: $("#txtState").val(),
+                    Country: $("#txtCountry").val(), Zip: $("#txtZip").val(), DOB: FormatDate($("#txtDob").val(), "yyyy/mm/dd"),
+                    Gender: $("#ddlGender option:selected").text(), Email: $("#txtEmail").val(), EmployeeType: $("#ddlEmpType").val() == "" ? 0 : parseInt($("#ddlEmpType").val()),
+                    ExperienceInMonths: $("#txtExperience").val() == "" ? 0 : $("#txtExperience").val(), HighestQualification: $("#txtQualification").val(),
+                    CurrentEmployer: $("#txtCurrentEmployer").val(),
+                    CurrentDesignation: $("#txtCurrentDesignation").val(), CurrentCTC: $("#txtCurrentCtc").val(),
+                    CurrentLocation: $("#txtCurrentLocation").val(), LeadType: $("#ddlType").val() == "" ? 2 : parseInt($("#ddlType").val()),
+                    Rate: $("#txtRate").val(), Hours: $("#txtHours").val() == "" ? 0 : $("#txtHours").val(),
+                    EmploymentType: $("#ddlEmployeementType").val() == "" ? 0 : parseInt($("#ddlEmployeementType").val()),
+                    Source: $("#txtSource").val(), Note: $("#txtNote").val(), AttachmentUrl: $("#filehidden").val(), RecStatus: 1, Operation: Operation
+                },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    var LeadId = parseInt(resultVals[0]["LeadId"]);
+                    if (LeadId > 0) {
+                        var dtLeadlstArray = new Array();
+                        $('#lstSkills').find(".divcompetancy").each(function () {
+                            dtLeadlstArray.push({ "FKLeadId": LeadId, "Skill": $(this).text(), "TypeId": 1 });
+                        });
+                        $('#lstTechnologies').find(".divcompetancy").each(function () {
+                            dtLeadlstArray.push({ "FKLeadId": LeadId, "Skill": $(this).text(), "TypeId": 2 });
+                        });
+                        $('#lstCertifications').find(".divcompetancy").each(function () {
+                            dtLeadlstArray.push({ "FKLeadId": LeadId, "Skill": $(this).text(), "TypeId": 3 });
+                        });
+                        //if (dtLeadlstArray.length > 0) {
+                            $.ajax({
+                                url: '/USRecruitment/SaveLeadListValues',
+                                type: 'POST',
+                                async: false,
+                                dataType: 'json',
+                                data: {
+                                    LeadId: LeadId,
+                                    jsonData: JSON.stringify(dtLeadlstArray)
+                                },
+                                success: function (data) {
+                                },
+                                error: function () {
+                                }
+                            });
+                        //}
+                        clearValues();
+                        $('#lblMessage').removeClass('lblError');
+                        $('#lblMessage').addClass('lblMessage');
+                        $('#lblMessage').text("Lead created successfully");
+                        if (flag == 1) {
+                            window.location.href = '/USRecruitment/LeadLog';
+                        }
+                    }
+                    else {
+                        $('#lblMessage').removeClass('lblMessage');
+                        $('#lblMessage').addClass('lblError');
+                        $('#lblMessage').text("Lead Save failed");
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+    }
+    function clearValues() {
+        ClearAllControlValues('DivClearAll');     
+        $("#lstSkills")[0].innerHTML = "";
+        $("#lstTechnologies")[0].innerHTML = "";
+        $("#lstCertifications")[0].innerHTML = "";
+    }
+    $(".contenttextarea").click(function () {
+        $(this).find("input,text").focus();
+    });
+
+</script>
+
+
+

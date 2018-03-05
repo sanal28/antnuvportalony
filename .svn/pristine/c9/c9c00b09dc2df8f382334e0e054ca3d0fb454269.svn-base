@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CreateEmployee">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmployeeCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="JobTitle" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Manager" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProfilePicUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QuotesPictureUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BackGroundPicUrl" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="HireDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ConfirmationDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="WorkEMail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="OfficeLocation" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="WorkLocation" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmptTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RelievingDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FkEmpStatus" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="WeekOffDays" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QuotesText" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateEmployeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateEmployeeResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateEmployee">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="employeeId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmployeeCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="JobTitle" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Manager" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProfilePicUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QuotesPictureUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BackGroundPicUrl" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="HireDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ConfirmationDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="WorkEMail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="OfficeLocation" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="WorkLocation" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmptTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RelievingDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="WeekOffDays" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QuotesText" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="FkEmpStatus" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateEmployeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateEmployeeResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPersonalInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="State1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Country1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ZipCode1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Phone1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="State2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Country2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ZipCode2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Phone2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmergencyPhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DOB" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Nationality" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BloodGroup" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPersonalInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetPersonalInfoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetAcademic">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonAcademic" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetAcademicResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetAcademicResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetIdentityDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonIdentityDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetIdentityDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetIdentityDetailsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetExperience">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonExperience" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetExperienceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetExperienceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetCompetency">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonCompetency" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetCompetencyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetCompetencyResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectEmployeeInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SelectEmployeeInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SelectEmployeeInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployeeProfileCompleted">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployeeProfileCompletedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEmployeeProfileCompletedResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ManagerAutoComplete">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ManagerAutoCompleteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ManagerAutoCompleteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateExitInterview">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RelievingDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Operation" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateExitInterviewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateExitInterviewResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateEmployeeRating">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RatedTo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RatedBy" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Rating" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RatingFactorId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateEmployeeRatingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateEmployeeRatingResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetEmpGallery">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonEmpGallery" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetEmpGalleryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetEmpGalleryResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateEmployeeSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateEmployee" />
+  </wsdl:message>
+  <wsdl:message name="CreateEmployeeSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmployeeSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateEmployee" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmployeeSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetPersonalInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:SetPersonalInfo" />
+  </wsdl:message>
+  <wsdl:message name="SetPersonalInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:SetPersonalInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetAcademicSoapIn">
+    <wsdl:part name="parameters" element="tns:SetAcademic" />
+  </wsdl:message>
+  <wsdl:message name="SetAcademicSoapOut">
+    <wsdl:part name="parameters" element="tns:SetAcademicResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetIdentityDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:SetIdentityDetails" />
+  </wsdl:message>
+  <wsdl:message name="SetIdentityDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:SetIdentityDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetExperienceSoapIn">
+    <wsdl:part name="parameters" element="tns:SetExperience" />
+  </wsdl:message>
+  <wsdl:message name="SetExperienceSoapOut">
+    <wsdl:part name="parameters" element="tns:SetExperienceResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetCompetencySoapIn">
+    <wsdl:part name="parameters" element="tns:SetCompetency" />
+  </wsdl:message>
+  <wsdl:message name="SetCompetencySoapOut">
+    <wsdl:part name="parameters" element="tns:SetCompetencyResponse" />
+  </wsdl:message>
+  <wsdl:message name="SelectEmployeeInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:SelectEmployeeInfo" />
+  </wsdl:message>
+  <wsdl:message name="SelectEmployeeInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:SelectEmployeeInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeProfileCompletedSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmployeeProfileCompleted" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeProfileCompletedSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmployeeProfileCompletedResponse" />
+  </wsdl:message>
+  <wsdl:message name="ManagerAutoCompleteSoapIn">
+    <wsdl:part name="parameters" element="tns:ManagerAutoComplete" />
+  </wsdl:message>
+  <wsdl:message name="ManagerAutoCompleteSoapOut">
+    <wsdl:part name="parameters" element="tns:ManagerAutoCompleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateExitInterviewSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateExitInterview" />
+  </wsdl:message>
+  <wsdl:message name="UpdateExitInterviewSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateExitInterviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmployeeRatingSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateEmployeeRating" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmployeeRatingSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateEmployeeRatingResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetEmpGallerySoapIn">
+    <wsdl:part name="parameters" element="tns:SetEmpGallery" />
+  </wsdl:message>
+  <wsdl:message name="SetEmpGallerySoapOut">
+    <wsdl:part name="parameters" element="tns:SetEmpGalleryResponse" />
+  </wsdl:message>
+  <wsdl:portType name="NuPortalEmployeeServiceSoap">
+    <wsdl:operation name="CreateEmployee">
+      <wsdl:input message="tns:CreateEmployeeSoapIn" />
+      <wsdl:output message="tns:CreateEmployeeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmployee">
+      <wsdl:input message="tns:UpdateEmployeeSoapIn" />
+      <wsdl:output message="tns:UpdateEmployeeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPersonalInfo">
+      <wsdl:input message="tns:SetPersonalInfoSoapIn" />
+      <wsdl:output message="tns:SetPersonalInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetAcademic">
+      <wsdl:input message="tns:SetAcademicSoapIn" />
+      <wsdl:output message="tns:SetAcademicSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetIdentityDetails">
+      <wsdl:input message="tns:SetIdentityDetailsSoapIn" />
+      <wsdl:output message="tns:SetIdentityDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetExperience">
+      <wsdl:input message="tns:SetExperienceSoapIn" />
+      <wsdl:output message="tns:SetExperienceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetCompetency">
+      <wsdl:input message="tns:SetCompetencySoapIn" />
+      <wsdl:output message="tns:SetCompetencySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectEmployeeInfo">
+      <wsdl:input message="tns:SelectEmployeeInfoSoapIn" />
+      <wsdl:output message="tns:SelectEmployeeInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeProfileCompleted">
+      <wsdl:input message="tns:GetEmployeeProfileCompletedSoapIn" />
+      <wsdl:output message="tns:GetEmployeeProfileCompletedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ManagerAutoComplete">
+      <wsdl:input message="tns:ManagerAutoCompleteSoapIn" />
+      <wsdl:output message="tns:ManagerAutoCompleteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExitInterview">
+      <wsdl:input message="tns:UpdateExitInterviewSoapIn" />
+      <wsdl:output message="tns:UpdateExitInterviewSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmployeeRating">
+      <wsdl:input message="tns:UpdateEmployeeRatingSoapIn" />
+      <wsdl:output message="tns:UpdateEmployeeRatingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetEmpGallery">
+      <wsdl:input message="tns:SetEmpGallerySoapIn" />
+      <wsdl:output message="tns:SetEmpGallerySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NuPortalEmployeeServiceSoap" type="tns:NuPortalEmployeeServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateEmployee">
+      <soap:operation soapAction="http://tempuri.org/CreateEmployee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmployee">
+      <soap:operation soapAction="http://tempuri.org/UpdateEmployee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPersonalInfo">
+      <soap:operation soapAction="http://tempuri.org/SetPersonalInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetAcademic">
+      <soap:operation soapAction="http://tempuri.org/SetAcademic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetIdentityDetails">
+      <soap:operation soapAction="http://tempuri.org/SetIdentityDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetExperience">
+      <soap:operation soapAction="http://tempuri.org/SetExperience" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetCompetency">
+      <soap:operation soapAction="http://tempuri.org/SetCompetency" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectEmployeeInfo">
+      <soap:operation soapAction="http://tempuri.org/SelectEmployeeInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeProfileCompleted">
+      <soap:operation soapAction="http://tempuri.org/GetEmployeeProfileCompleted" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ManagerAutoComplete">
+      <soap:operation soapAction="http://tempuri.org/ManagerAutoComplete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExitInterview">
+      <soap:operation soapAction="http://tempuri.org/UpdateExitInterview" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmployeeRating">
+      <soap:operation soapAction="http://tempuri.org/UpdateEmployeeRating" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetEmpGallery">
+      <soap:operation soapAction="http://tempuri.org/SetEmpGallery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NuPortalEmployeeServiceSoap12" type="tns:NuPortalEmployeeServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateEmployee">
+      <soap12:operation soapAction="http://tempuri.org/CreateEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmployee">
+      <soap12:operation soapAction="http://tempuri.org/UpdateEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPersonalInfo">
+      <soap12:operation soapAction="http://tempuri.org/SetPersonalInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetAcademic">
+      <soap12:operation soapAction="http://tempuri.org/SetAcademic" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetIdentityDetails">
+      <soap12:operation soapAction="http://tempuri.org/SetIdentityDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetExperience">
+      <soap12:operation soapAction="http://tempuri.org/SetExperience" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetCompetency">
+      <soap12:operation soapAction="http://tempuri.org/SetCompetency" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectEmployeeInfo">
+      <soap12:operation soapAction="http://tempuri.org/SelectEmployeeInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeProfileCompleted">
+      <soap12:operation soapAction="http://tempuri.org/GetEmployeeProfileCompleted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ManagerAutoComplete">
+      <soap12:operation soapAction="http://tempuri.org/ManagerAutoComplete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateExitInterview">
+      <soap12:operation soapAction="http://tempuri.org/UpdateExitInterview" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEmployeeRating">
+      <soap12:operation soapAction="http://tempuri.org/UpdateEmployeeRating" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetEmpGallery">
+      <soap12:operation soapAction="http://tempuri.org/SetEmpGallery" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NuPortalEmployeeService">
+    <wsdl:port name="NuPortalEmployeeServiceSoap" binding="tns:NuPortalEmployeeServiceSoap">
+      <soap:address location="http://192.168.1.18:97/NuPortalEmployeeService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="NuPortalEmployeeServiceSoap12" binding="tns:NuPortalEmployeeServiceSoap12">
+      <soap12:address location="http://192.168.1.18:97/NuPortalEmployeeService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

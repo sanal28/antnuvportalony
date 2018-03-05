@@ -1,0 +1,1527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Publish NuPortal Public</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="ApplicationInsights.config">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>02/22/2013 08:43:40</publishTime>
+    </File>
+    <File Include="bin/DocumentFormat.OpenXml.dll">
+      <publishTime>12/19/2017 00:51:55</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>03/02/2015 09:32:26</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>03/02/2015 09:32:26</publishTime>
+    </File>
+    <File Include="bin/ICSharpCode.SharpZipLib.dll">
+      <publishTime>12/11/2017 00:51:30</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
+      <publishTime>12/07/2015 19:04:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.DependencyCollector.dll">
+      <publishTime>03/10/2016 14:26:18</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.PerfCounterCollector.dll">
+      <publishTime>03/10/2016 14:26:26</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.ServerTelemetryChannel.dll">
+      <publishTime>03/09/2016 12:00:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Web.dll">
+      <publishTime>03/10/2016 14:26:26</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.WindowsServer.dll">
+      <publishTime>03/10/2016 14:26:26</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationInsights.dll">
+      <publishTime>03/09/2016 11:57:34</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>04/03/2015 17:07:22</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
+      <publishTime>04/03/2015 17:07:22</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>06/15/2015 02:06:24</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/25/2012 11:48:56</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>08/03/2014 20:33:56</publishTime>
+    </File>
+    <File Include="bin/NuPortal.dll">
+      <publishTime>03/01/2018 04:34:51</publishTime>
+    </File>
+    <File Include="bin/NuPortal.XmlSerializers.dll">
+      <publishTime>03/01/2018 04:34:52</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>06/18/2015 20:19:44</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>01/28/2015 04:02:18</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>02/11/2014 15:26:04</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>01/28/2015 04:02:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>07/17/2013 17:03:52</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>02/11/2017 00:40:10</publishTime>
+    </File>
+    <File Include="css/bootstrap-datetimepicker.min.css">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/bootstrap-theme.css">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/bootstrap-theme.css.map">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/bootstrap-theme.min.css">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/bootstrap-theme.min.css.map">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/bootstrap.css">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/bootstrap.css.map">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/bootstrap.min.css">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/bootstrap.min.css.map">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/images/download-btn.png">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/images/email-btn.png">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/images/print-btn.png">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/images/print.png">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/images/submitandnew.png">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/images/ui-icons_444444_256x240.png">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/images/ui-icons_555555_256x240.png">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/images/ui-icons_777620_256x240.png">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/images/ui-icons_777777_256x240.png">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/images/ui-icons_cc0000_256x240.png">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/images/ui-icons_ffffff_256x240.png">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/jquery-ui-timepicker-addon.css">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/jquery-ui.css">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="css/Print.css">
+      <publishTime>12/28/2017 01:48:38</publishTime>
+    </File>
+    <File Include="css/styles.css">
+      <publishTime>02/21/2018 22:30:27</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblAcademic.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblAllowance.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblCategory.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblClientAddress.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblClientInfo.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblCompany.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblCompetency.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblCountry.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblCustomResources.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblDepartment.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblDeptEmployees.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblDesignation.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblEmployee.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblEmployeeAddress.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblEmploymentType.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblEmpType.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblEmpTypeHierarchy.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblExperience.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblGroupMembers.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblGroups.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblIdentityDetails.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblIdentityMaster.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblLeaveConfig.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblLeaveSettings.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblLeaveTransaction.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblLeaveWFSettings.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblLocation.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblLogin.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblMangersForProjects.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblProjectContactPerson.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblProjectDocument.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblProjects.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblProjectTask.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblProjectTaskResources.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblProjectTaskStatus.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblReimbursement.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblRequests.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblRequestTypes.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblResourcesForProjects.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblRole.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblTaskDetails.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/tblTicketStatus.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspAutoComplete.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspClientInfoOper.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspDeleteTaskDetails.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspEmployeeOper.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspEmployeeProfileCompleted.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspGenarateRandomString.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspGetDDLBox.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspGetLoginInfo.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspGetTimeSheetReport.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspGridOperations.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspGridUpdate.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspLeaveBalance.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspProjectContactPersonOper.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspProjectDocumentOper.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspProjectTaskOper.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspSaveAllowance.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspSaveLeaveRequest.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspSaveRequests.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspSearchAllowanceReimbursement.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspSelectTaskDetails.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspSetEmployeeInfo.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspSetMangersForProjects.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspSetPersonalInfo.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspSetProjects.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspUpdateCancelLeaves.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspUpdateClientInfo.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspUpdateEmployeeInfo.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspUpdateProjectContactPerson.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/UspUpdateProjects.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/vueRequestCategory.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="DatabaseObject/NuPortal Script/NuPortal Script/vueSharedType.sql">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/css/font-awesome.css">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/css/font-awesome.min.css">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/fonts/fontawesome-webfont.eot">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/fonts/fontawesome-webfont.svg">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/fonts/fontawesome-webfont.ttf">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/fonts/fontawesome-webfont.woff">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/fonts/fontawesome-webfont.woff2">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/fonts/FontAwesome.otf">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/HELP-US-OUT.txt">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/animated.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/bordered-pulled.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/core.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/fixed-width.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/font-awesome.css">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/font-awesome.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/icons.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/larger.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/list.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/mixins.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/path.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/rotated-flipped.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/screen-reader.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/stacked.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/less/variables.less">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/font-awesome.css">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/font-awesome.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_animated.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_bordered-pulled.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_core.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_fixed-width.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_icons.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_larger.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_list.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_mixins.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_path.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_rotated-flipped.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_screen-reader.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_stacked.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="font-awesome-4.7.0/scss/_variables.scss">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="Images/accept.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/add-group.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/add-icon.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/add-User-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/add-user.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/Add.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/administration-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/administrator.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/allowance-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/allowance.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/announcement-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/announcement.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/applicans.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/applicants.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/assessment-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/assessment.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/assessmenticon.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/Assign-to-group.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/assign.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/associate.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/attachment-icon.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/attachment.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/back-button.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/background-images/4e81b8475e56f173dd296e2c3d0790f8.jpg">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/background-images/background-th.jpg">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/background-images/fileupload-bg.png">
+      <publishTime>12/27/2017 00:00:01</publishTime>
+    </File>
+    <File Include="Images/background-images/login-bg.jpg">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/background-images/userprofile-bg.jpg">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/Calendar.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/Cancel-new.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/cancel.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/candidate-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/candidate.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/clean.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/ClearFilter.jpg">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/client-logo.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/computer-acc.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/Conference.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/contract-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/contract.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/create-department.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/create-structure.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/customization.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/delete.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/documenticon.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/documents.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/download-btn.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/edit.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/employee-rating-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/employee-rating.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/employee-Search.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/enter.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/events.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/excel.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/exit-interview-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/exit-interview.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/female.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/Filter.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/general.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/header-bg-hg.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/header-bg.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/home-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/home.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/hr-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/Hr.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/Hr1.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/interview-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/interview.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/invoice-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/invoice.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/job-openings-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/job-openings.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/lead-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/lead.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/leave-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/leave.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/login-inner-bg.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/login-logo.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/login-logo1.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/login-logo2.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/login-logo3.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/login-logo6.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/Logo-placeholder.jpg">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/logo-placeholder.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/logo-small.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/logout.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/male.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/more.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/my-document.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/my-project-task-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/my-project-task.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/my-task-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/my-task.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/my-tickets-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/my-tickets.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/my-timesheet-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/my-timesheet.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/mydocuments-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/myproject-edit.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/nav-divider.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/new-client-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/new-client.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/new-contact-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/new-contact.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/new-project-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/new-project.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/next-btn.png">
+      <publishTime>01/09/2018 04:35:56</publishTime>
+    </File>
+    <File Include="Images/next-inactive.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/next.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/NoImage.jpg">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/Nuvento-200x200.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/Nuvento_logo.png">
+      <publishTime>12/19/2017 07:55:26</publishTime>
+    </File>
+    <File Include="Images/onhold.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/opportunity-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/Opportunity.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/pdf-icon.png">
+      <publishTime>12/26/2017 22:31:21</publishTime>
+    </File>
+    <File Include="Images/pdf.jpg">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/personal-info-icon.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/poll-details-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/poll-details.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/prevbtn-inactive.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/prevbtn.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/process-chart-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/process-chart.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/profile-icon.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/progress-chart.jpg">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/project-document-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/project-document.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/project-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/project-status-update.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/project-timesheet-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/project-timesheet.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/project.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/ProjectReport.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/recru-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/recut.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/reimbursement-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/reimbursement.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/reject.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/report-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/reports.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/request-new-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/request-new.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/request-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/request.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/santas.gif">
+      <publishTime>12/04/2017 03:59:24</publishTime>
+    </File>
+    <File Include="Images/save.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/search-icon.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/slider-arrow.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/sm-add group.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/sm-assign resource.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/sm-create department.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/sm-create structure.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/sm-employee-Search.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/sm-events.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/sm-training.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/star-rating.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/stationary-new.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/stationary.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/status-update-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/status-update.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/submissioins.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/submissions-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/submit.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/supervisor-pic.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/task.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/timesheet-search.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/timesheet.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/training.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/transgender.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/upload.gif">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/upload.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/us-recruitment-left.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/US-recruitment-LFT.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/us-recruitment-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/us-recruitment.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/user-info.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/user-pic.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/user-profile.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/vendors-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/vendors.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/view.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/ViewProject.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/visa-sm.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/visa.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="Images/weekl-report-sm.png">
+      <publishTime>12/20/2017 03:03:48</publishTime>
+    </File>
+    <File Include="Images/weekly-report.png">
+      <publishTime>12/20/2017 03:03:48</publishTime>
+    </File>
+    <File Include="Images/word.png">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Images/work-from-home.png">
+      <publishTime>11/02/2017 00:40:08</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>11/02/2017 00:40:10</publishTime>
+    </File>
+    <File Include="Reference Dlls/DocumentFormat.OpenXml.dll">
+      <publishTime>12/19/2017 00:51:55</publishTime>
+    </File>
+    <File Include="Reference Dlls/ICSharpCode.SharpZipLib.dll">
+      <publishTime>12/11/2017 00:51:30</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>11/02/2017 00:40:07</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>11/02/2017 00:40:07</publishTime>
+    </File>
+    <File Include="Scripts/CustomScript.js">
+      <publishTime>02/21/2018 22:30:27</publishTime>
+    </File>
+    <File Include="Scripts/drum.js">
+      <publishTime>11/02/2017 00:40:07</publishTime>
+    </File>
+    <File Include="Scripts/drum.min.js">
+      <publishTime>11/02/2017 00:40:07</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.7.2.min.js">
+      <publishTime>11/02/2017 00:40:07</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui.js">
+      <publishTime>11/02/2017 00:40:07</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui.min.js">
+      <publishTime>11/02/2017 00:40:07</publishTime>
+    </File>
+    <File Include="Scripts/jquery.ui.datepicker.js">
+      <publishTime>11/02/2017 00:40:07</publishTime>
+    </File>
+    <File Include="Scripts/jqueryUI.js">
+      <publishTime>11/02/2017 00:40:07</publishTime>
+    </File>
+    <File Include="Scripts/Moment.js">
+      <publishTime>11/02/2017 00:40:07</publishTime>
+    </File>
+    <File Include="Scripts/npm.js">
+      <publishTime>11/02/2017 00:40:07</publishTime>
+    </File>
+    <File Include="Scripts/snowstorm-min.js">
+      <publishTime>11/30/2017 02:21:07</publishTime>
+    </File>
+    <File Include="Scripts/Table2Excel.js">
+      <publishTime>11/02/2017 00:40:07</publishTime>
+    </File>
+    <File Include="Uploads/tintu.jpg">
+      <publishTime>11/02/2017 00:40:09</publishTime>
+    </File>
+    <File Include="Views/AdminHome/AddUser.cshtml">
+      <publishTime>11/02/2017 00:40:00</publishTime>
+    </File>
+    <File Include="Views/AdminHome/AdminHome.cshtml">
+      <publishTime>11/02/2017 00:40:00</publishTime>
+    </File>
+    <File Include="Views/AdminHome/AssignGroup.cshtml">
+      <publishTime>11/02/2017 00:40:00</publishTime>
+    </File>
+    <File Include="Views/AdminHome/CreateDepartments.cshtml">
+      <publishTime>02/15/2018 05:59:01</publishTime>
+    </File>
+    <File Include="Views/AdminHome/CustomizeGroups.cshtml">
+      <publishTime>02/15/2018 05:59:01</publishTime>
+    </File>
+    <File Include="Views/AdminHome/CustomizeRequest.cshtml">
+      <publishTime>02/07/2018 07:35:20</publishTime>
+    </File>
+    <File Include="Views/Client/ClientInfo.cshtml">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="Views/Client/NewClient.cshtml">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="Views/EmpInfoAdminView/EmpInfoAdminView.cshtml">
+      <publishTime>02/13/2018 23:16:19</publishTime>
+    </File>
+    <File Include="Views/EmpInfoUserView/EmpInfoUserView.cshtml">
+      <publishTime>02/26/2018 23:32:47</publishTime>
+    </File>
+    <File Include="Views/EmployeeInfo/Competency.cshtml">
+      <publishTime>02/11/2017 00:40:05</publishTime>
+    </File>
+    <File Include="Views/EmployeeInfo/EmployeeDetails.cshtml">
+      <publishTime>02/11/2017 00:40:05</publishTime>
+    </File>
+    <File Include="Views/EmployeeInfo/PersonalInfo.cshtml">
+      <publishTime>02/11/2017 00:40:05</publishTime>
+    </File>
+    <File Include="Views/EmployeeInfo/SearchEmployee.cshtml">
+      <publishTime>08/11/2017 09:31:37</publishTime>
+    </File>
+    <File Include="Views/Home/Events.cshtml">
+      <publishTime>02/26/2018 23:32:47</publishTime>
+    </File>
+    <File Include="Views/Home/Home.cshtml">
+      <publishTime>01/30/2018 03:01:28</publishTime>
+    </File>
+    <File Include="Views/Home/MyTickets.cshtml">
+      <publishTime>02/08/2018 03:17:22</publishTime>
+    </File>
+    <File Include="Views/Home/RateOtherEmployee.cshtml">
+      <publishTime>11/02/2017 00:40:03</publishTime>
+    </File>
+    <File Include="Views/HR/AddAnnouncement.cshtml">
+      <publishTime>02/26/2018 23:32:47</publishTime>
+    </File>
+    <File Include="Views/HR/AddEvents.cshtml">
+      <publishTime>11/02/2017 00:40:01</publishTime>
+    </File>
+    <File Include="Views/HR/Announcement.cshtml">
+      <publishTime>02/21/2018 22:30:26</publishTime>
+    </File>
+    <File Include="Views/HR/AnnouncementLog.cshtml">
+      <publishTime>11/03/2017 00:53:20</publishTime>
+    </File>
+    <File Include="Views/HR/EmployeeProgressChart.cshtml">
+      <publishTime>02/25/2018 23:14:39</publishTime>
+    </File>
+    <File Include="Views/HR/Events.cshtml">
+      <publishTime>11/02/2017 00:40:00</publishTime>
+    </File>
+    <File Include="Views/HR/ExitDocument.cshtml">
+      <publishTime>11/02/2017 00:40:00</publishTime>
+    </File>
+    <File Include="Views/HR/ExitInterviewLog.cshtml">
+      <publishTime>11/03/2017 00:53:20</publishTime>
+    </File>
+    <File Include="Views/HR/HRHome.cshtml">
+      <publishTime>11/02/2017 00:40:00</publishTime>
+    </File>
+    <File Include="Views/HR/HRView.cshtml">
+      <publishTime>11/02/2017 08:45:43</publishTime>
+    </File>
+    <File Include="Views/HR/LeaveCalendar.cshtml">
+      <publishTime>11/02/2017 00:40:00</publishTime>
+    </File>
+    <File Include="Views/HR/NewTraining.cshtml">
+      <publishTime>11/02/2017 00:40:00</publishTime>
+    </File>
+    <File Include="Views/HR/OfficePoll.cshtml">
+      <publishTime>02/21/2018 22:30:26</publishTime>
+    </File>
+    <File Include="Views/HR/OfficePollLog.cshtml">
+      <publishTime>02/25/2018 23:14:39</publishTime>
+    </File>
+    <File Include="Views/HR/PollDetailsLog.cshtml">
+      <publishTime>02/21/2018 22:30:27</publishTime>
+    </File>
+    <File Include="Views/HR/TrainingAssesment.cshtml">
+      <publishTime>11/02/2017 00:40:00</publishTime>
+    </File>
+    <File Include="Views/HR/TrainingDetails.cshtml">
+      <publishTime>02/25/2018 23:14:39</publishTime>
+    </File>
+    <File Include="Views/HR/TrainingLog.cshtml">
+      <publishTime>11/03/2017 00:53:21</publishTime>
+    </File>
+    <File Include="Views/Login/LoginView.cshtml">
+      <publishTime>01/18/2018 00:48:57</publishTime>
+    </File>
+    <File Include="Views/Login/PasswordReset.cshtml">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="Views/Login/SiteAdminView.cshtml">
+      <publishTime>02/11/2017 00:40:05</publishTime>
+    </File>
+    <File Include="Views/NewContacts/NewContacts.cshtml">
+      <publishTime>11/02/2017 00:40:04</publishTime>
+    </File>
+    <File Include="Views/NewRequest/NewRequest.cshtml">
+      <publishTime>02/08/2018 03:17:22</publishTime>
+    </File>
+    <File Include="Views/Projects/Create.cshtml">
+      <publishTime>02/26/2018 23:32:47</publishTime>
+    </File>
+    <File Include="Views/Projects/Document.cshtml">
+      <publishTime>12/11/2017 00:19:47</publishTime>
+    </File>
+    <File Include="Views/Projects/MyDocument.cshtml">
+      <publishTime>11/03/2017 00:53:21</publishTime>
+    </File>
+    <File Include="Views/Projects/NewDocument.cshtml">
+      <publishTime>11/07/2017 00:20:12</publishTime>
+    </File>
+    <File Include="Views/Projects/ProjectName.cshtml">
+      <publishTime>11/02/2017 00:40:01</publishTime>
+    </File>
+    <File Include="Views/Projects/Projects.cshtml">
+      <publishTime>11/02/2017 00:40:01</publishTime>
+    </File>
+    <File Include="Views/Projects/UserDocument.cshtml">
+      <publishTime>11/02/2017 00:40:01</publishTime>
+    </File>
+    <File Include="Views/Projects/view.cshtml">
+      <publishTime>02/25/2018 23:14:39</publishTime>
+    </File>
+    <File Include="Views/Recruitment/ApplicantsLog.cshtml">
+      <publishTime>02/28/2018 22:22:53</publishTime>
+    </File>
+    <File Include="Views/Recruitment/Assessment.cshtml">
+      <publishTime>11/02/2017 00:40:01</publishTime>
+    </File>
+    <File Include="Views/Recruitment/CreateInterview.cshtml">
+      <publishTime>11/02/2017 00:40:02</publishTime>
+    </File>
+    <File Include="Views/Recruitment/Interview.cshtml">
+      <publishTime>11/02/2017 00:40:02</publishTime>
+    </File>
+    <File Include="Views/Recruitment/InterviewAssesment.cshtml">
+      <publishTime>11/02/2017 00:40:02</publishTime>
+    </File>
+    <File Include="Views/Recruitment/InterviewLog.cshtml">
+      <publishTime>02/28/2018 22:22:53</publishTime>
+    </File>
+    <File Include="Views/Recruitment/JobOpenings.cshtml">
+      <publishTime>02/28/2018 22:22:53</publishTime>
+    </File>
+    <File Include="Views/Recruitment/NewApplicant.cshtml">
+      <publishTime>11/02/2017 00:40:02</publishTime>
+    </File>
+    <File Include="Views/Recruitment/NewOpening.cshtml">
+      <publishTime>02/28/2018 22:22:53</publishTime>
+    </File>
+    <File Include="Views/Recruitment/OpeningsPopup.cshtml">
+      <publishTime>11/02/2017 00:40:02</publishTime>
+    </File>
+    <File Include="Views/Recruitment/RecHome.cshtml">
+      <publishTime>11/02/2017 00:40:01</publishTime>
+    </File>
+    <File Include="Views/Recruitment/Status.cshtml">
+      <publishTime>11/02/2017 00:40:02</publishTime>
+    </File>
+    <File Include="Views/Reimbursement/AllReimbursements.cshtml">
+      <publishTime>02/28/2018 22:22:53</publishTime>
+    </File>
+    <File Include="Views/Reimbursement/Reimbursement.cshtml">
+      <publishTime>02/26/2018 23:32:47</publishTime>
+    </File>
+    <File Include="Views/RequestMain/AllAllowances.cshtml">
+      <publishTime>02/28/2018 22:22:53</publishTime>
+    </File>
+    <File Include="Views/RequestMain/AllRequests.cshtml">
+      <publishTime>02/08/2018 03:17:22</publishTime>
+    </File>
+    <File Include="Views/RequestMain/IconsView.cshtml">
+      <publishTime>11/02/2017 00:40:02</publishTime>
+    </File>
+    <File Include="Views/RequestMain/LeaveCalendar.cshtml">
+      <publishTime>11/22/2017 07:08:25</publishTime>
+    </File>
+    <File Include="Views/RequestMain/NewAllowance.cshtml">
+      <publishTime>02/08/2018 03:17:22</publishTime>
+    </File>
+    <File Include="Views/RequestMain/NewLeave.cshtml">
+      <publishTime>01/23/2018 01:11:40</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>02/21/2018 22:30:27</publishTime>
+    </File>
+    <File Include="Views/Task/ImportTask.cshtml">
+      <publishTime>01/09/2018 04:35:57</publishTime>
+    </File>
+    <File Include="Views/Task/MyTask.cshtml">
+      <publishTime>11/03/2017 00:53:22</publishTime>
+    </File>
+    <File Include="Views/Task/NewTask.cshtml">
+      <publishTime>02/26/2018 23:32:47</publishTime>
+    </File>
+    <File Include="Views/Task/ProgressChart.cshtml">
+      <publishTime>11/02/2017 00:40:04</publishTime>
+    </File>
+    <File Include="Views/Task/Status.cshtml">
+      <publishTime>03/01/2018 03:43:55</publishTime>
+    </File>
+    <File Include="Views/Task/StatusUpdate.cshtml">
+      <publishTime>02/21/2018 22:30:26</publishTime>
+    </File>
+    <File Include="Views/Task/TaskName.cshtml">
+      <publishTime>12/22/2017 00:23:27</publishTime>
+    </File>
+    <File Include="Views/Task/TasksLog.cshtml">
+      <publishTime>02/26/2018 23:32:47</publishTime>
+    </File>
+    <File Include="Views/TimeSheet/TimeSheet.cshtml">
+      <publishTime>12/27/2017 23:45:57</publishTime>
+    </File>
+    <File Include="Views/TimeSheet/TimesheetApproval.cshtml">
+      <publishTime>11/22/2017 00:14:24</publishTime>
+    </File>
+    <File Include="Views/TimeSheet/TimesheetCalendar.cshtml">
+      <publishTime>11/02/2017 00:40:04</publishTime>
+    </File>
+    <File Include="Views/TimeSheet/TimeSheetFilter.cshtml">
+      <publishTime>11/02/2017 00:40:04</publishTime>
+    </File>
+    <File Include="Views/TimeSheet/TimeSheetGridView.cshtml">
+      <publishTime>01/03/2018 23:22:09</publishTime>
+    </File>
+    <File Include="Views/TimeSheet/TimeSheetReport.cshtml">
+      <publishTime>11/02/2017 00:40:04</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/AddLead.cshtml">
+      <publishTime>11/02/2017 00:40:03</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/AssociateOpportunity.cshtml">
+      <publishTime>11/02/2017 00:40:03</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/CandidateLog.cshtml">
+      <publishTime>02/13/2018 23:16:20</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/ContractLog.cshtml">
+      <publishTime>02/08/2018 03:17:24</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/CreateOpportunity.cshtml">
+      <publishTime>02/15/2018 04:10:01</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/EmployeeTimeSheet.cshtml">
+      <publishTime>12/20/2017 03:03:48</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/Home.cshtml">
+      <publishTime>12/20/2017 04:02:18</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/InterviewLog.cshtml">
+      <publishTime>02/08/2018 03:17:24</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/InvoiceDetails.cshtml">
+      <publishTime>11/02/2017 00:40:03</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/InvoiceLog.cshtml">
+      <publishTime>02/14/2018 22:25:15</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/LeadLog.cshtml">
+      <publishTime>02/08/2018 03:17:24</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/NewContract.cshtml">
+      <publishTime>11/02/2017 04:18:34</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/OpportunityLog.cshtml">
+      <publishTime>02/08/2018 03:17:24</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/ScheduleInterview.cshtml">
+      <publishTime>11/02/2017 00:40:03</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/SubmissionLog.cshtml">
+      <publishTime>02/13/2018 23:16:20</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/VendorDetails.cshtml">
+      <publishTime>11/02/2017 00:40:03</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/Vendors.cshtml">
+      <publishTime>02/28/2018 22:22:52</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/VisaLog.cshtml">
+      <publishTime>02/08/2018 03:17:24</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/VisaProcessing.cshtml">
+      <publishTime>01/02/2018 23:55:47</publishTime>
+    </File>
+    <File Include="Views/USRecruitment/WeeklyTaskReport.cshtml">
+      <publishTime>01/03/2018 23:22:10</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>02/11/2017 00:40:05</publishTime>
+    </File>
+    <File Include="Web References/NuPortalAdminService/Reference.map">
+      <publishTime>02/07/2018 07:35:21</publishTime>
+    </File>
+    <File Include="Web References/NuPortalDBService/Reference.map">
+      <publishTime>11/28/2017 06:20:56</publishTime>
+    </File>
+    <File Include="Web References/NuPortalEmpService/Reference.map">
+      <publishTime>01/18/2018 00:48:56</publishTime>
+    </File>
+    <File Include="Web References/NuPortalHRService/Reference.map">
+      <publishTime>12/19/2017 03:48:52</publishTime>
+    </File>
+    <File Include="Web References/NuPortalProjectService/Reference.map">
+      <publishTime>02/07/2018 06:22:35</publishTime>
+    </File>
+    <File Include="Web References/NuPortalRecruitmentService/Reference.map">
+      <publishTime>11/02/2017 00:40:05</publishTime>
+    </File>
+    <File Include="Web References/NuPortalRequestService/Reference.map">
+      <publishTime>02/08/2018 04:19:50</publishTime>
+    </File>
+    <File Include="Web References/NuPortalUSRecService/Reference.map">
+      <publishTime>12/26/2017 22:31:22</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>02/15/2018 04:11:06</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,235 @@
+﻿
+@{
+    ViewBag.Title = "ScheduleInterview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int SubmissionId = 1;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        SubmissionId = Convert.ToInt16(Request["hdnId"].ToString());
+    }
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="../images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Schedule Interview</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" href="@Url.Action("Home", "USRecruitment")"><img alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtCandidateName" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Candidate Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtClientName" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Client Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtPostionTitle" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Position Title</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select id="ddlInterviewType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                        <option value=""></option>                        
+                    </select>
+                    <label class="float">Interview Type</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtInterviewDate" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Interview Date</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtInterviewTime" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Interview Time</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtInterviewLocation" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Interview Location</label>
+                </div>
+            </div>
+            
+            
+            @*<div class="col-md-4" id="hideuploaddiv">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td width="90%">
+                                <div class="contentfielddiv">
+                                    <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                    <input type="file" multiple="multiple" allowmultiple="true" id="fileUploadAttachment" class="contenttextfield" placeholder="Attachment">
+                                </div>
+                            </td>
+                            <td width="10%" align="right"><div class="uploadbutton"><a href="#"><img title="Upload" id="imgExpFileUpload" src="~/Images/upload.gif" width="25" height="25" alt="" /></a></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>*@
+        </div>
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="contentfielddiv">
+                    <textarea id="txtNote" class="floating-input floating-textarea" placeholder=" "></textarea>
+                    <label class="float">Note</label>
+                </div>
+            </div>
+            </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="USRECdocumentfilebtndiv">
+                    <label for="fileUploadAttachment" class="USRECdocumentfilebtn">Choose from File</label>
+                    <input type="hidden" id="filehidden" value="" />
+                    <input type="file" id="fileUploadAttachment" allow multiple="true" style="display: none">
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="weeklyoffmaindiv divdocuments">
+                    <div class="workstarttimediv" style="max-height:50px;">
+                        <div class="row">
+                            <div id="divReqDocs" class="docDiv">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        
+            <div class="buttonmaindiv">
+                <div class="buttondiv"><input id="btnSave" title="Save" class="submitbtn" type="button"/></div>
+                @*<div class="buttondiv"><input id="btnSaveAndNew" title="Save and New" class="submitandnewbtn" type="button" /></div>
+                <div class="buttondiv"><input id="btnClear" title="Clear" class="clearbtn" type="button" /></div>*@
+                <div class="ErrorLabel"><label id="lblMessage" class="lblMessage"></label></div>
+            </div>
+        </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        DefineDatePicker($('#txtInterviewDate'));
+        LoadDdls("/USRecruitment/GetInterviewType", $('#ddlInterviewType'), "InterviewTypeId", "InterviewType");
+
+        if(@SubmissionId!=0)
+        {
+            loadScheduleInterView();
+        }
+        $('#fileUploadAttachment').change(function () {
+            var fileSinterviewElement = $(this);
+            var expSinterviewDocUpload = fileSinterviewElement.get(0);
+            var ScheduleDocFiles = expSinterviewDocUpload.files;
+            if (ScheduleDocFiles.length > 0) {
+                var ScheduleDoc = new FormData();
+                for (i = 0; i < ScheduleDocFiles.length; i++) {
+                    ScheduleDoc.append(ScheduleDocFiles[i].name, ScheduleDocFiles[i]);
+                }
+                $.ajax({
+                    url: '/EmpInfoUserView/UploadFiles',
+                    type: "POST",
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    data: ScheduleDoc,
+                    success: function (result) {
+                        var json = $.parseJSON(result);
+                        if (json["Error"] == undefined || json["Error"] == null) {
+                            for (var i = 0; i < ScheduleDocFiles.length; i++) {
+                                $('#filehidden').val($('#filehidden').val() + json[ScheduleDocFiles[i].name] + "||");
+                                CheckExtension($('.docDiv'), ScheduleDocFiles[i].name, json[ScheduleDocFiles[i].name],
+                                    "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                                PreventDefaultClick();
+                            }
+                        }
+                    },
+                    error: function (err) {
+                        //alert(err.statusText);
+                    }
+                });
+                fileSinterviewElement.val('');
+            }
+        });
+    });
+
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            $('#filehidden').val($('#filehidden').val().replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+        });
+    }
+
+    function loadScheduleInterView() {
+        $.ajax({
+            url: '/USRecruitment/loadScheduleInterView',
+            type: 'GET',
+            dataType: 'json',
+            async : false,
+            data: { idval:@SubmissionId,Operation:38 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $("#txtCandidateName").val(resultVals[0]["CandidateName"]);
+                $("#txtClientName").val(resultVals[0]["ClientName"]);
+                $("#txtPostionTitle").val(resultVals[0]["PositionTitle"]);
+                $('#txtCandidateName').attr('disabled', 'disabled');
+                $('#txtClientName').attr('disabled', 'disabled');
+                $('#txtPostionTitle').attr('disabled', 'disabled');
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+    }
+
+
+    $("#btnSave").click(function () {
+        $.ajax({
+            url: '/USRecruitment/SaveInterView',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                InterviewId: 0, Attachments: $("#filehidden").val(), Fk_Interviewtype: $("#ddlInterviewType option:selected").val(),
+                Fk_SubmissionId: 1, Fk_TicketStatusId: 1, InterviewDate:FormatDate($("#txtInterviewDate").val(), "yyyy/mm/dd"),
+                InterviewTime: $('#txtInterviewTime').val(),Note:$('#txtNote').val(), Location: $('#txtInterviewLocation').val(), Operation: 1
+            },
+
+            success: function (data) {
+                $('#lblMessage').addClass('lblMessage');
+                $('#lblMessage').removeClass('lblError');
+                $('#lblMessage').text("Interview added successfully");
+            },
+            error: function () {
+                //alert('error');
+            }
+        });
+
+    });
+</script>
+
+

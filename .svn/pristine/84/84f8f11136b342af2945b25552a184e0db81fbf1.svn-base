@@ -1,0 +1,333 @@
+﻿@model NuPortal.Models.PersonalInfo
+@{
+    ViewBag.Title = "Employee Details";
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>*@
+
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        <div class="right-col-maindiv divWithDelete">
+            <div class="rightcontentdiv">
+                <div class="rightcontentsubdiv" id="Star">
+                    <div id="pnlUpdateAddress">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Address </h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.address, "", new { @class = "ms-long ms-spellcheck-true" })
+                                    </div>
+                                </div>
+
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">City </h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.city, "", new { @class = "ms-long ms-spellcheck-true" })
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">State </h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.state, "", new { @class = "ms-long ms-spellcheck-true" })
+                                      
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                                <div class="row">
+                                        <div class="col-md-4">
+                                            <h3 class="ms-standardheader">Country </h3>
+                                        </div>
+                                        <div class="col-md-8">
+                                       
+                                            @{
+                                                List<SelectListItem> listItems = new List<SelectListItem>();
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = "India",
+                                                    Value = "1"
+                                                });
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = "Srilanka",
+                                                    Value = "2",
+                                                    Selected = true
+                                                });
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = "United States",
+                                                    Value = "3"
+                                                });
+                                            }
+
+                                            @Html.DropDownListFor(model => model.country, listItems, "Select")
+                                        </div>
+                                    </div>
+                                <div class="space"></div>
+                                <div class="row">
+                                        <div class="col-md-4">
+                                            <h3 class="ms-standardheader">ZIP/Postal Code </h3>
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.TextBoxFor(model => model.zip, "", new { @class = "ms-long ms-spellcheck-true" })
+                             
+                                        </div>
+                                    </div>
+                                <div class="space"></div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Address 2</h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.address2, "", new { @class = "ms-long ms-spellcheck-true" })
+
+                                    </div>
+                                </div>
+
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">City 2</h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.city2, "", new { @class = "ms-long ms-spellcheck-true" })
+                                        
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">State 2</h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.state2, "", new { @class = "ms-long ms-spellcheck-true" })
+                                 
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Country 2</h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @{
+                                            List<SelectListItem> listItems1 = new List<SelectListItem>();
+                                            listItems1.Add(new SelectListItem
+                                            {
+                                                Text = "India",
+                                                Value = "1"
+                                            });
+                                            listItems1.Add(new SelectListItem
+                                            {
+                                                Text = "Srilanka",
+                                                Value = "2",
+                                                Selected = true
+                                            });
+                                            listItems1.Add(new SelectListItem
+                                            {
+                                                Text = "United States",
+                                                Value = "3"
+                                            });
+                                        }
+
+                                        @Html.DropDownListFor(model => model.country2, listItems1, "Select")
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">ZIP/Postal Code 2</h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.zip2, "", new { @class = "ms-long ms-spellcheck-true" })
+                                      
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Phone 1<span class="required" style="color: red">*</span></h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.phone, "", new { @class = "ms-long ms-spellcheck-true" })
+                                        
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Emergency Phone</h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.emergencyPhone, "", new { @class = "ms-long ms-spellcheck-true" })
+                                       
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">DOB<span class="required" style="color: red">*</span></h3>
+                                    </div>
+                                    <div class="col-md-7 divCalender">
+                                        @Html.TextBoxFor(model => model.dob, "", new { @class = "ms-long ms-spellcheck-true datepicker controldisable joindate hasDatepicker" })
+                                       
+                                    </div>
+
+                                </div>
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Nationality</h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.nationality, "", new { @class = "ms-long ms-spellcheck-true" })
+
+
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Phone 2</h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.phone2, "", new { @class = "ms-long ms-spellcheck-true" })
+                                       
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Email ID<span class="required" style="color: red">*</span></h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(model => model.emailId, "", new { @class = "ms-long ms-spellcheck-true" })
+
+
+                                       
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Gender<span class="required" style="color: red">*</span></h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @{
+                                            List<SelectListItem> listItems3 = new List<SelectListItem>();
+                                            listItems3.Add(new SelectListItem
+                                            {
+                                                Text = "Male",
+                                                Value = "1"
+                                            });
+                                            listItems3.Add(new SelectListItem
+                                            {
+                                                Text = "Female",
+                                                Value = "2",
+                                                Selected = true
+                                            });
+
+                                        }
+
+                                        @Html.DropDownListFor(model => model.gender, listItems3, "Select")
+                                    </div>
+                                </div>
+
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Blood Group</h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                      
+                                        @{
+                                            List<SelectListItem> listItems4 = new List<SelectListItem>();
+                                            listItems4.Add(new SelectListItem
+                                            {
+                                                Text = "A+",
+                                                Value = "1"
+                                            });
+                                            listItems4.Add(new SelectListItem
+                                            {
+                                                Text = "B+",
+                                                Value = "2",
+                                                Selected = true
+                                            });
+                                            listItems4.Add(new SelectListItem
+                                            {
+                                                Text = "O+",
+                                                Value = "3"
+                                            });
+                                            listItems4.Add(new SelectListItem
+                                            {
+                                                Text = "AB+",
+                                                Value = "1"
+                                            });
+                                            listItems4.Add(new SelectListItem
+                                            {
+                                                Text = "A-",
+                                                Value = "2",
+                                                Selected = true
+                                            });
+                                            listItems4.Add(new SelectListItem
+                                            {
+                                                Text = "B-",
+                                                Value = "3"
+                                            });
+                                            listItems4.Add(new SelectListItem
+                                            {
+                                                Text = "O-",
+                                                Value = "3"
+                                            });
+                                            listItems4.Add(new SelectListItem
+                                            {
+                                                Text = "AB-",
+                                                Value = "3"
+                                            });
+                                        }
+
+                                        @Html.DropDownListFor(model => model.bloodGroup, listItems4, "Select")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</body>

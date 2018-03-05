@@ -1,0 +1,112 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Data;
+using System.IO;
+using NuPortal.Common_Library;
+
+namespace NuPortal.Controllers
+{
+    [SessionTimeout]
+    public class NewRequestController : Controller
+    {
+        // GET: NewRequest
+        public ActionResult NewRequest(int? hdnId)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetRequestType()
+        {
+            Dictionary<string, string> outData = new Dictionary<string, string>();
+            NuPortalDBService.NuPortalService empService = new NuPortalDBService.NuPortalService();
+            empService.Url = Constants.DBService;
+            try
+            {
+                string jsonRequest = empService.GetDDListBox(Convert.ToInt32(Session["CompanyId"]), 4);
+                if (jsonRequest != string.Empty)
+                    return Json(jsonRequest, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    outData = new Dictionary<string, string>();
+                    outData.Add("Error", "Error");
+                    return Json(JsonConvert.SerializeObject(outData), JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                outData = new Dictionary<string, string>();
+                outData.Add("Error", "Error");
+                return Json(JsonConvert.SerializeObject(outData), JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                empService = null;
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult saveRequestDetails(string RequestText, int RequestType, string AttachmentUrl, string RequestedDate,
+            string RequestedToDate, string CreatedDate, int CreatedEmpId, string ModifiedDate, int ModifiedEmpId,
+            int Status)
+        {
+            NuPortalRequestService.NuPortalRequestService empService = new NuPortalRequestService.NuPortalRequestService();
+            empService.Url = Constants.RequestService;
+            Common_Library.GeneralFunctions general = new Common_Library.GeneralFunctions();
+            
+            try
+            {
+                bool IsSuccess = empService.CreateRequest(RequestText, RequestType, AttachmentUrl, Convert.ToDateTime(RequestedDate),
+             Convert.ToDateTime(RequestedToDate), Convert.ToDateTime(CreatedDate), CreatedEmpId, Convert.ToDateTime(ModifiedDate), ModifiedEmpId,
+             Status);
+
+                if (IsSuccess)
+                    return Json(Common_Library.Constants.JsonSuccess);
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError);
+            }
+            finally
+            {
+                empService = null;
+               
+            }
+           
+            return Json(Common_Library.Constants.JsonError);
+        }
+        [HttpPost]
+        public JsonResult getNewRequest(int requestId)
+        {
+            Dictionary<string, string> outData = new Dictionary<string, string>();
+            NuPortalDBService.NuPortalService empService = new NuPortalDBService.NuPortalService();
+            empService.Url = Constants.DBService;
+
+            try
+            {
+                string jsonLocation = empService.SelectGridInfo(requestId, 9);
+                return Json(jsonLocation, JsonRequestBehavior.AllowGet);
+
+
+            }
+            catch (Exception ex)
+            {
+                outData = new Dictionary<string, string>();
+                outData.Add("Error", "Error");
+                return Json(JsonConvert.SerializeObject(outData), JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                empService = null;
+
+            }
+        }
+       
+
+    }
+}

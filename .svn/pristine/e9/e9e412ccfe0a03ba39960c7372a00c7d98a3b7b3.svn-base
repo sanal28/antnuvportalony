@@ -1,0 +1,111 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="frmProjects" action="" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+</form>
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/project-sm.png" width="45" height="45" alt="" /></div></div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="mainheaderdiv">My Projects</div>
+                </div>               
+            </div>
+        </div>
+        <div class="contentmaindiv">
+            <div class="myprojectdiv" style="overflow:hidden !important">
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="myprojecttxt"><a href="@Url.Action("Create", "Projects")">New Project</a></div>
+                        <div class="myprojecttxt"><a href="@Url.Action("NewContacts", "NewContacts")">New Contact</a></div>
+                        <div class="myprojecttxt"><a href="@Url.Action("NewClient", "Client")" >New Client</a></div>
+                            </div>
+                </div>
+            </div>
+            <div class="space ProjectName"></div>
+            @*<div class="myprojecttxtmaindiv">
+                <table style="width:100%" id="tblProjectname" class="requesttablediv">
+                    <tbody id="tblProjectname"></tbody>
+                </table>
+            </div>*@
+        </div>
+    </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#divNoRecords').hide();
+        $('#lblError').css('display', 'none');
+        loadData();
+    });
+    function loadData()
+    {
+        $.ajax({
+            url: '/Projects/GetProjects',
+            type: "GET",
+            async: false,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                var rowObject;
+                var managerDiv = "",taskDiv="";
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        managerDiv = "";
+                        taskDiv = "";
+                        if (parseInt(resultVals[i]["ManagerFlag"]) != 0)
+                            managerDiv = '<div class="myprojecticon"><a onclick="postProjectId(' + resultVals[i]["ProjectId"] + ',3);" href="#" id="hrefprjectedit"><img title="Edit" src="../Images/myproject-edit.png" width="22" height="22" alt="" /></a></div>';
+                        if (parseInt(resultVals[i]["NoofTask"]) != 0)
+                            taskDiv='<div class="myprojectspendingname">' + resultVals[i]["NoofTask"] + ' Tasks Pending</div>';
+
+                        $('.ProjectName').append("<div class='myprojecttxtmaindiv'><div class='row'>"+
+                            "<div class='col-md-4'>"+
+                            "<div class='myprojectsname'><a onclick=postProjectId(" + resultVals[i]["ProjectId"] + ',1); href="#"> ' + resultVals[i]["Name"] + "</a></div>"+
+                            "</div>"+
+                            "<div class='col-md-1'>"+
+                            "<div class='myprojecticon'><a onclick=postProjectId('" + resultVals[i]["ProjectId"] + "',2); href='#' id='hrefprjectview'><img title='View' src='../Images/ViewProject.png' width='22' height='22' alt='' /></a></div>"+
+                            "</div>"+
+                            "<div class='col-md-1'>"+ managerDiv +"</div>"+
+                            "<div class='col-md-6'>"+taskDiv+"</div>"+
+                            "</div></div>");
+                        //$('#tblProjectname').append('<tr><td width="50%"><div class="myprojectsname"><a onclick="postProjectId(' + resultVals[i]["ProjectId"] + ',1);" href="#"> ' + resultVals[i]["Name"] + '</a></td>'
+                        //     + '<td "width="5%"><div class="myprojecticon"><a onclick="postProjectId(' + resultVals[i]["ProjectId"] + ',2);" href="#" id="hrefprjectview"><img src="../Images/ViewProject.png" width="24" height="24" alt="" /></a></div></td>'
+                        //     + '<td "width="5%">' + managerDiv + '</td>'
+                        //     + '<td "width="40%">' + taskDiv + '</td></tr>');
+                    }
+                }
+                else
+                    //$('#tblProjectname').append("<tr><td colspan='4' class='NoRecordsFound'>No Records Found</td></tr>");
+                    $('.ProjectName').append("<div class='myprojecttxtmaindiv'><div class='row'><div class='NoRecordsFound'>No Records Found</div></div></div>");
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    function postProjectId(ProjectId, ActionFlag) {
+        $('#hdnId').val(ProjectId);
+        if (ActionFlag == 1)
+        {
+            $("#frmProjects").attr("action", "/Projects/ProjectName");
+        }
+        else if (ActionFlag == 2)
+        {
+            $("#frmProjects").attr("action", "/Projects/view");
+        }
+        else if (ActionFlag == 3)
+        {
+            $("#frmProjects").attr("action", "/Projects/Create");
+        }
+        $('#frmProjects').submit();
+        
+    }
+    </script>
+
+

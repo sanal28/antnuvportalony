@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Web;
+
+namespace NuPortal.Common_Library
+{
+    public class GeneralFunctions
+    {
+        public DateTime SetDateVal(string DateVal)
+        {
+            try
+            {
+                if (DateVal == string.Empty || DateVal == null)
+                    return Convert.ToDateTime("1753-01-01 12:00:00 AM");
+                else
+                    return Convert.ToDateTime(DateTime.ParseExact(DateVal, "MM/dd/yyyy", null).ToString("yyyy/MM/dd"));
+            }
+            catch
+            {
+                return Convert.ToDateTime("1753-01-01 12:00:00 AM");
+            }
+        }
+    }
+}

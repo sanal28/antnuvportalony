@@ -1,0 +1,340 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string backUrl = Request.UrlReferrer.PathAndQuery,Act="";
+    int AssessmentId = 0;
+    
+    if(!string.IsNullOrEmpty(Request["hdnId"]))
+    {
+        AssessmentId = Convert.ToInt32(Request["hdnId"]);
+    }
+    if (!string.IsNullOrEmpty(Request["hdnAction"]) && Convert.ToInt32(Request["hdnAction"])==0)
+    {
+        Act = "view";
+    }
+}
+<input type="hidden" id="hdnSchduleId" />
+<input type="hidden" id="hdnInterviewerId" />
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="../images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Interview Assessment</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" href="@Request.UrlReferrer.PathAndQuery" id="anchBack"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+
+        </div>
+        <div class="space"></div>
+        <div class="popupheadingmaindiv">
+            <div class="popupheadingtext">Interview Assessment</div>
+            @*<div class="popupclosebutton"><a href="#">X</a></div>*@
+        </div>
+        <div class="row intdetails">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+
+                    <input class="floating-input" type="text" placeholder=" " id="txtInterviewee">
+                    <label class="float">Interviwee Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input class="floating-input" type="text" placeholder=" " id="txtInterviewer">
+                    <label class="float">Interviewer Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+
+                    <input class="floating-input" type="text" placeholder=" " id="txtPosition">
+                    <label class="float">Position Applied</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="space"></div>
+        <div class="popupheadingmaindiv">
+            <div class="popupheadingtext">Criterias</div>
+            @*<div class="popupclosebutton"><a href="#">X</a></div>*@
+        </div>
+        <div id="assessRating">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Technical Ability</div>
+                    <div title="Rating" class="ratingdiv" id="divTechAb">
+                        <fieldset class="rating">
+                            <input type="radio" id="field1_star5" name="rating1" value="5" /><label class="full" for="field1_star5"></label>
+
+                            <input type="radio" id="field1_star4" name="rating1" value="4" /><label class="full" for="field1_star4"></label>
+
+                            <input type="radio" id="field1_star3" name="rating1" value="3" /><label class="full" for="field1_star3"></label>
+
+                            <input type="radio" id="field1_star2" name="rating1" value="2" /><label class="full" for="field1_star2"></label>
+
+                            <input type="radio" id="field1_star1" name="rating1" value="1" /><label class="full" for="field1_star1"></label>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Interpersonal Skills</div>
+                    <div title="Rating" class="ratingdiv" id="divInterSk">
+                        <fieldset class="rating">
+                            <input type="radio" id="field2_star5" name="rating2" value="5" /><label class="full" for="field2_star5"></label>
+
+                            <input type="radio" id="field2_star4" name="rating2" value="4" /><label class="full" for="field2_star4"></label>
+
+                            <input type="radio" id="field2_star3" name="rating2" value="3" /><label class="full" for="field2_star3"></label>
+
+                            <input type="radio" id="field2_star2" name="rating2" value="2" /><label class="full" for="field2_star2"></label>
+
+                            <input type="radio" id="field2_star1" name="rating2" value="1" /><label class="full" for="field2_star1"></label>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Presentation Skills</div>
+                    <div title="Rating" class="ratingdiv" id="divPresentSk">
+                        <fieldset class="rating">
+                            <input type="radio" id="field3_star5" name="rating3" value="5" /><label class="full" for="field3_star5"></label>
+
+                            <input type="radio" id="field3_star4" name="rating3" value="4" /><label class="full" for="field3_star4"></label>
+
+                            <input type="radio" id="field3_star3" name="rating3" value="3" /><label class="full" for="field3_star3"></label>
+
+                            <input type="radio" id="field3_star2" name="rating3" value="2" /><label class="full" for="field3_star2"></label>
+
+                            <input type="radio" id="field3_star1" name="rating3" value="1" /><label class="full" for="field3_star1"></label>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Leadership Skills</div>
+                    <div title="Rating" class="ratingdiv" id="divLeaderSk">
+                        <fieldset class="rating">
+                            <input type="radio" id="field4_star5" name="rating4" value="5" /><label class="full" for="field4_star5"></label>
+
+                            <input type="radio" id="field4_star4" name="rating4" value="4" /><label class="full" for="field4_star4"></label>
+
+                            <input type="radio" id="field4_star3" name="rating4" value="3" /><label class="full" for="field4_star3"></label>
+
+                            <input type="radio" id="field4_star2" name="rating4" value="2" /><label class="full" for="field4_star2"></label>
+
+                            <input type="radio" id="field4_star1" name="rating4" value="1" /><label class="full" for="field4_star1"></label>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Teamwork</div>
+                    <div title="Rating" class="ratingdiv" id="divTeam">
+                        <fieldset class="rating">
+                            <input type="radio" id="field5_star5" name="rating5" value="5" /><label class="full" for="field5_star5"></label>
+
+                            <input type="radio" id="field5_star4" name="rating5" value="4" /><label class="full" for="field5_star4"></label>
+
+                            <input type="radio" id="field5_star3" name="rating5" value="3" /><label class="full" for="field5_star3"></label>
+
+                            <input type="radio" id="field5_star2" name="rating5" value="2" /><label class="full" for="field5_star2"></label>
+
+                            <input type="radio" id="field5_star1" name="rating5" value="1" /><label class="full" for="field5_star1"></label>
+
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select" value="" id="ddlApplstatus" onclick="this.setAttribute('value', this.value);">
+                        <option value=""></option>
+                    </select>
+                    <label class="float">Status</label>
+                </div>
+            </div>
+        </div>
+            </div>
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="contentfielddiv">
+                    <div class="textarea-wrapper">
+                        <textarea class="floating-textarea floating-input" placeholder=" " required id="txtIntComments"></textarea>
+                        <label class="float">Comments</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" onclick="saveAssessment();" /></div>
+            <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onclick="clearValues();" /></div>
+            <div class="buttondiv"><input class="printbtn1" type="button" /></div>
+            <div class="buttondiv"><input class="emailbtn" type="button" /></div>
+            <div class="ErrorLabel">
+                <label id="lblMsg" class="lblError"></label>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".clearbtn").hide();
+        $('#anchBack').attr('href', '@backUrl');
+        $('.printbtn1').remove();
+        $('.emailbtn').remove();
+       
+        $.ajax({
+            url: '/Recruitment/CancelDelete',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            data: {
+                RowId: @Request["hdnId"], EmpId:@Session["EmpId"],Operation: 15
+            },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                LoadDdls('/Recruitment/BindDropdown?RowId='+results[0].InterviewerStatusId+'&Operation=24', $('#ddlApplstatus'), 'ApplicantStatusId', 'StatusName');
+                //$('#ddlApplstatus option[value="'+results[0].FK_ApplicantIdStatus+'"]').attr('selected','selected');
+                
+                $('#txtInterviewee').val(results[0].Name);
+                $('#txtInterviewee').attr("disabled",'disabled');
+                $('#txtPosition').val(results[0].JobTitle);
+                $('#txtPosition').attr("disabled",'disabled');
+                $('#txtInterviewer').val(results[0].InterViewerName);
+                $('#txtInterviewer').attr("disabled",'disabled');
+                $('#hdnSchduleId').val(results[0].CreateIntrviewId);
+                $('#hdnInterviewerId').val(results[0].InterviewerId);
+                if('@Act'=="view"){
+                    $.ajax({
+                        url: '/Recruitment/CancelDelete',
+                        dataType: "json",
+                        type: "GET",
+                        contentType: 'application/json; charset=utf-8',
+                        data: {
+                            RowId: results[0].CreateIntrviewId,EmpId:results[0].InterviewerId, Operation: 11
+                        },
+                        success: function (data) {
+                            var results = $.parseJSON(data);
+                            if(results.Result==undefined||results.Result==null||results.Result!="Error"){
+                                if(parseInt(results[0].TechinicalAbility)>0){
+                                    for(var i=1;i<=parseInt(results[0].TechinicalAbility);i++)
+                                        $('#divTechAb').find('input[value="'+i+'"]').prop('checked',true);
+                                }
+                                if(parseInt(results[0].InterpersonalSkills)>0){
+                                    for(var i=1;i<=parseInt(results[0].InterpersonalSkills);i++)
+                                        $('#divInterSk').find('input[value="'+i+'"]').prop('checked',true);
+                                }
+                                if(parseInt(results[0].PresentaitonSkills)>0){
+                                    for(var i=1;i<=parseInt(results[0].PresentaitonSkills);i++)
+                                        $('#divPresentSk').find('input[value="'+i+'"]').prop('checked',true);
+                                }
+                                if(parseInt(results[0].LeadershipSkills)>0){
+                                    for(var i=1;i<=parseInt(results[0].LeadershipSkills);i++)
+                                        $('#divLeaderSk').find('input[value="'+i+'"]').prop('checked',true);
+                                }
+                                if(parseInt(results[0].Teamwork)>0){
+                                    for(var i=1;i<=parseInt(results[0].Teamwork);i++)
+                                        $('#divTeam').find('input[value="'+i+'"]').prop('checked',true);
+                                }
+                                $('#ddlApplstatus option').remove();
+                                $('#ddlApplstatus').append('<option value="1">'+results[0].StatusName+'</option>');
+                                $('#ddlApplstatus').attr('value','1');
+                                $('#txtIntComments').val(results[0].Comments);
+                                $('#assessRating').find('input[type="radio"]').prop('disabled',true);
+                                $('#ddlApplstatus').attr('disabled','disabled');
+                                $('#txtIntComments').attr('disabled','disabled');
+                            }
+                
+                        }
+                    });
+                }              
+            },
+            error: function (xhr) {
+            }
+        });        
+    });
+
+    function saveAssessment() {
+        var personal = $('#divInterSk').find('input:checked').length>0?$('#divInterSk').find('input:checked').val():0;
+        var leader=$('#divLeaderSk').find('input:checked').length>0?$('#divLeaderSk').find('input:checked').val():0;
+        var present=$('#divPresentSk').find('input:checked').length>0?$('#divPresentSk').find('input:checked').val():0;
+        var team=$('#divTeam').find('input:checked').length>0?$('#divTeam').find('input:checked').val():0;
+        var tech=$('#divTechAb').find('input:checked').length>0?$('#divTechAb').find('input:checked').val():0;
+        if($('#ddlApplstatus option:selected').val()!=''){
+            $('#ddlApplstatus').removeClass("ErrorFocus");
+            if(personal>0||leader>0||present>0||team>0||tech>0){
+                $('#lblMsg')[0].innerText = "";
+                var dtAssess = [{ Interviewer:$('#hdnInterviewerId').val(),Schedule:$('#hdnSchduleId').val(),Interpersonal:personal,Leadership:leader,Presentation:present,Teamwork:team,TechAbility:tech,Comments:$('#txtIntComments').val(),Status:$('#ddlApplstatus option:selected').val()}];
+                $.ajax({
+                    url: '/Recruitment/SaveAssessment',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        AssessId:0,
+                        JsonStr: JSON.stringify(dtAssess)
+                    },
+                    success: function (data) {
+                        var result = JSON.parse(data);
+                        if(result.Result==undefined||result.Result==null||result.Result!="Error"){
+                            $('#lblMsg').attr("class","lblMessage");
+                            $('#lblMsg')[0].innerText = "Assessment Submitted Successfully";
+                            if($('#updateDlg').length>0){
+                                UpdateStatus();
+                                $('#updateDlg').parent().remove();
+                            }
+                            if($('#statusDlg').length>0){
+                                $('#statusDlg').parent().remove();
+                                window.location.reload();
+                            }
+                        }
+                    },
+                    error: function () {
+                    }
+                });            
+            }
+            else{
+                $('#lblMsg')[0].innerText = "Please give value for atleast one criteria";
+            }
+        }
+        else{
+            $('#lblMsg')[0].innerText = "Please fill all mandatory fields";
+            $('#ddlApplstatus').focus();
+            $('#ddlApplstatus').addClass("ErrorFocus");
+        }
+    }
+
+    function clearValues(){
+        $('#ddlApplstatus option[value=""]').attr('selected','selected');
+        $('#ddlApplstatus').attr('value','');
+        $('#txtIntComments').val("");
+        $('#lblMsg')[0].innerText = "";
+        $('#divInterSk').find('input:checked').prop('checked',false);
+        $('#divLeaderSk').find('input:checked').prop('checked',false);
+        $('#divPresentSk').find('input:checked').prop('checked',false);
+        $('#divTeam').find('input:checked').prop('checked',false);
+        $('#divTechAb').find('input:checked').prop('checked',false);
+    }
+</script>

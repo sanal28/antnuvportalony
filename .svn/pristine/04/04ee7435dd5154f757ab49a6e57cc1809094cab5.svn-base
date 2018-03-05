@@ -1,0 +1,1007 @@
+﻿using Newtonsoft.Json;
+using NuPortal.Common_Library;
+using NuPortal.Models;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using System.IO.Compression;
+using ICSharpCode.SharpZipLib.Zip;
+
+namespace NuPortal.Controllers
+{
+    [SessionTimeout]
+    public class ProjectsController : Controller
+    {
+        public ActionResult Projects()
+        {
+            return View();
+        }
+        public ActionResult Document(int? hdnId)
+        {
+            return View();
+        }
+        public ActionResult UserDocument()
+        {
+            return View();
+        }
+        [HttpGet]
+        public JsonResult GetSharedType()
+        {
+            Dictionary<string, string> outData = new Dictionary<string, string>();
+            NuPortalDBService.NuPortalService dBService = new NuPortalDBService.NuPortalService();
+            dBService.Url = Constants.DBService;
+            try
+            {
+                string jsonLocation = dBService.GetDDListBox(Convert.ToInt32(Session["CompanyId"]), 14);
+                return Json(jsonLocation, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                outData = new Dictionary<string, string>();
+                outData.Add("Error", "Error");
+                return Json(JsonConvert.SerializeObject(outData), JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                dBService = null;
+            }
+        }
+        [HttpGet]
+        public string GetOthers(int projID, int opID, string field)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            string items = string.Empty;
+            DataTable jsonDt = JsonConvert.DeserializeObject<DataTable>(empService.SelectEmployeeInfo(projID, opID));
+            try
+            {
+                if (jsonDt != null && jsonDt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in jsonDt.Rows)
+                        items = items + Convert.ToString(row[field]) + "#" + Convert.ToString(row["FirstName"]) + ",";
+                    return items.Substring(0, items.Length - 1);
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            return "0#";
+        }
+        [HttpGet]
+        public List<Project> GetProjectDetails(int projID)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            DataTable dt = JsonConvert.DeserializeObject<DataTable>(empService.SelectEmployeeInfo(projID, 15));
+            List<Project> Proj = new List<Project>();
+            try
+            {
+                if (dt != null && dt.Rows.Count > 0)
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        Proj.Add(new Project
+                        {
+                            ProjectName = Convert.ToString(row["Name"]),
+                            ProjectID = Convert.ToInt32(row["ProjectId"]),
+                            StartDate = Convert.ToDateTime(row["StartDate"]).ToString("MM-dd-yyyy"),
+                            EndDate = Convert.ToDateTime(row["EndDate"]).ToString("MM-dd-yyyy"),
+                            Status = Convert.ToString(row["ProjectStatus"]),
+                            Priority = Convert.ToString(row["Priority"]),
+                            ClientName = Convert.ToString(row["CompanyName"]),
+                            PlannedHours = Convert.ToDouble(row["PlannedHours"]),
+                            DepartmentId = Convert.ToInt32(row["FK_Department"]),
+                            ClientContact = Convert.ToString(row["ContactPerson"]),
+                            ProjectType = Convert.ToString(row["ProjectType"]),
+                            ProjectCategory = Convert.ToString(row["ProjectCategory"]),
+                            URL = Convert.ToString(row["URL"]),
+                            CostCentre = Convert.ToString(row["CostCenter"]),
+                            Technologies = Convert.ToString(row["Technologies"]),
+                            Manager = GetOthers(Convert.ToInt32(row["ProjectId"]), 16, "FK_Managers"),
+                            Resources = "",// GetOthers(Convert.ToInt32(row["ProjectId"]), 17, "FK_Resources"),
+                            ProjectDescription = Convert.ToString(row["Description"]),
+                            Attachments = Convert.ToString(row["Attachments"]),
+                            ClientId = Convert.ToInt32(row["FK_ClientId"]),
+                            CompanyId = Convert.ToInt32(row["FK_CompanyId"]),
+                            ContactId = Convert.ToInt32(row["FK_ContactId"]),
+                            CreatedDate = Convert.ToDateTime(row["CreatedDate"]),
+                            CreatedBy = Convert.ToString(row["CreatedEmpID"]),
+                            Department = Convert.ToString(row["DepartmentName"])
+                        });
+                    }
+            }
+            catch (Exception ex) {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            finally { empService.Dispose(); dt = null; }
+            return Proj;
+        }
+
+        public ActionResult view(int? hdnId)
+        {
+            try
+            {
+                NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+                empService.Url = Constants.EmpService;
+
+                List<Project> Proj = GetProjectDetails(Convert.ToInt32(hdnId));
+                ViewData["Resources"] = empService.SelectEmployeeInfo(Convert.ToInt32(hdnId), 17);
+
+                return View(Proj);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            return View();
+        }
+
+        public ActionResult Create(int? hdnId)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                ViewData["AllProjects"] = empService.SelectEmployeeInfo(Convert.ToInt32(System.Web.HttpContext.Current.Session["CompanyId"]), 24);
+                ViewData["filProjects"] = "";
+                ViewBag.proName = "";
+                ViewBag.ID = 0;
+                if (!string.IsNullOrEmpty(Convert.ToString(hdnId)))
+                {
+                    List<Project> Proj = GetProjectDetails(Convert.ToInt32(hdnId));
+                    ViewData["filProjects"] = Proj;
+                    ViewBag.proName = Proj[0].ProjectName;
+                    ViewBag.ID = hdnId;
+                    ViewData["Resources"] = empService.SelectEmployeeInfo(Convert.ToInt32(hdnId), 17);
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            finally { empService.Dispose(); }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateProject(int projID, string jsonData)
+        {
+            NuPortalProjectService.NuPortalProject projectService = new NuPortalProjectService.NuPortalProject();
+            projectService.Url = Constants.ProjectService;
+            DataTable dt = new DataTable();
+            string IsSuccess = string.Empty;
+            try
+            {
+                dt = JsonConvert.DeserializeObject<DataTable>(jsonData);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow data = dt.Rows[0];
+                    int ClientId = string.IsNullOrEmpty(Convert.ToString(data["ClientId"])) ? 0 : Convert.ToInt32(data["ClientId"]);
+                    int ContactId = string.IsNullOrEmpty(Convert.ToString(data["ContactId"])) ? 0 : Convert.ToInt32(data["ContactId"]);
+                    int Hours = string.IsNullOrEmpty(Convert.ToString(data["PlannedHours"])) ? 0 : Convert.ToInt32(data["PlannedHours"]);
+                    int DeptId = string.IsNullOrEmpty(Convert.ToString(data["DepartmentId"])) ? 0 : Convert.ToInt32(data["DepartmentId"]);
+                    //DateTime EndDate = string.IsNullOrEmpty(Convert.ToString(data["EndDate"])) ? Convert.ToDateTime(data["StartDate"]):Convert.ToDateTime(data["EndDate"]);
+                    if (projID == 0)
+                    {
+                        IsSuccess = projectService.CreateProject(Convert.ToInt32(Session["CompanyId"]), ClientId, ContactId, Convert.ToString(data["ProjectName"]), Convert.ToString(data["ProjectDescription"]), Convert.ToDateTime(data["StartDate"]),
+                            Convert.ToDateTime(data["EndDate"]), Convert.ToString(data["URL"]), Convert.ToString(data["Priority"]), Convert.ToString(data["Status"]), Convert.ToString(data["ProjectType"]), Convert.ToString(data["ProjectCategory"]), Hours,
+                            DeptId, Convert.ToString(data["CostCentre"]), Convert.ToString(data["Technologies"]), Convert.ToString(data["Attachments"]), DateTime.Now, DateTime.Now, Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(Session["EmpID"]), 1);
+                        if (!string.IsNullOrEmpty(IsSuccess))
+                            return Json(IsSuccess);
+                    }
+                    else
+                    {
+                        bool isSuccess = projectService.UpdateProject(projID, ClientId, ContactId, Convert.ToString(data["ProjectName"]), Convert.ToString(data["ProjectDescription"]), Convert.ToDateTime(data["StartDate"]),
+                            Convert.ToDateTime(data["EndDate"]), Convert.ToString(data["URL"]), Convert.ToString(data["Priority"]), Convert.ToString(data["Status"]), Convert.ToString(data["ProjectType"]), Convert.ToString(data["ProjectCategory"]), Hours,
+                            DeptId, Convert.ToString(data["CostCentre"]), Convert.ToString(data["Technologies"]), Convert.ToString(data["Attachments"]), DateTime.Now, Convert.ToInt32(Session["EmpID"]), 1);
+                        if (isSuccess)
+                            return Json("[{\"ProjectId\":\"" + projID + "\"}]");
+                    }
+                }
+                else
+                    return Json("{\"Result\":\"Empty Data\"}");
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(ex.ToString());
+            }
+            finally
+            {
+                projectService.Dispose();
+                dt.Dispose();
+                IsSuccess = string.Empty;
+            }
+            return Json(Common_Library.Constants.JsonError);
+        }
+        [HttpPost]
+        public void UpdateManager(int projID, string jsonData)
+        {
+            NuPortalProjectService.NuPortalProject projectService = new NuPortalProjectService.NuPortalProject();
+            projectService.Url = Constants.ProjectService;
+            DataTable dt = new DataTable(), data = new DataTable();
+            try
+            {
+                dt = JsonConvert.DeserializeObject<DataTable>(jsonData);
+                data.Columns.Add("FKProjectId", typeof(int));
+                data.Columns.Add("FKManagers", typeof(int));
+                data.Columns.Add("Status", typeof(int));
+                foreach (DataRow row in dt.Rows)
+                    data.Rows.Add(projID, Convert.ToInt32(row["id"]), 1);
+                string temp = JsonConvert.SerializeObject(data);
+                bool result = projectService.SetMangersForProjects(projID, JsonConvert.SerializeObject(data));
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            finally
+            {
+                projectService.Dispose();
+            }
+        }
+
+        [HttpPost]
+        public void UpdateResource(int projID, string jsonData)
+        {
+            NuPortalProjectService.NuPortalProject projectService = new NuPortalProjectService.NuPortalProject();
+            projectService.Url = Constants.ProjectService;
+            DataTable dt = new DataTable(), data = new DataTable();
+            try
+            {
+                dt = JsonConvert.DeserializeObject<DataTable>(jsonData);
+                data.Columns.Add("FKProjectId", typeof(int));
+                data.Columns.Add("FKResources", typeof(int));
+                data.Columns.Add("FKRole", typeof(int));
+                data.Columns.Add("RatePerHour", typeof(float));
+                data.Columns.Add("Allocation", typeof(int));
+                data.Columns.Add("BillingStatus", typeof(int));
+                data.Columns.Add("BillingHours", typeof(int));
+                data.Columns.Add("Status", typeof(int));
+                foreach (DataRow row in dt.Rows)
+                    data.Rows.Add(projID, Convert.ToInt32(row["Resource"]), Convert.ToInt32(row["Role"]),
+                        Convert.ToDecimal(row["Rate"]), Convert.ToInt32(row["Percent"]), Convert.ToInt32(row["Billable"]), Convert.ToInt16(row["BillingHours"]), 1);
+                string temp = JsonConvert.SerializeObject(data);
+                bool result = projectService.SetResourcesForProjects(projID, JsonConvert.SerializeObject(data));
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            finally
+            {
+                projectService.Dispose();
+            }
+        }
+
+        // GET: Projects
+        [HttpGet]
+        public JsonResult GetProjects()
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                string JsonString = empService.SelectEmployeeInfo(Convert.ToInt32(Session["EmpID"]), 14);
+                if (JsonString != string.Empty)
+                {
+                    return Json(JsonString, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            finally
+            {
+                empService.Dispose();
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ProjectName(int? hdnId)
+        {
+            Project projectname = new Project();
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                string JsonString = empService.SelectEmployeeInfo(Convert.ToInt16(hdnId), 15);
+                if (JsonString != string.Empty)
+                {
+                    DataTable data = JsonConvert.DeserializeObject<DataTable>(JsonString);
+                    if (data.Rows.Count > 0)
+                    {
+                        projectname.Status = Convert.ToString(data.Rows[0]["ProjectStatus"]);
+                        projectname.Priority = Convert.ToString(data.Rows[0]["Priority"].ToString());
+                        projectname.StartDate = Convert.ToDateTime(data.Rows[0]["StartDate"]).ToString("MM-dd-yyyy");
+                        projectname.EndDate = Convert.ToDateTime(data.Rows[0]["EndDate"]).ToString("MM-dd-yyyy") == "01-01-1753" ? "" : Convert.ToDateTime(data.Rows[0]["EndDate"]).ToString("MM-dd-yyyy");
+                        if (Convert.ToString(data.Rows[0]["PlannedHours"]) != string.Empty)
+                            projectname.Plann = data.Rows[0]["PlannedHours"].ToString() != "0" ? data.Rows[0]["PlannedHours"].ToString() : "";
+                        projectname.ClientName = Convert.ToString(data.Rows[0]["CompanyName"].ToString());
+                        projectname.ProjectName = Convert.ToString(data.Rows[0]["Name"].ToString());
+                    }
+                    //return Json(JsonString, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError);
+            }
+            finally
+            {
+                empService.Dispose();
+            }
+            return View(projectname);
+        }
+
+        [HttpGet]
+        public JsonResult GetDepartment(int opId)
+        {
+            try
+            {
+                NuPortalDBService.NuPortalService dbService = new NuPortalDBService.NuPortalService();
+                dbService.Url = Constants.DBService;
+                string ReturnVal = dbService.GetDDListBox(Convert.ToInt32(Session["CompanyId"]), opId);
+                if (ReturnVal != string.Empty)
+                    return Json(ReturnVal, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetContact(int clientId)
+        {
+            try
+            {
+                NuPortalDBService.NuPortalService dbService = new NuPortalDBService.NuPortalService();
+                dbService.Url = Constants.DBService;
+                string ReturnVal = dbService.GetDDListBox(clientId, 6);
+                if (ReturnVal != string.Empty)
+                    return Json(ReturnVal, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult NewDocument(int? docId, int? projId, int? TypeId)
+        {
+            return View();
+        }
+
+        public ActionResult GetCustomResources(string ProjectId)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                string JsonString = empService.SelectEmployeeInfo(Convert.ToInt16(ProjectId), 27);
+                if (JsonString != string.Empty)
+                {
+                    return Json(JsonString, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                empService.Dispose();
+
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetCustomResourcesResult(int DocId)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                string JsonString = empService.SelectEmployeeInfo(DocId, 34);
+                if (JsonString != string.Empty)
+                    return Json(JsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            finally
+            {
+                empService.Dispose();
+
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SaveDocument(int DocId, int ProjId, string DocumentName, string Description, string Attachment,
+            int SharedWith, int RoleID)
+
+        {
+            string jsonString = string.Empty;
+            NuPortalProjectService.NuPortalProject projectService = new NuPortalProjectService.NuPortalProject();
+            projectService.Url = Constants.ProjectService;
+            try
+            {
+                if (DocId == 0)
+                {
+                    jsonString = projectService.ProjectDocumentsOper(DocId, ProjId, DocumentName, SharedWith, RoleID, Description, Attachment, DateTime.Now, DateTime.Now, Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(Session["EmpID"]), 1, 1);
+                }
+                else
+                {
+                    jsonString = projectService.ProjectDocumentsOper(DocId, ProjId, DocumentName, SharedWith, RoleID, Description, Attachment, DateTime.Now, DateTime.Now, Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(Session["EmpID"]), 1, 2);
+                }
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                projectService = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SaveDocResources(int DocID, string jsonData, string EmpIdData)
+        {
+            NuPortalProjectService.NuPortalProject projectService = new NuPortalProjectService.NuPortalProject();
+            projectService.Url = Constants.ProjectService;
+            try
+            {
+                bool IsSuccess = projectService.SetCustomDocuments(DocID, jsonData, EmpIdData);
+                if (IsSuccess)
+                    return Json(Common_Library.Constants.JsonSuccess);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError);
+            }
+            finally
+            {
+                projectService = null;
+            }
+            return Json(Common_Library.Constants.JsonError);
+        }
+        //Bind Documents to grid
+        [HttpGet]
+        public JsonResult GetDocuments(int ProjId)
+        {
+            NuPortalDBService.NuPortalService Dbservice = new NuPortalDBService.NuPortalService();
+            Dbservice.Url = Constants.DBService;
+            try
+            {
+                string JsonString = Dbservice.SelectGridInfo(ProjId, 5);
+                if (JsonString != string.Empty)
+                {
+                    return Json(JsonString, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                Dbservice.Dispose();
+
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult DeleteDocument(int docId, int operationID)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                string JsonString = empService.SelectEmployeeInfo(docId, 30);
+                if (JsonString != string.Empty)
+                {
+                    return Json(JsonString, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError);
+            }
+            finally
+            {
+                empService = null;
+            }
+            return Json(Common_Library.Constants.JsonError);
+        }
+
+        //View Document
+        [HttpGet]
+        public JsonResult GetDocument(int pId)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                string JsonString = empService.SelectEmployeeInfo(pId, 33);
+                if (JsonString != string.Empty)
+                {
+                    return Json(JsonString, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                empService.Dispose();
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        public ActionResult MyDocument()
+        {
+            return View();
+        }
+
+
+        //Get Document with Employee ID
+        [HttpGet]
+        public JsonResult GetDocumentWithEmpId()
+        {
+            NuPortalDBService.NuPortalService Dbservice = new NuPortalDBService.NuPortalService();
+            Dbservice.Url = Constants.DBService;
+            try
+            {
+                string JsonString = Dbservice.SelectGridInfo(Convert.ToInt32(Session["EmpID"]), 15);
+                if (JsonString != string.Empty)
+                {
+                    return Json(JsonString, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                Dbservice.Dispose();
+
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+
+        }
+
+        //Add User document
+        [HttpPost]
+        public ActionResult addUserDocument(string DocumentName, int ProjectName, int SharedWith, string Description, string Attachment)
+        {
+            NuPortalProjectService.NuPortalProject projectService = new NuPortalProjectService.NuPortalProject();
+            projectService.Url = Constants.ProjectService;
+            try
+            {
+                string jsonString = projectService.ProjectDocumentsOper(0, ProjectName, DocumentName, SharedWith, 0, Description, Attachment, DateTime.Now,
+                    DateTime.Now, Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(Session["EmpID"]), 1, 1);
+
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                projectService = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        //User doc shared type
+        [HttpGet]
+        public JsonResult UserDocSharedType()
+        {
+            NuPortalDBService.NuPortalService dBService = new NuPortalDBService.NuPortalService();
+            dBService.Url = Constants.DBService;
+            try
+            {
+                string jsonLocation = dBService.GetDDListBox(0, 15);
+                if (jsonLocation != string.Empty)
+                    return Json(jsonLocation, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            finally
+            {
+                dBService = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult getProjectName()
+        {
+            NuPortalDBService.NuPortalService dBService = new NuPortalDBService.NuPortalService();
+            dBService.Url = Constants.DBService;
+            try
+            {
+                string jsonLocation = dBService.GetDDListBox(Convert.ToInt32(Session["EmpID"]), 16);
+                if (jsonLocation != string.Empty)
+                    return Json(jsonLocation, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            finally
+            {
+                dBService = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult validateDocumentName(int ProjId, string DocumentName, int Operation)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                string jsonString = empService.ManagerAutoComplete(Convert.ToInt32(Session["CompanyId"]), DocumentName, ProjId, Operation);
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                empService = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+        //MailTo Functions
+        private bool EmailDocuments(string EType, string To, string Subject, string Body, string Attachment, string WebUrl,string[] AttachmentName,string GuidString)
+        {
+            try
+            {
+                string[] multi = To.Split(';');
+                MailMessage mail = new MailMessage();
+                foreach (string multipleId in multi)
+                {
+                    mail.To.Add(new MailAddress(multipleId));
+                }
+                mail.From = new MailAddress("pmoalerts@nuvento.com");
+                mail.Subject = Subject;
+                SmtpClient smtp = new SmtpClient();
+                string password = DefaultDecrypt(GuidString).TrimStart();
+                string[] DocumentUrl = Attachment.Split('|');
+                string timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                if (EType == "Document")
+                {
+                    byte[] mailArray = null;
+                    mail.Body = Body;
+                    try
+                    {
+                        mailArray = MethDownloadAttachment(BuildFileName(Attachment, WebUrl), password, DocumentUrl, AttachmentName);
+                        var attachment = new Attachment(new MemoryStream(mailArray), "Documents" + timeStamp + ".zip");//change return type to stream in zipfilecustom file
+                        mail.Attachments.Add(attachment);
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        GeneralFunctions genFun = new GeneralFunctions();
+                        genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                            Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                            Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                        genFun = null;
+                    }
+                }
+                else
+                {
+                    mail.Body = "Password is " + password; 
+                }
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.Credentials = new NetworkCredential("pmoalerts@nuvento.com", "Portal2017");
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return false;
+            }
+        }
+        public string DefaultDecrypt(string CipherText)
+        {
+            try
+            {
+                byte[] b;
+                string decrypted;
+                try
+                {
+                    b = Convert.FromBase64String(CipherText);
+                    decrypted = Encoding.ASCII.GetString(b);
+                }
+                catch (FormatException ex)
+                {
+                    GeneralFunctions genFun = new GeneralFunctions();
+                    genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                        Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                        Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                    genFun = null;
+                    decrypted = "";
+                }
+                return decrypted.ToString();
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return "";
+            }
+        }
+        public byte[] MethDownloadAttachment(string DocumentContents, string password,string[] DocumentUrl,string[] AttachmentName)
+        {
+            string[] fromClient = DocumentContents.Split('|');
+            string timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            if (fromClient.Length > 1)
+            {
+                return CreateSample(string.Empty, string.Empty, "Documents"+ timeStamp + ".zip", "Compressed Files", string.Empty,
+                password, fromClient, DocumentUrl, AttachmentName);
+            }
+            return null;
+        }
+        public byte[] CreateSample(string From, string To, string AttachmentFileName, string Subject, string Body, 
+            string password, string[] Files,string[] DocumentUrl,string[] AttachmentName)
+        {
+            using (MemoryStream outputMemStream = new MemoryStream())
+            {
+                using (ZipOutputStream zipStream = new ZipOutputStream(outputMemStream))
+                {
+                    zipStream.SetLevel(3);
+                    zipStream.Password = password;
+                    CompressFolderZip(zipStream, DocumentUrl, AttachmentName);
+                    zipStream.IsStreamOwner = false;
+                    zipStream.Close();
+                    outputMemStream.Position = 0;
+                    return outputMemStream.ToArray();
+                }
+            }
+        }
+        private string BuildFileName(string docUrl, string webUrl)
+        {
+            string allDocs = string.Empty;
+            try
+            {
+                string[] docsPath = docUrl.Split('|');
+                if (docUrl != "")
+                {
+                    for (int i = 0; i < docsPath.Length; i++)
+                    {
+                        allDocs = allDocs + webUrl + docsPath[i] + "|";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            return allDocs;
+        }
+        private void CompressFolderZip(ZipOutputStream zipStream, string[] fromClient, string[] AttachmentName)
+        {
+            try
+            {
+                string[] files = new string[] { };
+                string fileName = "";
+                ZipEntry newEntry = null;
+                for (int i = 0; i < AttachmentName.Length; i++)
+                {
+                    fileName = AttachmentName[i];
+                    files = Directory.GetFiles(Server.MapPath("~/Uploads/"), fileName);
+                    FileInfo fl = new FileInfo(files[0]);
+                    if (fl != null)
+                    {
+                        newEntry = new ZipEntry(fl.Name);
+                        zipStream.PutNextEntry(newEntry);
+                        byte[] buffer = new byte[4096];
+                        using (FileStream streamReader = fl.OpenRead())
+                        {
+                            ICSharpCode.SharpZipLib.Core.StreamUtils.Copy(streamReader, zipStream, buffer);
+                        }
+                        zipStream.CloseEntry();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+        }
+        [HttpPost]
+        public JsonResult SendMailToUser(string EType, string To, string Subject, string Body,
+            string Attachment, string WebUrl,string[] AttachmentName,string PasswordText)
+        {
+            bool result = false;
+            result = EmailDocuments(EType, To, Subject, Body, Attachment, WebUrl, AttachmentName, PasswordText);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult SendEmailToResource(int ProjId, string EmpId, int OperationId)
+        {
+            NuPortalProjectService.NuPortalProject projectService = new NuPortalProjectService.NuPortalProject();
+            projectService.Url = Constants.ProjectService;
+            try
+            {
+                string jsonString = projectService.SendMailToResource(ProjId, EmpId, Convert.ToInt32(Session["EmpID"]), OperationId);
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                projectService = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+    }
+}

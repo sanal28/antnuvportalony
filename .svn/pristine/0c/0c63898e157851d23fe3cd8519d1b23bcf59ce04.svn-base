@@ -1,0 +1,461 @@
+﻿@model IEnumerable<NuPortal.Models.Project>
+
+@*@if (Model==null||Model.ToList().Count == 0)
+{
+    Response.Redirect("~/project/create");
+    //Response.Redirect("~/projects/view?projID=4");
+}*@
+
+@{
+    var item = @Model.ToList()[0];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+        id = Convert.ToInt16(Request["hdnId"].ToString());
+    
+}
+    
+<script>
+    var resources = new Array();
+    var roles = new Array();
+    $(document).ready(function () {
+        sliding();
+        if ('@item.Manager' != "") {
+            var managertxt = '@item.Manager';
+            var resourceArr="";
+            if (@Html.Raw(Json.Encode(@ViewData["Resources"])) != "")
+                resourceArr = JSON.parse(@Html.Raw(Json.Encode(@ViewData["Resources"])));
+            else
+                $(".myprojectroleassign").hide();
+            var managerArr=managertxt.split(',');
+            for (var i = 0; i < resourceArr.length; i++) {
+                resources.push({ id: resourceArr[i]["FK_Resources"], name: resourceArr[i]["FirstName"] });
+                $('#txtResource').parent().find("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + resourceArr[i]["FK_Resources"] + "'>" + resourceArr[i]["FirstName"] +
+                                "</label></div></div>");
+                roles.push({
+                    Name: resourceArr[i]["FirstName"],
+                    Resource: resourceArr[i]["FK_Resources"],
+                    Role: resourceArr[i]["FK_RoleId"],
+                    BillingHours:resourceArr[i]["BillingHours"],
+                    RoleName: resourceArr[i]["RoleName"],
+                    Rate: resourceArr[i]["RatePerHour"],
+                    Percent: resourceArr[i]["Allocation"],
+                    Billable: resourceArr[i]["BillingStatus"] == true ? 1 : 0
+                });
+            }
+            for(var i=0;i<managerArr.length;i++){
+                $('#txtManager').parent().find("#listManager").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + managerArr[i].split('#')[0] + "'>" + managerArr[i].split('#')[1] +
+                               "</label></div></div>");
+            }
+
+        }
+        var filesStr = '@item.Attachments'.split('||');
+        for (var i = 0; i < filesStr.length-1; i++)
+            CheckExtension($('#divAttach'), filesStr[i], filesStr[i].split('\\').pop(), "", $('#divAttach'), 1);
+
+        $('#divAttach').show();
+        $('select').each(function () { $(this).click(); });
+
+        if ('@item.ClientName' == "")
+            $(".myprojecttxt").hide();
+        if ('@item.EndDate' == "01-01-1753" )
+            $("#endDate").val("");
+        else
+            $("#endDate").val('@item.EndDate');
+        if ('@item.StartDate' == "01-01-1753" )
+            $("#startDate").val("");
+        else
+            $("#startDate").val('@item.StartDate');
+        if (@item.PlannedHours == 0 )
+            $("#plannedHours").val("");
+        else
+            $("#plannedHours").val('@item.PlannedHours');
+        LoadDdls('/projects/GetDepartment?opId=10',$('#ddlRole'),'RoleId','RoleName');
+    });
+
+    function postClientId() {
+        var clientId = $('#popClient').val();
+        $('#hdnId').val(clientId);
+        $('#TypeId').val(1);
+        $('#ProjId').val(@id);
+        $("#frmProjects").attr("action", "/Client/ClientInfo");
+        $('#frmProjects').submit();
+
+    }
+
+    function AssignRole() {
+        $('#divResList')[0].innerHTML = "";
+        if (resources.length > 0) {
+            for (var i = 0; i < resources.length; i++) {
+                $('#divResList').append("<div class='resourcesnames' onclick='updateselectedRole(this);'><a href='#'>" + resources[i].name + "</a><input type='hidden' value='" + resources[i].id + "'></div>");
+            }
+            var roleExist = roles.find(function (x) {
+                if (x.Resource == resources[0].id)
+                    return x;
+            });
+            if (roleExist != undefined) {
+                //$('#ddlRole').find('option').remove();
+                //$('#ddlRole').append($('<option>', {
+                //    value: "",
+                //    text: roleExist.RoleName
+                //}));
+                $("#ddlRole").val(roleExist.Role);
+                $("#ddlRole").click();
+                $('#txtRate').val("" + roleExist.Rate==0?"":roleExist.Rate + "");
+                $('#txtBillingHrs').val("" + roleExist.BillingHours==0?"":roleExist.BillingHours + "");
+                roleExist.Billable == 1 ? $('#myonoffswitch').attr('checked', 'checked') : $('#myonoffswitch').removeAttr('checked');
+                var slid = $('#divSliders').slider(function () { value: 0 });
+                slid.slider("value", parseInt(roleExist.Percent));
+                $('#lblPercentage')[0].innerText = roleExist.Percent;
+            }
+        }
+        $('.resourcesnames:first').find('a').attr("class", "currentResource");
+        $('.resourcesnames:first').find('a').attr("style", "color: #27c3fe;text-decoration: none;");
+        $('#divSliders').css('pointer-events','none');
+        $('#dlgRole')[0].showModal();
+    }
+
+    function updateselectedRole(obj) {
+        $("#dlgRole").find(".currentResource").removeAttr("style");
+        $("#dlgRole").find(".currentResource").removeAttr("class");
+        $(obj).find('a').attr("class", "currentResource");
+        $(obj).find('a').attr("style", "color: #27c3fe;text-decoration: none;");
+        var roleExist = roles.find(function (x) {
+            if (x.Resource == $(obj).find('input').val())
+                return x;
+        });
+        if (roleExist != undefined) {
+            //$('#ddlRole').find('option').remove();
+            //if(roleExist.RoleName != null)
+            //{
+            //    $('#ddlRole').append($('<option>', {
+            //        value: "",
+            //        text: roleExist.RoleName
+            //    }));
+            //}
+            $("#ddlRole").val(roleExist.Role);
+            $("#ddlRole").click();
+            $('#txtRate').val("" + roleExist.Rate==0?"":roleExist.Rate + "");
+            $('#txtBillingHrs').val("" + roleExist.BillingHours==0?"":roleExist.BillingHours + "");
+            roleExist.Billable == 1 ? $('#myonoffswitch').attr('checked', 'checked') : $('#myonoffswitch').removeAttr('checked');
+            var slid = $('#divSliders').slider(function () { value: 0 });
+            slid.slider("value", parseInt(roleExist.Percent));
+            $('#lblPercentage')[0].innerText = roleExist.Percent;
+        }
+    }
+
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            $('#filehidden').val($('#filehidden').val().replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+            if ($('#divAttach').children().length == 0)
+                $('#divAttach').hide();
+        });
+    };
+    function CloseAssignRole()
+    {
+        $('#txtResSearch').val("");
+        javascript:$('#dlgRole')[0].close();
+    }
+    function FilterResources(){
+        var IsFirstElmt = true;
+        $("#divNoRecFound").remove();
+        if($('#txtResSearch').val()!=""){
+            $('.resourcesnames').each(function(){
+                if($(this).find('a')[0].innerText.toLowerCase().indexOf($('#txtResSearch').val().toLowerCase())==-1)
+                    $(this).hide();
+                else
+                {
+                    if(IsFirstElmt)
+                    {
+                        updateselectedRole(this);
+                        IsFirstElmt=false;
+                    }
+                    $(this).show();
+                }
+            });
+            if($('.resourcesnames').length == $(".resourcesnames:hidden").length)
+            {
+                $('#divResList').append('<div id="divNoRecFound" class="NoRecFoundResSearch">No Resource Found</div>');
+                ClearAssignRole();
+            }
+        }
+        else{
+            $('.resourcesnames').each(function(){
+                if(IsFirstElmt){
+                    updateselectedRole(this);
+                    IsFirstElmt=false;
+                }
+                $(this).show();
+            });
+            if($('.resourcesnames').length === 0)
+            {
+                $('#divResList').append('<div id="divNoRecFound" class="NoRecFoundResSearch">No Resource Found</div>');
+                ClearAssignRole();
+            }
+        }
+    }
+    function ClearAssignRole()
+    {
+        $("#ddlRole").attr('value','');
+        $('#txtRate').val("");
+        $('#txtBillingHrs').val("");
+        $('#myonoffswitch').attr('checked','checked');
+        $('.lblPercentage').text(0);
+        $('#lblPercentage').innerText="0";
+        sliding();
+    }
+</script>
+<form id="frmProjects" action="" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+    @Html.Hidden("ProjId", new { id = "ProjId", name = "ProjId" })
+    @Html.Hidden("TypeId", new { id = "TypeId", name = "TypeId" })
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/project-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">@item.ProjectName</div>
+            </div>
+        </div>
+    </div>
+    <dialog id="dlgRole" style="width: 90%;background: transparent;top: 25%;left: 5%;border: none;">
+        <div class="col-md-12">
+            <div class="popupmaindiv" style="padding:5px">
+                <div class="popupmaindiv">
+                    <div class="popupheadingmaindiv">
+                        <div class="popupheadingtext">Assign Role for Resources</div>
+                        <div class="popupclosebutton"><a href="#" onclick="CloseAssignRole()">X</a></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="resourcesearchmaindiv">
+                            <table width="95%" align="center" border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td><input class="searchtext" type="text" id="txtResSearch"></td>
+                                        <td><a href="#"><img src="../images/search-icon.png" width="16" height="16" alt="" onclick="FilterResources();" /></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="addrolemaindiv" id="divResList">
+
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="contentfielddiv">
+                                    <select class="floating-select" id="ddlRole" value="" onclick="this.setAttribute('value', this.value);" placeholder=" ">
+                                        <option value=""></option>
+                                    </select>
+                                    <label class="float">Role</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="contentfielddiv">
+                                    <input type="text" class="floating-input" id="txtRate" placeholder=" " disabled/>
+                                    <label class="float">Rate Per Hour</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="contentfielddiv">
+                                    <input type="text" class="floating-input" id="txtBillingHrs" placeholder=" " disabled/>
+                                    <label class="float">Billing Hours</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="weeklytext">Utilization</div>
+                                <div class="priorityslidermaindiv">
+                                    <div class="sliders priorityslidermaindiv" id="divSliders">
+                                        <div class="percentageslider NewTaskSlider" id="divPerSlider"></div>
+                                        <label class="lblPercentage" id="lblPercentage" style="color: aliceblue;">0</label><font color="aliceblue">%</font>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="weeklyoffmaindiv">
+                                    <div class="weeklytext">Billing Status</div>
+                                    <div class="workstarttimediv">
+                                        <div class="onoffswitch" >
+                                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked disabled>
+                                            <label class="onoffswitch-label" for="myonoffswitch">
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </dialog>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <div class="myprojecttxt"> <a onclick="postClientId();" href="#">Client Info</a></div>
+            <a class="backbuttondiv" href="/Projects/Projects"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="startDate" type="text" class="floating-input" value="" placeholder=" " readonly disabled/>
+                    <label class="float">Start Date</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="endDate" type="text" class="floating-input" value="" placeholder=" " readonly disabled/>
+                    <label class="float">End Date</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select" disabled>
+                        <option value="0" selected>@item.Status</option>
+                    </select>
+                    <label class="float">Status</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select" disabled>
+                        <option value="0" selected>@item.Priority</option>
+                    </select>
+                    <label class="float">Priority</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="plannedHours" type="text" class="floating-input" value="" placeholder=" "  readonly disabled/>
+                    <label class="float">Planned Hours</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" class="floating-input" value="@item.Department" placeholder=" " readonly  disabled/>
+                    <label class="float">Department</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="hidden" value="@item.ClientId" id="popClient"/>
+                    <input type="text" class="floating-input" value="@item.ClientName" placeholder=" "  readonly disabled/>
+                    <label class="float">Client Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" class="floating-input" value="@item.ClientContact" placeholder=" "  readonly disabled/>
+                    <label class="float">Client Contact</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" class="floating-input" value="@item.ProjectType" placeholder=" "  readonly disabled/>
+                    <label class="float">Project Type</label>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" class="floating-input" value="@item.ProjectCategory" placeholder=" "  readonly disabled/>
+                    <label class="float">Project Category</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" class="floating-input" value="@item.URL" placeholder=" "  readonly disabled/>
+                    <label class="float">URL</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" class="floating-input" value="@item.CostCentre" placeholder=" "  readonly disabled/>
+                    <label class="float">Cost Center</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" class="floating-input" value="@item.Technologies" placeholder=" "  readonly disabled/>
+                    <label class="float">Technologies</label>
+                </div>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="contentfielddiv">
+                    <div class="weeklytext" style="padding:0px !important;margin:0px !important;">Managers</div>
+                    <div class="floating-input autocomplete-textarea" id="divManager">
+                        <div id="listManager" class="list competancylist"></div>
+                        <input type="text" class="competancy txtManager" id="txtManager" placeholder=" " disabled />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="contentfielddiv">
+                    <div class="textarea-wrapper">
+                        <textarea style="width:100% !important" class="floating-input floating-textarea" placeholder=" " readonly disabled>@item.ProjectDescription</textarea>
+                        <label class="float">Project Description</label>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-11">
+                <div class="contentfielddiv">
+                    <div class="weeklytext" style="padding-left:0px !important">Resources</div>
+                    <div class="floating-input autocomplete-textarea">
+                        <div id="listResources" class="list competancylist"></div>
+                        <input type="text" class="competancy txtManager" id="txtResource" placeholder=" " disabled />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="contentfielddiv">
+                    <div class="myprojectroleassign"><a href="#" onclick="AssignRole();">Assign Role</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="weeklyoffmaindiv">
+                    <div class="weeklytext">Documents</div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row" id="divAttach" style="display:none;max-width:inherit">
+
+        </div>
+    </div>
+</div>
+

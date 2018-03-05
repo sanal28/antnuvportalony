@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SaveNewRequestTypes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="categoryName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="categoryType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CategoryTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="GroupId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveNewRequestTypesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveNewRequestTypesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetGroupMembers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ResourceId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonGroupDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetGroupMembersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetGroupMembersResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDeptGroups">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DeptId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDeptGroupsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetDeptGroupsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDepts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonDeptDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDeptsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateDeptsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateGroups">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonGroupDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateGroupsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateGroupsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CustomizationByAdmin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="JsonData" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CategoryTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CustomizationByAdminResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CustomizationByAdminResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SaveNewRequestTypesSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveNewRequestTypes" />
+  </wsdl:message>
+  <wsdl:message name="SaveNewRequestTypesSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveNewRequestTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetGroupMembersSoapIn">
+    <wsdl:part name="parameters" element="tns:SetGroupMembers" />
+  </wsdl:message>
+  <wsdl:message name="SetGroupMembersSoapOut">
+    <wsdl:part name="parameters" element="tns:SetGroupMembersResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetDeptGroupsSoapIn">
+    <wsdl:part name="parameters" element="tns:SetDeptGroups" />
+  </wsdl:message>
+  <wsdl:message name="SetDeptGroupsSoapOut">
+    <wsdl:part name="parameters" element="tns:SetDeptGroupsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDeptsSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateDepts" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDeptsSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateDeptsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateGroupsSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateGroups" />
+  </wsdl:message>
+  <wsdl:message name="UpdateGroupsSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateGroupsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CustomizationByAdminSoapIn">
+    <wsdl:part name="parameters" element="tns:CustomizationByAdmin" />
+  </wsdl:message>
+  <wsdl:message name="CustomizationByAdminSoapOut">
+    <wsdl:part name="parameters" element="tns:CustomizationByAdminResponse" />
+  </wsdl:message>
+  <wsdl:portType name="NuPortalAdminServiceSoap">
+    <wsdl:operation name="SaveNewRequestTypes">
+      <wsdl:input message="tns:SaveNewRequestTypesSoapIn" />
+      <wsdl:output message="tns:SaveNewRequestTypesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetGroupMembers">
+      <wsdl:input message="tns:SetGroupMembersSoapIn" />
+      <wsdl:output message="tns:SetGroupMembersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetDeptGroups">
+      <wsdl:input message="tns:SetDeptGroupsSoapIn" />
+      <wsdl:output message="tns:SetDeptGroupsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDepts">
+      <wsdl:input message="tns:UpdateDeptsSoapIn" />
+      <wsdl:output message="tns:UpdateDeptsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGroups">
+      <wsdl:input message="tns:UpdateGroupsSoapIn" />
+      <wsdl:output message="tns:UpdateGroupsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CustomizationByAdmin">
+      <wsdl:input message="tns:CustomizationByAdminSoapIn" />
+      <wsdl:output message="tns:CustomizationByAdminSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NuPortalAdminServiceSoap" type="tns:NuPortalAdminServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SaveNewRequestTypes">
+      <soap:operation soapAction="http://tempuri.org/SaveNewRequestTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetGroupMembers">
+      <soap:operation soapAction="http://tempuri.org/SetGroupMembers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDeptGroups">
+      <soap:operation soapAction="http://tempuri.org/SetDeptGroups" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDepts">
+      <soap:operation soapAction="http://tempuri.org/UpdateDepts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGroups">
+      <soap:operation soapAction="http://tempuri.org/UpdateGroups" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CustomizationByAdmin">
+      <soap:operation soapAction="http://tempuri.org/CustomizationByAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NuPortalAdminServiceSoap12" type="tns:NuPortalAdminServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SaveNewRequestTypes">
+      <soap12:operation soapAction="http://tempuri.org/SaveNewRequestTypes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetGroupMembers">
+      <soap12:operation soapAction="http://tempuri.org/SetGroupMembers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDeptGroups">
+      <soap12:operation soapAction="http://tempuri.org/SetDeptGroups" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDepts">
+      <soap12:operation soapAction="http://tempuri.org/UpdateDepts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGroups">
+      <soap12:operation soapAction="http://tempuri.org/UpdateGroups" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CustomizationByAdmin">
+      <soap12:operation soapAction="http://tempuri.org/CustomizationByAdmin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NuPortalAdminService">
+    <wsdl:port name="NuPortalAdminServiceSoap" binding="tns:NuPortalAdminServiceSoap">
+      <soap:address location="http://192.168.1.18:97/NuPortalAdminService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="NuPortalAdminServiceSoap12" binding="tns:NuPortalAdminServiceSoap12">
+      <soap12:address location="http://192.168.1.18:97/NuPortalAdminService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

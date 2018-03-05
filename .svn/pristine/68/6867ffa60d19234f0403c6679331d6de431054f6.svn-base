@@ -1,0 +1,234 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/sm-add group.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Add Group</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv" style="height:50px">
+            <a class="backbuttondiv" id="hrefBack" href="/AdminHome/AdminHome"><img title="Back" alt="Back" width="30" height="30" src="~/Images/back-button.png" /></a>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="addrequestdiv">
+                    <table width="98%" align="center" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td><input class="searchtext" id="txtNewItem" type="text"></td>
+                                <td align="center"><a href="#" id="hrefAdd"><img title="Add" src="../images/add-icon.png" width="16" height="16" alt="" /></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="space1"></div>
+                <div class="Departmentleftdiv" id="dragGrp01" ondrop="drop(event,1)" ondragover="allowDrop(event)">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                    </div>
+                </div>
+                <div class="space2"></div>
+                <div class="addDEPTDropdiv" id="dropGrp" ondrop="drop(event,2)" ondragover="allowDrop(event)">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" onclick="SaveDataToDb()" /></div>
+            <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onclick="LoadResourcesAndGroups();"/></div>
+            <div class="labelmessage"><label id="lblSaveMessage" class="lblMessage"></label></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev,type) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.closest('.DEPTtxt').appendChild(document.getElementById(data));
+        if (type = 2 && $('#' + data).Id != "dropGrp")
+            $('#' + data).find('.CUSREQClosebtn').html("<a title='Close' href='#' id='hrefRemove' class='hrefAddRemove'>X</a>");
+        var obj = $('#' + data).find('a');
+        if (obj.length > 0) {
+            obj.addClass('hrefDragRemove');
+            obj.removeClass('hrefAddRemove');
+            DefineHref();
+        }
+    }
+    $(document).ready(function () {
+        $(".CUSREQClosebtn").hide();
+        LoadResourcesAndGroups();
+        $('#hrefAdd').click(function (e) {
+            e.preventDefault();
+            var IsPresent = false;
+            $('#dropGrp > .DEPTtxt > .CUSREQtxt').each(function () {
+                if ($(this).find('.lblText').text().toLowerCase().trim() == $('#txtNewItem').val().toLowerCase().trim())
+                    IsPresent = true;
+            });
+            $('#dragGrp01 > .CUSREQtxt').each(function () {
+                if ($(this).find('.lblText').text().toLowerCase().trim() == $('#txtNewItem').val().toLowerCase().trim())
+                    IsPresent = true;
+            });
+            if ($('#txtNewItem').val() != "") {
+                if (!IsPresent) {
+                    $('#dragGrp01').append("<div class='CUSREQtxt' draggable='true' name='0' ondragstart='drag(event,1)' id='drag" + idCount + "'><label class='lblText'>" +
+                               $('#txtNewItem').val() + "</label><span class='CUSREQClosebtn'><a title='Close' href='#' id='hrefRemove' class='hrefAddRemove'>X</a></span></div>");
+                    idCount++;
+                    $('#lblSaveMessage').text("");
+                    DefineHref();
+                }
+                else {
+                    $('#lblSaveMessage').removeClass("lblMessage");
+                    $('#lblSaveMessage').addClass("lblError");
+                    $('#lblSaveMessage').text("Group already exists");
+                }
+            }
+            $('#txtNewItem').val("");
+        });
+    });
+    function DefineHref() {
+        $('.hrefAddRemove').click(function (e) {
+            e.preventDefault();
+            $(this).closest('.CUSREQtxt').remove();
+        });
+        $('.hrefDragRemove').click(function (e) {
+            e.preventDefault();
+            $(this).removeClass('hrefDragRemove');
+            $(this).addClass('hrefAddRemove');
+            $(this).closest('.CUSREQtxt').remove();
+            var obj = $(this).closest('.CUSREQtxt');
+            $('#dragGrp01').append(obj);
+            DefineHref();
+        });
+    }
+    var idCount = 0;
+    function LoadResourcesAndGroups()
+    {
+        $('.clearbtn').prop('disabled', true);
+        $('#lblSaveMessage').text("");
+        $('#dropGrp').empty();
+        $('#dragGrp01').empty();
+        $('#txtNewItem').val("");
+        $.ajax({
+            url: '/AdminHome/GetDataFromDB',
+            type: "GET",
+            dataType: 'json',
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (resultVals[i]["DepartmentId"] != 0) {
+                            if ($("#dropGrp > .DEPTtxt[name='" + resultVals[i]["DepartmentId"] + "']").length == 0)
+                                $('#dropGrp').append("<div class='DEPTtxt' name='" + resultVals[i]["DepartmentId"] +
+                                        "' id='drag" + idCount + "'><label class='lblText'>" +
+                                       resultVals[i]["DepartmentName"] + "</label><span class='CUSREQClosebtn'></span></div>");
+                            idCount++;
+                            if (resultVals[i]["GroupId"] != 0) {
+                                $("#dropGrp > .DEPTtxt[name='" + resultVals[i]["DepartmentId"] + "']").append("<div class='CUSREQtxt' draggable='true' name='" +
+                                 resultVals[i]["GroupId"] + "' ondragstart='drag(event,2)' id='drag" + idCount + "'><label class='lblText'>" +
+                                 resultVals[i]["GroupName"] + "</label><span class='CUSREQClosebtn'></span></div>");
+                            }
+                        }
+                        else if (resultVals[i]["GroupId"] != 0) {
+                            $('#dragGrp01').append("<div class='CUSREQtxt' draggable='true' name='" + resultVals[i]["GroupId"] +
+                            "' ondragstart='drag(event,1)' id='drag" + idCount + "'><label class='lblText'>" +
+                           resultVals[i]["GroupName"] + "</label><span class='CUSREQClosebtn'></span></div>");
+                        }
+                        idCount++;
+                    }
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+        $('.clearbtn').prop('disabled', false);
+    }
+    function SaveDataToDb() {
+        var DataArray = new Array();
+        $('#dropGrp > .DEPTtxt > .CUSREQtxt').each(function () {
+            DataArray.push({ "Name": $(this).find('.lblText').text(), "Id": parseInt($(this).closest('.DEPTtxt').attr("name"))});
+        });
+        if (DataArray.length > 0) {
+            $.ajax({
+                url: '/AdminHome/SaveCategory',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    CategoryTypeId: 0,
+                    jsonData: JSON.stringify(DataArray),
+                    Operation: 3
+                },
+                success: function (data) {
+                    ShowLabelMessage(data, "Groups" , $('#lblSaveMessage'));
+                },
+                error: function (response) {
+                },
+                failure: function (response) {
+                }
+            });
+        }
+    }
+        $(function () {
+        $("#txtResources").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/AdminHome/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'Name': '" + request.term + "','Operation': '1','IdVal' : 'EmpId','NameVal' : 'FirstName'}",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                    },
+                    failure: function (response) {
+                    }
+                });
+            },
+            select: function (e, i) {
+                if (i.item.label != "") {
+                    $("#listResources").empty();
+                    $("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                                 "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                             "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+                    $(this).val("");
+                    PreventDefaultClick();
+                    return false;
+                }
+            },
+            minLength: 1
+        });
+    });
+</script>

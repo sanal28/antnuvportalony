@@ -1,0 +1,628 @@
+﻿@{
+    ViewBag.Title = "NewTask";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = 0;
+    int typeId = 0;
+    int projectId = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt32(Request["hdnId"]);
+    }
+    if (Request["TypeId"] != null && Request["TypeId"] != "")
+    {
+        typeId = Convert.ToInt16(Request["TypeId"]);
+    }
+    if (Request["projectId"] != null && Request["projectId"] != "")
+    {
+        projectId = Convert.ToInt32(Request["projectId"]);
+    }
+}
+<form id="frmTask" action="" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+</form>
+@using (Html.BeginForm())
+{
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv">
+                        <div class="mainheadericon">
+                            <img src="~/Images/my-project-task-sm.png" width="45" height="45" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-11">
+                    <div class="mainheaderdiv" id="divHeading">New Task</div>
+                </div>
+            </div>
+        </div>
+        <div class="contentmaindiv">
+            <div id="DivClearAll">
+                <div class="myprojectdiv">
+                    <div id="divComments">
+                        <div class="myprojecttxt"> <a onclick="CustomPopUp();" href="#">Comments</a></div>
+                    </div>
+                    @*<div class="backbuttondiv">*@
+                        <a class="backbuttondiv" id="hrefBack" href="#"><img title="Back" alt="back" width="30" height="30" src="~/Images/back-button.png" /></a>
+                    @*</div>*@
+                </div>
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @*<input type="hidden" value="@Request.RequestContext.HttpContext.Session["ProjectId"]" id="hdnProjectId" />*@
+                            <input type="hidden" id="hfTaskId" value="0" />
+                            <input type="text" id="txtTaskName" class="floating-input vinput" placeholder=" " />
+                            <label class="float">Task Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input type="text" id="txtStartDate" class="floating-input vdate vsdate" placeholder=" " />
+                            <label class="float">Start Date</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input type="text" id="txtEndDate" class="floating-input vdate vedate" placeholder=" " />
+                            <label class="float">End Date</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input type="text" id="txtPlannedHours" class="floating-input vinput vfloat" placeholder=" " />
+                            <label class="float">Planned Hours</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input type="text" id="txtProjectPhase" class="floating-input" placeholder=" " />
+                            <label class="float">Project Phase</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <select id="ddlTaskStatus" class="floating-select vselect" onclick="this.setAttribute('value', this.value);" value="">
+                                <option value=""></option>
+                            </select>
+                            <label class="float">Task Status</label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv" id="resourcesdiv">
+                            <div class="weeklytext" style="padding-left:0px !important">Resources</div>
+                            <div class="floating-input autocomplete-textarea vresources" id="divResources">
+                                <div id="listResources" class="list competancylist"></div><input type="text" class="competancy " id="txtResources" placeholder=" " />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <textarea id="txtTaskDetails" class="floating-input floating-textarea" placeholder=" "></textarea>
+
+                            <label class="float">Task Details</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 txtComments">
+                        <div class="contentfielddiv">
+                            <textarea id="txtComments" class="floating-input floating-textarea" placeholder=" "></textarea>
+                            <label class="float">Comments</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="weeklyoffmaindiv">
+                            <div class="weeklytext">Priority</div>
+                            <div class="priorityslidermaindiv">
+                                <input type="hidden" id="hfSliderId" value="0" />
+                                <div id="slider-2" class="NewTaskSlider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+                                    <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 50%;"></a>
+                                </div>
+                            </div>
+                            <div class="prioratyvaluemaindiv">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td align="left" class="prioratyvaluevalue">Low</td>
+                                            <td align="center" class="prioratyvaluevalue">Medium</td>
+                                            <td align="right" class="prioratyvaluevalue">High</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="weeklyoffmaindiv">
+                            <div class="cbToggle">Billable</div>
+                            <div class="workstarttimediv">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                                    <label class="onoffswitch-label" for="myonoffswitch">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <table width="100%" border="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td width="90%">
+                                        <div class="contentfielddiv">
+                                            <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                            <input type="file" style="display:none" id="fileUploadAttachment" class="fileUploadAttachment contenttextfield hideDiv" placeholder="Attachment" multiple />
+                                        </div>
+                                    </td>
+                                    <td width="10%">
+                                        <div class="uploadbutton">
+                                            <img title="Upload" id="fileUrl" style="display:none" class="imgExpFileUpload hideDiv" src="../Images/upload.gif" width="25" height="25" alt="" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" id="divSentAlerts">
+                    <div class="col-md-2">
+                        <div class="weeklyoffmaindiv">
+                            <div class="cbToggle">Send Alerts</div>
+                            <div class="workstarttimediv">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="cbTaskUpdate" class="onoffswitch-checkbox" id="cbTaskUpdate" checked>
+                                    <label class="onoffswitch-label" for="cbTaskUpdate">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="contentfielddiv">
+                            <label class="float">Sent alerts</label>
+                            <input type="checkbox" class="pull-right" id="cbTaskUpdate">
+                        </div>*@
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="weeklyoffmaindiv ">
+                            <div class="workstarttimediv" style="max-height:50px;">
+                                <div id="divTaskDocs" class="docDiv">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttonmaindiv">
+                <div class="buttondiv"><input class="submitbtn" type="button" id="btnSaveNewTask" title="Save" /></div>
+                <div class="buttondiv"><input title="Save And New" class="submitandnewbtn" type="button" id="btnSaveandnewTask" /></div>
+                <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onClick="return ClearControls()" /></div>
+                <div class="ErrorLabel">
+                <label id="lblMessage" class="lblMessage"></label>
+                </div>
+            </div>
+        </div>
+        <dialog id="dlgAnnouncement" style="width:50%;background: transparent;top: 25%;left: 5%;border: none;">
+            <div class="popupmaindiv" style="padding:5px">
+                <div class="popupmaindiv">
+                    <div class="popupheadingmaindiv">
+                        <div class="popupheadingtext">Task Comments</div>
+
+                        <div class="popupclosebutton"><a href="#" onclick="closedlg();">X</a></div>
+                    </div>
+                </div>
+                <div id="divAnnouncementReadMore">
+                </div>
+            </div>
+        </dialog>
+    </div>
+}
+<script type="text/javascript">
+    var typeId=@typeId;
+    var id=@id;
+    var projectId=@projectId;
+    $(document).ready(function () {
+        $('#cbTaskUpdate').prop('checked', true);
+        $('#hrefBack').click(function(){
+            $('#hdnId').val(projectId);
+            $('#frmTask').attr("action", "/Task/TasksLog");
+            $('#frmTask').submit();
+        });
+        DefineDatePicker($('#txtStartDate'));
+        DefineDatePicker($('#txtEndDate'));
+        LoadDdls("/Task/GetTaskName", $('#ddlTaskStatus'), "ProjectStatusId", "StatusText");
+        if(typeId!=3)
+            $('.hideDiv').show();
+        if(id!=0) //NewTask View
+        {
+            LoadDataFromDB();
+            $('#divSentAlerts').show();
+            loadComments();
+            $('#divComments').show();
+
+        }
+        else
+         $('#divSentAlerts').hide();
+        if(id==0){
+            $('#divComments').hide();
+
+        }
+        DefineSlider();
+    });
+
+    function ClearControls()
+    {
+        $('#lblMessage').text("");
+        ClearAllControlValues('DivClearAll');
+        $('#myonoffswitch').attr('checked','checked');
+        $('#hfSliderId').val(0);
+        DefineSlider();
+    }
+
+    function DefineSlider()
+    {
+        $("#slider-2").slider({
+            value: parseInt($('#hfSliderId').val()),
+            animate: "slow",
+            step: 50,
+            orientation: "horizontal",
+            change: function (event, ui) {
+                $("#hfSliderId").attr('value', ui.value);
+            }
+        });
+    }
+    $(function () {
+        var btId = 0;
+        $("#btnSaveNewTask").click(function () {
+
+            btId = $(this).attr("id");
+            $("#btnSaveandnewTask").trigger("click");
+
+
+        });
+        $("#btnSaveandnewTask").click(function () {
+            if (ValidateAll('DivClearAll', 'lblMessage')) {
+                if(typeId==2)
+                {
+
+                    $.ajax({
+                        url: '/Task/UpdateTask',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            TaskName: $("#txtTaskName").val(), StartDate: FormatDate($("#txtStartDate").val(),'yyyy/mm/dd'),
+                            EndDate: FormatDate($("#txtEndDate").val(),'yyyy/mm/dd'),
+                            PlannedHours: $("#txtPlannedHours").val()!=""?parseFloat($("#txtPlannedHours").val()):0, ProjectPhase: $("#txtProjectPhase").val(),
+                            taskstatusId: parseInt($("#ddlTaskStatus").val()), TaskDetails: $("#txtTaskDetails").val(), Comments: $("#txtComments").val(),
+                            Priority: (parseInt($('#hfSliderId').val()) / 50) + 1,
+                            Billable: $("#myonoffswitch").is(":checked") ? 1 : 0,
+                            UploadedFileUrl: $('#filehidden').val(), TskId: id, ProjectId: projectId,UpdateFlag:($("#cbTaskUpdate").is(":checked") ? 1 : 0)
+                        },
+                        success: function (result) {
+                            var resultVals = $.parseJSON(result);
+                            if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+
+                                var dtResources = new Array();
+                                $("#listResources").find(".divcompetancy").each(function () {
+                                    dtResources.push({
+                                        "FKTaskId": id, "FKTaskResources": parseInt($(this).attr("name")), "Status": 1
+                                    });
+                                });
+
+                                $('#lblMessage').text("Task updated successfully");
+                                $("#divAnnouncementReadMore").empty();
+                                $("#txtComments").val("");
+                                loadComments();
+                            }
+                        },
+                        error: function () {
+                        }
+                    });
+
+                }
+                else
+                {
+                    $('#cbTaskUpdate').prop('checked', false);
+                    $.ajax({
+                        url: '/Task/SaveTask',
+                        type: 'POST',
+                        dataType: 'json',
+                        async:false,
+                        data: {
+                            TaskName: $("#txtTaskName").val(), StartDate: FormatDate($("#txtStartDate").val(),'yyyy/mm/dd'),
+                            EndDate: FormatDate($("#txtEndDate").val(),'yyyy/mm/dd'),
+                            PlannedHours: $("#txtPlannedHours").val()!=""?parseFloat($("#txtPlannedHours").val()):0, ProjectPhase: $("#txtProjectPhase").val(),
+                            taskstatusId: parseInt($("#ddlTaskStatus").val()), TaskDetails: $("#txtTaskDetails").val(), Comments: $("#txtComments").val(),
+                            Priority: (parseInt($('#hfSliderId').val()) / 50) + 1,
+                            Billable: $("#myonoffswitch").is(":checked") ? 1 : 0,
+                            UploadedFileUrl: $('#filehidden').val(), ProjectId: projectId
+                        },
+                        success: function (result) {
+                            var resultVals = $.parseJSON(result);
+                            if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                                var taskId = parseInt(resultVals[0]["TasKId"]);
+                                var dtResources = new Array();
+                                var EmpId = 0;
+                                $("#listResources").find(".divcompetancy").each(function () {
+                                    dtResources.push({
+                                        "FKTaskId": taskId, "FKTaskResources": parseInt($(this).attr("name")), "Status": 1,FkTaskStatusId:parseInt($("#ddlTaskStatus").val())
+                                    });
+                                    EmpId = EmpId + "|" + parseInt($(this).attr("name"));
+                                });
+                                EmpId = EmpId.slice(2) + "|";
+                                $.ajax({
+                                    url: '/Task/SaveResources',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        taskID: taskId, jsonData: JSON.stringify(dtResources), EmpIdData : EmpId
+                                    },
+                                    success: function (result) {
+                                        var returnval = $.parseJSON(result);
+                                        if (returnval["Result"] == "Success")
+                                        {
+                                            $('#lblMessage').text("Task Created Successfully");
+                                            if (btId == "btnSaveNewTask") {
+                                                document.getElementById("hrefBack").click();
+                                                btId = 0;
+                                            }
+
+                                            ClearAllControlValues('DivClearAll');
+                                            $("#txtComments").val('');
+                                            $("#txtTaskDetails").val('');
+                                            $("#txtResources").val('');
+                                            $('#myonoffswitch').attr('checked','checked');
+                                            $('#listResources').text('');
+                                            $('#hfSliderId').val(0);
+                                            $('#divTaskDocs').empty();
+                                            DefineSlider();
+                                        }
+                                    },
+                                    error: function () {
+                                    }
+                                });
+                            }
+                        },
+                        error: function () {
+                        }
+                    });
+
+                }
+            }
+        });
+
+        $("#txtResources").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Task/AutoCompleteResources',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'Project':@projectId,'EmpName': '" + request.term + "'}",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                if (i.item.label != "") {
+                    $("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                                "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                            "<a  href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+                    $(this).val("");
+                    return false;
+                }
+
+            },
+            minLength: 1
+        });
+        //if (typeId == 1) {
+
+
+        //}
+    });
+
+    $(function () {
+        $(".imgExpFileUpload").click(function () {
+            var divId = getCurrentDiv();
+            //var fileElement = $(this).closest('tr').find('#fileUploadAttachment');
+            var fileElement = $('#fileUploadAttachment');
+            var hiddenfield = $('#filehidden');
+            var fileCount = hiddenfield.val().split('||').length;
+
+            var expDocUpload = fileElement.get(0);
+            var docElement = $('#divTaskDocs');
+            var expDocFiles = expDocUpload.files;
+            var uploadedFilePath = "";
+            var ExpAttachments = new FormData();
+            if (fileCount + expDocFiles.length > 25) {
+                alert('File count cannot exceed 24!');
+                fileElement.val('');
+                return;
+            }
+            for (i = 0; i < expDocFiles.length; i++) {
+                ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+            }
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: ExpAttachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < expDocFiles.length; i++) {
+                            hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                            CheckExtension(docElement, expDocFiles[i].name, json[expDocFiles[i].name], "<a href='#'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                        }
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+            fileElement.val('');
+        });
+    });
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+
+            var docDivs = $('#divTaskDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+            //if (docDivs.children().length == 0)
+            //    divDocuments.hide();
+        });
+    };
+    function LoadDataFromDB() {
+            $.ajax({
+                url: '/Task/GetTaskDetails',
+                type: 'GET',
+                dataType: 'json',
+                async : false,
+                data: { TaskId: @id, operationId:1 },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    $('.clearbtn').hide();
+
+                    $('.submitandnewbtn').hide();
+                    $('#divHeading').text(resultVals[0]["TaskName"]);
+                    $('#txtStartDate').val(FormatDate(resultVals[0]["StartDate"], "mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[0]["StartDate"], "mm/dd/yyyy"));
+                    $('#txtEndDate').val(FormatDate(resultVals[0]["EndDate"], "mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[0]["EndDate"], "mm/dd/yyyy"));
+                    $('#ddlTaskStatus').val(resultVals[0]["Fk_TaskStatusId"]);
+                    $("#txtTaskName").val(resultVals[0]["TaskName"]);
+                    $("#txtPlannedHours").val(resultVals[0]["PlannedHours"]==0?"":resultVals[0]["PlannedHours"]);
+                    $("#txtProjectPhase").val(resultVals[0]["ProjectPhase"]);
+                    $("#txtTaskDetails").val(resultVals[0]["TaskDetails"]);
+                    $("#txtComments").val(resultVals[0]["Comments"]);
+                    $("#myonoffswitch").prop('checked', resultVals[0]["Billable"]);
+                    $('#hfSliderId').val((parseInt(resultVals[0]["Priority"]) * 50) - 50);
+                    $('#ddlTaskStatus').click();
+                    $('#filehidden').val(resultVals[0]["Attachments"]);
+                    showAttachments(resultVals[0]["Attachments"], $('#divTaskDocs'));
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+            $.ajax({
+                url: '/Task/GetTaskDetails',
+                type: 'GET',
+                dataType: 'json',
+                async: false,
+                data: { TaskId: @id, operationId: 2 },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    for (var i = 0; i < resultVals.length; i++)
+                    {
+                        $("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff;" +
+                            " min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + resultVals[i]["EmpId"] + "'>" + resultVals[i]["FirstName"] +
+                                "</label></div><div class='closeRImage' style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                            "<a href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        DisableAutoCompleteHref();
+        $('#txtResources').attr('readonly', true);
+        $('.closeRImage').hide();
+            if(typeId==3)
+            {
+                $('#slider-2').click(false);
+                $('.buttonmaindiv').hide();
+                $('#DivClearAll').find('input[type=text],select,textarea,input[type=checkbox]').attr("disabled", "disabled");
+                DisableAutoCompleteHref();
+                $('.txtComments').hide();
+                $('.closeImage').hide();
+                $('.closeRImage').hide();
+            }
+            $("#listResources").attr('disabled','disabled');
+    }
+    function showAttachments(attachmentURL, docElement) {
+        var attachmentURLs = attachmentURL.split('||');
+        for (var i = 0; i < attachmentURLs.length - 1; i++) {
+            CheckExtension(docElement, attachmentURLs[i], attachmentURLs[i].split('\\').pop(), "<a href='#'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+        }
+    }
+
+
+function loadComments() {
+        $.ajax({
+            url: '/Task/GetComments',
+            type: 'GET',
+            dataType: 'json',
+            data: { RFTId:@id },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++)
+                    $('#divAnnouncementReadMore').append("<div class='announcementmaindiv'>" +
+                         "<div class='row>" +
+                         "<div class='col-md-12'>" +
+                         "<div class='announcementinnerdiv'>" +
+                         "<div class='announcementinnertopdiv'>" +
+                         "<div class='announcementimgdiv'><img src='" + resultVals[i]["ProfilePicUrl"] + "' width='133' height='133' alt='' /></div>" +
+                         "<div class='announcementheading'>" + resultVals[i]["resourceName"] + "</div>" +
+                         "<div class='announcementdatemaindiv'>" +
+                         "<div class='announcementdates'>" + FormatDate(resultVals[i]["CreatedDate"], "mm/dd/yyyy")+"</div></div>" +
+                          "<div class='announcementparadiv-readmore'>" +
+                          "<p>" + resultVals[i]["Comments"] + "</p></div>" +
+                         "</div></div></div></div>");
+            }
+        else
+                    $('#divAnnouncementReadMore').append("<div width='100%' class='NoRecordsFound'>No Records Found</div>");
+            },
+            error: function (xhr) {
+
+            }
+        });
+    }
+
+    function closedlg()
+    {
+        var dialog = document.getElementById('dlgAnnouncement');
+        dialog.close();
+
+    }
+    function CustomPopUp()
+    {
+        var dialog = document.getElementById('dlgAnnouncement');
+        dialog.showModal();
+    }
+</script>

@@ -1,0 +1,437 @@
+﻿using Newtonsoft.Json;
+using NuPortal.Common_Library;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace NuPortal.Controllers
+{
+    [SessionTimeout]
+    public class RecruitmentController : Controller
+    {
+        // GET: Recruitment
+        public ActionResult RecHome()
+        {
+            return View();
+        }
+        public ActionResult JobOpenings()
+        {
+            return View();
+        }
+        public ActionResult ApplicantsLog()
+        {
+            return View();
+        }
+        public ActionResult InterviewLog()
+        {
+            return View();
+        }
+        public ActionResult NewApplicant(int? hdnId, int? OpenId)
+        {
+            return View();
+        }
+        public ActionResult CreateInterview(int? hdnId)
+        {
+            return View();
+        }
+        public ActionResult Interview()
+        {
+            return View();
+        }
+
+        public ActionResult openingspopup()
+        {
+            return View();
+        }
+
+        public ActionResult InterviewAssesment()
+        {
+            return View();
+        }
+
+        public ActionResult NewOpening(int? hdnId)
+        {
+            return View();
+        }
+
+        public ActionResult Status(int? hdnApplicant, int? hdnStatusId, int? hdnOpenId)
+        {
+            return View();
+        }
+
+        public ActionResult Assessment(int? hdnId,int? hdnAction)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult BindDropdown(int RowId, int Operation)
+        {
+            try
+            {
+                NuPortalDBService.NuPortalService dbService = new NuPortalDBService.NuPortalService();
+                dbService.Url = Constants.DBService;
+                string jsonString = dbService.GetDDListBox(RowId, Operation);
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CreateOpening(int OpenId, string JsonStr)
+        {
+            NuPortalRecruitmentService.Recruitment recService = new NuPortalRecruitmentService.Recruitment();
+            recService.Url = Constants.RecruitmentService;
+            DataTable dt = new DataTable();
+            string IsSuccess = string.Empty;
+            try
+            {
+                dt = JsonConvert.DeserializeObject<DataTable>(JsonStr);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow data = dt.Rows[0];
+                    string CTC = !string.IsNullOrEmpty(Convert.ToString(data["CTC"]).Trim()) ? Convert.ToString(data["CTC"]) : "";
+                    int Vacant = !string.IsNullOrEmpty(Convert.ToString(data["Vacancy"]).Trim()) ? Convert.ToInt32(data["Vacancy"]) : 0;
+                    int Manager = !string.IsNullOrEmpty(Convert.ToString(data["Manager"]).Trim()) ? Convert.ToInt32(data["Manager"]) : 0;
+                    int Recruiter = !string.IsNullOrEmpty(Convert.ToString(data["Recruiter"]).Trim()) ? Convert.ToInt32(data["Recruiter"]) : 0;
+                    int Status = Convert.ToString(data["Status"]).Trim() == "true" ? 1 : 0;
+                    int operation = 2;
+                    if (OpenId == 0)
+                        operation = 1;
+
+                    IsSuccess = recService.OpeningsOper(OpenId, Convert.ToString(data["Attachments"]), Convert.ToString(data["Certification"]), Convert.ToString(data["City"]), Convert.ToString(data["Contract"]), Convert.ToString(data["Country"]), CTC, Convert.ToString(data["Domain"]), Convert.ToString(data["Experience"]),
+                    Convert.ToInt32(data["Department"]), Manager, Recruiter, Convert.ToString(data["Role"]), Convert.ToString(data["Industry"]), Convert.ToString(data["Description"]), Status, Convert.ToString(data["Title"]), Convert.ToString(data["JobType"]), Vacant,
+                    Convert.ToString(data["Skills"]), Convert.ToString(data["State"]), Convert.ToString(data["Technologies"]), Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(Session["EmpID"]), 1, DateTime.Now, DateTime.Now, Convert.ToDateTime(data["EndDate"]), Convert.ToDateTime(data["StartDate"]), Convert.ToInt32(Session["CompanyId"]), operation);
+                    if (!string.IsNullOrEmpty(IsSuccess))
+                        return Json(IsSuccess);
+                }
+                else
+                    return Json("{\"Result\":\"Empty Data\"}");
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            finally { recService.Dispose(); dt.Dispose(); }
+            return Json(Common_Library.Constants.JsonError);
+        }
+
+        [HttpGet]
+        public JsonResult GetOpening(int RowId, int operation)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                string JsonString = empService.SelectEmployeeInfo(RowId, operation);
+                if (JsonString != string.Empty)
+                {
+                    return Json(JsonString, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            finally
+            {
+                empService.Dispose();
+
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetAllOpenings(int Operation)
+        {
+            NuPortalDBService.NuPortalService Dbservice = new NuPortalDBService.NuPortalService();
+            Dbservice.Url = Constants.DBService;
+            try
+            {
+                return Json(Dbservice.SelectGridInfo(Convert.ToInt32(Session["CompanyId"]), Operation), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally { Dbservice.Dispose(); }
+        }
+
+        [HttpPost]
+        public ActionResult CancelOpening(int OpenId, int OperationId)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            try
+            {
+                string success = empService.SelectEmployeeInfo(OpenId, OperationId);
+                if (success != string.Empty)
+                {
+                    return Json(success);
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            finally { empService.Dispose(); }
+            return Json(Common_Library.Constants.JsonError);
+
+        }
+        [HttpPost]
+        public JsonResult SaveApplicant(int ApplicantId, string JsonStr)
+        {
+            NuPortalRecruitmentService.Recruitment recService = new NuPortalRecruitmentService.Recruitment();
+            recService.Url = Constants.RecruitmentService;
+            DataTable dt = new DataTable();
+            string IsSuccess = string.Empty;
+            try
+            {
+                dt = JsonConvert.DeserializeObject<DataTable>(JsonStr);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow data = dt.Rows[0];
+                    int operation = 2;
+                    if (ApplicantId == 0)
+                        operation = 1;
+                    int OpenID = Convert.ToInt32(data["OpenId"]);
+                    int CurrCTC = !string.IsNullOrEmpty(Convert.ToString(data["CurrentCTC"]).Trim()) ? Convert.ToInt32(data["CurrentCTC"]) : 0;
+                    int ExpecCTC = !string.IsNullOrEmpty(Convert.ToString(data["ExpecCTC"]).Trim()) ? Convert.ToInt32(data["ExpecCTC"]) : 0;
+                    int Experience = !string.IsNullOrEmpty(Convert.ToString(data["Experience"]).Trim()) ? Convert.ToInt32(data["Experience"]) : 0;
+                    int ZipCode = !string.IsNullOrEmpty(Convert.ToString(data["ZipCode"]).Trim()) ? Convert.ToInt32(data["ZipCode"]) : 0;
+
+                    if (OpenID != 0)
+                        IsSuccess = recService.NewApplicantOper(ApplicantId, Convert.ToString(data["AddInfo"]), Convert.ToString(data["Address"]), Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(Session["EmpID"]), Convert.ToString(data["Attachments"]),
+                        Convert.ToString(data["City"]), Convert.ToString(data["Comments"]), Convert.ToString(data["Country"]), Convert.ToString(data["CurrentCTC"]), Convert.ToString(data["Employer"]), Convert.ToString(data["JobTitle"]), Convert.ToString(data["Email"]),
+                        Convert.ToString(data["ExpecCTC"]), Experience, 1, Convert.ToInt32(data["OpenId"]), Convert.ToString(data["Qualification"]), Convert.ToString(data["LinkedIn"]), Convert.ToString(data["Mobile"]), Convert.ToString(data["Name"]),
+                        Convert.ToString(data["Skills"]), Convert.ToString(data["Skype"]), Convert.ToString(data["State"]), Convert.ToString(data["Street"]), ZipCode, Convert.ToString(data["Technologies"]), Convert.ToString(data["Twitter"]),
+                        Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(Session["EmpID"]), DateTime.Now, DateTime.Now, 1, operation);
+                    else
+                        IsSuccess = recService.NewAllApplicantOper(ApplicantId, Convert.ToString(data["AddInfo"]), Convert.ToString(data["Address"]), Convert.ToInt32(Session["EmpID"]), Convert.ToString(data["Attachments"]),
+                        Convert.ToString(data["City"]), Convert.ToString(data["Comments"]), Convert.ToString(data["Country"]), Convert.ToString(data["CurrentCTC"]), Convert.ToString(data["Employer"]), Convert.ToString(data["JobTitle"]), Convert.ToString(data["Email"]), Convert.ToString(data["ExpecCTC"]),
+                        Experience, 27, Convert.ToInt32(Session["CompanyId"]), Convert.ToString(data["Qualification"]), Convert.ToString(data["LinkedIn"]), Convert.ToString(data["Mobile"]), Convert.ToString(data["Name"]), Convert.ToString(data["Skills"]), Convert.ToString(data["Skype"]),
+                        Convert.ToString(data["State"]), Convert.ToString(data["Street"]), ZipCode, Convert.ToString(data["Technologies"]), Convert.ToString(data["Twitter"]), Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(Session["EmpID"]), 1, operation);
+                    if (!string.IsNullOrEmpty(IsSuccess))
+                        return Json(IsSuccess);
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError);
+            }
+            finally { recService.Dispose(); dt.Dispose(); }
+            return Json(Common_Library.Constants.JsonError);
+        }
+
+        [HttpPost]
+        public JsonResult SchduleInterview(string JsonStr)
+        {
+            NuPortalRecruitmentService.Recruitment recService = new NuPortalRecruitmentService.Recruitment();
+            recService.Url = Constants.RecruitmentService;
+            DataTable dt = new DataTable();
+            DataTable IntViewers = new DataTable();
+            try
+            {
+                dt = JsonConvert.DeserializeObject<DataTable>(JsonStr);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow data = dt.Rows[0];
+                    int Type = !string.IsNullOrEmpty(Convert.ToString(data["Type"]).Trim()) ? Convert.ToInt32(data["Type"]) : 0;
+                    string IsSuccess = recService.ScheduleInterview(Convert.ToString(data["Attachments"]), Convert.ToString(data["Comments"]), Convert.ToDateTime(data["Date"]), Convert.ToInt32(data["Applicant"]), Type,
+                        Convert.ToString(data["Location"]), Convert.ToString(data["Time"]), Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(Session["EmpID"]), DateTime.Now, DateTime.Now, 1);
+                    if (!string.IsNullOrEmpty(IsSuccess))
+                    {
+                        DataTable res = JsonConvert.DeserializeObject<DataTable>(IsSuccess);
+                        string[] interviewers = Convert.ToString(data["Interviewers"]).Split('|');
+                        if (interviewers.Length > 0)
+                        {
+                            int ScheduleId = Convert.ToInt32(res.Rows[0]["ScheduleId"]);
+
+                            IntViewers.Columns.Add("FKScheduleId");
+                            IntViewers.Columns.Add("Interviewer");
+                            IntViewers.Columns.Add("InterviewerStatusId");
+                            IntViewers.Columns.Add("Comments");
+                            IntViewers.Columns.Add("Attachments");
+                            IntViewers.Rows.Add(ScheduleId, Convert.ToInt32(Session["EmpID"]), 9, "", "");
+                            for (int i = 0; i < interviewers.Length - 1; i++)
+                                IntViewers.Rows.Add(ScheduleId, interviewers[i], 9, "", "");
+                            string json = JsonConvert.SerializeObject(IntViewers);
+                            bool success = recService.SetInterview(ScheduleId, JsonConvert.SerializeObject(IntViewers));
+                        }
+                        return Json(Common_Library.Constants.JsonSuccess);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError);
+            }
+            finally { recService.Dispose(); dt.Dispose(); IntViewers.Dispose(); }
+            return Json(Common_Library.Constants.JsonError);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateApplicantStatus(string JsonStr)
+        {
+            NuPortalRecruitmentService.Recruitment recService = new NuPortalRecruitmentService.Recruitment();
+            recService.Url = Constants.RecruitmentService;
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = JsonConvert.DeserializeObject<DataTable>(JsonStr);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow data = dt.Rows[0];
+                    int operation = 1;
+                    if (Convert.ToInt32(data["Opening"]) == 0)
+                        operation = 2;
+                    int AssignTo = !string.IsNullOrEmpty(Convert.ToString(data["AssigedTo"]).Trim()) ? Convert.ToInt32(data["AssigedTo"]) : 0;
+                    string IsSuccess = recService.ApplicantStatusUpdate(Convert.ToInt32(data["Applicant"]), Convert.ToInt32(data["Opening"]), Convert.ToInt32(data["Status"]), AssignTo, Convert.ToInt32(Session["EmpID"]), Convert.ToString(data["Comments"]), operation);
+                    if (!string.IsNullOrEmpty(IsSuccess))
+                        return Json(Common_Library.Constants.JsonSuccess);
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError);
+            }
+            finally { recService.Dispose(); dt.Dispose(); }
+            return Json(Common_Library.Constants.JsonError);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateInterviewStatus(string JsonStr,int Operation)
+        {
+            NuPortalRecruitmentService.Recruitment recService = new NuPortalRecruitmentService.Recruitment();
+            recService.Url = Constants.RecruitmentService;
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = JsonConvert.DeserializeObject<DataTable>(JsonStr);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow data = dt.Rows[0];
+                    string IsSuccess = recService.InterviewScheduleUpdate(Convert.ToInt32(data["Applicant"]), Convert.ToInt32(data["InterviewerId"]),Convert.ToInt32(Session["EmpId"]), Convert.ToInt32(data["Status"]), Convert.ToString(data["Attachments"]), Convert.ToString(data["Comments"]), Operation);
+                    if (!string.IsNullOrEmpty(IsSuccess))
+                        return Json(Common_Library.Constants.JsonSuccess);
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError);
+            }
+            finally { recService.Dispose(); dt.Dispose(); }
+            return Json(Common_Library.Constants.JsonError);
+        }
+
+        [HttpPost]
+        public JsonResult SaveAssessment(string JsonStr, int AssessId)
+        {
+            NuPortalRecruitmentService.Recruitment recService = new NuPortalRecruitmentService.Recruitment();
+            recService.Url = Constants.RecruitmentService;
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = JsonConvert.DeserializeObject<DataTable>(JsonStr);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    int operation = 1;
+                    //if (AssessId != 0)
+                    //    operation = 2;
+                    DataRow data = dt.Rows[0];
+                    string IsSuccess = recService.InterviewAssessment(0, Convert.ToInt32(data["Interviewer"]), Convert.ToInt32(data["Schedule"]), Convert.ToInt32(data["Interpersonal"]), Convert.ToInt32(data["Leadership"]), Convert.ToInt32(data["Presentation"]), Convert.ToInt32(data["Status"]), Convert.ToInt32(data["Teamwork"]), Convert.ToInt32(data["TechAbility"]),Convert.ToString(data["Comments"]), operation);
+                    if (!string.IsNullOrEmpty(IsSuccess))
+                        return Json(Common_Library.Constants.JsonSuccess);
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError);
+            }
+            finally { recService.Dispose(); dt.Dispose(); }
+            return Json(Common_Library.Constants.JsonError);
+        }
+
+        [HttpGet]
+        public JsonResult CancelDelete(int RowId,int EmpId, int Operation)
+        {
+            NuPortalDBService.NuPortalService service = new NuPortalDBService.NuPortalService();
+            service.Url = Constants.DBService;
+            try
+            {
+                string jsonString = service.CancelItem(RowId, EmpId, Operation);
+                if (jsonString != string.Empty)
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                service = null;
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+    }
+}

@@ -1,0 +1,716 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt16(Request["hdnId"].ToString());
+    }
+}
+
+<form id="frmDoc" action="/Projects/NewDocument" method="post">
+    @Html.Hidden("docId", new { id = "docId", name = "docId" })
+    @Html.Hidden("projId", new { id = "projId", name = "projId" })
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+</form>
+<dialog id="dlgConfirmationBox" style="width:39%;background: transparent;top: 25%;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Subject and Message</div>
+                <div class="popupclosebutton">
+                    <a title="Close" href="#" onclick="document.getElementById('dlgConfirmationBox').close();">X</a>
+                </div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="ErrorLabel">
+                        <label id="lblMsgSubj" class="lblError"></label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="myprojectenterdiv">
+                        <a href="#">
+                            <img title="Enter" src="../images/enter.png" style="cursor:pointer"
+                                 id="btnSubjMsg" onclick="closeConfirmationBox();" width="30" height="30" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<dialog id="dlgDocSelection" style="width:20%;background: transparent;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext headingText">Select Document</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgDocSelection').close();">X</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ErrorLabel">
+                        <label id="lblMsg" class="lblError">Please select atleast one document</label>
+                    </div>
+                </div>
+            </div>
+            <div class="space"></div>
+        </div>
+    </div>
+</dialog>
+<dialog id="dlgSendEmail" style="width:60%;background: transparent;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Send Email</div>
+                @*<div class="popupclosebutton"><a title="Close" href="@Url.Action("OpportunityLog", "USRecruitment")">X</a></div>*@
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="closeSendEmail();">X</a></div>
+            </div>
+            <div id="divClearEmail">
+                <div style="overflow-y:auto;overflow-x:hidden;max-height:300px;">
+                    <div class="space"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                @*<div class="col-md-4">
+                                        <div class="contentfielddiv">
+                                            <input id="txtFrom" class="floating-input" type="text" placeholder=" ">
+                                            <label class="float">From</label>
+                                        </div>
+                                    </div>*@
+                                <div class="col-md-6">
+                                    <div class="contentfielddiv">
+                                        @*<input id="txtTo" class="floating-input" type="text" placeholder=" ">*@
+                                        <textarea id="txtTo" class="floating-input floating-textarea" placeholder=" "></textarea>
+                                        <label class="float">To</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="contentfielddiv">
+                                        <input id="txtSubject" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Subject</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="contentfielddiv">
+                                        <input id="txtBody" class="floating-input" type="text" placeholder=" ">
+                                        <label class="float">Message</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                            <div class="row">
+                                <div id="divFiles">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="buttonmaindiv">
+                                    <div class="buttondiv"><input id="btnSave" title="Send" class="submitbtn" onclick="SendEmail();" type="button" /></div>
+                                    <div class="labelmessage"><label id="lblMailMessage" class="lblMessage"></label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/project-document-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Documents</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+
+        <div class="myprojectdiv">
+            <div class="myprojecttxt"> <a onclick="editDocument(0,@id)" href="#">+ New Documents</a></div>
+            <a class="backbuttondiv" id="hrefBack" href="#"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            <div class="feedsassociatebtn" onclick="OpenSendEmailForm()" id="divMailDocs"><a title="Email" href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></div>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="requestgridmaindiv">
+
+                    <table id="tblDocuments" width="100%" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                        <tbody>
+                            <tr class="requestgriddiv">
+
+                                @*<td class="requestgridheader" width="20%">Documents Name</td>
+                                @*<td class="requestgridheader" width="20%">Description</td>
+                                <td class="requestgridheader" width="20%">Created By</td>
+                                <td class="requestgridheader" width="15%">Shared With</td>
+                                <td class="requestgridheader" width="20%">Attachments</td>*@
+                                <td class="requestgridheader" width="3%">
+                                <td class="requestgridheader" width="20%">
+                                    Documents Name
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field1Xml" id="cbDocName" name="documentname" style="width:260px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbDoc1" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbDoc1" name='Field1Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="20%">
+                                    Created By
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field2Xml" id="cbDocCreatedBy" name="createdby" style="width:260px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbDoc2" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbDoc2" name='Field2Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="15%">
+                                    Shared With
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field3Xml" id="cbDocSharedWith" name="sharedwith" style="width:190px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbDoc3" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbDoc3" name='Field3Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="20%">Attachments</td>
+                                <td class="requestgridheader" width="3%"><a href="#" id="hrefProjectDocumentClearFilter"><img title="Clear" src="../images/ClearFilter.jpg" width="14" height="14" alt="" /></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="paginationmaindiv" id="divPage" style="display:none">
+                        <div class="paginationsubdiv">
+                            <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        @*<div class="buttonmaindiv">
+            <div class="buttondiv"><input class="submitbtn" type="button" /></div>
+            <div class="buttondiv"><input class="clearbtn" type="button" /></div>
+
+        </div>*@
+    </div>
+</div>
+
+<script>
+    var dictProjectDocumentArray = {};
+    var IsPrimaryLoad = true;
+    var CurrentPageId = 1;
+    var RowCount = 10;
+    var PageCount = 0;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    var enc="";
+    //var values = new Array();
+
+    $(document).ready(function () {
+        //window.values=new Array();
+        hideFilter();
+        dictProjectDocumentArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        loadDocuments();
+        loadDocumentsFilter();
+        $('#hrefProjectDocumentClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictProjectDocumentArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "" };
+            FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            loadDocuments();
+            showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+        });
+
+        $('#hrefBack').click(function(){
+            $('#hdnId').val(@id);
+            $('#frmDoc').attr("action", "/Projects/ProjectName");
+            $('#frmDoc').submit();
+        });
+    });
+    function loadDocuments() {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictProjectDocumentArray), Operation: 14, ProjId: @id, TypeId: 0,OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                var reqType = '';
+                var sharedName='';
+                $('#tblDocuments > tbody').children("tr:gt(0)").remove();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        var attach = "";
+                        // var anchor = "";
+                        var FileLinks="";
+                        var len = (resultVals[i]["Attachments"].split("||"));
+                        if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                            PageCount = resultVals[0]["TotalRowCount"] / 10;
+                        else
+                            PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+                        showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+
+                        for (var j = 0; j < len.length - 1; j++) {
+                            attach = attach + '<a href="' + len[j] + '" target="_blank">' + TrimFileNameDummy(len[j]) + '</a></br>';
+                            FileLinks = FileLinks + '<a class="hovertext" href="' + len[j] + '" target="_blank" >' + TrimFileNameDummy(len[j]) + ' </a>' + ',';
+                        }
+                        attach = len.length > 2 ? '<div class="showPanel">' + attach + '</div>' : "";
+                        //attach=attach.trim().slice(0,-1);
+
+                        //attach = attach.remove(attach.lastIndexOf(','))SharedId
+                        if(resultVals[i]["SharedId"]==4)
+                            //sharedName = (resultVals[i]["SharedWith"]).substring(0, (resultVals[i]["SharedWith"]).length - 1);
+                            sharedName=resultVals[i]["SharedWith"];
+                        else
+                            sharedName=resultVals[i]["SharedWith"];
+                        $('#tblDocuments').append('<tr class="requestgriddiv2" ><td class="requestgridsubheader" >'+
+                        '<input type="checkbox"  class="cbMailToClass" name="mailto" value="'+ i +'" id="cbMailTo'+ i  +CurrentPageId +'"/>'+
+                        '</td><td class="requestgridsubheader" >'+
+                        ' <div class="documentlinkdiv"><a onclick="editDocument(' + resultVals[i]["DocumentId"] + ''
+                          +'  ,' + resultVals[i]["ProjectId"] + ')" href="#"> ' + resultVals[i]["DocumentsName"] + ' </a></div></td>'+
+                         ' <td class="requestgridsubheader">' + (resultVals[i]["CreatedBy"]) + '</td><td class="requestgridsubheader" > ' +
+                          sharedName + '</td><td class="requestgridsubheader"><div class="hoverWrapper"><div class="gridLinkDiv">' +
+                          FileLinks.substr(0, FileLinks.length - 1) + '</div>' + attach + '</div></td><td class="requestgridsubheader"><a onclick="removeDocument(' +
+                          resultVals[i]["DocumentId"] + ')" href="#">Remove</a></td><td style="display:none">' + resultVals[i]["DocumentId"] + '</td></tr>');
+                        //$('#tblDocuments input[name="mailto"]').each(function(){
+                        //    $(this).change(function(ev) {
+                        //        ev.stopPropagation();
+                        //        var el = $(this);
+                        //        if($(this)[0].checked) {
+                        //            window.values.push(el.attr('id'));
+                        //            window.values=$.unique(window.values);
+                        //        }
+                        //    });
+                        //});
+                        //if(window.values.length) {
+                        //    window.values.forEach(function(el,idx){
+                        //        if($('#'+el)[0]) {
+                        //            //if($('#'+ window.values[i] +''));
+                        //            $('#'+el)[0].checked=true;
+                        //        }
+                        //    });
+                        //}
+                    }
+                    $('#divPage').show();
+                }
+                else
+                {
+                    $('#divPage').hide();
+                    $('#tblDocuments').append("<tr><td colspan='6' class='NoRecordsFound'>No Records Found</td></tr>");
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadDocumentsFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictProjectDocumentArray), Operation: 14, ProjId: @id, TypeId: 0,OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                var sharedName='';
+
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if(resultVals[i]["SharedId"]==4)
+                            sharedName=resultVals[i]["SharedWith"];
+                        else
+                            sharedName=resultVals[i]["SharedWith"];
+                        CreateCheckBox($('#cbDocName'), resultVals[i]["DocumentsName"], 'Field1Xml');
+                        CreateCheckBox($('#cbDocCreatedBy'), resultVals[i]["CreatedBy"], 'Field2Xml');
+                        CreateCheckBox($('#cbDocSharedWith'), sharedName, 'Field3Xml');
+                        DefineCheckboxClicks();
+                    }
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function editDocument(docId,ProjId) {
+        $('#docId').val(docId);
+        $('#projId').val(ProjId);
+        $('#frmDoc').submit();
+    }
+    function removeDocument(idval) {
+        var docId = idval;
+        var operationID = 30;
+        $.ajax({
+            url: '/Projects/DeleteDocument',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                docId: docId, operationID: operationID
+            },
+            success: function (data) {
+                $(".LoadedVal").remove();
+                loadDocuments();               
+                loadDocumentsFilter();
+            },
+            error: function () {
+            }
+        });
+    }
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblDocuments')
+                dictTemp = dictProjectDocumentArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblDocuments') {
+                dictProjectDocumentArray = dictTemp;
+                FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                loadDocuments();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    //MailTo
+    function showAttachments()
+    {
+        $('#divFiles').empty();
+        var SelectedValues = [];
+        $.each($("input[name='mailto']:checked"), function(){
+            SelectedValues.push($(this).val());
+        });
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        var Path="";
+        var attachmentURLs="";
+        var pathArray ="";
+        $.ajax({
+            url: '/Home/GetGriDdata',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictProjectDocumentArray), Operation: 14, ProjId: @id, TypeId:0,OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for(i=0;i<SelectedValues.length;i++)
+                    {
+                        //itemVal=SelectedValues[i];
+                        Path=resultVals[SelectedValues[i]]["Attachments"];
+                        pathArray=pathArray + Path;
+                    }
+                    attachmentURLs = pathArray.split('||');
+                    var docElement = $('#divFiles');
+                    for (var i = 0; i < (attachmentURLs.length - 1); i++) {
+                        CheckExtension(docElement, "", attachmentURLs[i], "<a href='#' title='Close'></a>", null,1);
+                    }
+                }
+            }
+        });
+    }
+    function defineExpUploads() {
+    };
+    function closeConfirmationBox()
+    {
+        $('#dlgConfirmationBox')[0].close();
+        $('#lblMailMessage').removeClass("lblError");
+        $('#lblMailMessage').addClass("lblMessage");
+        $('#lblMailMessage').text("Sending Mail....");
+        SendDocuments("Document",enc);
+        SendDocuments("Password",enc);
+        loadDocuments();
+    }
+    function SendEmail()
+    {
+        if(validateMultipleEmails())
+        {
+            var text = " ";
+            var charset = "abcdefghijklmnopqrstuvwxyz0123456789";
+            for( var i=0; i < 9; i++ )
+                text += charset.charAt(Math.floor(Math.random() * charset.length));
+            enc = window.btoa(text);
+            if($("#txtSubject").val()=="" && $("#txtBody").val()=="")
+            {
+                var dialog = document.getElementById("dlgConfirmationBox");
+                dialog.showModal();
+                $('#lblMsgSubj').text("Do you want to send this message without a subject or text in the body?");
+            }
+            else
+            {
+                $('#lblMailMessage').removeClass("lblError");
+                $('#lblMailMessage').addClass("lblMessage");
+                $('#lblMailMessage').text("Sending Mail....");
+                SendDocuments("Document",enc);
+                SendDocuments("Password",enc);
+                loadDocuments();
+            }
+        }
+    }
+    function SendDocuments(EmailType,PasswordText)
+    {
+        var SelectedValues = [];
+        $.each($("input[name='mailto']:checked"), function(){
+            SelectedValues.push($(this).val());
+        });
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        var Path="";
+        //var itemVal=0;
+        var attachmentURLs="";
+        //var webUrl=window.location.origin;
+        var pathArray ="";
+        $.ajax({
+            url: '/Home/GetGriDdata',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictProjectDocumentArray), Operation: 14, ProjId: @id, TypeId: 0,OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for(i=0;i<SelectedValues.length;i++)
+                    {
+                        //itemVal=SelectedValues[i];
+                        Path=resultVals[SelectedValues[i]]["Attachments"];
+                        pathArray=pathArray + Path;
+                    }
+                    attachmentURLs = pathArray.split('||');
+                    var test=[];
+                    for (i = 0; i < attachmentURLs.length-1; i++) {
+                        test[i] = attachmentURLs[i].substring(attachmentURLs[i].lastIndexOf('/')+1);
+                    }
+                    $.ajax({
+                        type: "Post",
+                        url: "/Projects/SendMailToUser",
+                        dataType: 'json',
+                        data: {
+                            EType:EmailType,To:$('#txtTo').val(), Subject:$('#txtSubject').val(), Body:$('#txtBody').val(),
+                            Attachment:pathArray, WebUrl:window.location.origin,AttachmentName:test,PasswordText:PasswordText
+                        },
+                        success: function (result) {
+                            $('#btnSave').css('pointer-events', 'none');
+                            $('#lblMailMessage').text("Mail Sent successully");
+                            var dialog = document.getElementById("dlgSendEmail");
+                            dialog.close();
+                            loadDocuments();
+                        }
+                    });
+                }
+                else
+                {
+                    $("#lblMailMessage").removeClass("lblMessage");
+                    $("#lblMailMessage").addClass("lblError");
+                    $("#lblMailMessage").text("Email sending unsuccessful");
+                }
+            }
+        });
+    }
+    function OpenSendEmailForm()
+    {
+        ClearAllControlValues('divClearEmail');
+        $('#btnSave').css('pointer-events', 'visible');
+        if ($('input.cbMailToClass').is(':checked')) {
+            var dialog = document.getElementById("dlgSendEmail");
+            dialog.showModal();
+            $('.closeImage').hide();
+        }
+        else{
+            var dialog = document.getElementById("dlgDocSelection");
+            dialog.showModal();
+        }
+        $("#lblMailMessage").removeClass("lblError");
+        $("#lblMailMessage").addClass("lblMessage");
+        $('#lblMailMessage').text("Enter Email addresses seperated by semicolon(;).");
+        showAttachments();
+    }
+    function closeSendEmail()
+    {
+        var dialog = document.getElementById("dlgSendEmail");
+        dialog.close();
+        ClearAllControlValues('divClearEmail');
+        //$('#divFiles').empty();
+    }
+    function validateMultipleEmails() {
+        var result = $("#txtTo").val().split(";");
+        $("#lblMailMessage").removeClass("lblMessage");
+        $("#lblMailMessage").addClass("lblError");
+        if($("#txtTo").val()=="")
+        {
+            $("#txtTo").addClass("ErrorFocus");
+            $('#txtTo').focus();
+            $('#lblMailMessage').text("Please provide email address");
+            return false;
+        }
+        else
+        {
+            for (var i = 0; i < result.length; i++)
+                if (!validateEmail(result[i])) {
+                    $('#lblMailMessage').text("Please provide a valid email address");
+                    return false;
+                }
+        }
+        return true;
+    }
+    function validateEmail(field) {
+        var regex = /\b[A-Z0-9._%+-]+[A-Z0-9.-]+\.[A-Z]{2,4}\b/i;
+        return (regex.test(field)) ? true : false;
+    }
+
+    //Pagination Document
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active',PageCount);
+            loadDocuments();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadDocuments();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadDocuments();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadDocuments();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadDocuments();
+    });
+</script>
+

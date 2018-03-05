@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "IconsView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form id="frmHome" action="" method="post">
+    @Html.Hidden("designFlag", new { id = "designFlag", name = "designFlag" })
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/home-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Home</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="@Url.Action("MyTask","Task")"><img src="~/Images/my-task.png" width="80" height="80" alt="" /> </a></div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("MyTask","Task")">My tasks </a></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="@Url.Action("MyDocument", "Projects")"><img src="~/Images/my-document.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("MyDocument", "Projects")">My documents</a></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="@Url.Action("MyTickets", "Home")"><img src="~/Images/my-tickets.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("MyTickets", "Home")">My tickets</a></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="@Url.Action("ProgressChart", "Task")"><img src="~/Images/process-chart.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("ProgressChart", "Task")">Progress Chart</a></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="#" onclick="setDesignFlag(0)"><img src="~/Images/my-timesheet.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a href="#" onclick="setDesignFlag(0)">Timesheet</a></div>
+                </div>
+
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="@Url.Action("Events", "Home")"><img src="~/Images/events.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("Events", "Home")">Events</a></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="@Url.Action("Announcement", "HR")"><img src="~/Images/announcement.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("Announcement", "HR")">Announcement</a></div>
+                </div>
+            </div>
+            <div class="col-md-3 mgrStatusUpdate" style="display:none;text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="@Url.Action("StatusUpdate","Task")"><img src="~/Images/status-update.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("StatusUpdate","Task")">Status Update</a></div>
+                </div>
+            </div>
+            <div class="col-md-3 mgrStatusUpdate" style="display:none;text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon"><a href="@Url.Action("PollDetailsLog","HR")"><img src="~/Images/poll-details.png" width="80" height="80" alt="" /></a></div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("PollDetailsLog","HR")">Poll Details</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function setDesignFlag(DesignFlag)
+    {
+        $('#designFlag').val(DesignFlag);
+        $("#frmHome").attr("action", "/TimeSheet/TimeSheet");
+        $('#frmHome').submit();
+    }
+ </script>

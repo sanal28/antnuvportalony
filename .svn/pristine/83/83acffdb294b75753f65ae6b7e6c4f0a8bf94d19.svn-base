@@ -1,0 +1,158 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+}
+
+<dialog id="dlgProfile">
+    <div class="userinfoPopupmaindiv">
+        <div class="popupheadingmaindiv" style="overflow:hidden">
+            <div class="popupclosebutton"><a onclick="javascript: $('#dlgProfile')[0].close();">X</a></div>
+        </div>
+        <div class="PopupuerinfoHeader">
+            <div class="PopupuerinfoSubHeader">
+                <div class="Popupemployecode" id="divEmp"></div>
+                <div class="Popupuserinfolocation" id="divLocation"></div>
+                <div class="Popupuserinfodesignation" id="divDesig"></div>
+            </div>
+        </div>
+        <div class="Popupuserinfoimagediv">
+            <div class="Popupuserinfopic"><img src="../images/profile-images/userinfo-pic.jpg" id="imgProfile"></div>
+            <div class="Popupuserinfoname" id="divName">Jeniffer LOGAN</div>
+            <div class="Popupuserinfoemail" id="divEmail">jennifer-logan@nuvento.com</div>
+            <div class="Popupuserinfoemail" id="divPhone">+11 923 254 225</div>
+        </div>
+        <div class="PopupuserinfoSkillmaindiv">
+            <div class="PopupuserinfoSkills">Skills</div>
+            <div class="PopupuserinfoSkillsmaindiv">
+                <div class="PopupuserinfoSkillslist">
+                    <ul id="ulSkills">
+                    </ul>
+                </div>
+            </div>
+            <div class="space2"></div>
+            <div class="PopupuserinfoSkills">Technologies</div>
+            <div class="PopupuserinfoSkillsmaindiv">
+                <div class="PopupuserinfoSkillslist">
+                    <ul id="ulTech">
+                    </ul>
+                </div>
+            </div>
+            <div class="space2"></div>
+            <div class="PopupuserinfoSkills">Certification</div>
+            <div class="PopupuserinfoSkillsmaindiv">
+                <div class="PopupuserinfoSkillslist">
+                    <ul id="ulCert">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="buttonmaindiv">
+        <div class="buttondiv"><input class="printbtn" type="button" /></div>
+    </div>
+</dialog>
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="../images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Timesheet Report</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+
+            <a class="backbuttondiv" href="#"><img alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            <div style="float:right"><input type="text" id="txtResource" /><input type="hidden" id="hdnResId" /> <input title="Search" type="button" value="Search" onclick="BindEmployeeDetails();" /></div>
+        </div> 
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){        
+
+        $('#txtResource').keydown(function () {
+            $(this).autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/EmpInfoAdminView/AutoComplete',
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: "{ 'EmpName': '" + request.term.split(/,\s*/).pop() + "' }",
+                        success: function (data) {
+                            var items = [];
+                            for (var i = 0; i < data.length; i++) {
+                                items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                            }
+                            response($.map(items, function (item) {
+                                return item;
+                            }))
+                        },
+                        error: function (response) {
+                        },
+                        failure: function (response) {
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $('#hdnResId').val(i.item.Id);
+                    (this).value = i.item.value;
+                    return false;
+                },
+                minLength: 1
+            });
+        });
+    });
+
+    function BindEmployeeDetails() {
+        if($('#txtResource').val()!=""){
+            $.ajax({
+                url: '/EmployeeInfo/GetEmployeeDetails',
+                dataType: "json",
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                data:{
+                    EmpId:$('#hdnResId').val()
+                },
+                success: function (data) {
+                    var results = $.parseJSON(data);
+                    
+                    if (results["Error"] == undefined || results["Error"] == null) {
+                        $('#divEmp')[0].innerHTML = "";
+                        $('#divLocation')[0].innerHTML = "";
+                        $('#divDesig')[0].innerHTML = "";
+                        $('#ulSkills li').remove();
+                        $('#ulTech li').remove();
+                        $('#ulCert li').remove();
+                        $('#divEmp').append('<span><i class="fa fa-address-card" aria-hidden="true"></i></span>' + results[0].EmployeeCode);
+                        $('#divLocation').append('<span><i class="fa fa-map-marker" aria-hidden="true"></i></span>' + results[0].Location);
+                        $('#divDesig').append('<span><i class="fa fa-user-circle" aria-hidden="true"></i></span>' + results[0].Designation);
+                        $('#divName')[0].innerText = results[0].FirstName +" "+ results[0].LastName;
+                        $('#divEmail')[0].innerText = results[0].WorkEmail;
+                        $('#divPhone')[0].innerText = results[0].Phone1;
+                        $('#imgProfile').attr('src', results[0].QuotesPictureUrl);
+                        var skills = results[0].Skills!=null?results[0].Skills.split('|'):"";
+                        var tech = results[0].Technologies!=null?results[0].Technologies.split('|'):"";
+                        var cert = results[0].Certification!=null?results[0].Certification.split('|'):"";
+                        for (var i = 0; i < skills.length-1; i++)
+                            $('#ulSkills').append("<li>" + skills[i] + "</li>");
+                        for (var i = 0; i < tech.length-1; i++)
+                            $('#ulTech').append("<li>" + tech[i] + "</li>");
+                        for (var i = 0; i < cert.length-1; i++)
+                            $('#ulCert').append("<li>" + cert[i] + "</li>");
+                        $('#dlgProfile')[0].showModal();
+                    }
+                },
+                error: function (xhr) {
+                }
+            });
+            }
+    }
+</script>

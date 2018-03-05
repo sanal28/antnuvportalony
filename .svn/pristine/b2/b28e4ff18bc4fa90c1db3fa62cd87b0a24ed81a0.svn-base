@@ -1,0 +1,565 @@
+﻿
+@{
+    ViewBag.Title = "Announcement";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form id="formAnnounce" method="post" action="/Recruitment/NewApplicant">
+    @Html.Hidden("OpenId")
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/announcement-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <input type="hidden" id="filehidden" value="" class=".filehidd" />
+                <input type="hidden" id="popHidden" value="" class=".filehidd" />
+                <input type="hidden" id="hdnQueTypeId" value="" class=".filehidd" />
+                <input type="hidden" id="hiddenPollId" value="" class=".filehidd" />
+                <input type="hidden" id="hiddenQuestionId" value="" class=".filehidd" />
+                <input type="hidden" id="btnType" value="" class=".filehidd" />
+                <div class="mainheaderdiv">Announcement</div>
+            </div>
+            <div class="col-sm-5">
+            </div>
+        </div>
+    </div>
+    <dialog id="dlgAnnouncement" style="width:70%;background: transparent;left: 5%;border: none;">
+        <div class="popupmaindiv" style="padding:5px">
+            <div class="popupmaindiv">
+                <div class="popupheadingmaindiv">
+                    <div class="popupheadingtext">Announcement</div>
+                    <div class="popupclosebutton"><a title="Close" href="#" onclick="closedlg();">X</a></div>
+                </div>
+            </div>
+            <div id="divAnnouncementReadMore">
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="dlgPopUp" style="width:70%;background: transparent;left: 5%;border: none;">
+        <div id="divClear" class="questionPopupmaindiv">
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Office Poll Question</div>
+                <div class="popupclosebutton"><a href="#" onclick="closePoll();">X</a></div>
+            </div>
+            <div id="popUpQuestion">
+                <div class="Popupcontentmaindiv">
+                </div>
+            </div>           
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                        <div class="textarea-wrapper">
+                            <textarea id="txtNote" class="myprojecttextarea vinput" required></textarea>
+                            <span class="floating-label">Note</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">            
+                <div class="col-md-12">
+                        <div class="weeklyoffmaindiv divdocuments">
+                            <div class="workstarttimediv"  style="max-height:50px;">
+                                <div id="divTaskDocs" class="docDiv">
+                                </div>
+                            </div>
+                        </div>
+                    </div>                             
+            </div>
+            <div class="buttonmaindiv">
+                <div class="buttondiv"><input id="popSave" class="submitbtn" type="button" /></div>
+               @* <div class="buttondiv"><input class="clearbtn" type="button" /></div>*@
+                <div class="ErrorLabel"><label id="lblMessage" class="lblMessage"></label></div>
+            </div>
+        </div>
+    </dialog>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" href="@Url.Action("Home","Home")"><img title="Back" alt="Back" width="30" height="30" src="~/Images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div id="divAnnouncementHome">
+
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    var slideIndex = 1;
+    var EmpID = 0;
+    var OptionSelected = 0;
+    
+    $(document).ready(function () {
+        loadAnnouncementshome();
+        var sessionVal = parseInt(@Session["EmpID"]);
+        if (!isNaN(sessionVal) && sessionVal != "")
+        { EmpID = parseInt(@Session["EmpID"]); }        
+    });
+    //$('.Popupcontentmaindiv').find('input[type="CheckBox"]:checked').click(function () {
+        
+    //});
+
+    function selectPoll(obj) {
+        var pType =$("#popHidden").val();
+        if ($('.Popupanswersmaindiv').find('input[type="'+pType+'"]:checked').length > 1) {
+            $('.Popupanswersmaindiv').find('input[type="' + pType + '"]:checked').prop('checked', false);
+            $(obj).prop('checked', true);
+           
+        }
+        var checked = $('.Popupanswersmaindiv').find('input[type="' + pType + '"]:checked')
+            OptionSelected = checked.val();
+       
+    }
+
+    function closedlg() {
+        $('#dlgAnnouncement')[0].close();
+
+    }
+    function closePoll() {
+        $('#dlgPopUp')[0].close();
+    }
+    $("#popSave").click(function () {
+        if (ValidateAll('divClear', 'lblMessage')) {
+            if ($("#popHidden").val() == "TextBox") {//Textbox
+                $.ajax({
+                    url: '/HR/checkPollStatus',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { PollId: $("#hiddenPollId").val(), Operation: 9 },
+                    success: function (result) {//AppliedRowCount
+                        var resultVals = $.parseJSON(result);
+                        if (resultVals[0]["AppliedRowCount"] == 0) {
+                            $.ajax({
+                                url: '/HR/savePollResultTextBox',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    QuestionId: $("#hiddenQuestionId").val(), TextValue: $('.Popupanswersmaindiv').find('input[type="textBox"]').val(), Operation: 1
+                                },
+                                success: function (result) {
+
+                                    $("#lblMessage").text("Poll Result Submitted Successfully");
+                                },
+                                error: function () {
+                                    $("#lblMessage").text("Error Submitting Poll Result");
+                                }
+                            });
+                        }
+                        else { $("#lblMessage").text("Poll Already Submitted"); }
+
+
+                    },
+                    error: function (err) {
+                    },
+                });
+            }
+            else {//CheckBox,RadioButton,DDL
+                $.ajax({
+                    url: '/HR/checkPollStatus',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { PollId: $("#hiddenPollId").val(), Operation: 9 },
+                    success: function (result) {
+                        if ($("#hdnQueTypeId").val() == 4) {
+                            OptionSelected = $("#ddlOptionSelected").val();
+                        }
+                        var resultVals = $.parseJSON(result);
+                        if (resultVals["Result"] == undefined || resultVals["Result"] == null)
+                            if (resultVals[0]["AppliedRowCount"] == 0) {
+                                dtOfficePoll = new Array();
+                                dtOfficePoll.push({ "FK_QuestionId": $("#hiddenQuestionId").val(), "ModifiedEmpID": EmpID, "CreatedEmpID": EmpID, "FK_OptionId": OptionSelected });
+                                if (dtOfficePoll.length > 0) {
+                                    $.ajax({
+                                        url: '/HR/saveOfficePollResult',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: {
+                                            jsonOptions: JSON.stringify(dtOfficePoll)
+                                        },
+                                        success: function (result) {
+                                            $("#lblMessage").text("Poll Result Submitted Successfully");
+                                        },
+                                        error: function () {
+                                            $("#lblMessage").text("Error Submitting Poll Result");
+                                        }
+                                    });
+                                }
+                            }
+                            else { $("#lblMessage").text("Poll Already Submitted"); }
+                    },
+                    error: function (err) {
+                    },
+                });
+            }
+        }
+    });
+    function loadAnnouncementshome() {
+        $.ajax({
+            url: '/HR/GetAnnouncementsHome',
+            type: "GET",
+            async: false,
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    //var loopCount = (resultVals.length + 1) / 2;
+                    for (var i = 0; i < resultVals.length ; i++) {
+                        var divHtml = "<div id='divAnnouncementHome'>" +
+                            "<div class='announcementmaindiv'>" +
+                                "<div class='row'>" +
+                                   "<div class='col-md-6'>" +
+                                        "<div class='announcementinnerdiv'>" +
+                                            "<div class='announcementinnertopdiv'>" +
+                                                "<div class='announcementimgdiv'><img src='" + resultVals[i]["ProfilePicUrl"] + "' width='133' height='133' alt='' /></div>" +
+                                                "<div class='announcementheading'>" + resultVals[i]["Title"] + "</div>" +
+                                                "<div class='announcementdatemaindiv'>" +
+                                                    "<div class='announcementdates'>" + moment(FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy")).format("MMM DD YYYY") + "-" +
+                                                          moment(FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy")).format("MMM DD YYYY") + "</div>" +
+                                                    "<div class='announcementreadmore'><a href='#' onclick='loadAnnouncementsReadMore(" + resultVals[i]["AnnouncementId"] + "," + resultVals[i]["AnnouncementType"] + "," + resultVals[i]["FK_LinkId"] + ");'>More..</a></div>" +
+                                                "</div>" +
+                                            "</div>" +
+                                            "<div class='announcementparadiv'>" +
+                                                "<p class='block-with-text'>" + resultVals[i]["Description"] + "</p>" +
+                                            "</div>" +
+                                        "</div>" +
+                                    "</div>";
+                        i = i + 1;
+                        if (i < resultVals.length) {
+                            divHtml = divHtml + "<div class='col-md-6'>" +
+                                     "<div class='announcementinnerdiv'>" +
+                                              "<div class='announcementinnertopdiv'>" +
+                                                    "<div class='announcementimgdiv'><img src='" + resultVals[i]["ProfilePicUrl"] + "' width='133' height='133' alt='' /></div>" +
+                                                    "<div class='announcementheading'>" + resultVals[i]["Title"] + "</div>" +
+                                                    "<div class='announcementdatemaindiv'>" +
+                                                         "<div class='announcementdates'>" + moment(FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy")).format("MMM DD YYYY") + "-" +
+                                                          moment(FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy")).format("MMM DD YYYY") + "</div>" +
+                                                         "<div class='announcementreadmore'><a href='#' onclick='loadAnnouncementsReadMore(" + resultVals[i]["AnnouncementId"] + "," + resultVals[i]["AnnouncementType"] + "," + resultVals[i]["FK_LinkId"] + ");'>More..</a></div>" +
+                                                      "</div>" +
+                                                  "</div>" +
+                                                  "<div class='announcementparadiv'>" +
+                                                  "<p class='block-with-text'>" + resultVals[i]["Description"] + "</p>" +
+                                                  "</div>" +
+                                              "</div>" +
+                                              "</div>";
+                        }
+
+                        divHtml = divHtml + "</div>" +
+                                   "</div>" +
+                               "</div>";
+                        $('#divAnnouncementHome').append(divHtml);
+                    }
+                    PreventDefaultClick();
+                }
+                else
+                    $('#divAnnouncementHome').append("<div width='100%' class='NoRecordsFound'>No Records Found</div>");
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadAnnouncementsReadMore(announcementId, AnnouncenentType, rowId) {
+
+        if (rowId != null) {
+            $.ajax({
+                url: '/HR/CancelTickets',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    idval: rowId, Operation: 3
+                },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        var Type = resultVals[0]["EffectedRows"];
+
+                        if (Type == 0) {
+                            $("#btnType").val(0);
+
+                        }
+                        else if (Type == 1) {
+                            $("#btnType").val(1);
+
+                        }
+
+                    }
+
+                },
+                error: function () {
+
+                }
+            });
+        }
+        if (AnnouncenentType == 0) {
+            //$("#btnEnroll").hide();
+            $.ajax({
+                url: '/HR/GetAnnouncement',
+                type: 'GET',
+                dataType: 'json',
+                data: { announcementId: announcementId, operationId: 39 },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        $('#divAnnouncementReadMore').empty();
+                        var filesStr = (resultVals[0]["AttachmentPath"]).split("||");
+                        $('#divAnnouncementReadMore').append("<div class='announcementpopup'>" +
+                             "<div class='row>" +
+                             "<div class='col-md-12'>" +
+                             "<div class='announcementinnerdiv'>" +
+                             "<div class='announcementinnertopdiv'>" +
+                             "<div class='announcementimgdiv'><img src='" + resultVals[0]["ProfilePicUrl"] + "' width='133' height='133' alt='' /></div>" +
+                             "<div class='announcementheading'>" + resultVals[0]["Title"] + "</div>" +
+                             "<div class='announcementdatemaindiv'>" +
+                             "<div class='announcementdates'>" + moment(FormatDate(resultVals[0]["StartDate"], "mm/dd/yyyy")).format("MMM DD YYYY") + "-" +
+                              moment(FormatDate(resultVals[0]["EndDate"], "mm/dd/yyyy")).format("MMM DD YYYY") + "</div></div>" +
+                              "<div class='announcementparadiv-readmore'>" +
+                              "<p>" + resultVals[0]["Description"] + "</p></div><button class='w3-button w3-black w3-display-left' id='btnPrevClick' onclick='plusDivs(-1)'>&#10094;</button>" +
+                             "<div id='divAnnouncementImage' class='announcementimagediv' width='900' height='900'></div><button class='w3-button w3-black w3-display-right' id='btnNextClick' onclick='plusDivs(1)'>&#10095;</button>" +
+                             "</div></div></div></div>");
+                        for (var i = 0; i < filesStr.length - 1; i++) {
+                            $('#divAnnouncementImage').append("<div><img style='width:100%' height='500' class='imgSlides' src='" + filesStr[i] + "' alt='' /></div>");
+                        }
+                        if (filesStr.length == 1 || filesStr.length == 2) {
+                            $('#btnNextClick').hide();
+                            $('#btnPrevClick').hide();
+                        }
+                        showDivs(slideIndex);
+                    }
+                    else
+                        $('#divAnnouncementReadMore').append("<div width='100%' class='NoRecordsFound'>No Records Found</div>");
+                },
+                error: function (err) {
+                }
+            });
+            $('#dlgAnnouncement')[0].showModal();
+        }
+        else if (AnnouncenentType == 1) {
+
+            $.ajax({
+                url: '/HR/GetAnnouncement',
+                type: 'GET',
+                dataType: 'json',
+                data: { announcementId: announcementId, operationId: 40 },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        var time;
+                        if (resultVals[0]["StartTime"] != "" && resultVals[0]["EndTime"] != "")
+                            time = resultVals[0]["StartTime"] + "-" + resultVals[0]["EndTime"];
+                        else if (resultVals[0]["StartTime"] != "")
+                            time = resultVals[0]["StartTime"];
+                        else if (resultVals[0].EndDate != "")
+                            time = resultVals[0]["EndTime"];
+
+                        $('#divAnnouncementReadMore').empty();
+                        var ButtonName = $("#btnType").val() == 0 ? "Enroll" : "Leave";
+                        $('#filehidden').val((resultVals[0]["TrainingId"]));
+                        $('#divAnnouncementReadMore').append("<div class='announcementpopup'>" +
+                      "<div class='row>" +
+                      "<div class='col-md-12'>" +
+                      "<div class='announcementinnerdiv'>" +
+                      "<div class='announcementinnertopdiv'>" +
+                      //"<div class='announcementimgdiv'><img src='" + resultVals[0]["ProfilePicUrl"] + "' width='133' height='133' alt='' /></div>" +
+                      "<div class='announcementheading'>" + resultVals[0]["Subject"] + "</div>" +
+                      "<div class='announcementdatemaindiv'>" +
+                      "<div class='announcementdates'>" + moment(FormatDate(resultVals[0]["StartDate"], "mm/dd/yyyy")).format("MMM DD YYYY") + "-" +
+                      moment(FormatDate(resultVals[0]["EndDate"], "mm/dd/yyyy")).format("MMM DD YYYY") + " " + time + "</div>" +
+                      "<div class='announcementreadmore'><a href='#' onclick='Enroll();' id='btnEnroll'>" + ButtonName + "</a></div></div>" +
+                      "<div class='announcementdates'>Trainer: " + resultVals[0]["TrainerFName"] + "" + resultVals[0]["TrainerLName"] + "</div>" +
+                       "<div class='space'></div>" +
+                       "<div class='announcementparadiv'>" +
+                       "<p class='block-with-text'>" + resultVals[0]["Details"] + "</p></div>" +
+
+                      "</div></div></div></div>");
+                    }
+                    else
+                        $('#divAnnouncementReadMore').append("<div width='100%' class='NoRecordsFound'>No Records Found</div>");
+                },
+                error: function (err) {
+                }
+            });
+            $('#dlgAnnouncement')[0].showModal();
+        }
+
+
+        else if (AnnouncenentType == 2) {
+            $.ajax({
+                url: '/HR/GetAnnouncement',
+                type: 'Post',
+                dataType: 'json',
+                data: {
+                    announcementId: announcementId, operationId: 45
+                },
+                success: function (result) {
+                    var results = $.parseJSON(result);
+                    if (results["Result"] == undefined || resultVals["Result"] == null) {
+                        var type = results[0].JobType == "2" ? "Permanent" : "Contract";
+                        //$('#dlgOpenings').find('.popupmaindiv').remove();
+                        $('#divAnnouncementReadMore').empty();
+                        $('#divAnnouncementReadMore').append('<div class="announcementpopup">' +
+                    '<div class="row">' +
+                        '<div class="col-md-12">' +
+                            '<div class="announcementinnerdiv">' +
+                                '<div class="announcementinnertopdiv">' +
+
+                                    '<div class="eventsheading" id="divEventTitle">' + results[0].Title + '</div>' +
+                                    '<div class="announcementdatemaindiv">' +
+                                        '<div class="eventsdates" id="divEventDate">' + moment(FormatDate(results[0]["StartDate"], "mm/dd/yyyy")).format("MMM DD YYYY") +
+                                        "-" + moment(FormatDate(results[0]["EndDate"], "mm/dd/yyyy")).format("MMM DD YYYY") + '</div>' +
+                                        '<div class="announcementreadmore"><a href="#" onclick="applyOpening(' + results[0].openingId + ');">Apply</a></div>' +
+                                    '</div></div>' +
+                                '<div class="announcementparadiv-readmore">' +
+                                    '<p id="pEventDesc">Vacancies:' + results[0].NOOfVacancy + '</br>Job Type:' + type + '</br>Experience Required:' +
+                                    results[0].ExperienceRequired + '</br>' +
+                            'City:' + results[0].City + '</br>Skill:' + results[0].Skills + '</br>Description:' + results[0].Description + '</p>' +
+                                '</div></div></div></div></div></div>');
+                    }
+                    else
+                        $('#divAnnouncementReadMore').append("<div width='100%' class='NoRecordsFound'>No Records Found</div>");
+                },
+                error: function (err) {
+                }
+            });
+            $('#dlgAnnouncement')[0].showModal();
+        }
+
+        else if (AnnouncenentType == 3) {
+
+            $.ajax({
+                url: '/HR/GetAnnouncement',
+                type: 'GET',
+                dataType: 'json',
+                data: { announcementId: rowId, operationId: 61 },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    $("#popHidden").val(resultVals[0]["QuestionType"]);
+                    $("#hdnQueTypeId").val(resultVals[0]["QuestionTypeId"]);
+                    $("#hiddenPollId").val(resultVals[0]["PollId"]);
+                    $("#hiddenQuestionId").val(resultVals[0]["QuestionId"]);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        $("#lblMessage").text("");
+                        $('#popUpQuestion').empty();
+                        $('#divTaskDocs').empty();
+                        var Option = "";
+                        var Attach = "";
+                        var ddlOption = "<option value=''></option>";
+                        if (resultVals[0]["QuestionTypeId"] == 4) {
+                            //ddl code here
+                            for (var i = 0; i < resultVals.length; i++) {
+                                ddlOption=ddlOption+ "<option value='"+resultVals[i]["OptionId"]+"'>"+resultVals[i]["OptionText"]+"</option>"
+                            }
+                            Option = Option + "<div class='Popupanswersmaindiv'><div class='row'><div class='col-md-4'><select id='ddlOptionSelected' class='floating-select vselect' onclick='this.setAttribute('value', this.value);' value=''>" + ddlOption + " </select></div></div> </div>" + "\n"
+
+                        }
+                        else {
+                        for (var i = 0; i < resultVals.length; i++) {                          
+                          
+                                if (resultVals[i]["OptionText"] != null) {
+                                    Option = Option + "<div class='Popupanswersmaindiv'><span><input name='checkBoxOrRadio' class='vcheckBoxOrRadio' onclick='selectPoll(this);' type='" + resultVals[i]["QuestionType"] + "' value='" + resultVals[i]["OptionId"] + "'/></span><p>" + resultVals[i]["OptionText"] + "</p> </div>" + "\n"
+                                }
+                                else {
+                                    Option = Option + "<div class='Popupanswersmaindiv'><span><input class=' floating-input vinput' type='" + resultVals[i]["QuestionType"] + "'/></span> </div>" + "\n"
+
+                                }
+                            }
+                        }
+                        $('#popUpQuestion').append("<div class='Popupcontentmaindiv'><div class='popupquestiontext'>" + resultVals[0]["Question"] + "</div>" + Option + "</div>");
+                        $("#txtNote").val(resultVals[0]["Note"]);
+                        showAttachments(resultVals[0]["AttachmentPath"]);
+                    }
+
+                    else
+                        $('#questionPopupmaindiv').append("<div width='100%' class='NoRecordsFound'>No Records Found</div>");
+                },
+                error: function (err) {
+                }
+            });
+            $('#dlgPopUp')[0].showModal();
+        }
+    }
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            var divDocuments = $("#divdocuments");
+            var docDivs = $('#divTaskDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+            if (docDivs.children().length == 0)
+                divDocuments.hide();
+        });
+    };
+    function showAttachments(attachmentURLs) {
+        attachmentURLs = attachmentURLs.split('||');
+        var docElement = $('#divTaskDocs');
+        for (var i = 0; i < (attachmentURLs.length - 1) ; i++) {
+            CheckExtension(docElement, attachmentURLs[i], attachmentURLs[i].split('\\').pop(), "", null, 3);
+            //"<a href='#'><div class='documentclosebutton closeImage'>X</div></a>"
+        }
+    }
+    function applyOpening(id) {
+        $('#OpenId').val(id);
+        $('#formAnnounce').submit();
+    }
+    function Enroll() {
+        if ($('#btnEnroll').text() == 'Enroll') {
+            $.ajax({
+                url: '/HR/EditTickets',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    idval: $('#filehidden').val(), Operation: 1
+                },
+                success: function (data) {
+                    $('#btnEnroll').text('Leave');
+                },
+                error: function () {
+
+                }
+            });
+        }
+        else if ($('#btnEnroll').text() == 'Leave') {
+            $.ajax({
+                url: '/HR/CancelTickets',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    idval: $('#filehidden').val(), Operation: 2
+                },
+                success: function (data) {
+                    $('#btnEnroll').text('Enroll');
+                },
+                error: function () {
+                    //alert('error');
+                }
+            });
+        }
+    }
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = $('.imgSlides');
+        if (n > x.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = x.length }
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x[slideIndex - 1].style.display = "block";
+        if (slideIndex == x.length)
+            document.getElementById("btnNextClick").disabled = true;
+        else
+            document.getElementById("btnNextClick").disabled = false;
+        if (slideIndex == 1)
+            document.getElementById("btnPrevClick").disabled = true;
+        else
+            document.getElementById("btnPrevClick").disabled = false;
+    }
+</script>
+
+

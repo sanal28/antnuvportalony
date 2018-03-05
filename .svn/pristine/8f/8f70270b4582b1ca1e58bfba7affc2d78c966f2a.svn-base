@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt16(Request["hdnId"].ToString());
+    }
+}
+<form id="frmProject" action="" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/report-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Timesheet</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" id="hrefBack" href="#"><img title="Back" alt="Back" width="30" height="30" src="../Images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select" id="ddlReportType" onclick="this.setAttribute('value', this.value);" value="">
+                        <option value=""></option>
+                        <option value="1">Calendar</option>
+                        <option value="2">Reports</option>
+                    </select>
+                    <label class="float">View</label>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="myprojectenterdiv"><a href="#" id="reportEnter"><img title="Enter" src="../Images/enter.png" width="30" height="30" alt="" /></a></div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="ErrorLabel"><label id="lblTsSelectError" class="lblError"></label></div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#hrefBack').click(function () {
+            $('#hdnId').val(@id);
+            $('#frmProject').attr("action", "/Projects/ProjectName");
+            $('#frmProject').submit();
+        });
+        $('#reportEnter').click(function () {
+            if (Validate("TimeSheetSelect")) {
+                if ($('#ddlReportType').val() == "1") {
+                    SetSession('/TimeSheet/SetSession', "{'TimeSheetType': '1'}", "")
+                }
+                else {
+                    SetSession('/TimeSheet/SetSession', "{'TimeSheetType': '2'}", "")
+                }
+                $('#hdnId').val(@id);
+                $('#frmProject').attr("action", "/TimeSheet/TimeSheetFilter");
+                $('#frmProject').submit();
+            }
+        });
+    });
+</script>

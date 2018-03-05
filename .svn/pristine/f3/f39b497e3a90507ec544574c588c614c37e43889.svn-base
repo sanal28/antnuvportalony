@@ -1,0 +1,306 @@
+﻿
+@{
+    ViewBag.Title = "Status";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = 0;
+    int projectId = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt32(Request["hdnId"]);
+    }
+    if (Request["projectId"] != null && Request["projectId"] != "")
+    {
+        projectId = Convert.ToInt32(Request["projectId"]);
+    }
+}
+@using (Html.BeginForm())
+{
+    <div class="col-md-11">
+        <div id="Statusdiv">
+            <div class="mainheadingdiv">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div class="mainheadericondiv"><div class="mainheadericon"><img src="../images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="mainheaderdiv" id="divHeading"></div>
+                    </div>
+                    <div class="col-sm-5">
+
+                    </div>
+                </div>
+            </div>
+            <div class="contentmaindiv">
+                <div id="DivClearAll">
+                    <div class="myprojectdiv">
+                        <div id="divComments">
+                            <div class="myprojecttxt"> <a onclick="CustomPopUp();" href="#">Comments</a></div>
+                        </div>
+                        <a class="backbuttondiv" href="@Url.Action("MyTask", "Task")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+                    </div>
+                    <div class="space"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="contentfielddiv">
+                                <select id="ddlTaskStatus" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                    <option value=""></option>
+                                </select>
+                                <label class="float">Task Status</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="contentfielddiv">
+                                <textarea id="txtComments" class="floating-input floating-textarea" placeholder=" "></textarea>
+                                <label class="float">Comments</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="contentfielddiv">
+                                <table width="82%" border="0" cellpadding="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="90%">
+                                                <div id="divUploadStatusAttachments">
+                                                    <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                                    <input type="file" style="color: transparent;" id="fileUploadAttachment" class="fileUploadAttachment contenttextfield" placeholder="Attachment" multiple />
+                                                </div>
+                                            </td>
+                                            @*<td width="10%">
+                                                <div class="uploadbutton">
+                                                    <img id="fileUrl" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" />
+                                                </div>
+                                            </td>*@
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="weeklyoffmaindiv">
+                                <div class="workstarttimediv" style="max-height:50px;">
+                                    <div id="divTaskDocs" class="docDiv">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="row" id="divSentAlerts">
+                        <div class="col-md-2">
+                            <div class="contentfielddiv">
+                                <label class="float">Sent alerts</label>
+                                <input type="checkbox" class="pull-right" id="cbTaskUpdate">
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="row" id="divSentAlerts">
+                        <div class="col-md-2">
+                            <div class="weeklyoffmaindiv">
+                                <div class="cbToggle">Send Alerts</div>
+                                <div class="workstarttimediv">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="cbTaskUpdate" class="onoffswitch-checkbox" id="cbTaskUpdate" checked>
+                                        <label class="onoffswitch-label" for="cbTaskUpdate">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttonmaindiv">
+                        <div class="buttondiv"><input title="Save" class="submitbtn" id="btnSaveStatus" type="button" /></div>
+                        <div class="ErrorLabel"><label id="lblMessage" class="lblMessage"></label></div>
+                        <input id="hdnTaskName" type="hidden" value="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <dialog id="dlgAnnouncement" style="width:50%;background: transparent;top: 25%;left: 5%;border: none;">
+            <div class="popupmaindiv" style="padding:5px">
+                <div class="popupmaindiv">
+                    <div class="popupheadingmaindiv">
+
+                        <div class="popupheadingtext">Task Comments</div>
+
+                        <div class="popupclosebutton"><a title="Close" href="#" onclick="closedlg();">X</a></div>
+                    </div>
+                    <div style="overflow-y:auto;overflow-x:hidden;max-height:550px;">
+                        <div id="divAnnouncementReadMore">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+    </div>
+}
+<script type="text/javascript">
+    var TaskStatus = '';
+    $(document).ready(function () {
+        $('#cbTaskUpdate').prop('checked', true);
+        LoadDdls("/Task/GetTaskName", $('#ddlTaskStatus'), "ProjectStatusId", "StatusText");
+        LoadStatus();
+        loadComments();
+    });
+    $(function () {
+        $("#btnSaveStatus").click(function () {
+            var flag = 0;
+            if (Validate("status")) {
+                if(TaskStatus != parseInt($("#ddlTaskStatus").val()))
+                    flag = 1;
+                $.ajax({
+                    url: '/Task/SaveStatus',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        taskstatusId: parseInt($("#ddlTaskStatus").val()), Comments: $("#txtComments").val(),
+                        UploadedFileUrl: $('#filehidden').val(), TskId: @id, ProjectId: @projectId, TaskName : $('#hdnTaskName').val(),
+                        Flag: flag,UpdateFlag:$("#cbTaskUpdate").is(":checked") ? 1 : 0
+                        },
+                    success: function (result) {
+                        ClearAllControlValues('DivClearAll');
+                        $('#lblMessage').text("Status updated Successfully.");
+                        LoadStatus();
+                        $("#divAnnouncementReadMore").empty();
+                        loadComments();
+                        $('#cbTaskUpdate').prop('checked', true);
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        });
+        $("#divUploadStatusAttachments").change(function () {
+            var divId = getCurrentDiv();
+            var fileElement = $('#fileUploadAttachment');
+            var hiddenfield = $('#filehidden');
+            var fileCount = hiddenfield.val().split('||').length;
+
+            var expDocUpload = fileElement.get(0);
+            var docElement = $('#divTaskDocs');
+            var expDocFiles = expDocUpload.files;
+            var uploadedFilePath = "";
+            var ExpAttachments = new FormData();
+            if (fileCount + expDocFiles.length > 25) {
+                alert('File count cannot exceed 24!');
+                fileElement.val('');
+                return;
+            }
+            for (i = 0; i < expDocFiles.length; i++) {
+                ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+            }
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: ExpAttachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < expDocFiles.length; i++) {
+                            hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                            CheckExtension(docElement, expDocFiles[i].name, json[expDocFiles[i].name], "<a title='Close' href='#'><div class='documentclosebutton closeImage'>X</div></a>",null, 1);
+                        }
+                    }
+                },
+                error: function (err) {
+
+                }
+            });
+            fileElement.val('');
+        });
+
+    });
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            var docDivs = $('#divTaskDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+
+        });
+    };
+    function LoadStatus() {
+        $.ajax({
+            url: '/Task/GetTaskDetails',
+            type: 'GET',
+            dataType: 'json',
+            async: false,
+            data: { TaskId: @id, operationId: 1 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#divHeading').text(resultVals[0]["TaskName"]+'-Status');
+                $('#hdnTaskName').val(resultVals[0]["TaskName"]);
+                $('#ddlTaskStatus').val(resultVals[0]["Fk_TaskStatusId"]);
+                $("#txtComments").val(resultVals[0]["Comments"]);
+                $('#ddlTaskStatus').click();
+                $('#filehidden').val(resultVals[0]["Attachments"]);
+                TaskStatus = resultVals[0]["Fk_TaskStatusId"];
+                showAttachments(resultVals[0]["Attachments"], $('#divTaskDocs'));
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function showAttachments(attachmentURL, docElement) {
+        var attachmentURLs = attachmentURL.split('||');
+        for (var i = 0; i < attachmentURLs.length - 1; i++) {
+            CheckExtension(docElement, attachmentURLs[i], attachmentURLs[i].split('\\').pop(), "<a title='CLose' href='#'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+        }
+    }
+    function loadComments() {
+
+
+        $.ajax({
+            url: '/Task/GetComments',
+            type: 'GET',
+            dataType: 'json',
+            data: { RFTId:@id },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++)
+                        $('#divAnnouncementReadMore').append("<div class='announcementmaindiv'>" +
+                             "<div class='row>" +
+                             "<div class='col-md-12'>" +
+                             "<div class='announcementinnerdiv'>" +
+                             "<div class='announcementinnertopdiv'>" +
+                             "<div class='announcementimgdiv'><img src='" + resultVals[i]["ProfilePicUrl"] + "' width='133' height='133' alt='' /></div>" +
+                             "<div class='announcementheading'>" + resultVals[i]["resourceName"] + "</div>" +
+                             "<div class='announcementdatemaindiv'>" +
+                             "<div class='announcementdates'>" + FormatDate(resultVals[i]["CreatedDate"], "mm/dd/yyyy")+"</div></div>" +
+                              "<div class='announcementparadiv-readmore'>" +
+                              "<p>" + resultVals[i]["Comments"] + "</p></div>" +
+                             "</div></div></div></div>");
+                }
+                else
+                    $('#divAnnouncementReadMore').append("<div width='100%' class='NoRecordsFound'>No Records Found</div>");
+            },
+            error: function (xhr) {
+
+            }
+        });
+    }
+
+    function closedlg()
+    {
+        var dialog = document.getElementById('dlgAnnouncement');
+        dialog.close();
+
+    }
+    function CustomPopUp()
+    {
+        var dialog = document.getElementById('dlgAnnouncement');
+        dialog.showModal();
+    }
+</script>

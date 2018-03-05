@@ -1,0 +1,416 @@
+﻿
+@{
+    ViewBag.Title = "VendorDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int LeadId = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        LeadId = Convert.ToInt16(Request["hdnId"].ToString());
+    }
+}
+<div class="col-md-11" >
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/vendors-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">vendor Details</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv" id="divVendormain">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" id="hrefBack" href="/Home/MyTickets"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtCandidate" class="floating-input vinput" type="text" placeholder=" " disabled>
+                    <label class="float">Candidate Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtCompName" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Company Name</label>
+                    <input type="hidden" id="hdnVendorDetails" value="0"/>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtCompId" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Company ID</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="contentfielddiv">
+                    <textarea id="txtCompAddress" class="floating-input floating-textarea" placeholder=" "></textarea>
+                    <label class="float">Company Address</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="USRECdocument">Contact Person 1</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="ContName1" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtContTitle1" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Title</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="USRECdocument">Contact Person 2</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtContName2" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtContTitle2" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Title</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="USRECdocument">Contact Person 3</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtContName3" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtContTitle3" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Title</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtVendorId" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Vendor ID</label>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div class="popupheadingmaindiv">
+            <div class="popupheadingtext">Bank Information</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtBankName" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Depository Bank Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtBranch" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Branch/Office</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtCity" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">City</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtState" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">State</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtRoutingNo" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Routing Number</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtAccountName" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Account Name</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtAccountNo" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Account Number</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select id="ddlAccountType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                        <option value=""></option>                        
+                    </select>
+                    <label class="float">Account Type</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtVendorName" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Vendor Name</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtIdNo" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">ID Number</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtSigned" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Signed</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtDesignation" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Designation</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtDate" class="floating-input vinput vdate" type="text" placeholder=" ">
+                    <label class="float">Date</label>
+                </div>
+            </div>
+            @*<div class="col-md-4">
+                <div class="USRECdocumentfilebtndiv">
+                    <label for="imageUpload1" class="USRECdocumentfilebtn">Choose from File</label>
+                    <input type="file" id="fileUploadAttachment" accept="image/*" style="display: none">
+                </div>
+            </div>*@
+            <div class="col-md-2">
+                <div class="USRECdocumentfilebtndiv">
+                    <label for="fileUploadAttachment" class="USRECdocumentfilebtn">Choose from File</label>
+                    <input type="hidden" id="filehidden" value="" />
+                    <input type="file" id="fileUploadAttachment" multiple style="display: none">
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="weeklyoffmaindiv divdocuments">
+                    <div class="workstarttimediv" style="max-height:50px;">
+                        <div class="row">
+                            <div id="divReqDocs" class="docDiv">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input id="btnSubmit" title="Submit" class="submitbtn" type="button" onclick="javascript:if(ValidateAll('divVendormain','lblMessage')){SaveVendor(8);}" /></div>
+            <div class="buttondiv"><input id="btnSave" title="Save" class="Savebtn" type="button" onclick="ValidateAndSave();" /></div>
+            <div class="buttondiv"><input id="btnCancel" title="Cancel" class="Cancelbtn" type="button" /></div>
+            <div class="ErrorLabel"><label id="lblMessage" class="lblMessage"></label></div>
+        </div>
+    </div>
+</div>
+                
+
+
+<script>
+
+    $(document).ready(function () {
+        DefineDatePicker($('#txtDate'));
+        LoadDdls("/USRecruitment/GetAccountType", $('#ddlAccountType'), "AccountTypeId", "AccountType");
+        if(@LeadId!=0)
+        {
+            $.ajax({
+                url: '/Home/GetSelectData',
+                type: "GET",
+                dataType: 'json',
+                data: { Id: @LeadId, Operation: 45 },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        $('#txtCandidate').val(resultVals[0]["CandidateName"]);
+                        var DateVal = FormatDate(resultVals[0]["Date"], "mm/dd/yyyy");
+                        $('#hdnVendorDetails').val(resultVals[0]["VendorDetailsId"]);
+                        $('#txtCompName').val(resultVals[0]["CompanyName"]);
+                        $('#txtCompId').val(resultVals[0]["CompanyID"]);
+                        $('#txtCompAddress').val(resultVals[0]["CompanyAddress"]);
+                        $('#ContName1').val(resultVals[0]["ContactPerson1Name"]);
+                        $('#txtContTitle1').val(resultVals[0]["ContactPerson1Title"]);
+                        $('#txtContName2').val(resultVals[0]["ContactPerson2Name"]);
+                        $('#txtContTitle2').val(resultVals[0]["ContactPerson2Title"]);
+                        $('#txtContName3').val(resultVals[0]["ContactPerson3Name"]);
+                        $('#txtContTitle3').val(resultVals[0]["ContactPerson3Title"]);
+                        $('#txtVendorId').val(resultVals[0]["VendorID"]);
+                        $('#txtBankName').val(resultVals[0]["DepositoryBankName"]);
+                        $('#txtBranch').val(resultVals[0]["Branch"]);
+                        $('#txtCity').val(resultVals[0]["City"]);
+                        $('#txtState').val(resultVals[0]["State"]);
+                        $('#txtRoutingNo').val(resultVals[0]["RoutingNumber"]);
+                        $('#txtAccountName').val(resultVals[0]["AccountName"]);
+                        $('#txtAccountNo').val(resultVals[0]["AccountNumber"]);
+                        $("#ddlAccountType").val(resultVals[0]["AccountType"]);
+                        $("#ddlAccountType").click();
+                        $('#txtVendorName').val(resultVals[0]["VendorName"]);
+                        $('#txtIdNo').val(resultVals[0]["IDNumber"]);
+                        $('#txtSigned').val(resultVals[0]["SignedBy"]);
+                        $('#txtDesignation').val(resultVals[0]["Designation"]);
+                        $("#txtDate").val(DateVal == '01/01/1753'?"":DateVal);
+                        var attachmentUrl = resultVals[0]["Attachments"];
+                        if (attachmentUrl != "") {
+                            $('#filehidden').val(resultVals[0]["Attachments"]);
+                            var files = attachmentUrl.split('||');
+                            for (var j = 0; j < files.length - 1; j++) {
+                                CheckExtension( $('.docDiv'), files[j].split('\\').pop(), files[j], "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null , 1);
+                                PreventDefaultClick();
+                            }
+                        }
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        }
+        $('#fileUploadAttachment').change(function () {
+            var fileSinterviewElement = $(this);
+            var interviewDocUpload = fileSinterviewElement.get(0);
+            var ScheduleDocFiles = interviewDocUpload.files;
+            if (ScheduleDocFiles.length > 0) {
+                var ScheduleDoc = new FormData();
+                for (i = 0; i < ScheduleDocFiles.length; i++) {
+                    ScheduleDoc.append(ScheduleDocFiles[i].name, ScheduleDocFiles[i]);
+                }
+                $.ajax({
+                    url: '/EmpInfoUserView/UploadFiles',
+                    type: "POST",
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    data: ScheduleDoc,
+                    success: function (result) {
+                        var json = $.parseJSON(result);
+                        if (json["Error"] == undefined || json["Error"] == null) {
+                            for (var i = 0; i < ScheduleDocFiles.length; i++) {
+                                $('#filehidden').val($('#filehidden').val() + json[ScheduleDocFiles[i].name] + "||");
+                                CheckExtension($('.docDiv'), ScheduleDocFiles[i].name, json[ScheduleDocFiles[i].name],
+                                    "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                                PreventDefaultClick();
+                            }
+                        }
+                    },
+                    error: function (err) {
+                        //alert(err.statusText);
+                    }
+                });
+                fileSinterviewElement.val('');
+            }
+        });
+        $('#btnCancel').click(function(){
+            window.location.href="/Home/MyTickets";
+        });
+    });
+    function ValidateAndSave(){
+        var IsValid = false;
+        $('#divVendormain').find('input[type=text], select').each(function(){
+            $(this).removeClass("ErrorFocus");
+            $('#lblMessage').text("");
+            if($(this).val() != "") 
+                IsValid=true;
+        });
+        if(IsValid)
+            SaveVendor(5);
+        else
+        {
+            $('#lblMessage').removeClass('lblMessage');
+            $('#lblMessage').addClass('lblError');
+            $('#lblMessage').text("Please fill atleast one field");
+        }
+    }
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            $('#filehidden').val($('#filehidden').val().replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+        });
+    }
+    function SaveVendor(ticketStatus){
+        //$("#btnSaveAndNew").click(function () {
+        if(@LeadId!=0){
+            var Operation = parseInt($('#hdnVendorDetails').val()) == 0 ? 1 : 2;
+            $.ajax({
+                url: '/USRecruitment/SaveVendorDetails',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    VendorDetailsId:parseInt($('#hdnVendorDetails').val()), FK_LeadId: @LeadId, CompanyName:$('#txtCompName').val(),
+                    CompanyID:$('#txtCompId').val(), CompanyAddress:$('#txtCompAddress').val(),
+                    ContactPerson1Name:$('#ContName1').val(), ContactPerson1Title:$('#txtContTitle1').val(),
+                    ContactPerson2Name:$('#txtContName2').val(),ContactPerson2Title:$('#txtContTitle2').val(),ContactPerson3Name:$('#txtContName3').val(),
+                    ContactPerson3Title:$('#txtContTitle3').val(), VendorID:$('#txtVendorId').val(),DepositoryBankName:$('#txtBankName').val(),
+                    Branch:$('#txtBranch').val(),City:$('#txtCity').val(),State:$('#txtState').val(),RoutingNumber:$('#txtRoutingNo').val(),
+                    AccountName:$('#txtAccountName').val(),AccountNumber:$('#txtAccountNo').val(),
+                    AccountType:$("#ddlAccountType").val() == "" ? 0 : $("#ddlAccountType").val(),VendorName:$('#txtVendorName').val(),IDNumber:$('#txtIdNo').val(),
+                    SignedBy:$('#txtSigned').val(),Designation : $('#txtDesignation').val(),
+                    Date:FormatDate($("#txtDate").val(), "yyyy/mm/dd"), Attachments:$("#filehidden").val(),FK_TicketStatusId : ticketStatus, Status:1,Operation:Operation
+                },
+
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        $('#lblMessage').addClass('lblMessage');
+                        $('#lblMessage').removeClass('lblError');
+                        $('#hdnVendorDetails').val(resultVals[0]["VendorDetailsId"]);
+                        if(ticketStatus==8)
+                        {
+                            $('#lblMessage').text("Vendor Details Submitted successfully");
+                            window.location.href="/Home/MyTickets";
+                        }
+                        else
+                            $('#lblMessage').text("Vendor Details Saved successfully");
+                    }
+                },
+                error: function () {
+                    //alert('error');
+                }
+            });
+        }
+            //});
+    }
+
+</script>

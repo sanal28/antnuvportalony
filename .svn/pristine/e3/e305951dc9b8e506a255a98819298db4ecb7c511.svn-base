@@ -1,0 +1,399 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="frmDoc" action="/Projects/NewDocument" method="post">
+    @Html.Hidden("docId", new { id = "docId", name = "docId" })
+    @Html.Hidden("TypeId", new { id = "TypeId", name = "TypeId" })
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/mydocuments-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">My Documents</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+
+        <div class="myprojectdiv">
+            <div class="myprojecttxt"> <a href="@Url.Action("UserDocument","Projects")">+ New Documents</a></div>
+            <a class="backbuttondiv" href="@Url.Action("Home","Home")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="requestgridmaindiv">
+                    <table id="tblDocuments" width="100%" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                        <tbody>
+                            <tr class="requestgriddiv">
+
+                                @*<td class="requestgridheader" width="20%">Documents Name</td>
+                                    <td class="requestgridheader" width="20%">Project Name</td>
+                                    <td class="requestgridheader" width="20%">Created By</td>
+                                    <td class="requestgridheader" width="20%">Attachments</td>
+
+                                    <td class="requestgridheader" width="3%"><a href="#"><img src="../images/Filter.png" width="14" height="14" alt="" /></a></td>*@
+                                <td class="requestgridheader" width="20%">
+                                    Documents Name
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field1Xml" id="cbMyDocName" name="documentname" style="width:240px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbMyDoc1" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbMyDoc1" name='Field1Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="20%">
+                                    Project Name
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field2Xml" id="cbMyDocProjectName" name="projectname" style="width:240px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbMyDoc2" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbMyDoc2" name='Field2Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="20%">
+                                    Created By
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field3Xml" id="cbMyDocCreatedBy" name="createdby" style="width:240px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbMyDoc3" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbMyDoc3" name='Field3Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="20%">Attachments</td>
+                                <td class="requestgridheader" width="3%"><a href="#" id="hrefMyDocumentClearFilter"><img title="Clear" src="../images/ClearFilter.jpg" width="14" height="14" alt="" /></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="paginationmaindiv" id="divPageDocs">
+                        <div class="paginationsubdiv">
+                            <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMmyDocsbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMmyDocsbtn pagination pgNumber2">2</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMmyDocsbtn pagination pgNumber3">3</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMmyDocsbtn pagination pgNumber4">4</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMmyDocsbtn pagination pgNumber5">5</div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="space"></div>
+    </div>
+</div>
+
+<script>
+    var dictMyDocumentArray = {};
+    var IsPrimaryLoad = true;
+    var CurrentPageId = 1;
+    var RowCount = 10;
+    var PageCount = 0;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    $(document).ready(function () {
+        hideFilter();
+        dictMyDocumentArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        //loadMyDocsFilter();
+        loadDocuments();
+        loadDocumentsFilter();
+        $('#hrefMyDocumentClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictMyDocumentArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "" };
+            FirstButonClick($('.paginationNUMmyDocsbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            loadDocuments();
+            showPages($('.paginationbtndivNum > a'), '.pgNumber', 1);
+        });
+    });
+
+    function loadDocuments() {
+        // $("#tblDocuments").find("tr:gt(0)").remove();
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictMyDocumentArray), Operation: 12, ProjId: 0, TypeId: 2, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                var reqType = '';
+                $('#tblDocuments > tbody').children("tr:gt(0)").remove();
+                $('#divPageDocs').show();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        var attach = "";
+                        var FileLinks = "";
+                        var len = (resultVals[i]["Attachments"].split("||"));
+                        if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                            PageCount = resultVals[0]["TotalRowCount"] / 10;
+                        else
+                            PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+                        showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                        for (var j = 0; j < len.length - 1; j++) {
+                            attach = attach + '<a href="' + len[j] + '" target="_blank">' + TrimFileNameDummy(len[j]) + '</a></br>';
+                            FileLinks = FileLinks + '<a class="hovertext" href="' + len[j] + '" target="_blank" >' + TrimFileNameDummy(len[j]) + ' </a>' + ',';
+                        }
+                        attach = len.length > 2 ? '<div class="showPanel">' + attach + '</div>' : "";
+                        $('#tblDocuments').append('<tr class="requestgriddiv2" > '+
+                          '  <td class="requestgridsubheader" > <div class="documentlinkdiv"><a onclick="editDocument(' + resultVals[i]["DocumentId"] +')" href="#" > ' + resultVals[i]["DocumentName"] + ' </a></div></td> ' +
+                          '<td class="requestgridsubheader">' + (resultVals[i]["ProjectName"] == null ? "NA" : resultVals[i]["ProjectName"]) + '</td> ' +
+                          '<td class="requestgridsubheader">' + (resultVals[i]["CreatedEmployee"]) + '</td>' +
+                          '<td class="requestgridsubheader"><div class="hoverWrapper"><div class="gridLinkDiv">' +
+                          FileLinks.substr(0, FileLinks.length - 1) + '</div>' + attach + '</div></td>' +
+                          '<td class="requestgridsubheader"></td>' +
+                         '</tr>');
+                    }
+                }
+                else
+                {
+                    //getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+                    //if ((loopVal < CurrentPageId || loopVal >= CurrentPageId) && PageCount == CurrentPageId && loopVal != 1) {
+                    //    ShowPreviousPage($('.paginationNUMmyDocsbtn'), '.pgNumber', 'paginationNUM-ACTVbtn',
+                    //    'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                    //    CurrentPageId = CurrentPageId - 1;
+                    //    loadDocuments();
+                    //}
+                    //else if (CurrentPageId > 1 && loopVal > 1) {
+                    //    CurrentPageId = 1;
+                    //    FirstButonClick($('.paginationNUMmyDocsbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                    //    loadDocuments();
+                    //}
+                    //else {
+                        $('#divPageDocs').hide();
+                        $('#tblDocuments').append("<tr><td colspan='5' class='NoRecordsFound'>No Records Found</td></tr>");
+                    //    CurrentPageId = CurrentPageId + 1;
+                    //    AddAndRemoveClass(CurrentPageId, CurrentPageId, $('.paginationNUMmyDocsbtn'), $('.pgNumber' + CurrentPageId),
+                    //   'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                    //}
+
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadDocumentsFilter()
+    {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictMyDocumentArray), Operation: 12, ProjId: 0, TypeId: 2, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                            CreateCheckBox($('#cbMyDocName'), resultVals[i]["DocumentName"], 'Field1Xml');
+                            CreateCheckBox($('#cbMyDocProjectName'), resultVals[i]["ProjectName"], 'Field2Xml');
+                            CreateCheckBox($('#cbMyDocCreatedBy'), resultVals[i]["CreatedEmployee"], 'Field3Xml');
+                            DefineCheckboxClicks();
+                    }
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+
+    }
+
+    function editDocument(docId) {
+        $('#docId').val(docId);
+        $('#TypeId').val(1);
+        $('#frmDoc').submit();
+    }
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblDocuments')
+                dictTemp = dictMyDocumentArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblDocuments') {
+                dictMyDocumentArray = dictTemp;
+                FirstButonClick($('.paginationNUMmyDocsbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                loadDocuments();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    //Pagination MyDocument
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMmyDocsbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMmyDocsbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMmyDocsbtn').text());
+            LoadEachButton($('.paginationNUMmyDocsbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active',PageCount);
+            loadDocuments();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMmyDocsbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadDocuments();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMmyDocsbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadDocuments();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMmyDocsbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadDocuments();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMmyDocsbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadDocuments();
+    });
+    function loadMyDocsFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictMyDocumentArray), Operation: 12, ProjId: 0, TypeId: 2, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                            CreateCheckBox($('#cbMyDocName'), resultVals[i]["DocumentName"], 'Field1Xml');
+                            CreateCheckBox($('#cbMyDocProjectName'), resultVals[i]["ProjectName"], 'Field2Xml');
+                            CreateCheckBox($('#cbMyDocCreatedBy'), resultVals[i]["CreatedEmployee"], 'Field3Xml');
+                            DefineCheckboxClicks();
+                    }
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        });
+    }
+</script>
+

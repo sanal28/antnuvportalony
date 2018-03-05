@@ -1,0 +1,398 @@
+﻿
+@{
+    ViewBag.Title = "InvoiceDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int SubmissionId = 58;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        SubmissionId = Convert.ToInt16(Request["hdnId"].ToString());
+    }
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/invoice-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Invoice Details</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv" id="divInvoiceDetailsmain">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" href="/Home/MyTickets"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <input type="hidden" id="hdnInvoiceId" value="0" />
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtCandidateName" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Candidate Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtClient" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Client</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtPositionTitle" class="floating-input" type="text" placeholder=" ">
+                    <label class="float">Position Title</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtName" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtEmail" class="floating-input vinput vemail" type="text" placeholder=" ">
+                    <label class="float">Email</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtTerms" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Terms</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select id="ddlBillingCycle" class="floating-select vinput" onclick="this.setAttribute('value', this.value);" value="">
+                        <option value=""></option>
+                    </select>
+                    <Label class="float">Billing Cycle</Label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtStreet" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Street</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtCity" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">City</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtState" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">State</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtCountry" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Country</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input id="txtZip" class="floating-input vinput" type="text" placeholder=" ">
+                    <label class="float">Zip</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="weeklytext">Cc List</div>
+                    <div class="contenttextarea">
+                        <div id="listCcList" class="list competancylist"></div><input type="text" class="competancy" id="txtCcList" placeholder="+ Click to Add" />                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div class="popupheadingmaindiv">
+            <div class="popupheadingtext">Contact  Details</div>
+
+        </div>
+        <div class="space"></div>
+        <table style="width:100%" id="tblInvoiceDetails">
+            <tbody id="tbyNewClient">
+                <tr id="tr1">
+                    <td>
+                        <div class="academicaddmaindiv">
+                            <div title="Remove" class="academicremovebutton" onclick="return deleteRow(this, $('#lblMessage'));">-</div>
+                        </div>
+                        <div class="space"></div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCDName" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCDEmail" class="floating-input vemail" type="text" placeholder=" ">
+                                    <label class="float">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCDTerms" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Terms</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <select id="ddlContactType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                        <option value=""></option>
+                                    </select>
+                                    <label class="float">Contact Type</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCDStreet" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Street</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCDCity" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">City </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCDState" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">State</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCDCountry" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Country</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCDZip" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Zip </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCDPhone" class="floating-input vphone" type="text" placeholder=" ">
+                                    <label class="float">Phone</label>
+                                </div>
+                            </div>
+                        </div>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <div class="academicaddmaindiv">
+                            <div title="Add" class="academicaddbutton" onclick="return addRow(this,$('#lblMessage'));">+</div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input id="btnSubmit" title="Submit" class="submitbtn" type="button" onclick="javascript:if(ValidateAll('divInvoiceDetailsmain','lblMessage')){saveInvoiceDetails(19);}" /></div>
+            <div class="buttondiv"><input id="btnSave" title="Save" class="Savebtn" type="button" onclick="ValidateAndSave();" /></div>
+            <div class="buttondiv"><input id="btnCancel" title="Cancel" class="Cancelbtn" type="button" /></div>
+            <div class="ErrorLabel"><label id="lblMessage" class="lblMessage"></label></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        DefineCompetancies($("#listCcList"), $('#txtCcList'));
+       
+        LoadDdls("/USRecruitment/GetBillingCycle", $('#ddlBillingCycle'), "BillingCycleId", "BillingCycleType");
+        LoadDdls("/USRecruitment/GetContactType", $('#ddlContactType'), "InvoiceContactTypeId", "InvoiceContactType");
+        if(@SubmissionId!=0){
+            loadInvoiceDetails();           
+        }
+        PreventDefaultClick();
+    });
+
+    $('#btnCancel').click(function(){
+        window.location.href="/Home/MyTickets";
+    });
+    function loadInvoiceDetails()
+    {
+        $.ajax({
+            url: '/Home/GetSelectData',
+            type: 'Get',
+            dataType: 'json',
+            data: {Id:@SubmissionId,Operation:59},
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    $("#txtCandidateName").val(resultVals[0]["CandidateName"]).attr('disabled', true);
+                    $("#txtClient").val(resultVals[0]["ClientName"]).attr('disabled', true);
+                    $("#txtPositionTitle").val(resultVals[0]["PositionTitle"]).attr('disabled', true);
+                    $("#hdnInvoiceId").val(resultVals[0]["InvoiceId"]);
+                    $("#txtName").val(resultVals[0]["Name"]);
+                    $("#txtEmail").val(resultVals[0]["Email"]);
+                    $("#txtTerms").val(resultVals[0]["Terms"]);
+                    $("#ddlBillingCycle").val(resultVals[0]["FK_BillingCycle"]);
+                    $("#ddlBillingCycle").click();
+                    $("#txtStreet").val(resultVals[0]["Street"]);
+                    $("#txtCity").val(resultVals[0]["City"]);
+                    $("#txtState").val(resultVals[0]["State"]);
+                    $("#txtCountry").val(resultVals[0]["Country"]);
+                    $("#txtZip").val(resultVals[0]["Zip"]);
+
+                    var ccList;
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (resultVals[i]["CcList"] != "") {
+                            ccList = resultVals[i]["CcList"].split('|');
+                            var listObject = $("#listCcList");
+                            if (listObject != undefined)
+                                for (var j = 0; j < ccList.length - 1; j++) {
+                                    listObject.append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; " +
+                           "min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + ccList[j] +
+                            "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                            "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>"); 
+                                    PreventDefaultClick();
+                                }
+                            
+                        }
+                    }
+                }
+                //Get Contact details
+                $.ajax({
+                    url: '/Home/GetSelectData',
+                    type: 'Get',
+                    dataType: 'json',
+                    data: {Id:$("#hdnInvoiceId").val(),Operation:60},
+                    success: function (result) {
+                        var resultVals = $.parseJSON(result);
+                        if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                            for (var i = 0; i < resultVals.length; i++) {
+                                if (i > 0) {
+                                    addRow($('#tblInvoiceDetails'),$('#lblMessage'));
+                                }
+                                rowObject = $('#tblInvoiceDetails').find("tr:nth-child(" + (i + 1) + ")");
+                                rowObject.find('#txtCDName').val(resultVals[i]["Name"]);
+                                rowObject.find('#txtCDEmail').val(resultVals[i]["Email"]);
+                                rowObject.find('#txtCDTerms').val(resultVals[i]["Terms"]);
+                                rowObject.find('#ddlContactType').val(resultVals[i]["FK_ContractType"]);
+                                rowObject.find('#ddlContactType').click();                               
+                                rowObject.find('#txtCDStreet').val(resultVals[i]["Street"]);
+                                rowObject.find('#txtCDCity').val(resultVals[i]["City"]);
+                                rowObject.find('#txtCDState').val(resultVals[i]["State"]);
+                                rowObject.find('#txtCDCountry').val(resultVals[i]["Country"]);
+                                rowObject.find('#txtCDZip').val(resultVals[i]["Zip"]);
+                                rowObject.find('#txtCDPhone').val(resultVals[i]["Phone"]);
+                            }
+                        }
+                    },
+                });
+              
+            }
+        });
+
+    }
+    function ValidateAndSave(){
+        var IsValid = false;
+        $('#divInvoiceDetailsmain').find('input[type=text], select').each(function(){
+            $(this).removeClass("ErrorFocus");
+            $('#lblMessage').text("");
+            if($(this).val() != "")
+                IsValid=true;
+        });
+        if(IsValid)
+            saveInvoiceDetails(20);
+        else
+        {
+            $('#lblMessage').removeClass('lblMessage');
+            $('#lblMessage').addClass('lblError');
+            $('#lblMessage').text("Please fill atleast one field");
+        }
+    }
+
+    function saveInvoiceDetails(ticketStatus){        
+        var CcList = getCompetancy($("#listCcList"));
+        PreventDefaultClick();
+        if(@SubmissionId!=0){
+            var Operation = parseInt($("#hdnInvoiceId").val()) == 0 ? 1 : 2;
+            $.ajax({
+                url: '/USRecruitment/SaveInvoiceDetails',
+                type: 'POST',
+                dataType: 'json',
+                data: {                   
+                    InvoiceId:parseInt($("#hdnInvoiceId").val()), FK_SubmissionId:@SubmissionId,FK_TicketStatus:ticketStatus,Name:$("#txtName").val(),Email:$("#txtEmail").val(),
+                    Terms:$("#txtTerms").val(),FK_BillingCycle:$("#ddlBillingCycle").val() == "" ? 0 : $("#ddlBillingCycle").val(),Street:$("#txtStreet").val(),
+                    City:$("#txtCity").val(),State:$("#txtState").val(),Country:$("#txtCountry").val(),Zip:$("#txtZip").val(),CcList:CcList,Status:1,Operation:Operation
+                },
+
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        $('#hdnInvoiceId').val(resultVals[0]["InvoiceDetailsId"]);
+                        $('#lblMessage').addClass('lblMessage');
+                        $('#lblMessage').removeClass('lblError');
+                        //$('#lblMessage').text("Invoice Added Successfully");                        
+                        var dtInvoiceDetails = new Array();                        
+                        $("#tblInvoiceDetails").find("tbody > tr").each(function () {                            
+                            dtInvoiceDetails.push({
+                                "FK_InvoiceId": parseInt($("#hdnInvoiceId").val()), "Name": $(this).find("#txtCDName").val(),
+                                "Email": $(this).find("#txtCDEmail").val(), "Terms": $(this).find("#txtCDTerms").val(), "FK_ContractType": $(this).find("#ddlContactType").val() == "" ? 0 : $("#ddlContactType").val(),
+                                "Street": $(this).find("#txtCDStreet").val(), "City": $(this).find("#txtCDCity").val(), "State": $(this).find("#txtCDState").val(),
+                                "Country": $(this).find("#txtCDCountry").val(), "Zip": $(this).find("#txtCDZip").val(), "Phone": $(this).find("#txtCDPhone").val()
+
+                            });
+                        });
+                        $.ajax({
+                            url: '/USRecruitment/SaveInvoiceContactDetails',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                Id: parseInt($("#hdnInvoiceId").val()), jsonInvoiceDocs: JSON.stringify(dtInvoiceDetails)
+                            },
+                            success: function (data) {                                
+                                    $('#lblMessage').addClass("lblMessage");
+                                    $('#lblMessage').removeClass("lblError");                                
+                                    if(ticketStatus==19)
+                                    {
+                                        $('#lblMessage').text("Invoice Details Submitted successfully");
+                                        window.location.href="/Home/MyTickets";
+                                    }
+                                    else
+                                        $('#lblMessage').text("Invoice Details Saved successfully");                               
+                            },
+                            error: function () {
+                                alert('error');
+                            }
+                        }); 
+                    }
+                },
+                error: function () {
+                   
+                }
+            });
+        }
+        //});
+    }  
+</script>

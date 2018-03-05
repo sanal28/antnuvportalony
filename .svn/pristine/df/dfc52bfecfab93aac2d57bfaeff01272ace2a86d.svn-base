@@ -1,0 +1,1547 @@
+﻿@{
+    ViewBag.Title = "VisaProcessing";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+    int RowId = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        RowId = Convert.ToInt16(Request["hdnId"].ToString());
+    }
+    int TypeId = 0;
+    if (Request["TypeId"] != null && Request["TypeId"] != "")
+    {
+        TypeId = Convert.ToInt16(Request["TypeId"].ToString());
+    }
+}
+<dialog id="dlgConfirmVisaStatus" style="width:30%;background: transparent;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Please confirm status</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgConfirmVisaStatus').close();">X</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                        <div id="btnTerminate" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/reject.png" width="14" height="14" alt="" />Terminate</a></div>
+                        <div id="btnReSubmit" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/accept.png" width="14" height="14" alt="" />ReSubmit</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<dialog id="dlgCBLibrary" style="width:30%;background: transparent;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Uploaded Docs</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgCBLibrary').close();">X</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="contentfielddiv">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" id="tblCBLibraryFiles">
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="myprojectenterdiv">
+                        <a href="#">
+                            <img title="Enter" class="enter" src="../images/enter.png" style="cursor:pointer;display:none;" id="btnEnter" width="30" height="30" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ErrorLabel">
+                        <label id="empMsg" class="lblError"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<dialog id="dlgLibrary" style="width:30%;background: transparent;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Uploaded Docs</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgLibrary').close();">X</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="contentfielddiv">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" id="tblDOCLibraryFiles">
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="myprojectenterdiv">
+                        <a href="#">
+                            <img title="Enter" class="enter" src="../images/enter.png" style="cursor:pointer;display:none;" id="btnEnterVisa" width="30" height="30" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ErrorLabel">
+                        <label id="empMsg" class="lblError"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+<dialog id="dlgFDLibrary" style="width:30%;background: transparent;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Uploaded Docs</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgFDLibrary').close();">X</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="contentfielddiv">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" id="tblFDLibraryFiles">
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="myprojectenterdiv">
+                        <a href="#">
+                            <img title="Enter" class="enter" src="../images/enter.png" style="cursor:pointer;display:none;" id="btnEnterFamily" width="30" height="30" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ErrorLabel">
+                        <label id="empMsg" class="lblError"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/visa-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Visa Processing</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div id="srollDiv" style="overflow-y:auto;overflow-x:hidden; height:500px;">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" href="#" onclick="CheckTypeAndBack();"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div id="divValidateSave">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtCandidateName" class="autocompleteEmp floating-input vinput" type="text" placeholder=" ">
+                        <label class="float">Candidate Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtClient" class="floating-input vinput" type="text" placeholder=" ">
+                        <label class="float">Client</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtPositionTitle" class="floating-input vinput" type="text" placeholder=" ">
+                        <label class="float">Position Title</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="divVisaStatus" style="display:none;">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlVisaStatus" class="floating-select" onclick="this.setAttribute('value', this.value);" value=""></select>
+                        <label class="float">Visa Status</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        @*<input type="hidden" id="hdnVisaProcessingId" value="" />*@
+                        <input id="txtFedTaxId" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Federal TAX ID Number</label>
+                        <input type="hidden" id="hdnVisaId" value="0" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtCompName" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Company Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtCompEstDate" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Company Established Date</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                        <textarea id="txtCompAddress" class="floating-input floating-textarea vinput vvalid" placeholder=" "></textarea>
+                        <label class="float">Company Address</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtPhone" class="floating-input vinput vvalid vphone" type="text" placeholder=" ">
+                        <label class="float">Phone</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtFax" class="floating-input vvalid" type="text" placeholder=" ">
+                        <label class="float">Fax</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEmail" class="floating-input vinput vvalid vemail" type="text" placeholder=" ">
+                        <label class="float">Email</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtTotEmployees" class="floating-input vinput vvalid vnumeric" type="text" placeholder=" ">
+                        <label class="float">Total Employees</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtGrossAnnIncome" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Gross Annual Income</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtNetIncome" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Net Income</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtName" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Name (Signed By)</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtTitle" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Title (Signed By)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                        <textarea id="txtCompDes" class="floating-input floating-textarea vinput vvalid" placeholder=" "></textarea>
+                        <label class="float">Company Description</label>
+                    </div>
+                </div>
+            </div>
+            <div id="divCBFiles">
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="USRECdocument">Is Your Company H-1B Dependent?</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="USRECdocument">
+                            <label class="switch">
+                                <input type="checkbox" id="cbCompDependent">
+                                <div class="slider round"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEmpCount" class="floating-input vvalid" type="text" placeholder=" ">
+                        <label class="float">How many H-1B employees?</label>
+                    </div>
+                </div>
+            </div>
+            <div class="space"></div>
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Job Offered</div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtSalOffered" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Salary offered</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtJobTitle" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Title</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                        <textarea id="JobAddress" class="floating-input floating-textarea vinput vvalid" placeholder=" "></textarea>
+                        <label class="float">Address</label>
+                    </div>
+                </div>
+            </div>
+            <div class="space"></div>
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Employees Information</div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEmpFistName" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">First Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEmpMiddleName" class="floating-input vvalid" type="text" placeholder=" ">
+                        <label class="float">Middle Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEmpLastName" class="floating-input vvalid" type="text" placeholder=" ">
+                        <label class="float">Last Name</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contentfielddiv">
+                        <textarea id="txtUSAddress" class="floating-input floating-textarea vinput vvalid" placeholder=" "></textarea>
+                        <label class="float">Address in US</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contentfielddiv">
+                        <textarea id="txtAbroadAddress" class="floating-input floating-textarea vinput vvalid" placeholder=" "></textarea>
+
+                        <label class="float">Address Abroad</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtAbroadConsulate" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Nearest Consulate Abroad </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEmpDob" class="floating-input vinput vvalid vdob" type="text" placeholder=" ">
+                        <label class="float">DOB</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEmpBirthPlace" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Place of Birth</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtBirthCountry" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Country of Birth</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtSSN" class="floating-input vvalid" type="text" placeholder=" ">
+                        <label class="float">Social Security Number (if any) </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtApproval" class="floating-input vvalid" type="text" placeholder=" ">
+                        <label class="float">Last I-797 Approval (Receipt Number)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtPassportNo" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Passport Number</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtPassIssueDate" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Passport Issue Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtPassValidityDate" class="floating-input vinput vvalid" type="text" placeholder=" ">
+                        <label class="float">Passport Validity Date</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtI94" class="floating-input vvalid" type="text" placeholder=" ">
+                        <label class="float">I-94 Number</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtI94IssueDate" class="floating-input vvalid" type="text" placeholder=" ">
+                        <label class="float">I-94 Issue Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtI94ValidityDate" class="floating-input vvalid" type="text" placeholder=" ">
+                        <label class="float">I-94 Validity Date</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div class="popupheadingmaindiv">
+            <div class="popupheadingtext">Date of US Residency</div>
+        </div>
+        <div class="space"></div>
+        <table style="width:100%" id="tblVisaProcess">
+            <tbody id="tbyVisaProcess">
+                <tr id="tr1">
+                    <td>
+                        <div class="academicaddmaindiv">
+                            <div title="Remove" class="academicremovebutton" onclick="return deleteRow(this, $('#lblMessage'));">-</div>
+                            <div title="Add" class="academicaddbutton" onclick="addRow($('#tblVisaProcess'),null)">+</div>
+                        </div>
+                        <div class="space"></div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtEntryDate" class="floating-input visadateText EntryDate" type="text" placeholder=" ">
+                                    <label class="float">Entry Date on H-1B or L-1 Visa</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtExitDate" class="floating-input visadateText ExitDate" type="text" placeholder=" ">
+                                    <label class="float">Exit Date on H-1B or L-1 Visa</label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="divSpace" class="space"></div>
+        <div class="popupheadingmaindiv">
+            <div class="popupheadingtext">Document </div>
+        </div>
+        <div id="divFiles">
+        </div>
+        <div class="space"></div>
+        <div class="popupheadingmaindiv">
+            <div class="popupheadingtext">About Family</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="USRECdocument">Married</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <div class="USRECdocument">
+                        <label class="switch">
+                            <input type="checkbox" id="cbMarried">
+                            <div class="slider round"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+        <table style="width:100%" id="tblVisaFamilyDetails">
+            <tbody id="tbyVisaFamilyDetails">
+                <tr id="tr1">
+                    <td>
+                        <div class="academicaddmaindiv">
+                            <div title="Remove" class="academicremovebutton" onclick="return deleteRow(this, $('#lblMessage'));">-</div>
+                            <div title="Add" class="academicaddbutton" onclick="return CloneRow(this);">+</div>
+                        </div>
+                        <div class="space"></div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input class="floating-input txtFirstName vdFninput" type="text" placeholder=" ">
+                                    <label class="float">First Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input class="floating-input txtLastName" type="text" placeholder=" ">
+                                    <label class="float">Last Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input class="floating-input visadateText txtDob" type="text" placeholder=" ">
+                                    <label class="float">DOB</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input class="floating-input txtSOS" type="text" placeholder=" ">
+                                    <label class="float">SOS. SEC Number</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input class="floating-input txtRelation vdRpinput" type="text" placeholder=" ">
+                                    <label class="float">Relationship</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="BirthPlace" class="floating-input BirthPlace" type="text" placeholder=" ">
+                                    <label class="float">Place of Birth</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input class="floating-input visadateText txtEntry" type="text" placeholder=" ">
+                                    <label class="float">Entry</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input class="floating-input visadateText txtExit" type="text" placeholder=" ">
+                                    <label class="float">Exit</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divFDFiles">
+
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+            </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input id="btnSubmit" title="Submit" class="submitbtn" type="button" onclick="ValidateAndSubmitVisaProcessing()" /></div>
+            <div class="buttondiv"><input id="btnSave" title="Save" class="Savebtn" type="button" style="display:none;" onclick="ValidateAndSaveVisaProcessing()" /></div>
+
+            <div class="buttondiv"><input id="btnCancel" title="Cancel" class="Cancelbtn" type="button" style="display:none;"/></div>
+            @*<div class="buttondiv"><input id="btnSaveAndNew" title="Save and New" class="submitandnewbtn" type="button" /></div>
+                <div class="buttondiv"><input id="btnClear" title="Clear" class="clearbtn" type="button" /></div>*@
+            <div class="ErrorLabel"><label id="lblMessage" class="lblMessage"></label></div>
+        </div>
+    </div>
+
+    <script>
+        var CurrentRowElement;
+        var FileInputCount = 0;
+        var LeadId = 1;
+        var EmpId = 0;
+        var SaveClick = 0;
+        var TicketStatusId;
+        var SubmissionId = 0;
+        var TypeId = @TypeId;
+        var TicketSubmissionDate = "";
+
+        $(document).ready(function () {
+            if(TypeId == 25){
+                DefineAutoComplete();
+            }
+            else{
+                $("#btnCancel").show();
+                $("#btnSave").show();
+            }
+            LoadDdls("/Home/GetDdlData?Id=0&Operation=42", $('#ddlVisaStatus'), "StatusId", "StatusName");
+            DefineDatePicker($('#txtPassValidityDate'));
+            DefineDatePicker($('#txtI94IssueDate'));
+            DefineDatePicker($('#txtI94ValidityDate'));
+            DefineDatePicker($('#txtEmpDob'));
+            DefineDatePicker($('#txtPassIssueDate'));
+            DefineDatePicker($('#txtCompEstDate'));
+            //DefineDatePicker($('#txtEmpUSResDate'));
+
+            //DefineDatePicker($('#txtEntryDate'));
+            //DefineDatePicker($('#txtExitDate'));
+
+            DefineDatePicker($('#txtEntry'));
+            DefineDatePicker($('#txtExit'));
+            DefineDatePicker($('.visadateText'));
+            DefineDatePicker($('#txtDob'));
+            DefineClicks();
+            GetFileTypes();
+            //
+            $('.enter').click(function () {
+                $(this).closest('.row').find('table').find('input[type=checkbox]:checked').each(function () {
+                    CheckExtension(CurrentRowElement.closest('.row').find('.docDiv'), "", $(this).closest('tr').find('.cbhrefFilepath').attr('href'),
+                                                   "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 3);
+                    PreventDefaultClick();
+                });
+                document.getElementById($(this).closest('dialog').attr('id')).close();
+            });
+            PreventDefaultClick();
+
+            if(@RowId != 0)
+            {
+                var VisaId = @RowId;
+                if(TypeId !=19 ){
+                    $.ajax({
+                        url: '/Home/GetSelectData',
+                        type: 'GET',
+                        dataType: 'json',
+                        async: false,
+                        data: { Id: @RowId, Operation: (TypeId == 18 ? 61 : 62) },
+                        success: function (result) {
+                            var resultVals = $.parseJSON(result);
+                            if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                                SubmissionId = @RowId;
+                                LeadId = resultVals[0]["LeadId"];
+                                $("#txtCandidateName").val(resultVals[0]["CandidateName"]).attr('disabled', true);
+                                $("#txtClient").val(resultVals[0]["ClientName"]).attr('disabled', true);
+                                $("#txtPositionTitle").val(resultVals[0]["PositionTitle"]).attr('disabled', true);
+                                VisaId = parseInt(resultVals[0]["VisaProcessingId"]);
+                            }
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+                else{
+                    $('#divVisaStatus').show();
+                }
+                if(VisaId!=0){
+                    loadVisaProcessingData(VisaId);
+                    loadDocuments(VisaId);
+                    loadVisaFamilyDetails(VisaId);
+                    loadVisaDateDetails(VisaId);
+                }
+                //$(".buttonmaindiv").hide();
+                //$(".academicaddbutton").hide();
+                //$(".academicremovebutton").hide();
+            }
+            if(TypeId == 25){ //New visa without previous tickets
+                $('#divVisaStatus').show();
+                $('#ddlVisaStatus').click();
+            }
+            LoadLibraryFiles(LeadId);
+            LoadFDLibraryFiles(LeadId);
+            $('#btnTerminate').click(function(){
+                //TicketStatusId = (TypeId == 19) ? parseInt($('#ddlVisaStatus').val()) : 11 ;
+                $('#dlgConfirmVisaStatus')[0].close();
+                saveVisaprocessing(23,true);
+            });
+            $('#btnReSubmit').click(function(){
+                //TicketStatusId = (TypeId == 19) ? parseInt($('#ddlVisaStatus').val()) : 11 ;
+                $('#dlgConfirmVisaStatus')[0].close();
+                saveVisaprocessing(13,true);
+            });
+        });
+
+
+        //function defineExpUploads() {
+        //    $('.closeImage').click(function () {
+        //        $(this).closest('.profilethumbnaildiv').parent().remove();
+        //    });
+        //}
+        function LoadLibraryFiles(LeadId) {
+            $.ajax({
+                url: '/Home/GetEmpData',
+                type: "GET",
+                async:false,
+                dataType: 'json',
+                data: { Id: LeadId, Operation: 88},
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    var FileArrayCompany = new Array();
+                    var FileArrayVisa = new Array();
+                    var rowObject;
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        $('#tblCBLibraryFiles tr').remove();
+                        for (var i = 0; i < resultVals.length; i++) {
+                            if(resultVals[i]["TypeId"]==2)
+                            {
+                                if ($.inArray(resultVals[i]["DocPath"], FileArrayCompany) < 0) {
+                                    FileArrayCompany.push(resultVals[i]["DocPath"]);
+                                    $('#tblCBLibraryFiles').append("<tr>" +
+                                                    "<td width='10%'><input type='checkbox' class='cbcheckbox' name='SelectAll' /></td>" +
+                                                    "<td width='90%'>" +
+                                                        "<div class='resourcemoreusename'>" +
+                                                            "<a class='cbhrefFilepath documentlinkdiv' href='" + resultVals[i]["DocPath"] +
+                                                            "' target='_blank' class='documentlinkdiv'>" +
+                                                            TrimFileNameDummy(resultVals[i]["DocPath"]) + "</a>" +
+                                                        "</div>" +
+                                                    "</td>" +
+                                                "</tr>");
+                                }
+                                $('#btnEnter').show();
+                            }
+                            else{
+                                if ($.inArray(resultVals[i]["DocPath"], FileArrayVisa) < 0) {
+                                    FileArrayVisa.push(resultVals[i]["DocPath"]);
+                                    $('#tblDOCLibraryFiles').append("<tr>" +
+                                                    "<td width='10%'><input type='checkbox' class='cbcheckbox' name='SelectAll' /></td>" +
+                                                    "<td width='90%'>" +
+                                                        "<div class='resourcemoreusename'>" +
+                                                            "<a class='cbhrefFilepath documentlinkdiv' href='" + resultVals[i]["DocPath"] +
+                                                             "' target='_blank' class='documentlinkdiv'>" +
+                                                            TrimFileNameDummy(resultVals[i]["DocPath"]) + "</a>" +
+                                                        "</div>" +
+                                                    "</td>" +
+                                                "</tr>");
+                                }
+                                $('#btnEnterVisa').show();
+                            }
+                        }
+                        if($('#tblCBLibraryFiles tr').length==0)
+                        {
+                            $('#tblCBLibraryFiles').append("<tr><td width='10%'><label class='lblMessage'>No files found</label></td></tr>");
+                            $('#btnEnter').hide();
+                        }
+                        if($('#tblDOCLibraryFiles tr').length==0)
+                        {
+                            $('#tblDOCLibraryFiles').append("<tr><td width='10%'><label class='lblMessage'>No files found</label></td></tr>");
+                            $('#btnEnterVisa').hide();
+                        }
+                    }
+                    else {
+                        $('#tblCBLibraryFiles').append("<tr><td width='10%'><label class='lblMessage'>No files found</label></td></tr>");
+                        $('#btnEnter').hide();
+                        $('#tblDOCLibraryFiles').append("<tr><td width='10%'><label class='lblMessage'>No files found</label></td></tr>");
+                        $('#btnEnterVisa').hide();
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        }
+        function LoadFDLibraryFiles(LeadId) {
+            $.ajax({
+                url: '/Home/GetEmpData',
+                type: "GET",
+                dataType: 'json',
+                async:false,
+                data: { Id: LeadId, Operation: 89},
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    var FileArray = new Array();
+                    var rowObject;
+                    var locFileArray;
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        $('#tblFDLibraryFiles tr').remove();
+                        for (var i = 0; i < resultVals.length; i++) {
+                            locFileArray = resultVals[i]["DocsUrl"].split('||');
+                            for(var j=0;j<(locFileArray.length - 1);j++)
+                            {
+                                if ($.inArray(locFileArray[j], FileArray) < 0) {
+                                    FileArray.push(locFileArray[j]);
+                                    $('#tblFDLibraryFiles').append("<tr>" +
+                                                    "<td width='10%'><input type='checkbox' class='cbcheckbox' name='SelectAll' /></td>" +
+                                                    "<td width='90%'>" +
+                                                        "<div class='resourcemoreusename'>" +
+                                                            "<a class='cbhrefFilepath documentlinkdiv' href='" + locFileArray[j] + "' target='_blank' class='documentlinkdiv'>" +
+                                                            TrimFileNameDummy(locFileArray[j]) + "</a>" +
+                                                        "</div>" +
+                                                    "</td>" +
+                                                "</tr>");
+                                }
+                            }
+                            $('#btnEnterFamily').show();
+                        }
+                    }
+                    else {
+                        $('#tblFDLibraryFiles').append("<tr><td width='10%'><label class='lblMessage'>No files found</label></td></tr>");
+                        $('#btnEnterFamily').hide();
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        }
+
+        function DefineClicks() {
+            $('.openCBpopup').click(function () {
+                CurrentRowElement = $(this);
+                var dialog = document.getElementById('dlgCBLibrary');
+                $('#dlgCBLibrary').find('input[type=checkbox]:checked').removeAttr('checked');
+                dialog.showModal();
+
+            });
+            $('.openFDpopup').click(function () {
+                CurrentRowElement = $(this);
+                var dialog = document.getElementById('dlgFDLibrary');
+                $('#dlgFDLibrary').find('input[type=checkbox]:checked').removeAttr('checked');
+                dialog.showModal();
+
+            });
+            $('.openpopup').click(function () {
+                CurrentRowElement = $(this);
+                var dialog = document.getElementById('dlgLibrary');
+                $('#dlgLibrary').find('input[type=checkbox]:checked').removeAttr('checked');
+                dialog.showModal();
+
+            });
+            $('.leadfileuploadMultipleFiles').change(function () {
+                var fileElement = $(this);
+                var DocUpload = fileElement.get(0);
+                var hidden=fileElement.closest('div').find('.hrefFD');
+                var DocFiles = DocUpload.files;
+                if (DocFiles.length > 0) {
+                    var DocAttachments = new FormData();
+                    for (i = 0; i < DocFiles.length; i++) {
+                        DocAttachments.append(DocFiles[i].name, DocFiles[i]);
+                    }
+                    $.ajax({
+                        url: '/EmpInfoUserView/UploadFiles',
+                        type: "POST",
+                        async: false,
+                        contentType: false,
+                        processData: false,
+                        data: DocAttachments,
+                        success: function (result) {
+                            var json = $.parseJSON(result);
+                            if (json["Error"] == undefined || json["Error"] == null) {
+                                for (var i = 0; i < DocFiles.length; i++) {
+                                    if(hidden != null && hidden.length > 0)
+                                        hidden.val(hidden.val() + json[DocFiles[i].name] + '||');
+                                    CheckExtension(fileElement.closest('.row').find('.docDiv'), DocFiles[i].name, json[DocFiles[i].name],
+                                        "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 3);
+                                    PreventDefaultClick();
+                                }
+                            }
+                        },
+                        error: function (err) {
+                            //alert(err.statusText);
+                        }
+                    });
+                    fileElement.val('');
+                }
+            });
+            $('.leadfileuploadCBFiles').change(function () {
+                var fileElement = $(this);
+                var DocUpload = fileElement.get(0);
+                var hidden=fileElement.closest('div').find('.hrefFD');
+                var DocFiles = DocUpload.files;
+                if (DocFiles.length > 0) {
+                    var DocAttachments = new FormData();
+                    //for (i = 0; i < DocFiles.length; i++) {
+                    DocAttachments.append(DocFiles[0].name, DocFiles[0]);
+                    //}
+                    $.ajax({
+                        url: '/EmpInfoUserView/UploadFiles',
+                        type: "POST",
+                        async: false,
+                        contentType: false,
+                        processData: false,
+                        data: DocAttachments,
+                        success: function (result) {
+                            var json = $.parseJSON(result);
+                            if (json["Error"] == undefined || json["Error"] == null) {
+                                //for (var i = 0; i < DocFiles.length; i++) {
+                                if(hidden != null && hidden.length > 0)
+                                    hidden.val(hidden.val() + json[DocFiles[0].name]);
+                                fileElement.closest('.row').find('.docDiv').empty();
+                                CheckExtension(fileElement.closest('.row').find('.docDiv'), DocFiles[0].name, json[DocFiles[0].name],
+                                    "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 3);
+                                PreventDefaultClick();
+                                //}
+                            }
+                        },
+                        error: function (err) {
+                        }
+                    });
+                    fileElement.val('');
+                }
+            });
+
+
+            PreventDefaultClick();
+        }
+
+        function GetFileTypes()  {
+            $.ajax({
+                url: '/Home/GetSelectData',
+                type: "GET",
+                async : false,
+                dataType: 'json',
+                data: { Id: 0, Operation: 46 },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    var rowObject;
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        $('#divFiles').empty();
+                        $('#divCBFiles').empty();
+                        $('#divFDFiles').empty();
+                        for (var i = 0; i < resultVals.length; i++) {
+
+                            if(resultVals[i]["TypeId"] == "1"){
+                                $('#divFiles').append("<div class='row'>" +
+                                    "<div class='col-md-4'>" +
+                                        "<div class='contentfielddiv'>" +
+                                            "<div class='USRECdocument docTypeId' name = '" + resultVals[i]["DocTypeId"] + "'>" + resultVals[i]["DocType"] + "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='col-md-2'>" +
+                                        "<div class='USRECdocumentfilebtndiv'>" +
+                                            "<label for='fileUpload" + FileInputCount + "'' class='USRECdocumentfilebtn'>Choose from File</label>" +
+                                            "<input type='hidden' id='hdnFiles' value='' class='filehidden fileUrlVal' /><input type='file' class='leadfileupload leadfileuploadMultipleFiles' multiple  id='fileUpload" + FileInputCount + "' style='display: none'>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='col-md-2'>" +
+                                        "<div class='USRECdocumentfilebtndiv openpopup'>" +
+                                            "<label for='fileUploadAttachmentLib' class='USRECdocumentfilebtn'>Choose from Library</label>" +
+                                       "</div>" +
+                                    "</div>" +
+                                    "<div class='col-md-4'><div class='docDiv row'></div></div>" +
+                                "</div>");
+                                FileInputCount++;
+                            }
+
+                            else if(resultVals[i]["TypeId"] == "2"){
+                                $('#divCBFiles').append("<div class='row'>" +
+                                    "<div class='col-md-3'>" +
+                                        "<div class='contentfielddiv'>" +
+                                            "<div class='USRECdocument docTypeId' name = '" + resultVals[i]["DocTypeId"] + "'>" + resultVals[i]["DocType"] + "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='col-md-2'>" +
+                                        "<div class='USRECdocumentfilebtndiv'>" +
+                                            "<label for='fileUpload" + FileInputCount + "'' class='USRECdocumentfilebtn'>Choose from File</label>" +
+                                            "<input type='hidden' id='hdnCBFiles' value='' class='filehidden fileUrlVal' /><input type='file' class='leadfileupload leadfileuploadCBFiles' id='fileUpload" + FileInputCount + "' style='display: none'>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='col-md-2'>" +
+                                        "<div class='USRECdocumentfilebtndiv openCBpopup'>" +
+                                            "<label for='fileUploadAttachmentLib' class='USRECdocumentfilebtn'>Choose from Library</label>" +
+                                       "</div>" +
+                                    "</div>" +
+                                    "<div class='col-md-5'><div class='docDiv'></div></div>" +
+                                "</div>");
+                                FileInputCount++;
+                            }
+
+                            else if(resultVals[i]["TypeId"] == "3"){
+                                $('#divFDFiles').append("<div class='row'>" +
+                                    "<div class='col-md-4'>" +
+                                        "<div class='contentfielddiv'>" +
+                                            "<div class='USRECdocument docTypeId' name = '" + resultVals[i]["DocTypeId"] + "'>" + resultVals[i]["DocType"] + "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='col-md-2'>" +
+                                        "<div class='USRECdocumentfilebtndiv'>" +
+                                            "<label for='fileUpload" + FileInputCount + "' class='USRECdocumentfilebtn fileLabel'>Choose from File</label>" +
+                                            "<input type='hidden' name='"+resultVals[i]["DocTypeId"]+"' value='' class='hrefFD filehidden fileUrlVal'><input type='file' class='leadfileupload leadfileuploadMultipleFiles' multiple  id='fileUpload" +
+                                            FileInputCount + "' style='display: none'>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class='col-md-2'>" +
+                                        "<div class='USRECdocumentfilebtndiv openFDpopup'>" +
+                                            "<label for='fileUploadAttachmentLib' class='USRECdocumentfilebtn'>Choose from Library</label>" +
+                                       "</div>" +
+                                    "</div>" +
+                                    "<div class='col-md-4'><div class='docDiv' name='" + resultVals[i]["DocTypeId"] + "'></div></div>" +
+                                "</div>");
+                                FileInputCount++;
+                            }
+
+
+                        }
+
+
+                    }
+                    DefineClicks();
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        }
+
+        function CloneRow(obj)
+        {
+            addRow(obj, $('#lblMessage'));
+            $('#tbyVisaFamilyDetails').find("tr").last().find(".leadfileupload").each(function(){
+                $(this).attr("id", "fileUpload"+FileInputCount);
+                $(this).closest('div').find('.fileLabel').attr("for", "fileUpload"+FileInputCount);
+                FileInputCount++;
+            });
+            DefineClicks();
+        }
+        function ValidateAndSaveVisaProcessing()
+        {var temp=0;
+            var IsValid = false;
+            $('#divValidateSave').find('.vvalid,.vinput').removeClass("ErrorFocus");
+            $('#divValidateSave').find('.vvalid').each(function(){
+                $('#lblMessage').text("");
+                if($(this).val() != "")
+                    IsValid=true;
+            });
+           
+            if(IsValid)
+            {
+                TicketStatusId = (TypeId == 19 || TypeId == 25) ? TicketStatusId :0 ;
+                saveVisaprocessing(TicketStatusId,false);
+            }
+            else
+            {                
+                $('#divValidateSave').find('.vvalid').addClass("ErrorFocus");
+                $('#lblMessage').removeClass('lblMessage');
+                $('#lblMessage').addClass('lblError');
+                $('#lblMessage').text("Please fill atleast one field");               
+            }
+        }
+        function ValidateAndSubmitVisaProcessing()
+        {
+          
+            $('#divValidateSave').find('.vvalid,.vinput').removeClass("ErrorFocus");
+           
+            if(ValidateAll('divValidateSave','lblMessage') && validateRow()){
+                
+                 $('#lblMessage').text("");
+                if($('#ddlVisaStatus').val() == 13)
+                {
+                    $('#dlgConfirmVisaStatus')[0].showModal();
+                }
+                else{
+                    TicketStatusId = (TypeId == 19 || TypeId == 25) ? parseInt($('#ddlVisaStatus').val()) : 11 ;
+                    saveVisaprocessing(TicketStatusId,true);
+                
+                }            
+            
+            }
+            
+        }
+       
+        function saveVisaprocessing(TicktsubId,IsSubmit){
+            var Operation = parseInt($('#hdnVisaId').val()) == 0 ? 1 : 2;
+            var TicktSubDate;
+            if(TicketSubmissionDate != null && TicketSubmissionDate != "")
+                TicktSubDate = FormatDate(TicketSubmissionDate, "yyyy/mm/dd");
+            else if(TicktsubId == 11)
+                TicktSubDate = FormatDate(new Date(), "yyyy/mm/dd");
+            else
+                TicktSubDate = FormatDate("01/01/1753","yyyy/mm/dd");
+            var MaritalStatus = document.getElementById('cbMarried').checked?1:0;
+            var CompDependent = document.getElementById('cbCompDependent').checked?1:0;
+            $.ajax({
+                url: '/USRecruitment/SaveVisaProcessing',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    VisaProcessingID: parseInt($('#hdnVisaId').val()),FKSubmissionId:SubmissionId, CompanyAddress: $('#txtCompAddress').val(), CompanyDescription: $('#txtCompDes').val(),
+                    CompanyEstDate: FormatDate($("#txtCompEstDate").val(), "yyyy/mm/dd"), CompanyName: $('#txtCompName').val(),
+                    Email: $('#txtEmail').val(), EmpAbroadAddress: $('#txtAbroadAddress').val(), EmpCountryOfBirth: $('#txtBirthCountry').val(),
+                    EmpDOB: FormatDate($("#txtEmpDob").val(), "yyyy/mm/dd"), EmpFname: $('#txtEmpFistName').val(), EmpLname: $('#txtEmpLastName').val(),
+                    EmpMname: $('#txtEmpMiddleName').val(), EmpNearestConsulate: $('#txtAbroadConsulate').val(), EmpPlaceOfBirth: $("#txtEmpBirthPlace").val(),
+                    EmpSSN: $('#txtSSN').val(),
+                    EmpUSAddress: $('#txtUSAddress').val(), Fax: $('#txtFax').val(), FederalTAXIDNumber: $('#txtFedTaxId').val(),
+                    GrossAnnualIncome: $('#txtGrossAnnIncome').val(), I94IssueDate: FormatDate($("#txtI94IssueDate").val(), "yyyy/mm/dd"), I94Number: $('#txtI94').val(),
+                    I94ValidityDate: FormatDate($("#txtI94ValidityDate").val(), "yyyy/mm/dd"), IsCompanyH1BDependent: CompDependent,
+                    JobLocationAddress: $('#JobAddress').val(), JobTitleOffered: $('#txtJobTitle').val(),
+                    LastI797ApprovalReceipt: $('#txtApproval').val(), MaritalStatus:MaritalStatus, NameOfPersonToSign: $('#txtName').val(),
+                    NetIncome: $('#txtNetIncome').val(),
+                    NoOfEmployees: $('#txtTotEmployees').val()==0?0:$('#txtTotEmployees').val(), NoOfH1BEmployees: $('#txtEmpCount').val()==0?0:$('#txtEmpCount').val(),
+                    PassportIssueDate: FormatDate($("#txtPassIssueDate").val(), "yyyy/mm/dd"), PassportNumber: $('#txtPassportNo').val(),
+                    PassportValidityDate: FormatDate($("#txtPassValidityDate").val(), "yyyy/mm/dd"),
+                    Phone: $('#txtPhone').val(), SalaryOffered: $('#txtSalOffered').val(), TitleOfPersonToSign: $('#txtTitle').val(),TicketSubmissionDate:TicktSubDate,
+                    FK_TicketStatusId:TicktsubId, Operation: Operation,Candidate: EmpId, ClientName : $("#txtClient").val(),  PositionTitle:$("#txtPositionTitle").val()
+
+                },
+                success: function (dataResult) {
+                    var VisaDetailsId = 0;
+                    var returnval = $.parseJSON(dataResult);
+                    if (returnval["Result"] == undefined || returnval["Result"] == null) {
+                        VisaDetailsId = parseInt(returnval[0]["VisaId"]);
+                        $('#hdnVisaId').val(VisaDetailsId);
+                        var dtVisaDateDetails = new Array();
+                        $("#tblVisaProcess > tbody").children("tr").each(function () {
+                            if($(this).find(".EntryDate").val()!=""||$(this).find(".ExitDate").val()!="")
+                                dtVisaDateDetails.push({
+                                    "FK_VisaProcessingId": VisaDetailsId, "VisaEntryDate": FormatDate($(this).find(".EntryDate").val(),"yyyy/mm/dd"),
+                                    "VisaExitDate": FormatDate($(this).find(".ExitDate").val(),"yyyy/mm/dd")
+                                });
+                        });
+                        //if(dtVisaDateDetails.length>0){
+                        $.ajax({
+                            url: '/USRecruitment/SaveVisaDateDetails',
+                            type: 'POST',
+                            async:false,
+                            dataType: 'json',
+                            data: {
+                                Id: VisaDetailsId, jsonVisaDateDetails: JSON.stringify(dtVisaDateDetails)
+                            },
+                            success: function (dataDateResult) {
+
+                            },
+                            error: function () {
+                                //alert('error');
+                            }
+                        });
+                        //}
+                        //savefamilyDetails
+                        var dtFamilyVisaDetails = new Array();
+
+                        $("#tblVisaFamilyDetails > tbody").children("tr").each(function () {
+                            var rowElement = $(this);
+                            var IsValid = false;
+                            //call save file indivudually and return filename
+                            rowElement.find("input[type='text']").each(function(){
+                                if($(this).val() != "")
+                                    IsValid=true;
+                            });
+                            if(IsValid)
+                                dtFamilyVisaDetails.push({
+                                    "Fk_VisaDetailsId":VisaDetailsId, "FirstName": rowElement.find(".txtFirstName").val(),
+                                    "LastName": rowElement.find(".txtLastName").val(), "PlaceOfBirth": rowElement.find(".BirthPlace").val(),
+                                    "DOB": FormatDate(rowElement.find(".txtDob").val(),"yyyy/mm/dd"), "SOSSec": rowElement.find(".txtSOS").val(),
+                                    "EntryDateOfUSRes": FormatDate(rowElement.find(".txtEntry").val(),"yyyy/mm/dd"),
+                                    "ExitDateOfUSRes": FormatDate(rowElement.find(".txtExit").val(),"yyyy/mm/dd"),
+                                    "RelationShip": rowElement.find(".txtRelation").val(),"PassportPhotoPage":rowElement.find('input[name=19]').val(),
+                                    "PassportVisaPage":rowElement.find('input[name=18]').val(),
+                                    "I94IfTheFamilyIsInUsa":rowElement.find('input[name=17]').val()
+                                });
+                        });
+                        //if(dtFamilyVisaDetails.length>0){
+                        $.ajax({
+                            url: '/USRecruitment/SaveFamilyVisaDetails',
+                            type: 'POST',
+                            async:false,
+                            dataType: 'json',
+                            data: {
+                                Id: VisaDetailsId, jsonFamilyVisaDetails: JSON.stringify(dtFamilyVisaDetails)
+                            },
+                            success: function (dataFamilyResult) {
+
+                            },
+                            error: function () {
+                                //alert('error');
+                            }
+                        });
+                        //}
+                        //Documents
+                        var dtVisaDocs = new Array();
+                        $('#divCBFiles > .row').find('.docDiv > div').each(function () {
+                            if($(this).find('.filehidden').val()!="")
+                                dtVisaDocs.push({
+                                    "FK_VisaProcessingId": VisaDetailsId, "FK_DocTypeId": parseInt($(this).closest('.row').find('.docTypeId').attr('name')),
+                                    "DocPath": $(this).find('.filehidden').val()
+                                });
+                        });
+                        $('#divFiles > .row').find('.docDiv > div').each(function () {
+                            if($(this).find('.filehidden').val()!="")
+                                dtVisaDocs.push({
+                                    "FK_VisaProcessingId": VisaDetailsId,"FK_DocTypeId": parseInt($(this).closest('.row').find('.docTypeId').attr('name')),
+                                    "DocPath": $(this).find('.filehidden').val()
+                                });
+                        });
+
+                        if (dtVisaDocs.length > 0) {
+                            $.ajax({
+                                url: '/USRecruitment/SaveSubmittedVisaDocs',
+                                type: 'POST',
+                                async:false,
+                                dataType: 'json',
+                                data: {
+                                    Id: VisaDetailsId,
+                                    jsonSubmittedVisaDocs: JSON.stringify(dtVisaDocs)
+                                },
+                                success: function (dataDocResult) {
+
+                                },
+                                error: function () {
+                                    //alert('error');
+                                }
+                            });
+                        }
+                    }
+                    LoadLibraryFiles(LeadId);
+                    LoadFDLibraryFiles(LeadId);
+                    $('#lblMessage').addClass("lblMessage");
+                    $('#lblMessage').removeClass("lblError");
+                    if(IsSubmit)
+                    {
+                        $('#lblMessage').text("Visa Submitted successfully");
+                        if(TypeId == 25 && @RowId == 0)
+                            window.location.href='/USRecruitment/VisaLog';
+                        else
+                            window.location.href='/Home/MyTickets';
+                    }
+                    else{
+                        $('#lblMessage').text("Visa Saved successfully");
+                    }
+                },
+                error: function () {
+                    //alert('error');
+                }
+            });
+
+        }
+        function loadVisaProcessingData(VisaProcessId)
+        {
+            var date;
+            $.ajax({
+                url: '/Home/GetSelectData',
+                type: "GET",
+                async: false,
+                dataType: 'json',
+                data: { Id: VisaProcessId , Operation: 53 },
+                success: function (result) {
+                    var resultVal = $.parseJSON(result);
+                    if (resultVal["Result"] == undefined || resultVal["Result"] == null)
+                    {
+                        TicketSubmissionDate = resultVal[0]["TicketSubmissionDate"];
+                        $('#ddlVisaStatus').val(resultVal[0]["FK_TicketStatusId"]);
+                        $('#ddlVisaStatus').click();
+                        TicketStatusId=resultVal[0]["FK_TicketStatusId"];
+                        if(TypeId == 25 || TypeId == 26){
+                            EmpId=resultVal[0]["LeadId"];
+                            SubmissionId = 0;
+                        }
+                        else
+                        {
+                            SubmissionId = resultVal[0]["SubmissionId"];
+                            LeadId = resultVal[0]["LeadId"];
+                            $("#txtCandidateName").val(resultVal[0]["CandidateName"]).attr('disabled', true);
+                            $("#txtClient").val(resultVal[0]["ClientName"]).attr('disabled', true);
+                            $("#txtPositionTitle").val(resultVal[0]["PositionTitle"]).attr('disabled', true);
+                        }
+                        $('#hdnVisaId').val(VisaProcessId);
+                        $("#txtFedTaxId").val(resultVal[0]["FederalTAXIDNumber"]);
+                        $("#txtCompName").val(resultVal[0]["CompanyName"]);
+                        $("#txtCompAddress").val(resultVal[0]["CompanyAddress"]);
+                        $("#txtPhone").val(resultVal[0]["Phone"]);
+                        $("#txtFax").val(resultVal[0]["Fax"]);
+                        $("#txtEmail").val(resultVal[0]["Email"]);
+                        $("#txtTotEmployees").val(resultVal[0]["NoOfEmployees"] != 0 ? resultVal[0]["NoOfEmployees"] : "");
+                        $("#txtGrossAnnIncome").val(resultVal[0]["GrossAnnualIncome"]);
+                        $("#txtNetIncome").val(resultVal[0]["NetIncome"]);
+                        date = FormatDate(resultVal[0]["CompanyEstDate"],"mm/dd/yyyy"); //date format convertion
+                        $("#txtCompEstDate").val(date!="01/01/1753" ? date : "");
+                        $("#txtName").val(resultVal[0]["NameOfPersonToSign"]);
+                        $("#txtTitle").val(resultVal[0]["TitleOfPersonToSign"]);
+                        $("#txtCompDes").val(resultVal[0]["CompanyDescription"]);
+                        if(resultVal[0]["IsCompanyH1BDependent"] == 1)
+                            $("#cbCompDependent").prop('checked', true);
+                        $("#txtEmpCount").val(resultVal[0]["NoOfH1BEmployees"] != 0 ? resultVal[0]["NoOfH1BEmployees"] : "");
+                        $("#txtSalOffered").val(resultVal[0]["SalaryOffered"]);
+                        $("#txtJobTitle").val(resultVal[0]["JobTitleOffered"]);
+                        $("#JobAddress").val(resultVal[0]["JobLocationAddress"]);
+                        $("#txtEmpFistName").val(resultVal[0]["EmpFname"]);
+                        $("#txtEmpMiddleName").val(resultVal[0]["EmpMName"]);
+                        $("#txtEmpLastName").val(resultVal[0]["EmpLname"]);
+                        $("#txtUSAddress").val(resultVal[0]["EmpUSAddress"]);
+                        $("#txtAbroadAddress").val(resultVal[0]["EmpAbroadAddress"]);
+                        $("#txtAbroadConsulate").val(resultVal[0]["EmpNearestConsulate"]);
+                        date= FormatDate(resultVal[0]["EmpDOB"],"mm/dd/yyyy");
+                        $("#txtEmpDob").val(date != "01/01/1753" ? date : "");
+                        $("#txtEmpBirthPlace").val(resultVal[0]["EmpPlaceOfBirth"]);
+                        $("#txtBirthCountry").val(resultVal[0]["EmpCountryOfBirth"]);
+                        $("#txtSSN").val(resultVal[0]["EmpSSN"]);
+                        $("#txtPassportNo").val(resultVal[0]["PassportNumber"]);
+                        date = FormatDate(resultVal[0]["PassportIssueDate"] , "mm/dd/yyyy");
+                        $("#txtPassIssueDate").val(date != "01/01/1753" ? date : "");
+                        date = FormatDate(resultVal[0]["PassportValidityDate"],"mm/dd/yyyy");
+                        $("#txtPassValidityDate").val(date != "01/01/1753" ? date : "");
+                        $("#txtI94").val(resultVal[0]["I94Number"]);
+                        date = FormatDate(resultVal[0]["I94IssueDate"],"mm/dd/yyyy");
+                        $("#txtI94IssueDate").val(date != "01/01/1753" ? date : "");
+                        date = FormatDate(resultVal[0]["I94ValidityDate"],"mm/dd/yyyy");
+                        $("#txtI94ValidityDate").val(date != "01/01/1753" ? date : "");
+                        $("#txtApproval").val(resultVal[0]["LastI797ApprovalReceipt"]);
+                        if(resultVal[0]["MaritalStatus"] == 1)
+                            $("#cbMarried").prop('checked' , true);
+                        //Ticket submission TicketSubmissionDate
+
+                    }
+                },
+                error: function (err) {
+                }
+            })
+        }
+        function loadVisaFamilyDetails(VisaProcessId)
+        {
+            var date;
+            $.ajax({
+                url: '/Home/GetSelectData',
+                type: "GET",
+                dataType: 'json',
+                data: { Id: VisaProcessId , Operation: 56 },
+                success: function (result) {
+                    var resultVal = $.parseJSON(result);
+                    var rowObject;
+                    if (resultVal["Result"] == undefined || resultVal["Result"] == null)
+                    {
+                        for(var i=0;i<resultVal.length;i++)
+                        {
+                            if(i>0){
+                                CloneRow($("#tblVisaFamilyDetails"));
+                            }
+                            rowObject=$('#tblVisaFamilyDetails').find("tr:nth-child(" + (i + 1) + ")");
+                            rowObject.find(".txtFirstName").val(resultVal[i]["FirstName"]);
+                            rowObject.find(".txtLastName").val(resultVal[i]["LastName"]);
+                            date = FormatDate(resultVal[i]["DOB"],"mm/dd/yyyy")
+                            rowObject.find(".txtDob").val(date != "01/01/1753"? date : "");
+                            rowObject.find(".txtSOS").val(resultVal[i]["SOSSec"]);
+                            rowObject.find(".txtRelation").val(resultVal[i]["RelationShip"]);
+                            rowObject.find(".BirthPlace").val(resultVal[i]["PlaceOfBirth"]);
+                            date = FormatDate(resultVal[i]["EntryDateOfUSRes"],"mm/dd/yyyy");
+                            rowObject.find(".txtEntry").val(date != "01/01/1753" ? date : "");
+                            date = FormatDate(resultVal[i]["ExitDateOfUSRes"],"mm/dd/yyyy");
+                            rowObject.find(".txtExit").val(date != "01/01/1753" ? date : "");
+                            rowObject.find('input[name=17]').val(resultVal[i]["I94IfTheFamilyIsInUsa"]);
+                            showFamilyDocs(resultVal[i]["I94IfTheFamilyIsInUsa"], rowObject.find('.docDiv[name=17]'));
+                            rowObject.find('input[name=18]').val(resultVal[i]["PassportVisaPage"]);
+                            showFamilyDocs(resultVal[i]["PassportVisaPage"], rowObject.find('.docDiv[name=18]'));
+                            rowObject.find('input[name=19]').val(resultVal[i]["PassportPhotoPage"]);
+                            showFamilyDocs(resultVal[i]["PassportPhotoPage"], rowObject.find('.docDiv[name=19]'));
+                        }
+                    }
+                },
+                error: function(err){
+                }
+            });
+        }
+        function loadVisaDateDetails(VisaProcessId)
+        {
+            var date;
+            $.ajax({
+                url: '/Home/GetSelectData',
+                type: "GET",
+                dataType: 'json',
+                data: { Id: VisaProcessId , Operation: 54 },
+                success: function (result) {
+                    var resultVal = $.parseJSON(result);
+                    var rowObject;
+                    if (resultVal["Result"] == undefined || resultVal["Result"] == null)
+                    {
+                        for(var i=0;i<resultVal.length;i++)
+                        {
+                            if (i > 0) {
+                                addRow($('#tblVisaProcess'),null);
+                            }
+                            rowObject=$('#tblVisaProcess').find("tr:nth-child(" + (i + 1) + ")");
+                            date = FormatDate(resultVal[i]["VisaEntryDate"],"mm/dd/yyyy");
+                            rowObject.find(".EntryDate").val(date != "01/01/1753" ? date : "");
+                            date = FormatDate(resultVal[i]["VisaExitDate"],"mm/dd/yyyy");
+                            rowObject.find(".ExitDate").val(date != "01/01/1753" ? date : "");
+                        }
+                    }
+                },
+                error: function(err){
+                }
+            });
+        }
+        function loadDocuments(VisaProcessId)
+        {
+            $.ajax({
+                url: '/Home/GetSelectData',
+                type: "GET",
+                dataType: 'json',
+                data: { Id: VisaProcessId, Operation: 55 },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        for (var i = 0; i < resultVals.length; i++) {
+                            //$('.filehidden').val(resultVals[0]["DocPath"]);
+                            showAttachments(resultVals[i]["DocPath"], resultVals[i]["FK_DocTypeId"], resultVals[i]["TypeId"]);
+                        }
+                        defineExpUploads();
+                    }
+                },
+                error: function (err) {
+                }
+            });
+        }
+        function showAttachments(attachmentURLs, docTypeId,typeId) {
+            var docElement;
+            if ($('#divFiles').find('.USRECdocument[name=' + docTypeId + ']') != null &&
+                $('#divFiles').find('.USRECdocument[name=' + docTypeId + ']')!=undefined && typeId == 1)
+                docElement = $('#divFiles').find('.USRECdocument[name=' + docTypeId + ']').closest('.row').find('.docDiv');
+            else if ($('#divCBFiles').find('.USRECdocument[name=' + docTypeId + ']') != null &&
+                $('#divCBFiles').find('.USRECdocument[name=' + docTypeId + ']') != undefined && typeId == 2)
+                docElement = $('#divCBFiles').find('.USRECdocument[name=' + docTypeId + ']').closest('.row').find('.docDiv');
+            CheckExtension(docElement, "", attachmentURLs, "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 3);
+            PreventDefaultClick();
+        }
+        function defineExpUploads() {
+            $('.closeImage').click(function () {
+                var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+                var HiddenField = $(this).closest('.docDiv').closest('.row').find('.fileUrlVal');
+                HiddenField.val(HiddenField.val().replace(filepath + '||', ''));
+                $(this).closest('.profilethumbnaildiv').parent().remove();
+            });
+        };
+        function showFamilyDocs(attachmentURLs, docElement) {
+            attachmentURLs = attachmentURLs.split('||');
+            for (var i = 0; i < (attachmentURLs.length - 1) ; i++) {
+                CheckExtension(docElement, "", attachmentURLs[i], "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 3);
+                PreventDefaultClick();
+            }
+        }
+        $("#btnCancel").click(function () {
+            window.location.href = '/Home/MyTickets';
+        });
+
+        function validateRow()
+        {
+            var flag; var docFlag;  var returnVal = true;
+
+            $("#tblVisaFamilyDetails > tbody").children("tr").each(function () {
+                flag=0; docFlag=0;             
+                $(this).find('.floating-input').each(function () {           
+                    if($(this).val()!="")
+                    {
+                        flag=1; 
+                    }
+                });
+                $(this).find('.docDiv').each(function () {                         
+                    if($(this).children().length != 0) {
+                        docFlag=1; 
+                    }
+                });
+                var fname=$(this).find(".vdFninput").val();
+                var relation=$(this).find(".vdRpinput").val();
+                
+                if((flag==1 || docFlag==1) )
+                {
+                    if(fname==""){
+                        $(this).find(".vdFninput").addClass("ErrorFocus");
+                        returnVal=false;
+                    }
+                    else{
+                        $(this).find(".vdFninput").removeClass("ErrorFocus");
+                    }
+                    if(relation==""){
+                        $(this).find(".vdRpinput").addClass("ErrorFocus");
+                        returnVal=false; }
+                    else{
+                        $(this).find(".vdRpinput").removeClass("ErrorFocus");
+                    }
+                } else{
+                    $(this).find(".vdFninput").removeClass("ErrorFocus");
+                    $(this).find(".vdRpinput").removeClass("ErrorFocus");
+                }
+                        
+
+            });
+            if(!returnVal)
+            {
+                $("#lblMessage" ).addClass("lblError");
+                $("#lblMessage" ).removeClass("lblMessage");
+                $("#lblMessage" ).text("Please fill all mandatory Fields");
+                return false;
+                             
+            } 
+            else if (returnVal) {
+                $("#lblMessage").text("");
+                $("#lblMessage" ).removeClass("lblError");
+                $("#lblMessage").addClass("lblMessage");
+            }  
+            return returnVal;
+           
+        }
+        function CheckTypeAndBack(){
+            if(TypeId == 25 && @RowId == 0)
+                window.location.href='/USRecruitment/Home';
+            else
+                window.location.href='/Home/MyTickets';
+        }
+        var CompareItems = new Array();
+        function DefineAutoComplete(){
+            $(".autocompleteEmp").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/EmpInfoAdminView/AutoComplete',
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: "{ 'EmpName': '" + request.term + "' }",
+                        success: function (data) {
+                            var items = [];
+                            for (var i = 0; i < data.length; i++) {
+                                items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                                CompareItems.push(data[i]["Value"]);
+                            }
+                            response($.map(items, function (item) {
+                                return item;
+                            }))
+                        },
+                        error: function (response) {
+                        },
+                        failure: function (response) {
+                        }
+                    });
+                },
+                change: function (event, ui) {
+                    var val = $(this).val();
+                    var exists = $.inArray(val, CompareItems);
+                    if (exists < 0) {
+                        $(this).val("");
+                        return false;
+                    }
+                },
+                select: function (e, i) {
+                    EmpId = i.item.Id;
+                    $(this).val(i.item.label);
+                },
+                minLength: 1
+            });
+        }
+
+    </script>
+

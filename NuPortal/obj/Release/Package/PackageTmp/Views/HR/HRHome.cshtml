@@ -1,0 +1,113 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<form id="frmHRHome" action="/EmpInfoUserView/EmpInfoUserView" method="post">
+        @Html.Hidden("EmpViewType", new { id = "EmpViewType", name = "EmpViewType" })
+    </form>*@
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/hr-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">HR</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("AnnouncementLog","HR")">
+                            <img src="~/Images/announcement.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("AnnouncementLog","HR")">
+                            Announcements
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("Events", "HR")">
+                            <img src="~/Images/events.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("Events", "HR")">Events</a></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+
+                    <div class="leaveicon">
+                        <a href="@Url.Action("TrainingLog","HR")">
+                            <img src="~/Images/training.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("TrainingLog","HR")">
+                            Training
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("ExitInterviewLog","HR")">
+                            <img src="~/Images/exit-interview.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("ExitInterviewLog","HR")">Exit Interview</a></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a id="hrefEmpSearch" href="#">
+                            <img src="~/Images/employee-Search.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname"><a id="hrefEmpSearch" href="#">Employee Search</a></div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("OfficePollLog","HR")">
+                            <img src="~/Images/poll-details.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("OfficePollLog","HR")">
+                            Office Poll Log
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("HRView","HR")">
+                            <img src="~/Images/employee-Search.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname"><a href="@Url.Action("HRView","HR")">View</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#hrefEmpSearch').click(function () {
+        $('#EmpViewType').val(1);
+        $('#frmLayouts').submit();
+    });
+</script>

@@ -1,0 +1,445 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="frmDoc" action="/Reimbursement/Reimbursement" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+    @Html.Hidden("TypeId", new { id = "TypeId", name = "TypeId" })
+</form>
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/reimbursement-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Reimbursement Log</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" href="@Url.Action("IconsView","RequestMain")"><img title="Back" alt="Back" width="30" height="30" src="~/Images/back-button.png" /></a>
+            <div class="myprojecttxt"> <a href="@Url.Action("Reimbursement","Reimbursement")"> + Add Reimbursement</a></div>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="requestgridmaindiv">
+                    <table id="tblAllReimbursements" width="100%" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                        <tbody>
+                            <tr class="requestgriddiv">
+                                @*<td class="requestgridheader" width="2%"></td>
+                                <td class="requestgridheader" width="20%">Reimbursement Type</td>
+                                <td class="requestgridheader" width="30%">Description</td>
+                                <td class="requestgridheader" width="10%">Start Date</td>
+                                <td class="requestgridheader" width="10%">End Date</td>
+                                <td class="requestgridheader" width="20%">Amount</td>
+
+                                <td class="requestgridheader" width="10%">Status</td>
+                                <td class="requestgridheader" width="3%"><img src="~/Images/Filter.png" width="16" height="16" alt="" /></td>*@
+
+                                <td class="requestgridheader" width="2%"></td>
+                                <td class="requestgridheader" width="20%">
+                                    Reimbursement Type
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field1Xml" id="cbReimbursementType" name="reimbursementtype" style="width:200px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbReimbSelectAll1" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbReimbSelectAll1" name='Field1Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="25%">Description</td>
+                                <td class="requestgridheader" width="12%">
+                                    Start Date
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field2Xml" id="cbReimbStartDate" name="startdate" style="width:120px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbReimbSelectAll2" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbReimbSelectAll2" name='Field2Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="12%">
+                                    End Date
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field3Xml" id="cbReimbEndDate" name="enddate" style="width:120px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbReimbSelectAll3" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbReimbSelectAll3" name='Field3Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="10%">
+                                    Amount
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field4Xml" id="cbReimbAmount" name="amount" style="width:100px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbReimbSelectAll4" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbReimbSelectAll4" name='Field4Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="10%">
+                                    Status
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field5Xml" id="cbReimbStatus" name="status" style="width:100px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbReimbSelectAll5" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbReimbSelectAll5" name='Field5Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="3%"><a href="#" id="hrefReimbursementsClearFilter"><img title="Clear" src="/../images/ClearFilter.jpg" width="16" height="16" alt="" /></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="paginationmaindiv" id="divPageReimbursement" style="display:none">
+                        <div class="paginationsubdiv">
+                            <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    var dictReimbursementArray = {};
+    var IsPrimaryLoad = true;
+    var CurrentPageId = 1;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    var RowCount = 10;
+    var PageCount = 0;
+    $(document).ready(function () {
+        dictReimbursementArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+        hideFilter();
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        getAllReimbursementsforID();
+        getAllReimbursementsforIDFilter();
+        $('#hrefReimbursementsClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictReimbursementArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "" };
+            FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            getAllReimbursementsforID();
+            showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+        });
+    });
+    function getAllReimbursementsforID() {
+        //$("#tblAllReimbursements").find("tr:gt(0)").remove();
+        var attachmentIcon = '';
+        var optionalCancelLink = '';
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictReimbursementArray), Operation: 10, ProjId: 0, TypeId: 2, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                //var SDateVal = "", EDateVal = "";
+                $('#tblAllReimbursements > tbody').children("tr:gt(0)").remove();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCount = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                    disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+                    showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                    for (var i = 0; i < resultVals.length; i++) {
+                        //SDateVal = FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy");
+                        //SDateVal = SDateVal == "01/01/1753" ? "" : SDateVal;
+                        //EDateVal = FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy");
+                        //EDateVal = EDateVal == "01/01/1753" ? "" : EDateVal;
+                        var SDateVal = FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy") == "01/01/1753" ? "NA" : FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy");
+                        var EDateVal = FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy") == "01/01/1753" ? "NA" : FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy");
+                        if (resultVals[i]["Attachments"] != '')
+                            attachmentIcon = '<img title="Attachments" src="../Images/attachment-icon.png" width="14" height="14" alt="">';
+                        else attachmentIcon = '';
+                        if (resultVals[i]["TicketStatusId"] == 1)
+                            optionalCancelLink = '<a class="PreventHref" onclick="cancelExistingReimbursements(' + resultVals[i]["ReimbursementId"] + ')"  href="#">Cancel</a>';
+                        else
+                            optionalCancelLink = "";
+                        $('#tblAllReimbursements').append('<tr class="requestgriddiv2" ><td class="requestgridsubheader">' + attachmentIcon +
+                            '</td><td class="requestgridsubheader" ><a href="#" onclick="updateFormData(' + resultVals[i]["ReimbursementId"] + ')" > ' + resultVals[i]["CategoryName"] +
+                            '</a></td><td class="requestgridsubheader">' + resultVals[i]["Description"] + '</td><td class="requestgridsubheader" >' +
+                            SDateVal + '</td><td class="requestgridsubheader" >' +
+                            EDateVal + '</td><td class="requestgridsubheader">' + resultVals[i]["Amount"] +
+                            '</td><td class="requestgridsubheader">' + resultVals[i]["TicketStatus"] + '</td><td class="requestgridsubheader" >' + optionalCancelLink +
+                            '</td></tr>');
+                    }
+                    $('#divPageReimbursement').show();
+                }
+                else
+                {
+                        $('#divPageReimbursement').hide();
+                        $('#tblAllReimbursements').append("<tr><td colspan='8' class='NoRecordsFound'>No Records Found</td></tr>");
+
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+    }
+    function getAllReimbursementsforIDFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictReimbursementArray), Operation: 10, ProjId: 0, TypeId: 2, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        var SDateVal = FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy") == "01/01/1753" ? "NA" : FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy");
+                        var EDateVal = FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy") == "01/01/1753" ? "NA" : FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy");
+                            CreateCheckBox($('#cbReimbursementType'), resultVals[i]["CategoryName"], 'Field1Xml');
+                            CreateCheckBox($('#cbReimbStartDate'), SDateVal, 'Field2Xml');
+                            CreateCheckBox($('#cbReimbEndDate'), EDateVal, 'Field3Xml');
+                            CreateCheckBox($('#cbReimbAmount'), resultVals[i]["Amount"], 'Field4Xml');
+                            CreateCheckBox($('#cbReimbStatus'), resultVals[i]["TicketStatus"], 'Field5Xml');
+                            DefineCheckboxClicks();
+                    }
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+    }
+
+    function updateFormData(idval) {
+        $('#hdnId').val(idval);
+        $('#TypeId').val(2);
+        $('#frmDoc').submit();
+        @*var reimbursementID = idval.parent().parent().find("td:eq(8)").text();
+        $.ajax({
+            type: "POST",
+            url: '/Reimbursement/SetTempData',
+            data: '{ tempDataValue:' + reimbursementID + '}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function () {
+
+                window.location.href = "@Url.Action("Reimbursement", "Reimbursement")";
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });*@
+    }
+
+    function cancelExistingReimbursements(idval) {
+        $.ajax({
+            url: '/Reimbursement/CancelReimbursement',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                reqID: idval, operationID: 23
+            },
+            success: function (data) {
+                getAllReimbursementsforID();
+            },
+            error: function () {
+                //alert('error');
+            }
+        });
+        PreventDefaultClick();
+    }
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblAllReimbursements')
+                dictTemp = dictReimbursementArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        SearchVal = CheckExceptionTexts(SearchVal, ColValue);
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                SearchVal = CheckExceptionTexts(SearchVal, ColValue);
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblAllReimbursements') {
+                dictReimbursementArray = dictTemp;
+                FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                getAllReimbursementsforID();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    function CheckExceptionTexts(input, ColValue) {
+        if ((ColValue == 'Field2Xml' || ColValue == 'Field3Xml') && input == 'NA')
+            input = '1753-01-01'; //convert NA case to default date
+        return input;
+    }
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', PageCount);
+            getAllReimbursementsforID();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        getAllReimbursementsforID();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        getAllReimbursementsforID();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        getAllReimbursementsforID();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        getAllReimbursementsforID();
+    });
+</script>
+

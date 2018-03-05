@@ -1,0 +1,333 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<dialog id="dlgGrpName" style="width:50%;background: transparent;top: 25%;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Select Groups</div>
+                <div class="popupclosebutton"><a title="Close" href="#" id="hrefClose">X</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext" style="padding-left:0px !important">Group</div>
+                        <div class="floating-input autocomplete-textarea" id="divResources">
+                            <div id="listResources" class="list competancylist"></div>
+                            <input type="text" class="competancy autopopulateText" id="txtResources" placeholder=" " />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="myprojectenterdiv">
+                        <a href="#">
+                            <img title="Enter" src="../images/enter.png" style="cursor:pointer" id="btnEmployee" width="30" height="30" alt=""
+                                 onclick="CloseDialogBox(this);">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ErrorLabel">
+                        <label id="GrpMsg" class="lblError"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/sm-create structure.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Customize Request</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv" style="height:50px">
+            <a class="backbuttondiv" id="hrefBack" href="/AdminHome/AdminHome"><img title="Back" alt="Back" width="30" height="30" src="~/Images/back-button.png" /></a>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <select class="floating-select" id="ddlRequestTypes" onchange="GetData();" onclick="this.setAttribute('value', this.value);" value="">
+                    <option value=""></option>
+                    <option value="1">Allowance</option>
+                    <option value="2">Reimbursement</option>
+                    <option value="3">Request</option>
+                    </select>
+                    <label class="float">Customize</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="custReqleftdiv" id="drag" ondrop="drop(event,1)" ondragover="allowDrop(event)">
+                    @*<div class="CUSREQtxt" draggable="true" ondragstart="drag(event)" id="drag1">
+                        Sample Text1
+                        <span class="CUSREQClosebtn"><a href="#">X</a></span>
+                    </div>
+                    <div class="CUSREQtxt" draggable="true" ondragstart="drag(event)" id="drag2">
+                        Sample Text2
+                        <span class="CUSREQClosebtn"><a href="#">X</a></span>
+                    </div>
+                    <div class="CUSREQtxt" draggable="true" ondragstart="drag(event)" id="drag3">
+                        Sample Text3
+                        <span class="CUSREQClosebtn"><a href="#">X</a></span>
+                    </div>
+                    <div class="CUSREQtxt" draggable="true" ondragstart="drag(event)" id="drag4">
+                        Sample Text4
+                        <span class="CUSREQClosebtn"><a href="#">X</a></span>
+                    </div>*@
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="addrequestdiv">
+                    <table width="98%" align="center" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td><input class="searchtext" style="" id="txtNewItem" type="text"></td>
+                                <td align="center"><a href="#" id="hrefAdd" ><img title="Add" src="../images/add-icon.png" width="16" height="16" alt="" /></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="addDropdiv" id="drop" ondrop="drop(event,2)" ondragover="allowDrop(event)">
+
+                </div>
+            </div>
+        </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" onclick="SaveDataToDb();" /></div>
+            <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onclick="GetData();"/></div>
+            <div class="labelmessage"><label id="lblSaveMessage" class="lblMessage"></label></div>
+            <input type="hidden" value="" id="hdnGroup"/>
+        </div>
+    </div>
+</div>
+
+<script>
+    //var AllowanceDataArray = new Array();
+    //var ReimbDataArray = new Array();
+    //var RequestDataArray = new Array();
+    var AppendItem = "";
+    $(document).ready(function () {
+        $(".CUSREQClosebtn").hide();
+        $('#hrefAdd').click(function (e) {
+            e.preventDefault();
+            $('#listResources').empty();
+            $("#divResources").removeClass("ErrorFocus");
+            $('#GrpMsg').text("");
+            var IsPresent = false;
+            $('#drop > .CUSREQtxt').each(function () {
+                if ($(this).find('.lblText').text().toLowerCase().trim() == $('#txtNewItem').val().toLowerCase().trim())
+                    IsPresent = true;
+            });
+            if ($('#txtNewItem').val() != "" && $('#ddlRequestTypes').val() != "") {
+                if (!IsPresent) {
+                    var dialog = document.getElementById('dlgGrpName');
+                    dialog.showModal();
+                }
+                else {
+                    $('#lblSaveMessage').removeClass("lblMessage");
+                    $('#lblSaveMessage').addClass("lblError");
+                    $('#lblSaveMessage').text("Request Name already exists");
+                    $('#txtNewItem').val("");
+                }
+            }
+        });
+        $('#hrefClose').click(function (e) {
+            e.preventDefault();
+            $('#txtResources').val('');
+            $('#listResources').empty();
+            $('#txtNewItem').val("");
+            $('#lblSaveMessage').text("");
+            if ($('#hdnGroup').val("") != "")
+                $('#hdnGroup').val("");
+            $('#dlgGrpName')[0].close();
+        });
+        $("#txtResources").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/AdminHome/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'Name': '" + request.term + "','Operation': '4','IdVal' : 'GroupId','NameVal' : 'GroupName'}",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                        }
+                        items.push({ Id: 0, label: "Manager", value: "Manager" });
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                    },
+                    failure: function (response) {
+                    }
+                });
+            },
+            select: function (e, i) {
+                if (i.item.label != "") {
+                    $("#listResources").empty();
+                    $("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                                 "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                             "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+                    $(this).val("");
+                    PreventDefaultClick();
+                    return false;
+                }
+            },
+            minLength: 1
+        });
+    });
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    function SaveDataToDb() {
+        var DataArray = new Array();
+        $('#drop > .CUSREQtxt').each(function () {
+            DataArray.push({ "Name": $(this).find('.lblText').text(), "Id": parseInt($(this).attr("name")) });
+        });
+        if (DataArray.length > 0) {
+            var Operation = 0;
+            var TypeVal = $('#ddlRequestTypes').val();
+            if (TypeVal == 1 || TypeVal == 2) {
+                Operation = 1;
+            }
+            else {
+                Operation = 2;
+            }
+            $.ajax({
+                url: '/AdminHome/SaveCategory',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    CategoryTypeId: TypeVal,
+                    jsonData: JSON.stringify(DataArray),
+                    Operation: Operation
+                },
+                success: function (data) {
+                    ShowLabelMessage(data, $("#ddlRequestTypes option:selected").text(), $('#lblSaveMessage'));
+                },
+                error: function (response) {
+                },
+                failure: function (response) {
+                }
+            });
+        }
+    }
+
+    function DefineHref() {
+        $('#hrefRemove').click(function (e) {
+            e.preventDefault();
+            $(this).closest('.CUSREQtxt').remove();
+        });
+        $('#hrefDragRemove').click(function (e) {
+            e.preventDefault();
+            var htmlData = $(this).closest('.CUSREQtxt');
+            htmlData.find('a').remove();
+            htmlData.attr('name','0');
+            $('#drag').append(htmlData);
+            $(this).closest('.CUSREQtxt').remove();
+        });
+    }
+
+    function CloseDialogBox() {
+        $('#lblSaveMessage').text("");
+        if ($("#listResources").is(':empty')) {
+            $("#divResources").addClass("ErrorFocus");
+            $('#GrpMsg').text("Please select a group");
+        }
+        else {
+            if ($('#hdnGroup').val() == "")
+            {
+                $('#drop').append("<div class='CUSREQtxt' draggable='true' name='" + parseInt($("#listResources").find(".divcompetancy").attr("name")) +
+            "' ondragstart='drag(event)' id='drag" + idCount + "'><label class='lblText'>" + $('#txtNewItem').val() +
+             "</label><span class='CUSREQClosebtn'><a title='Close' href='#' id='hrefRemove'>X</a></span></div>");
+                $('#txtNewItem').val("");
+            }
+            else {
+                $('#drop').append("<div class='CUSREQtxt' draggable='true' name='" + parseInt($("#listResources").find(".divcompetancy").attr("name")) +
+            "' ondragstart='drag(event)' id='drag" + idCount + "'><label class='lblText'>" + $('#hdnGroup').val() +
+             "</label><span class='CUSREQClosebtn'><a title='Close' href='#' id='hrefDragRemove'>X</a></span></div>");
+                $("#drag > #" + AppendItem).remove();
+                $('#hdnGroup').val("");
+            }
+            
+            idCount++;
+            DefineHref();
+            $("#listResources").empty();
+            AppendItem = '';
+            $('#dlgGrpName')[0].close();
+        }
+    }
+    var idCount = 0;
+    function GetData() {
+        $('.clearbtn').prop('disabled', true);
+        $('#lblSaveMessage').text("");
+        var typeId = $('#ddlRequestTypes').val();
+        $('#drag').empty();
+        $('#drop').empty();
+        $('#txtNewItem').val("");
+        $.ajax({
+            url: '/AdminHome/GetDefaultValues',
+            type: "GET",
+            dataType: 'json',
+            data: { CategoryType: typeId != "" ? parseInt(typeId) : 0, Operation: typeId == 3 ? 6 : 5 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (resultVals[i]["IsAddedGroups"] == 0) {
+                            $('#drag').append("<div class='CUSREQtxt' draggable='true' name='" + resultVals[i]["GroupId"] +
+                                "' ondragstart='drag(event)' id='drag" + idCount + "'><label class='lblText'>" +
+                               resultVals[i]["CategoryName"] + "</label><span class='CUSREQClosebtn'></span></div>");
+                        }
+                        else {
+                            $('#drop').append("<div class='CUSREQtxt' draggable='true' name='" + resultVals[i]["GroupId"] +
+                            "' ondragstart='drag(event)' id='drag" + idCount + "'><label class='lblText'>" +
+                           resultVals[i]["CategoryName"] + "</label><span class='CUSREQClosebtn'></span></div>");
+                        }
+                        idCount++;
+                    }
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+        $('.clearbtn').prop('disabled', false);
+    }
+
+    function drag(ev) {
+        $('#lblSaveMessage').text("");
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev, type) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        if (type == 2) {
+            AppendItem = data;
+            $('#hdnGroup').val($("#" + data).find('.lblText').text());
+            var dialog = document.getElementById('dlgGrpName');
+            dialog.showModal();
+        }
+        //else
+        //    $('#drag').append(document.getElementById(data));
+    }
+</script>

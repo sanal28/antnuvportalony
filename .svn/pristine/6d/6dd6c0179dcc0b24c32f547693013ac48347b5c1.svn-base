@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace NuPortal.Models
+{
+    public class TaskDocuments
+    {
+        //New Task
+        public string TaskName { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public float PlannedHours { get; set; }
+        public string ProjectPhase { get; set; }
+        public string Resources { get; set; }
+        public string TaskDetails { get; set; }
+        public string Priority { get; set; }
+        public string Comments { get; set; }
+        public int Billable { get; set; }
+        public string Attachments { get; set; }
+        // public string TaskStatus { get; set; }
+        public List<SelectListItem> TaskStatus { get; set; }
+        public int? taskstatusId { get; set; }
+        public string UploadedFileUrl { get; set; }
+        //New Documents
+        public string DocumentName { get; set; }
+        public string ShareWith { get; set; }
+        public string CustomResourcesName { get; set; }
+        public string Description { get; set; }
+    }
+}

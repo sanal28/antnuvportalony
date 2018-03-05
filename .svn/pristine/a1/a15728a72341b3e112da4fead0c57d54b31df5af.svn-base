@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace NuPortal.Models
+{
+    public class Competency
+    {
+        public string skills { get; set; }
+        public string certification { get; set; }
+        public string technologies { get; set; }       
+        public string allTechnologies { get; set; }
+
+
+
+    }
+}

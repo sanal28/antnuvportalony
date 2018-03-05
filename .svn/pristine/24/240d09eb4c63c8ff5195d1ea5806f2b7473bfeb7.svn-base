@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SaveOpportunity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="OppId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Street" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClientName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Contact1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Contact2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPerson" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKPositionType" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKIndustry" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="TargetDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Note" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="JobDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Experience" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Hours" type="s:float" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsCancelled" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsClosed" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="NoOfOpenings" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="PositionTitle" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProfileType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Rate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Website" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOpportunityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveOpportunityResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveReqDocs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonReqDocs" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveReqDocsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveReqDocsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveLead">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LeadId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentCTC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentDesignation" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentEmployer" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="VisaType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Street" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HighestQualification" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Source" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentLocation" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DOB" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmployeeType" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmploymentType" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ExperienceInMonths" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Hours" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="LeadType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="MobileNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Note" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Rate" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsCancelled" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="RecStatus" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveLeadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveLeadResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="setRecSkills">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonRecSkills" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="setRecSkillsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="setRecSkillsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="setLeadSkills">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonLeadSkills" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="setLeadSkillsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="setLeadSkillsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveInterView">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InterviewId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_Interviewtype" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_SubmissionId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_TicketStatusId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="InterviewDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="InterviewTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Note" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveInterViewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveInterViewResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveContract">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ContractId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_SubmissionId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_TicketStatusId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Date" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="SignedBy" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TitleClient" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DateClient" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="SignedByClient" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ContractExpiryDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsRateConfirmationPresent" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveContractResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveContractResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveContractDocs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonContractDocs" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveContractDocsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveContractDocsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveVendorDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="VendorDetailsId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_LeadId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPerson1Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPerson1Title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPerson2Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPerson2Title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPerson3Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactPerson3Title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VendorID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DepositoryBankName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Branch" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RoutingNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccountNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AccountType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="VendorName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IDNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SignedBy" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Designation" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Date" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_TicketStatusId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveVendorDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveVendorDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveInvoiceDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InvoiceId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_SubmissionId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKTicketStatusId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Terms" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_BillingCycle" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Street" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CcList" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveInvoiceDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveInvoiceDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveInvoiceContactDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInvoiceDocs" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveInvoiceContactDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveInvoiceContactDetailsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveSubmissions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SubmissionId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKSubmissionStatusId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_OppId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_LeadId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Rate" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AssignedTo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_TicketStatusId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsCancelled" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveSubmissionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveSubmissionsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveSubmittedVisaDocs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonSubmittedVisaDocs" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveSubmittedVisaDocsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveSubmittedVisaDocsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveSubmittedDocs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonSubmittedDocs" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveSubmittedDocsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveSubmittedDocsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveVisaProcessing">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="VisaProcessingId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKSubmissionId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyDescription" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyEstDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmpAbroadAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmpCountryOfBirth" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpDOB" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmpFname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmpLname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmpMName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmpNearestConsulate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmpPlaceOfBirth" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmpSSN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmpUSAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FederalTAXIDNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GrossAnnualIncome" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="I94IssueDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="I94Number" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="I94ValidityDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsCompanyH1BDependent" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="JobLocationAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="JobTitleOffered" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LastI797ApprovalReceipt" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="MaritalStatus" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="NameOfPersonToSign" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NetIncome" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="NoOfEmployees" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="NoOfH1BEmployees" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="PassportIssueDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="PassportNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PassportValidityDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SalaryOffered" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TitleOfPersonToSign" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TicketSubmissionDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="FK_TicketStatusId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveVisaProcessingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveVisaProcessingResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveVisaDateDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonVisaDateDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveVisaDateDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveVisaDateDetailsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveFamilyVisaDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonFamilyVisaDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveFamilyVisaDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveFamilyVisaDetailsResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateRecEmployee">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RecEmpId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="BackGroundPicUrl" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ConfirmationDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmployeeCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpRating" type="s:float" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="JobDesignation" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FkEmpStatus" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmptTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fk_SalaryType" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fk_TypeOfVisa" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="InsuranceAmount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InsurancePaidBy" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsCancelled" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsUSBench" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Manager" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProfilePicUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PassportUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QuotesText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RelievingAttachments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="RelievingDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TrainingDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="VisaExpiryDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="WeekOffDays" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="WorkEMail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="WorkLocation" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateRecEmployeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateRecEmployeeResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SaveOpportunitySoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOpportunity" />
+  </wsdl:message>
+  <wsdl:message name="SaveOpportunitySoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOpportunityResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveReqDocsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveReqDocs" />
+  </wsdl:message>
+  <wsdl:message name="SaveReqDocsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveReqDocsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveLeadSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveLead" />
+  </wsdl:message>
+  <wsdl:message name="SaveLeadSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveLeadResponse" />
+  </wsdl:message>
+  <wsdl:message name="setRecSkillsSoapIn">
+    <wsdl:part name="parameters" element="tns:setRecSkills" />
+  </wsdl:message>
+  <wsdl:message name="setRecSkillsSoapOut">
+    <wsdl:part name="parameters" element="tns:setRecSkillsResponse" />
+  </wsdl:message>
+  <wsdl:message name="setLeadSkillsSoapIn">
+    <wsdl:part name="parameters" element="tns:setLeadSkills" />
+  </wsdl:message>
+  <wsdl:message name="setLeadSkillsSoapOut">
+    <wsdl:part name="parameters" element="tns:setLeadSkillsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveInterViewSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveInterView" />
+  </wsdl:message>
+  <wsdl:message name="SaveInterViewSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveInterViewResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveContractSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveContract" />
+  </wsdl:message>
+  <wsdl:message name="SaveContractSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveContractDocsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveContractDocs" />
+  </wsdl:message>
+  <wsdl:message name="SaveContractDocsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveContractDocsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveVendorDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveVendorDetails" />
+  </wsdl:message>
+  <wsdl:message name="SaveVendorDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveVendorDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveInvoiceDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveInvoiceDetails" />
+  </wsdl:message>
+  <wsdl:message name="SaveInvoiceDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveInvoiceDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveInvoiceContactDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveInvoiceContactDetails" />
+  </wsdl:message>
+  <wsdl:message name="SaveInvoiceContactDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveInvoiceContactDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveSubmissionsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveSubmissions" />
+  </wsdl:message>
+  <wsdl:message name="SaveSubmissionsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveSubmissionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveSubmittedVisaDocsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveSubmittedVisaDocs" />
+  </wsdl:message>
+  <wsdl:message name="SaveSubmittedVisaDocsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveSubmittedVisaDocsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveSubmittedDocsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveSubmittedDocs" />
+  </wsdl:message>
+  <wsdl:message name="SaveSubmittedDocsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveSubmittedDocsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveVisaProcessingSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveVisaProcessing" />
+  </wsdl:message>
+  <wsdl:message name="SaveVisaProcessingSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveVisaProcessingResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveVisaDateDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveVisaDateDetails" />
+  </wsdl:message>
+  <wsdl:message name="SaveVisaDateDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveVisaDateDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveFamilyVisaDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveFamilyVisaDetails" />
+  </wsdl:message>
+  <wsdl:message name="SaveFamilyVisaDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveFamilyVisaDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateRecEmployeeSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateRecEmployee" />
+  </wsdl:message>
+  <wsdl:message name="CreateRecEmployeeSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateRecEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="NuPortalUSRecServiceSoap">
+    <wsdl:operation name="SaveOpportunity">
+      <wsdl:input message="tns:SaveOpportunitySoapIn" />
+      <wsdl:output message="tns:SaveOpportunitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveReqDocs">
+      <wsdl:input message="tns:SaveReqDocsSoapIn" />
+      <wsdl:output message="tns:SaveReqDocsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveLead">
+      <wsdl:input message="tns:SaveLeadSoapIn" />
+      <wsdl:output message="tns:SaveLeadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="setRecSkills">
+      <wsdl:input message="tns:setRecSkillsSoapIn" />
+      <wsdl:output message="tns:setRecSkillsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="setLeadSkills">
+      <wsdl:input message="tns:setLeadSkillsSoapIn" />
+      <wsdl:output message="tns:setLeadSkillsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveInterView">
+      <wsdl:input message="tns:SaveInterViewSoapIn" />
+      <wsdl:output message="tns:SaveInterViewSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveContract">
+      <wsdl:input message="tns:SaveContractSoapIn" />
+      <wsdl:output message="tns:SaveContractSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveContractDocs">
+      <wsdl:input message="tns:SaveContractDocsSoapIn" />
+      <wsdl:output message="tns:SaveContractDocsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveVendorDetails">
+      <wsdl:input message="tns:SaveVendorDetailsSoapIn" />
+      <wsdl:output message="tns:SaveVendorDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveInvoiceDetails">
+      <wsdl:input message="tns:SaveInvoiceDetailsSoapIn" />
+      <wsdl:output message="tns:SaveInvoiceDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveInvoiceContactDetails">
+      <wsdl:input message="tns:SaveInvoiceContactDetailsSoapIn" />
+      <wsdl:output message="tns:SaveInvoiceContactDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveSubmissions">
+      <wsdl:input message="tns:SaveSubmissionsSoapIn" />
+      <wsdl:output message="tns:SaveSubmissionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveSubmittedVisaDocs">
+      <wsdl:input message="tns:SaveSubmittedVisaDocsSoapIn" />
+      <wsdl:output message="tns:SaveSubmittedVisaDocsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveSubmittedDocs">
+      <wsdl:input message="tns:SaveSubmittedDocsSoapIn" />
+      <wsdl:output message="tns:SaveSubmittedDocsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveVisaProcessing">
+      <wsdl:input message="tns:SaveVisaProcessingSoapIn" />
+      <wsdl:output message="tns:SaveVisaProcessingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveVisaDateDetails">
+      <wsdl:input message="tns:SaveVisaDateDetailsSoapIn" />
+      <wsdl:output message="tns:SaveVisaDateDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveFamilyVisaDetails">
+      <wsdl:input message="tns:SaveFamilyVisaDetailsSoapIn" />
+      <wsdl:output message="tns:SaveFamilyVisaDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateRecEmployee">
+      <wsdl:input message="tns:CreateRecEmployeeSoapIn" />
+      <wsdl:output message="tns:CreateRecEmployeeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NuPortalUSRecServiceSoap" type="tns:NuPortalUSRecServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SaveOpportunity">
+      <soap:operation soapAction="http://tempuri.org/SaveOpportunity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveReqDocs">
+      <soap:operation soapAction="http://tempuri.org/SaveReqDocs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveLead">
+      <soap:operation soapAction="http://tempuri.org/SaveLead" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setRecSkills">
+      <soap:operation soapAction="http://tempuri.org/setRecSkills" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setLeadSkills">
+      <soap:operation soapAction="http://tempuri.org/setLeadSkills" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveInterView">
+      <soap:operation soapAction="http://tempuri.org/SaveInterView" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveContract">
+      <soap:operation soapAction="http://tempuri.org/SaveContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveContractDocs">
+      <soap:operation soapAction="http://tempuri.org/SaveContractDocs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveVendorDetails">
+      <soap:operation soapAction="http://tempuri.org/SaveVendorDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveInvoiceDetails">
+      <soap:operation soapAction="http://tempuri.org/SaveInvoiceDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveInvoiceContactDetails">
+      <soap:operation soapAction="http://tempuri.org/SaveInvoiceContactDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSubmissions">
+      <soap:operation soapAction="http://tempuri.org/SaveSubmissions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSubmittedVisaDocs">
+      <soap:operation soapAction="http://tempuri.org/SaveSubmittedVisaDocs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSubmittedDocs">
+      <soap:operation soapAction="http://tempuri.org/SaveSubmittedDocs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveVisaProcessing">
+      <soap:operation soapAction="http://tempuri.org/SaveVisaProcessing" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveVisaDateDetails">
+      <soap:operation soapAction="http://tempuri.org/SaveVisaDateDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveFamilyVisaDetails">
+      <soap:operation soapAction="http://tempuri.org/SaveFamilyVisaDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRecEmployee">
+      <soap:operation soapAction="http://tempuri.org/CreateRecEmployee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NuPortalUSRecServiceSoap12" type="tns:NuPortalUSRecServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SaveOpportunity">
+      <soap12:operation soapAction="http://tempuri.org/SaveOpportunity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveReqDocs">
+      <soap12:operation soapAction="http://tempuri.org/SaveReqDocs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveLead">
+      <soap12:operation soapAction="http://tempuri.org/SaveLead" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setRecSkills">
+      <soap12:operation soapAction="http://tempuri.org/setRecSkills" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setLeadSkills">
+      <soap12:operation soapAction="http://tempuri.org/setLeadSkills" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveInterView">
+      <soap12:operation soapAction="http://tempuri.org/SaveInterView" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveContract">
+      <soap12:operation soapAction="http://tempuri.org/SaveContract" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveContractDocs">
+      <soap12:operation soapAction="http://tempuri.org/SaveContractDocs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveVendorDetails">
+      <soap12:operation soapAction="http://tempuri.org/SaveVendorDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveInvoiceDetails">
+      <soap12:operation soapAction="http://tempuri.org/SaveInvoiceDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveInvoiceContactDetails">
+      <soap12:operation soapAction="http://tempuri.org/SaveInvoiceContactDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSubmissions">
+      <soap12:operation soapAction="http://tempuri.org/SaveSubmissions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSubmittedVisaDocs">
+      <soap12:operation soapAction="http://tempuri.org/SaveSubmittedVisaDocs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSubmittedDocs">
+      <soap12:operation soapAction="http://tempuri.org/SaveSubmittedDocs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveVisaProcessing">
+      <soap12:operation soapAction="http://tempuri.org/SaveVisaProcessing" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveVisaDateDetails">
+      <soap12:operation soapAction="http://tempuri.org/SaveVisaDateDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveFamilyVisaDetails">
+      <soap12:operation soapAction="http://tempuri.org/SaveFamilyVisaDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRecEmployee">
+      <soap12:operation soapAction="http://tempuri.org/CreateRecEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NuPortalUSRecService">
+    <wsdl:port name="NuPortalUSRecServiceSoap" binding="tns:NuPortalUSRecServiceSoap">
+      <soap:address location="http://192.168.1.18:97/NuPortalUSRecService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="NuPortalUSRecServiceSoap12" binding="tns:NuPortalUSRecServiceSoap12">
+      <soap12:address location="http://192.168.1.18:97/NuPortalUSRecService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

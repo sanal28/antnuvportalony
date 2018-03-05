@@ -1,0 +1,685 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form id="frmStatusUpdate" action="/Task/TaskName" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+    @Html.Hidden("TypeId", new { id = "TypeId", name = "TypeId" })
+
+</form>
+
+<div id="Statusdiv">
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/status-update-sm.png" width="45" height="45" alt="" /></div></div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="mainheaderdiv">Status Update</div>
+                </div>
+                <div class="col-sm-5">
+                </div>
+            </div>
+        </div>
+        <div class="contentmaindiv">
+            <div class="myprojectdiv">
+                <a class="backbuttondiv" href="@Url.Action("Home","Home")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            </div>
+            <div class="space"></div>
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Task Status</div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="requestgridmaindiv">
+                        <table width="100%" id="tblStatusUpdate" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                            <tbody>
+                                <tr class="requestgriddiv">
+                                    @*<td class="requestgridheader" width="20%">Date</td>
+                                    <td class="requestgridheader" width="20%">Resource Name</td>
+                                    <td class="requestgridheader" width="10%">Project Name</td>
+                                    <td class="requestgridheader" width="10%">Task Name</td>
+                                    <td class="requestgridheader" width="10%">Comments</td>
+                                    <td class="requestgridheader" width="10%">Status</td>*@ 
+                                    <td class="requestgridheader" width="15%">
+                                        Date
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field1Xml" id="cbStatusUpdateDate" name="date" style="width:190px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbStatusUpdate1" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbStatusUpdate1" name='Field1Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="20%">
+                                        Resource Name
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field2Xml" id="cbStatusUpdateResourceName" name="resourcename" style="width:250px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbStatusUpdate2" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbStatusUpdate2" name='Field2Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="12%">
+                                        Project Name
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field3Xml" id="cbStatusUpdateProjectName" name="projectname" style="width:150px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbStatusUpdate3" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbStatusUpdate3" name='Field3Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="10%">
+                                        Task Name
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field4Xml" id="cbStatusUpdateTaskName" name="taskname" style="width:120px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbStatusUpdate4" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbStatusUpdate4" name='Field4Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="10%">Comments</td>
+                                    <td class="requestgridheader" width="10%">
+                                        Status
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field5Xml" id="cbStatusUpdateStatus" name="status" style="width:120px !important">
+                                            <div class="resourceclosebtn"><a title="CLose" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbStatusUpdate5" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbStatusUpdate5" name='Field5Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="3%"><a href="#" id="hrefStatusUpdateClearFilter"><img title="CLear" src="../images/ClearFilter.jpg" width="14" height="14" alt="" /></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationmaindiv" id="divPageStatusUpdate" style="display:none">
+                            <div class="paginationsubdiv">
+                                <div class="paginationbtndiv" id="FRSTbtnStatus" title="First">
+                                    <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="PRVbtnStatus" title="Previous">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                    <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMStatusbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMStatusbtn pagination pgNumber2">2</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMStatusbtn pagination pgNumber3">3</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMStatusbtn pagination pgNumber4">4</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                    <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMStatusbtn pagination pgNumber5">5</div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="NXTbtnStatus" title="Next">
+                                    <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="LSTbtnStatus" title="Last">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <dialog id="dlgComments" style="width:50%;background: transparent;top: 25%;left: 5%;border: none;">
+            <div class="popupmaindiv" style="padding:5px">
+                <div class="popupmaindiv">
+                    <div class="popupheadingmaindiv">
+                        <div class="popupheadingtext">Task Comments</div>
+
+                        <div class="popupclosebutton"><a href="#" onclick="closedlg();">X</a></div>
+                    </div>
+                </div>
+                <div id="divStatusUpdateComments">
+                </div>
+            </div>
+        </dialog>
+    </div>
+</div>
+<script type="text/javascript">
+    var dictStatusUpdateArray = {};
+    var IsPrimaryLoad = true;
+    var CurrentPageId = 1;
+    var RowCount = 10;
+    var PageCount = 0;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    $(document).ready(function () {
+        //PaginationOTasks(200,10);
+        dictStatusUpdateArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+        hideFilter();
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        loadStatusUpdate();
+        loadStatusUpdateFilter();
+        $('#hrefStatusUpdateClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictStatusUpdateArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "" };
+            FirstButonClick($('.paginationNUMStatusbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            loadStatusUpdate();
+            showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+        });
+    });
+    function loadStatusUpdate() {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictStatusUpdateArray), Operation: 22, ProjId: 0, TypeId: 2, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#tblStatusUpdate > tbody').children("tr:gt(0)").remove();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    $('.paginationmaindiv').show();
+                    for (var i = 0; i < resultVals.length; i++) {
+                        var modifiedDate = FormatDate(resultVals[i]["ModifiedDate"], "mm/dd/yyyy");
+                        if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                            PageCount = resultVals[0]["TotalRowCount"] / 10;
+                        else
+                            PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                        disableButtons($('#LSTbtnStatus'), $('#NXTbtnStatus'), $('#FRSTbtnStatus'), $('#PRVbtnStatus'), PageCount, CurrentPageId);
+                        showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                        $('#tblStatusUpdate').append('<tr class="requestgriddiv2" ><td class="requestgridsubheader">' + modifiedDate +
+                            '</td><td class="requestgridsubheader">' + resultVals[i]["ResName"] +
+                            '</td><td class="requestgridsubheader">' + resultVals[i]["ProjectName"] +
+                            '</td><td class="requestgridsubheader"><a href="#" onclick="getSessionValueTask(' + resultVals[i]["RFPTId"] + ',4)">' + resultVals[i]["TaskName"] +
+                            '</a></td><td class="requestgridsubheader"><div class="statusupdatecommentsdiv" onclick="loadComments(' + resultVals[i]["RFPTId"] + ')">' + (resultVals[i]["Comments"] == null ? "NA" : resultVals[i]["Comments"]) +
+                            '</div></td><td class="requestgridsubheader">' + resultVals[i]["StatusText"] +
+                            '</td><td class="requestgridsubheader"></td></tr>');
+                    }
+                    $('#divPageStatusUpdate').show();
+                }
+                else
+                {
+                        $('#divPageStatusUpdate').hide();
+                        $('#tblStatusUpdate').append("<tr><td colspan='7' class='NoRecordsFound'>No Records Found</td></tr>");
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadStatusUpdateFilter() {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictStatusUpdateArray), Operation: 22, ProjId: 0, TypeId: 2, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        var modifiedDate = FormatDate(resultVals[i]["ModifiedDate"], "mm/dd/yyyy");
+                            CreateCheckBox($('#cbStatusUpdateDate'), modifiedDate, 'Field1Xml');
+                            CreateCheckBox($('#cbStatusUpdateResourceName'), resultVals[i]["ResName"], 'Field2Xml');
+                            CreateCheckBox($('#cbStatusUpdateProjectName'), resultVals[i]["ProjectName"], 'Field3Xml');
+                            CreateCheckBox($('#cbStatusUpdateTaskName'), resultVals[i]["TaskName"], 'Field4Xml');
+                            CreateCheckBox($('#cbStatusUpdateStatus'), resultVals[i]["StatusText"], 'Field5Xml');
+                            DefineCheckboxClicks();
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    function getSessionValueTask(taskId, TypeId) {
+        $('#hdnId').val(taskId);
+        $('#TypeId').val(4);
+        $('#frmStatusUpdate').submit();
+    }
+    function closedlg() {
+        var dialog = document.getElementById('dlgComments');
+        dialog.close();
+
+    }
+    function CustomPopUp() {
+        var dialog = document.getElementById('dlgComments');
+        dialog.showModal();
+    }
+    function loadComments(taskId) {
+        $('#divStatusUpdateComments').empty();
+        $.ajax({
+            url: '/Task/GetComments',
+            type: 'GET',
+            dataType: 'json',
+            data: { RFTId:taskId },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++)
+                        $('#divStatusUpdateComments').append("<div class='announcementmaindiv'>" +
+                             "<div class='row>" +
+                             "<div class='col-md-12'>" +
+                             "<div class='announcementinnerdiv'>" +
+                             "<div class='announcementinnertopdiv'>" +
+                             "<div class='announcementimgdiv'><img src='" + resultVals[i]["ProfilePicUrl"] + "' width='133' height='133' alt='' /></div>" +
+                             "<div class='announcementheading'>" + resultVals[i]["resourceName"] + "</div>" +
+                             "<div class='announcementdatemaindiv'>" +
+                             "<div class='announcementdates'>" + FormatDate(resultVals[i]["CreatedDate"], "mm/dd/yyyy")+"</div></div>" +
+                              "<div class='announcementparadiv-readmore'>" +
+                              "<p>" + resultVals[i]["Comments"] + "</p></div>" +
+                             "</div></div></div></div>");
+                }
+                else
+                    $('#divStatusUpdateComments').append("<div width='100%' class='NoRecordsFound'>No Records Found</div>");
+            },
+            error: function (xhr) {
+
+            }
+        });
+        var dialog = document.getElementById('dlgComments');
+        dialog.showModal();
+        //$('#divStatusUpdateComments').Empty();
+    }
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblStatusUpdate')
+                dictTemp = dictStatusUpdateArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblStatusUpdate') {
+                dictStatusUpdateArray = dictTemp;
+                FirstButonClick($('.paginationNUMStatusbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                loadStatusUpdate();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    function removeclass(divId) {
+
+
+        $('div#' + divId + ' div.paginationNUM-ACTVbtn').removeClass('paginationNUM-ACTVbtn');
+        $('div#' + divId + ' div.paginationNUMMOREtxt-Active').removeClass('paginationNUMMOREtxt-Active');
+        $('div#' + divId + ' div.paginationNUMMOREtxt1-Active').removeClass('paginationNUMMOREtxt1-Active');
+    }
+    function addActClass(elmt) {
+        if ($('.' + elmt).html() <= 9) {
+            $('.' + elmt).addClass("paginationNUM-ACTVbtn");
+        }
+        if ($('.' + elmt).html() > 9 && $('.' + elmt).html() <= 99) {
+            $('.' + elmt).addClass("paginationNUMMOREtxt-Active");
+        }
+        if ($('.' + elmt).html() > 99) {
+            $('.' + elmt).addClass("paginationNUMMOREtxt1-Active");
+        }
+
+    }
+    function getPgNum()
+    {
+        for (i = 1; i < 6; i++) {
+            if ($('.pgNumber' + i).hasClass('paginationNUM-ACTVbtn') || $('.pgNumber' + i).hasClass('paginationNUMMOREtxt-Active') || $('.pgNumber' + i).hasClass('paginationNUMMOREtxt1-Active')) {
+                var flag = $('.pgNumber' + i).html();
+                break;
+            }
+        }
+
+    }
+    function addClass(pgNumClass, Pages) {
+        for (i = 1; i < Pages + 1; i++) {
+
+
+            var pg = $('.' + pgNumClass + i).html();
+
+            if (pg <= 9) {
+                $('.' + pgNumClass + i).addClass("paginationNUMbtn").removeClass("paginationNUMMOREtxt").removeClass("paginationNUMMOREtxt1");
+            }
+            if (pg > 9 && pg <= 99) {
+                $('.' + pgNumClass + i).addClass("paginationNUMMOREtxt").removeClass("paginationNUMbtn").removeClass("paginationNUMMOREtxt1");
+            }
+            if (pg > 99) {
+                $('.' + pgNumClass + i).addClass("paginationNUMMOREtxt1").removeClass("paginationNUMMOREtxt").removeClass("paginationNUMbtn");
+            }
+        }
+    }
+    $('.paginationbtndiv > a').click(function (e) {
+        e.preventDefault();
+    })
+    function PaginationOTasks(TotalRows, RowsperPage) {
+        var TotalPages = TotalRows / RowsperPage;
+        var Pages = 5;
+        //$('.PRVbtn').css('visibility', 'hidden');
+        //$('.FRSTbtn').css('visibility', 'hidden');
+        $('#PRVbtn').css('pointer-events', 'none');
+        $('#FRSTbtn').css('pointer-events', 'none');
+        
+        if (TotalRows <= RowsperPage) {
+            TotalPages = 1;
+            $('#divPage').css('pointer-events', 'none');
+            //$('.PRVbtn').css('visibility', 'hidden');
+            //$('.FRSTbtn').css('visibility', 'hidden');
+            //$('.NXTbtn').css('visibility', 'hidden');
+            //$('.LSTbtn').css('visibility', 'hidden');
+
+        }
+        if (TotalPages % 1 != 0 && TotalPages > 1) {
+            TotalPages = parseInt(TotalRows / RowsperPage) + 1;
+        }
+        if (TotalPages < 5) {
+            Pages = TotalPages;
+        }
+        for (i = Pages + 1 ; i <= 5; i++)      // 5 divs
+        {
+            $('.pgNumber' + i).hide();
+        }
+
+        $("div#divPage div.pagination").click(function (e) {
+            if ($(this).html() <= 9) {
+                removeclass("divPage");
+                $(this).addClass("paginationNUM-ACTVbtn");
+            }
+            if ($(this).html() > 9 && $(this).html() <= 99) {
+                removeclass("divPage");
+                $(this).addClass("paginationNUMMOREtxt-Active");
+            }
+            if ($(this).html() > 99) {
+                removeclass("divPage");
+                $(this).addClass("paginationNUMMOREtxt1-Active");
+            }
+            var p = $('.pgNumber1').text();
+            if (p >"1"&& $('.pgNumber1').hasClass('paginationNUM-ACTVbtn') || $('.pgNumber1').hasClass('paginationNUMMOREtxt-Active') || $('.pgNumber1').hasClass('paginationNUMMOREtxt1-Active')) {
+                for (i = 1; i < Pages + 1; i++) {
+                    var pg = $('.pgNumber' + i).text();
+                    --pg;
+                    $('.pgNumber' + i).html("" + pg);
+                }
+                addClass("pgNumber", +Pages);
+                removeclass("divPage");
+                addActClass('pgNumber2');
+            }
+            var t = $('.pgNumber' + Pages).text();
+            
+            if ($('.pgNumber' + Pages).hasClass('paginationNUM-ACTVbtn') || $('.pgNumber' + Pages).hasClass('paginationNUMMOREtxt-Active') || $('.pgNumber' + Pages).hasClass('paginationNUMMOREtxt1-Active')) {
+                if (t < TotalPages) {
+                    for (i = 1; i < Pages + 1; i++) {
+                        var pg = $('.pgNumber' + i).text();
+                        pg++;
+                        $('.pgNumber' + i).html("" + pg);
+                    }
+                    addClass("pgNumber", +Pages);
+                    removeclass("divPage");
+                    var s = Pages - 1;
+                    addActClass('pgNumber' + s);
+                }
+            }
+            getPgNum();
+        });
+
+       
+
+        $('#divPage').click(function (e) {
+            var p = $('.pgNumber1').text();
+            var t = $('.pgNumber' + Pages).text();
+            if (p === "1" && ($('.pgNumber1').hasClass('paginationNUM-ACTVbtn'))) {               
+                //$('.PRVbtn').css('visibility', 'hidden');
+                //$('.FRSTbtn').css('visibility', 'hidden');
+                $('#PRVbtn').css('pointer-events', 'none');
+                $('#FRSTbtn').css('pointer-events', 'none');
+                //$('.NXTbtn').css('visibility', '');
+                //$('.LSTbtn').css('visibility', '');
+                $('#NXTbtn').css('pointer-events', '');
+                $('#LSTbtn').css('pointer-events', '');
+            }
+
+            else if (t == TotalPages && ($('.pgNumber' + Pages).hasClass('paginationNUM-ACTVbtn') || $('.pgNumber' + Pages).hasClass('paginationNUMMOREtxt-Active') || $('.pgNumber' + Pages).hasClass('paginationNUMMOREtxt1-Active'))) {
+               
+                //$('.NXTbtn').css('visibility', 'hidden');
+                //$('.LSTbtn').css('visibility', 'hidden');
+                $('#NXTbtn').css('pointer-events', 'none');
+                $('#LSTbtn').css('pointer-events', 'none');
+                //$('.PRVbtn').css('visibility', '');
+                //$('.FRSTbtn').css('visibility', '');
+                $('#PRVbtn').css('pointer-events', '');
+                $('#FRSTbtn').css('pointer-events', '');
+            }
+
+            else {
+                //$('.PRVbtn').css('visibility', '');
+                //$('.FRSTbtn').css('visibility', '');
+                //$('.NXTbtn').css('visibility', '');
+                //$('.LSTbtn').css('visibility', '');
+                $('#NXTbtn').css('pointer-events', '');
+                $('#LSTbtn').css('pointer-events', '');
+                $('#PRVbtn').css('pointer-events', '');
+                $('#FRSTbtn').css('pointer-events', '');             
+
+            }
+
+        });
+
+
+       
+        $('#NXTbtn').click(function (e) {
+            if ($('.pgNumber' + Pages).hasClass('paginationNUM-ACTVbtn') || $('.pgNumber' + Pages).hasClass('paginationNUMMOREtxt-Active') || $('.pgNumber' + Pages).hasClass('paginationNUMMOREtxt1-Active')) {
+                var p = $('.pgNumber' + Pages).text();
+                if (p < TotalPages) {
+                    for (i = 1; i < Pages + 1; i++) {
+                        var pg = $('.pgNumber' + i).text();
+                        pg++;
+                        $('.pgNumber' + i).html("" + pg);
+                    }
+                    addClass("pgNumber", +Pages);
+                    removeclass("divPage");
+                    var s = Pages - 1;
+                    addActClass('pgNumber' + s);
+                }
+            }
+            for (i = 1; i < Pages; i++) {
+                if ($('.pgNumber' + i).hasClass('paginationNUM-ACTVbtn') || $('.pgNumber' + i).hasClass('paginationNUMMOREtxt-Active') || $('.pgNumber' + i).hasClass('paginationNUMMOREtxt1-Active')) {
+                    j = i + 1;
+                    //addClass1();
+                    removeclass("divPage");
+                    addActClass('pgNumber' + j);
+                    break;
+                }
+            }
+            getPgNum();
+
+        });
+        $('#PRVbtn').click(function (e) {
+            var p = $('.pgNumber1').text();
+            if ($('.pgNumber1').hasClass('paginationNUM-ACTVbtn') || $('.pgNumber1').hasClass('paginationNUMMOREtxt-Active') || $('.pgNumber1').hasClass('paginationNUMMOREtxt1-Active')) {
+                var p = $('.pgNumber1').text();
+                if (p > "1") {
+                    for (i = 1; i < Pages + 1; i++) {
+                        var pg = $('.pgNumber' + i).text();
+                        --pg;
+                        $('.pgNumber' + i).html("" + pg);
+                    }
+                    addClass("pgNumber", +Pages);
+                    removeclass("divPage");
+                    addActClass('pgNumber2');
+                }
+            }
+            for (i = 2; i < Pages + 1; i++) {
+                if ($('.pgNumber' + i).hasClass('paginationNUM-ACTVbtn') || $('.pgNumber' + i).hasClass('paginationNUMMOREtxt-Active') || $('.pgNumber' + i).hasClass('paginationNUMMOREtxt1-Active')) {
+                    j = i - 1;
+                    //addClass1();
+                    removeclass("divPage");
+                    addActClass('pgNumber' + j);
+                    break;
+                }
+            }
+            getPgNum();
+        });
+        $('#FRSTbtn').click(function (e) {
+            var pg = 0;
+            for (i = 1; i < Pages + 1; i++) {
+                pg++;
+                $('.pgNumber' + i).html("" + pg);
+            }
+            addClass("pgNumber", +Pages);
+            removeclass("divPage");
+            $('.pgNumber1').addClass('paginationNUM-ACTVbtn');
+            getPgNum();
+        });
+        $('#LSTbtn').click(function (e) {
+            var pg = TotalPages - Pages;
+            for (i = 1; i < Pages + 1; i++) {
+                pg++;
+                $('.pgNumber' + i).html("" + pg);
+            }
+            addClass("pgNumber", +Pages);
+            removeclass("divPage");
+            addActClass('pgNumber' + Pages);
+            getPgNum();
+        });
+
+    }
+    //Pagination StatusUpdate
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMStatusbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMStatusbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMStatusbtn').text());
+            LoadEachButton($('.paginationNUMStatusbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active',PageCount);
+            loadStatusUpdate();
+            disableButtons($('#LSTbtnStatus'), $('#NXTbtnStatus'), $('#FRSTbtnStatus'), $('#PRVbtnStatus'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtnStatus").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMStatusbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtnStatus'), $('#NXTbtnStatus'), $('#FRSTbtnStatus'), $('#PRVbtnStatus'), PageCount, CurrentPageId);
+        loadStatusUpdate();
+    });
+    $("#PRVbtnStatus").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMStatusbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtnStatus'), $('#NXTbtnStatus'), $('#FRSTbtnStatus'), $('#PRVbtnStatus'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadStatusUpdate();
+    });
+    $("#FRSTbtnStatus").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMStatusbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtnStatus'), $('#NXTbtnStatus'), $('#FRSTbtnStatus'), $('#PRVbtnStatus'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadStatusUpdate();
+    });
+    $("#LSTbtnStatus").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMStatusbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtnStatus'), $('#NXTbtnStatus'), $('#FRSTbtnStatus'), $('#PRVbtnStatus'), PageCount, CurrentPageId);
+        loadStatusUpdate();
+    });
+</script>
+

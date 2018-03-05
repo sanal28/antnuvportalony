@@ -1,0 +1,506 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = 0;
+    int ProjId = 0;
+    int TypeId = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt16(Request["hdnId"].ToString());
+    }
+    if (Request["ProjId"] != null && Request["ProjId"] != "")
+    {
+        ProjId = Convert.ToInt16(Request["ProjId"].ToString());
+    }
+    if (Request["TypeId"] != null && Request["TypeId"] != "")
+    {
+        TypeId = Convert.ToInt16(Request["TypeId"]);
+    }
+
+    }
+
+<form id="frmTask" action="" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+</form>
+
+<div class="col-md-11" id="divClientInfo">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/project-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Client Info</div>
+            </div>
+            <div class="col-sm-5">
+                @*<div class="progressbardiv">
+                    <div class="prgsbarmaindiv">
+                        <div class="prgsbarheading">Profile Completion</div>
+                        <div class="row">
+                            <div class="col-sm-10"><div class="prgsbackground"> <div class="prgspercent"></div></div></div>
+                            <div class="col-sm-2"><div class="prgspercenttext">50%</div></div>
+                        </div>
+
+
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+
+           <a class="backbuttondiv" id="hrefBack" href="#"><img alt="Back" width="30" height="30" src="~/Images/back-button.png" /></a>
+
+        </div>
+        <div class="row">
+
+            
+            <div class="col-md-4">
+                <input type="hidden" id="ClientLogoFileHidden" value="" class=".filehidden" />
+                <div class="clientinfologo">
+                    <img id="imgClientLogo" src="" width="142" height="50" alt="" />
+                    <div class="profilepictext" id="divChangeLogo"></div>
+                </div>
+                <input type="hidden" id="hdnProPicFileVal" value="" />
+                <input type="file" id="imguploadprofile" accept="image/x-png, image/gif, image/jpeg,image/jpg" style="display:none" />
+                @*<div id="divprofile" class="profilethumbnaildiv">
+                    <img src="~/Images/NoImage.jpg" id="imgClientLogo" width="40" height="40" alt="" />
+                </div>*@
+            </div>
+            
+            <div class="col-md-4">
+                <div class="contentfielddiv" id="divValidate">
+                    <input type="text" id="txtCompanyName" class="floating-input vinput" placeholder=" " />
+                    <label class="float">Company Name</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" id="txtWebsite" class="floating-input" placeholder=" " />
+                    <label class="float">Website</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" id="txtPurchaseOrderNumber" class="floating-input" placeholder=" " />
+                    <label class="float">Purchase Order No.</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" id="txtContactPerson" class="floating-input" placeholder=" " />
+                    <label class="float">Contact Person</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="contentfielddiv">
+                    <input type="text" id="txtContactNumber" class="floating-input" placeholder=" " />
+                    <label class="float">Contact Number</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="contentfielddiv">
+                    <input type="text" id="txtExtn" class="floating-input" placeholder=" " />
+                    <label class="float">Extn</label>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" id="txtMobile" class="floating-input" placeholder=" " />
+                    <label class="float">Mobile</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" id="txtDesignation" class="floating-input" placeholder=" " />
+                    <label class="float">Designation</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" id="txtEmail" class="floating-input" placeholder=" " />
+                    <label class="float">Email</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" id="txtFax" class="floating-input" placeholder=" " />
+                    <label class="float">Fax</label>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="contentfielddiv">
+                    <input type="text" id="txtDepartment" class="floating-input" placeholder=" " />
+                    <label class="float">Department</label>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="space"></div>
+        @*<div class="academicaddmaindiv">
+                <div class="academicremovebutton">-</div>
+                <div class="academicaddbutton">+</div>
+
+            </div>*@
+
+        <table style="width:100%" id="tblClientInfo">
+            <tbody id="tbyClientInfo">
+                <tr id="tr1">
+                    <td>
+                        <div class="academicaddmaindiv hiderowadd">
+                            <div class="academicremovebutton" onclick="return deleteRow(this,$('#lblMessage'));">-</div>
+                        </div>
+                        <div class="space"></div>
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <select id="ddlAddressType" class="floating-select ddlAddressType" onclick="this.setAttribute('value', this.value);" value="">
+                                        <option value=""></option>
+                                        <option value="1">Billing Address </option>
+                                        <option value="2">Shipping Address</option>
+                                    </select>
+                                    <label class="float">Address Type </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="hdnClientId" type="hidden" />
+                                    <input id="hdnContactId" type="hidden" />
+                                    <input id="txtAddress" type="text" class="floating-input txtAddress"  placeholder=" " />
+                                    <label class="float">Address </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCity" type="text" class="floating-input txtCity" placeholder=" " />
+                                    <label class="float"> City</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtState" type="text" class="floating-input txtState" placeholder=" " />
+                                    <label class="float">State</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCountry" type="text" class="floating-input txtCountry" placeholder=" " />
+                                    <label class="float">Country</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtZip" type="text" class="floating-input txtZip" placeholder=" " />
+                                    <label class="float"> Zip</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtPhone" type="text" class="floating-input txtPhone" placeholder=" " />
+                                    <label class="float">Phone</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtFax1" type="text" class="floating-input txtFax1" placeholder=" " />
+                                    <label class="float">Fax</label>
+                                </div>
+                            </div>
+
+
+                        </div>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <div class="academicaddmaindiv hiderowadd ">
+                            <div class="academicaddbutton" onclick="return addRow(this,$('#lblMessage'));">+</div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="buttonmaindiv hidesave ">
+            <div class="buttondiv"><input class="submitbtn" type="button" id="btnSaveClientInfo" /></div>         
+            <div class="ErrorLabel">
+                <label id="lblMessage" class="lblMessage"></label>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var EmpID = 0;
+    var sessionVal = parseInt(@Session["EmpID"]);
+    if (!isNaN(sessionVal) && sessionVal != "")
+        EmpID = parseInt(@Session["EmpID"]);
+    var TypeId=@TypeId;
+    $(document).ready(function () {
+
+        $('#hrefBack').click(function(){
+            $('#hdnId').val(@ProjId);
+            if(@TypeId==1)
+                $('#frmTask').attr("action", "/Projects/view");
+            else
+                $('#frmTask').attr("action", "/Projects/Create");
+            $('#frmTask').submit();
+        });
+
+        LoadDataFromDB();
+        $('#imgClientLogo').click(function () { $('#imguploadprofile').trigger('click'); });
+        //$('#divClientInfo').find('input[type=text],select').attr("disabled", "disabled");
+
+    });
+
+    $("#imguploadprofile").change(function () {
+        UploadEmpInfoFiles(this, $("#imgClientLogo"), $("#hdnProPicFileVal"));
+    });
+
+    function UploadEmpInfoFiles(fileObject, imageObject, hiddenfield) {
+        var Attachments = new FormData();
+        var DocUpload = $(fileObject).get(0);
+        var DocFiles = DocUpload.files;
+        if (DocFiles.length > 0) {
+            Attachments.append(DocFiles[0].name, DocFiles[0]);
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: Attachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        imageObject.attr("src",json[DocFiles[0].name]);
+                        hiddenfield.val(json[DocFiles[0].name]);
+                    }
+                    $(fileObject).val('');
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        }
+    }
+
+
+    function LoadDataFromDB() {
+      
+        $.ajax({
+            url: '/Client/GetClientInfo?ProjId='+@ProjId,
+            type: "GET",
+            contentType: false,
+            processData: false,
+            //data: { operationId : 1},
+            success: function (result) {
+
+                var resultVals = $.parseJSON(result);
+                //var ClientId = (resultVals[0]["ClientId"]);
+
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+
+                    if (resultVals[0]["CompanyLogo"] != "") {                                             
+                        $('#hdnProPicFileVal').val(resultVals[0]["CompanyLogo"]);
+                        //var FileName = resultVals[0]["ProfilePicUrl"].split('\\').pop();
+                        $("#imgClientLogo").attr('src', resultVals[0]["CompanyLogo"]);
+                    }
+                    var ClientId =resultVals[0]["FK_ClientId"];
+                    $("#hdnClientId").val(resultVals[0]["FK_ClientId"]);
+                    $("#hdnContactId").val(resultVals[0]["ContactId"]);
+                    $("#txtCompanyName").val(resultVals[0]["CompanyName"]);
+                    $("#txtWebsite").val(resultVals[0]["Website"]);
+                    $("#txtPurchaseOrderNumber").val(resultVals[0]["PurchaseOrderNumber"]);
+                    $("#txtContactPerson").val(resultVals[0]["ContactPerson"]);
+                    $("#txtContactNumber").val(resultVals[0]["ContactNumber"]);
+                    $("#txtExtn").val(resultVals[0]["Extension"]);
+                    $("#txtMobile").val(resultVals[0]["Mobile"]);
+                    $("#txtDesignation").val(resultVals[0]["Designation"]);
+                    $("#txtEmail").val(resultVals[0]["Email"]);
+                    $("#txtFax").val(resultVals[0]["Fax"]);
+                    $("#txtDepartment").val(resultVals[0]["Department"]);
+                   
+                    $.ajax({
+                        url: '/Client/GetClientAddress?ProjId='+@id,
+                        type: "GET",
+                        async: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (result) {
+                            var resultVals = $.parseJSON(result);
+                            var rowObject;
+                            if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                                for (var i = 0; i < resultVals.length; i++) {
+                                    if (i > 0) {
+                                        addRow($('#tblClientInfo'),$('#lblMessage'));
+                                    }
+                                    rowObject = $('#tblClientInfo').find("tr:nth-child(" + (i + 1) + ")");
+                                    rowObject.find("#ddlAddressType option:contains(" + resultVals[i]["AddressType"] + ")").attr('selected', 'selected');
+                                    rowObject.find('#txtAddress').val(resultVals[i]["Address"]);
+                                    rowObject.find('#txtCity').val(resultVals[i]["City"]);
+                                    rowObject.find('#txtState').val(resultVals[i]["State"]);
+                                    rowObject.find('#txtCountry').val(resultVals[i]["Country"]);
+                                    rowObject.find('#txtZip').val(resultVals[i]["Zip"]);
+                                    rowObject.find('#txtPhone').val(resultVals[i]["Phone"]);
+                                    rowObject.find('#txtFax1').val(resultVals[i]["Fax"]);
+                                }
+
+                            }
+                        },
+                        error: function (err) {
+                            //alert(err.statusText);
+                        }
+                    });
+                    if(TypeId==1)
+                    {
+
+                        $('#txtCompanyName').attr('readonly', true);
+                        $('#txtWebsite').attr('readonly', true);
+                        $('#txtPurchaseOrderNumber').attr('readonly', true);
+                        $('#txtContactPerson').attr('readonly', true);
+                        $('#txtContactNumber').attr('readonly', true);
+                        $('#txtExtn').attr('readonly', true);
+                        $('#txtMobile').attr('readonly', true);
+                        $('#txtDesignation').attr('readonly', true);
+                        $('#txtEmail').attr('readonly', true);
+                        $('#txtFax').attr('readonly', true);                 
+                        $('#txtDepartment').attr('readonly', true);
+
+                        $('.ddlAddressType').attr('disabled', 'disabled');
+                        $('.txtAddress').attr('readonly', true);
+                        $('.txtCity').attr('readonly', true);
+                        $('.txtState').attr('readonly', true);
+                        $('.txtCountry').attr('readonly', true);
+                        $('.txtZip').attr('readonly', true);
+                        $('.txtPhone').attr('readonly', true);
+                        $('.txtFax1').attr('readonly', true);
+                    
+                        $(".hiderowadd").hide();
+                        $(".hidesave").hide();
+                        $("#imguploadprofile").attr('disabled', 'disabled')
+                    }
+                    else
+                        $('#divChangeLogo').text("Change Logo");
+                    $('.floating-select').click();
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+
+
+
+    }
+
+    //Edit Client Info
+    $(function () {
+
+        $("#btnSaveClientInfo").click(function () {
+            if(ValidateAll('divValidate','lblMessage'))
+            {
+                var clientId=$("#hdnClientId").val();
+                var contactId=$("#hdnContactId").val();
+                var CompanyLogo = $("#hdnProPicFileVal").val();
+                var CompanyName = $("#txtCompanyName").val();
+                var Website = $("#txtWebsite").val();
+                var PurchaseOrderNumber = $("#txtPurchaseOrderNumber").val();
+
+                var ContactPerson = $("#txtContactPerson").val();
+
+                var ContactNumber = $("#txtContactNumber").val();
+                var Extension = $("#txtExtn").val();
+                var Mobile = $("#txtMobile").val();
+                var Designation = $("#txtDesignation").val();
+                var Email = $("#txtEmail").val();
+
+                var Fax = $("#txtFax").val();
+                var Department = $("#txtDepartment").val();
+                $.ajax({
+                    url: '/Client/UpdateClientInfo',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        clientId:clientId,CompanyName: CompanyName, Website: Website, PurchaseOrderNumber: PurchaseOrderNumber, CompanyLogo: CompanyLogo
+                    },
+                    success: function (data) {
+                        if($("#hdnContactId").val()!="")
+                        {
+                            $.ajax({
+                                url: '/Client/UpdateClientInfo1',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    contactId:contactId,ContactPerson: ContactPerson, ContactNumber: ContactNumber, Extension: Extension, Mobile: Mobile, Designation: Designation, Email: Email, Fax: Fax, Department: Department
+                                },
+                                success: function (data) {
+                           
+                                }
+                            });
+                        }
+                        var IsValid = true;
+                        var dtClient = new Array();
+                            
+                        $("#tblClientInfo").find("tbody > tr").each(function () {
+                            if (IsValid) {
+                                dtClient.push({
+                                    "ClientId":clientId , "AddressType": $(this).find("#ddlAddressType option:selected").text(),
+                                    "Address": $(this).find("#txtAddress").val(), "City": $(this).find("#txtCity").val(), "State": $(this).find("#txtState").val(),
+                                    "Country": $(this).find("#txtCountry").val(), "Zip": $(this).find("#txtZip").val(), "Phone": $(this).find("#txtPhone").val(),
+                                    "Fax": $(this).find("#txtFax1").val()
+                                });
+                            }
+                        });
+
+                        if (IsValid) {
+                            $.ajax({
+                                url: '/Client/SaveNewClientAddress',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    ClientId:clientId,jsonData: JSON.stringify(dtClient)
+                                },
+                                success: function (data) {
+                                    $("#lblMessage").removeClass("lblError");
+                                    $("#lblMessage").addClass("lblMessage");
+                                    $('#lblMessage').text("Client Info Updated successfully");
+                                },
+                                error: function () {
+                                    //$('#lblMessage').text("Client Info Update failed");
+                                }
+                            });
+                        }
+                    },
+                    error: function () {
+                   
+                    }
+                });
+            }
+        });
+    });
+</script>

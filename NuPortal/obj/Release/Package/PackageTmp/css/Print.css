@@ -1,0 +1,114 @@
+﻿@media print {
+    body {
+        background-image: none !important;
+    }
+
+    tr {
+        page-break-inside: avoid !important;
+    }
+
+    /*.container {
+        page-break-after: auto !important;
+    }*/
+
+    .requesttablediv {
+        width: 100% !important;
+        padding: 0;
+        margin: 0;
+    }
+
+    .requestgriddiv {
+        padding: 0px;
+        margin: 0;
+    }
+
+    .requestgridheader {
+        padding: 8px;
+        margin: 0;
+        font-family: 'Lato', sans-serif;
+        color: #000;
+        font-size: .9em;
+        text-align: center;
+        border: 1px solid #000 !important;
+    }
+
+    .requestgriddiv2 {
+        padding: 0px;
+        margin: 0;
+    }
+
+    .requestgridsubheader {
+        padding: 8px;
+        margin: 0;
+        font-family: 'Lato', sans-serif;
+        color: #000;
+        font-size: .8em;
+        text-align: center;
+        border: 1px solid #000 !important;
+    }
+
+    .documentlinkdiv {
+        width: 120px;
+        padding: 0;
+        margin: auto;
+        color: #000;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .Attachlinkdiv {
+        padding: 0;
+        margin: auto;
+        color: #000;
+    }
+
+    .space {
+        padding: 10px;
+        margin: 0;
+    }
+    /*Weekly Report Print */
+    .weeklyprintmaindiv {
+        width: 90%;
+        background-color: #fff;
+        padding: 10px 30px;
+        margin: auto;
+    }
+
+    .statusreport-heading {
+        font-family: 'Lato', sans-serif;
+        font-size: 1.3em;
+        color: #4c4c4c;
+        padding: 5px;
+        font-weight: bold;
+    }
+
+    .WeReportspace {
+        padding: 5px;
+        background-color: #909090;
+        margin: 10px 0px;
+    }
+
+    .weektabletext {
+        font-family: 'Lato', sans-serif;
+        font-size: 1.1em;
+        color: #1F1F1F;
+        padding: 5px;
+        font-weight: bold;
+        top: 0;
+    }
+
+    .weektablelabel {
+        font-family: 'Lato', sans-serif;
+        font-size: 1em;
+        color: #4c4c4c;
+        padding: 5px;
+    }
+    .SupervisorSign {
+        margin: 10px 10px 180px 10px;
+        font-family: 'Lato', sans-serif;
+        font-size: 1em;
+        color: #4c4c4c;
+        padding: 5px;
+    }
+}

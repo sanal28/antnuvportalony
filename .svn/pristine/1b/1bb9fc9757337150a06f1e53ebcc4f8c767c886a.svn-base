@@ -1,0 +1,537 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form id="frmPoll" action="/HR/OfficePoll" method="post">
+    @Html.Hidden("PollId", new { id = "PollId", name = "PollId" })
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/poll-details-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Office Poll Log</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv">
+
+        <div class="myprojectdiv">
+            <div class="myprojecttxt"> <a href="@Url.Action("OfficePoll","HR")">+Office Poll</a></div>
+            <a class="backbuttondiv" href="@Url.Action("HRHome","HR")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="requestgridmaindiv">
+                    <table id="tblOfficePollLog" width="100%" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                        <tbody>
+                            <tr class="requestgriddiv">
+                                @*<td class="requestgridheader" width="40%">Title</td>
+                                    <td class="requestgridheader" width="30%">EndDate</td>
+                                    <td class="requestgridheader" width="30%" colspan="2">Result/Publish</td>*@
+                                @*<td class="requestgridheader" width="10%">To Date</td>
+                                    <td class="requestgridheader" width="20%">Time</td>
+                                    <td class="requestgridheader" width="20%">Attachment</td>
+                                    <td class="requestgridheader" width="3%" colspan="2"><a href="#"><img src="../images/Filter.png" width="16" height="16" alt="" /></a></td>*@
+                                <td class="requestgridheader" width="40%">
+                                    Title
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field1Xml" id="cbOffPollTitle" name="title" style="width:390px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbHROffPoll1" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbHROffPoll1" name='Field1Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="30%">
+                                    End Date
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field2Xml" id="cbOffPollEndDate" name="enddate" style="width:290px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbHROffPoll2" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbHROffPoll2" name='Field2Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="30%" colspan="2">Result/Publish</td>
+                                <td class="requestgridheader" width="3%"><a href="#" id="hrefOfficePollLogClearFilter"><img title="Clear" src="../images/ClearFilter.jpg" width="16" height="16" alt="" /></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="paginationmaindiv" id="divOfficePollLog" style="display:none">
+                        <div class="paginationsubdiv">
+                            <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum">
+                                <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                            </div>
+                            <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                            </div>
+                            <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        @*<div class="buttonmaindiv">
+                <div class="buttondiv"><input class="submitbtn" type="button" /></div>
+                <div class="buttondiv"><input class="clearbtn" type="button" /></div>
+
+            </div>*@
+    </div>
+    <dialog id="dlgPublicPoll" style="width:70%;background: transparent;top: 25%;left: 5%;border: none;">
+        <div class="questionPopupmaindiv">
+
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Public Poll</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="closePoll();">X</a></div>
+            </div>
+            <input type="hidden" id="hdnQId" value="" class=".filehidden" />
+            <input type="hidden" id="hdnQTypeId" value="" class=".filehidden" />
+            <div class="Popupcontentmaindiv">
+
+
+                <div class="popupquestiontext">
+                    Please choose the information to be published
+                </div>
+                <div id="divPublicPoll">
+                    @*contents will append here*@
+                </div>
+
+
+            </div>
+            <div class="buttonmaindiv">
+                <div class="buttondiv"><input title="Save" class="submitbtn" type="button" onclick="savePublicPoll();" /></div>
+               @* <div class="buttondiv"><input class="clearbtn" type="button" /></div>*@
+                <div class="ErrorLabel"><label id="lblMessage" class="lblMessage"></label></div>
+            </div>
+
+        </div>
+    </dialog>
+    <dialog id="dlgPollResults" style="width:70%;background: transparent;top: 25%;left: 5%;border: none;">
+        <div class="questionPopupmaindiv">
+
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Poll Results</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="closePollResults();">X</a></div>
+            </div>
+            <div class="Popupcontentmaindiv">
+
+                <div class="pollresultsdiv">
+                   
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </dialog>
+</div>
+<script type="text/javascript">
+    var dictOfficePollLogArray = {};
+    var IsPrimaryLoad = true;
+    var text;
+    var CurrentPageId = 1;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    var RowCount = 10;
+    var PageCount = 0;
+    $(document).ready(function () {
+
+        dictOfficePollLogArray = { "Field1Xml": "", "Field2Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+        hideFilter();
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        loadOfficePollLog();
+        loadOfficePollLogFilter();
+        $('#hrefOfficePollLogClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictOfficePollLogArray = { "Field1Xml": "", "Field2Xml": "" };
+            FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            loadOfficePollLog();
+            showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+        });
+    });
+    function selectPoll(obj) {
+
+        if ($('.Popupanswersmaindiv').find('input[type="checkbox"]:checked').length > 1) {
+            $('.Popupanswersmaindiv').find('input[type="checkbox"]:checked').prop('checked', false);
+            $(obj).prop('checked', true);
+
+        }
+        var checked = $('.Popupanswersmaindiv').find('input[type="checkbox"]:checked')
+        OptionSelected = checked.val();
+        //text = checked.parents(':eq(1)').find('p[name=' + OptionSelected + ']')[0].innerText;
+
+    }
+    function savePublicPoll() {
+        if ($("#hdnQTypeId").val() == 1) {
+            PublishTypeId = 0;
+            TextVal = $("#txtPublicPoll").val();
+            Operation = 4;
+
+        }
+        else {
+            PublishTypeId = OptionSelected;
+            TextVal = null;
+            Operation = 3;
+        }
+        $.ajax({
+            url: '/HR/savePublicPoll',
+            type: "POST",
+            dataType: 'json',
+            data: { QuestionId: $("#hdnQId").val(), PublishTypeId: PublishTypeId, TextVal: TextVal, Operation: Operation },
+            success: function (result) {
+                $("#lblMessage").text("Poll Published Successfully");
+
+            },
+            error: function (err) {
+                $("#lblMessage").text("Error Publishing Poll  ");
+            }
+        });
+
+    }
+
+    function closePoll() {
+        $('#dlgPublicPoll')[0].close();
+
+
+    }
+    function closePollResults() {
+        $('#dlgPollResults')[0].close();
+    }
+
+    function loadOfficePollLog() {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictOfficePollLogArray), Operation: 13, ProjId: 0, TypeId: 1, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#tblOfficePollLog > tbody').children("tr:gt(0)").remove();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCount = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                    disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+                    showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                    for (var i = 0; i < resultVals.length; i++) {
+                        $('#tblOfficePollLog').append('<tr class="requestgriddiv2" > ' +
+                             '<td class="requestgridsubheader"><div class="documentlinkdiv"><a  onclick="viewPoll(' + resultVals[i]["PollId"] + ')"href="#">' + (resultVals[i]["Title"]) + '</a></div></td>' +
+                             '<td class="requestgridsubheader">' + FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy") + '</td>' +
+                             '<td class="requestgridsubheader"><div class="documentlinkdiv"><a  onclick="pollResults(' + resultVals[i]["FK_QuestionTypeId"] + ',' + resultVals[i]["QuestionId"] + ');"href="#">Result</a></div><div width="5px"></div>' +
+                             ' <td class="requestgridsubheader"><div class="documentlinkdiv"><a  onclick="loadPublicPoll(' + resultVals[i]["FK_QuestionTypeId"] + ',' + resultVals[i]["QuestionId"] + ');"href="#">Publish</a></div></td><td class="requestgridsubheader"></td></tr>');
+                    }
+                    $('#divOfficePollLog').show();
+                }
+                else
+                {
+                        $('#divOfficePollLog').hide();
+                        $('#tblOfficePollLog').append("<tr><td colspan='5' class='NoRecordsFound'>No Records Found</td></tr>");
+                }
+                PreventDefaultClick();
+
+            },
+            error: function(err){
+            }
+        });
+    }
+    function loadOfficePollLogFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictOfficePollLogArray), Operation: 13, ProjId: 0, TypeId: 1, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                            CreateCheckBox($('#cbOffPollTitle'), resultVals[i]["Title"], 'Field1Xml');
+                            CreateCheckBox($('#cbOffPollEndDate'), FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy"), 'Field2Xml');
+                            DefineCheckboxClicks();
+                    }
+                }
+                PreventDefaultClick();
+
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    function pollResults(qTypeId,qId) {
+        if (qTypeId == 1) {
+            $('.pollresultsdiv').empty();
+            $.ajax({
+                url: '/HR/getPollResults',
+                type: 'GET',
+                dataType: 'json',
+                data: { qId: qId, Operation: 66 },
+                success: function (result) {
+                    var Option = "";
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        for (var i = 0; i < resultVals.length; i++) {
+                            Option = Option + "<div class='row'>" +
+                                             "<div class='col-sm-4'>" +
+                                                "<p>" + resultVals[i]["TextValue"] + "</p>" +
+                                             "</div>" +
+                                             "<div class='col-sm-8'>" +
+                                                 "<p>" + resultVals[i]["Total"] + "</p>" +
+                                            " </div>" +
+                                         "</div>";
+                        }
+                        $('.pollresultsdiv').append("<div class='row'><div class='col-sm-8'> <p>" + resultVals[0]['Question'] + "</p></div></div>" + Option);
+                    }
+                },
+                error: function () {
+
+                },
+            });          
+        }
+        else{
+        $.ajax({
+            url: '/HR/getPollResults',
+            type: 'GET',
+            dataType: 'json',
+            data: { qId: qId, Operation: 64 },
+            success: function (result) {
+                var Option = "";
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    $('.pollresultsdiv').empty();
+                    
+                    var Percentage = 0;
+                    var PercentageCount = 0;
+
+                    for (var i = 0; i < resultVals.length; i++) {
+                        Percentage = (resultVals[i]["ResultCount"] * 100) / resultVals[i]["Total"];
+                        //$(".prgspercentresults").width(100);
+                        PercentageCount = resultVals[i]["ResultCount"];
+                        Option = Option + "<div class='row'>" +
+                                             "<div class='col-sm-4'>" +
+                                                "<p>" + resultVals[i]["OptionText"] + "</p>" +
+                                             "</div>" +
+                                             "<div class='col-sm-8'>" +
+                                                 "<div class='pollresultsProgressdiv'>" +
+                                                     "<div class='row'>" +
+                                                     "<div class='col-sm-10'><div class='prgsbackgroundresults'> <div class='prgspercentresults' style='width:" + Percentage + "%;'></div></div></div>" +
+                                                     "<div class='col-sm-2'><div class='prgspercenttext'>" + PercentageCount + "</div></div>" +
+                                                 "</div>" +
+                                                " </div>" +
+                                            " </div>" +
+                                         "</div>";
+                    }
+                    
+                    $('.pollresultsdiv').append("<div class='row'><div class='col-sm-4'> <p>" + resultVals[0]['Question'] + "</p></div></div>" + Option);
+                }
+            },
+            error: function () {
+
+            },
+        });}
+        $('#dlgPollResults')[0].showModal();
+    }
+    //load publish
+    function loadPublicPoll(qTypeId, qId) {
+       
+        $("#hdnQId").val(qId);
+        $("#hdnQTypeId").val(qTypeId);
+        $.ajax({
+            url: '/HR/getPublicPoll',
+            type: 'GET',
+            dataType: 'json',
+            data: { Operation: 22 },
+            success: function (result) {
+                var Option = "";
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    //  $("#popQuestion").text(resultVals[0]["Question"])
+                    $('#divPublicPoll').empty();                   
+                    $('#lblMessage').empty();
+                    if (qTypeId == 1) {
+                        $('#divPublicPoll').append("<span><input id='txtPublicPoll' type='textbox' /></span>");
+                    }
+                    else {
+                        for (var i = 0; i < resultVals.length; i++) {
+                            Option = Option + "<span><input onclick='selectPoll(this);' type='checkbox' value='" + resultVals[i]["PublishTypeId"] + "'/></span> <p>" + resultVals[i]["PublishType"] + "</p>";
+                            //<div class="Popupanswersmaindiv"><span><input type="checkbox"></span><p>Complete Results</p></div>																						
+                        }
+                        $('#divPublicPoll').append("<div class='Popupanswersmaindiv'>"+Option+"</div>");
+                    }
+                    $.ajax({
+                        url: '/HR/getPollResults',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: { qId: qId, Operation: 62 },
+                        success: function (result) {                           
+                            var resultVals = $.parseJSON(result);
+                            $('#divPublicPoll').find('input[value="' + resultVals[0]["PublishTypeId"] + '"]').prop('checked', true);
+                        },
+                        error: function () { }, 
+                    });
+                }                
+            },
+            error: function () {
+
+            },
+        });
+        $('#dlgPublicPoll')[0].showModal();
+    }
+    function viewPoll(PollId) {
+        $('#PollId').val(PollId);
+        $('#frmPoll').submit();
+    }
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblOfficePollLog')
+                dictTemp = dictOfficePollLogArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblOfficePollLog') {
+                dictOfficePollLogArray = dictTemp;
+                FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                loadOfficePollLog();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', PageCount);
+            loadOfficePollLog();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadOfficePollLog();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadOfficePollLog();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadOfficePollLog();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadOfficePollLog();
+    });
+</script>
+

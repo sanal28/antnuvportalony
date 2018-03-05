@@ -1,0 +1,372 @@
+﻿<div id="Statusdiv">
+        <div class="contentmaindiv">
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="hidden" id="hdnOpeningId" />
+                    <input type="hidden" id="hdnApplicantId" />
+                    <input type="hidden" id="hdnTypeId" value="0"/>
+                    <div class="requestgridmaindiv">
+                        <table width="100%" id="tblOpeningsOpen" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+
+                            <tr class="requestgriddiv">
+                                <td class="requestgridheader" width="15%">
+                                    Job Title
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field1Xml" id="cbOpeningsJobTitle" name="jobtitle" style="width:150px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbJobOpen1" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbJobOpen1" name='Field1Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="19%">
+                                    Job Type
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field2Xml" id="cbOpeningsJobType" name="jobType" style="width:190px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbJobOpen2" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbJobOpen2" name='Field2Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="12%">
+                                    Open Date
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field3Xml" id="cbOpeningsOpenDate" name="opendate" style="width:110px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbJobOpen3" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbJobOpen3" name='Field3Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="14%">
+                                    Closing Date
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field4Xml" id="cbOpeningsClosingDate" name="closedate" style="width:135px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbJobOpen4" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbJobOpen4" name='Field4Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="20%">
+                                    Pending Vacancies
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field5Xml" id="cbOpeningsPendingVac" name="pendingvacancies" style="width:190px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbJobOpen5" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbJobOpen5" name='Field5Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="15%">
+                                    Recruiter
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field6Xml" id="cbOpeningsRecruiter" name="recruiter" style="width:140px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbJobOpen6" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbJobOpen6" name='Field6Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="3%">
+                                    <a href="#" id="hrefOpeningsClearFilter">
+                                        <img  title="Clear" src="../images/ClearFilter.jpg" width="14" height="14" alt="" />
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="buttonmaindiv">
+                        <div class="buttondiv"><input title="Save" class="submitbtn" type="button" onclick="associateOpening();" /></div>
+                        <div class="ErrorLabel">
+                            <label id="lblMsg" class="lblError"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+        </div>
+</div>
+<script>
+    var dictOpeningsOpenArray = {};
+    var dictOpeningsClosedArray = {};
+    var IsPrimaryLoad = true;
+    var JobTypeArray = { "Contract": 1, "Permanent": 2 }; //to search priority by its id
+    $(document).ready(function () {
+        dictOpeningsOpenArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "" };
+        dictOpeningsClosedArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        loadOpeningsOpen();
+        $('#hrefOpeningsClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictOpeningsOpenArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "" };
+            loadOpeningsOpen();
+        });
+    });
+    function loadOpeningsOpen() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictOpeningsOpenArray), Operation: 17, ProjId: 0, TypeId: 1, OffSet: 0, RowCount: 500 },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                var cancellink = "";
+                $('#tblOpeningsOpen > tbody').children("tr:gt(0)").remove();
+                if (results != null && results.length > 0) {
+                    for (var i = 0; i < results.length; i++) {
+                        var type = results[i].JobType == "1" ? "Contract" : "Permanent";
+                        if (IsPrimaryLoad) { //condition to load checkbox only in first load, not in searched data load
+                            CreateCheckBox($('#cbOpeningsJobTitle'), results[i].JobTitle, 'Field1Xml');
+                            CreateCheckBox($('#cbOpeningsJobType'), type, 'Field2Xml');
+                            CreateCheckBox($('#cbOpeningsOpenDate'), FormatDate(results[i].StartDate, "mm/dd/yyyy"), 'Field3Xml');
+                            CreateCheckBox($('#cbOpeningsClosingDate'), FormatDate(results[i].EndDate, "mm/dd/yyyy"), 'Field4Xml');
+                            CreateCheckBox($('#cbOpeningsPendingVac'), results[i].NOOfVacancy, 'Field5Xml');
+                            CreateCheckBox($('#cbOpeningsRecruiter'), results[i].Recruiter, 'Field6Xml');
+                            DefineCheckboxClicks();
+                        }
+                        $('#tblOpeningsOpen').append('<tr class="requestgriddiv2">' +
+                                    '<td class="requestgridsubheader"><div class="documentlinkdiv">' + results[i].JobTitle + '</div></td>' +
+                                    '<td class="requestgridsubheader">' + type + '</td>' +
+                                    '<td class="requestgridsubheader">' + FormatDate(results[i].StartDate, "mm/dd/yyyy") + '</td>' +
+                                    '<td class="requestgridsubheader">' + FormatDate(results[i].EndDate, "mm/dd/yyyy") + '</td>' +
+                                    '<td class="requestgridsubheader">' + results[i].NOOfVacancy + '</td>' +
+                                    '<td class="requestgridsubheader">' + results[i].Recruiter + '</td>' +
+                                    '<td class="requestgridsubheader"><input type="checkbox" class="checkassociate"/>' +
+                                    '<input type="hidden" class="hdnOpeningclass" value="' + results[i].openingId + '"/></td></tr>');
+
+                    }
+                }
+                else {
+                    $('#tblOpeningsOpen').append('<tr class="requestgriddiv2"><td class="NoRecordsFound" colspan="7">No Records Found</td></tr>');
+                }
+            },
+            error: function (xhr) {
+            }
+        });
+    }
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblOpeningsOpen')
+                dictTemp = dictOpeningsOpenArray;
+            else
+                dictTemp = dictOpeningsClosedArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        SearchVal = CheckExceptionTexts(SearchVal, ColValue);
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                SearchVal = CheckExceptionTexts(SearchVal, ColValue);
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblOpeningsOpen') {
+                dictOpeningsOpenArray = dictTemp;
+                loadOpeningsOpen();
+            }
+            else {
+                dictOpeningsClosedArray = dictTemp;
+                loadOpeningsClosed();
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    function CheckExceptionTexts(input, ColValue) {
+        if (ColValue == 'Field2Xml')
+            input = JobTypeArray[input];
+        return input;
+    }
+
+    function associateOpening() {
+        var checked = $('#dlgOpeningsList').find('input.checkassociate:checked');
+        var OpenId = parseInt($('#hdnOpeningId').val());
+        if (checked.length > 0) {
+            var operation = 48;
+            if (OpenId == 0)
+                operation = 63;
+            var IsSuccess = true;
+            var dtApp;
+            for (var i = 0; i < checked.length; i++) {
+                $.ajax({
+                    url: '/Recruitment/GetOpening',
+                    dataType: "json",
+                    type: "GET",
+                    contentType: 'application/json; charset=utf-8',
+                    data: {
+                        RowId: $('#hdnApplicantId').val(), operation: operation
+                    },
+                    async: false,
+                    success: function (data) {                      
+                        var results = $.parseJSON(data);
+                        var open  = $(checked[i]).parent('td').find('input.hdnOpeningclass').val();
+                        if (i == 0) {
+                            var CTCCurr = 0, Exp = 0, CTCExp = 0;
+                            if (results[0].CurrentCTC != 0)
+                                CTCCurr = results[0].CurrentCTC;
+                            if (results[0].ExperianceinMonths != 0)
+                                Exp = results[0].ExperianceinMonths;
+                            if (results[0].ExpectedCTC != 0)
+                                CTCExp = results[0].ExpectedCTC;
+                            dtApp = [{
+                                Attachments: results[0].Attachments, City: results[0].city, Country: results[0].Country, CurrentCTC: CTCCurr, Experience: Exp, Skills: results[0].Skills, State: results[0].State,
+                                Technologies: results[0].Technologies, Name: results[0].Name, Email: results[0].EmailId, Mobile: results[0].MobileNo, Address: results[0].Address, Street: results[0].Street, ZipCode: results[0].ZipCode,
+                                Qualification: results[0].HighestQualification, JobTitle: results[0].CurrentJobTitle, Employer: results[0].CurrentEmployer, ExpecCTC: CTCExp, Skype: results[0].SkypeID, Twitter: results[0].TwitterID,
+                                LinkedIn: results[0].LinkedInID, AddInfo: results[0].AdditionalInfo, OpenId: open, Comments: ""
+                            }];
+                        }
+                        else {
+                            dtApp[0]["OpenId"] = open;
+                        }
+                        $.ajax({
+                            url: '/Recruitment/SaveApplicant',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                ApplicantId: 0,
+                                JsonStr: JSON.stringify(dtApp)
+                            },
+                            async: false,
+                            success: function (data) {
+                                //var result = JSON.parse(data);
+                                var returnval = JSON.parse(data);
+                                if (returnval["Result"] == "Error") {
+                                    IsSuccess = false;
+                                }
+                                
+                               // ShowLabelMessage(data, "Employee Info", $('div[role="dialog"]').find('#lblMsg'));
+                                //$('div[role="dialog"]').find('#lblMsg')[0].innerText = "Openings Associated Successfully";
+                            },
+                            error: function () {
+                            }
+                        });
+                    },
+                    error: function (xhr) {
+                    }
+                });
+            }
+            if (IsSuccess) {
+                $('div[role="dialog"]').find('#lblMsg').attr("class", "lblMessage");
+                $('div[role="dialog"]').find('#lblMsg')[0].innerText = "Openings Associated Successfully";
+                if (parseInt($('#hdnTypeId').val()) == 1)
+                    window.location.href = "/Home/MyTickets";
+                else
+                    window.location.reload();
+            }
+            else {
+                $('div[role="dialog"]').find('#lblMsg').attr("class", "lblError");
+                $('div[role="dialog"]').find('#lblMsg')[0].innerText = "Error in Associating Opening";
+            }
+            //$('#dlgOpeningsList').remove();            
+        }
+        else {
+            $('#dlgOpeningsList').find('#lblMsg').attr("class", "lblError");
+            $('#dlgOpeningsList').find('#lblMsg')[0].innerText = "Select atleast one opening";
+        }
+    }
+</script>
+

@@ -1,0 +1,505 @@
+﻿@{
+    ViewBag.Title = "NewContract";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int SubmissionId = 1;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        SubmissionId = Convert.ToInt16(Request["hdnId"].ToString());
+    }
+}
+<div class="col-md-11"> 
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/contract-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">New Contract</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+            <div class="myprojectdiv">
+                <a class="backbuttondiv" href="/Home/MyTickets"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            </div>
+            <div class="space"></div>
+            <div id="divContractmain">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtCandidateName" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Candidate Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtClient" class="floating-input" type="text" placeholder=" ">
+                            <label class="float">Client</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                                <input id="txtPositionTitle" class="floating-input" type="text" placeholder=" ">
+                                <label class="float">Position Title</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input class="floating-input vinput" id="txtCompSignedBy" type="text" placeholder=" ">
+                            <label class="float">Signed By (Company)</label>
+                            <input type="hidden" id="hdnContractId" value="0" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtCompTitle" class="floating-input vinput" type="text" placeholder=" ">
+                            <label class="float">Title (Company)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtCompDate" class="floating-input vinput" type="text" placeholder=" ">
+                            <label class="float">Date (Company)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtClientSignedBy" class="floating-input vinput" type="text" placeholder=" ">
+                            <label class="float">Signed By (Client)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtClientTitle" class="floating-input vinput" type="text" placeholder=" ">
+                            <label class="float">Title (Client)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtClientDate" class="floating-input vinput" type="text" placeholder=" ">
+                            <label class="float">Date (Client)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtState" class="floating-input vinput" type="text" placeholder=" ">
+                            <label class="float">State</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtContExpDate" class="floating-input vinput" type="text" placeholder=" ">
+                            <label class="float">Contract Expiry Date</label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="space"></div>
+                <div class="popupheadingmaindiv">
+                    <div class="popupheadingtext">Documents</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="popupquestiontext">
+                            Do you have a rate confirmation document (NDA/NCA)
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="popupquestiontext">
+                            <label class="switch">
+                                <input type="checkbox" id="cbConfirmationDoc" onchange="ShowRateInformation()">
+                                <div class="slider round"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="space"></div>
+                <div id="divContract">
+                    <div class="row fileDocs" id="divSigndCont">
+                        <div class="col-md-4">
+                            <div class="contentfielddiv">
+                                <div class="USRECdocument DocType">Signed Contract</div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="USRECdocumentfilebtndiv">
+                                <label for="fileUploadAttachmentSignedContract" class="USRECdocumentfilebtn">Choose from File</label>
+                                <input type="hidden" value="" class="filehiddenUrl" />
+                                <input type="file" class="fileInputUpload" id="fileUploadAttachmentSignedContract" multiple style="display: none">
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div id="divAddbtn" onclick="return AddFileUpload()"><a href='#'><img title='Add' src='../Images/Add.png' /></a></div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="weeklyoffmaindiv divdocuments">
+                                <div class="workstarttimediv" style="max-height:50px;">
+                                    <div class="row">
+                                        <div class="docDiv">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row fileDocs" id="divRateInfo">
+                        <div class="col-md-4">
+                            <div class="contentfielddiv">
+                                <div class="USRECdocument DocType">Rate Information</div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="USRECdocumentfilebtndiv rateInfoDocuments">
+                                <label for="fileUploadAttachmentRateInfo" class="USRECdocumentfilebtn">Choose from File</label>
+                                <input type="hidden" value="" class="filehiddenUrl" />
+                                <input type="file" class="fileInputUpload" id="fileUploadAttachmentRateInfo" multiple style="display: none">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="weeklyoffmaindiv divdocuments">
+                                <div class="workstarttimediv" style="max-height:50px;">
+                                    <div class="row">
+                                        <div id="divRateInfoDocs" class="docDiv">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input id="btnSubmit" title="Submit" class="submitbtn" type="button" onclick="ValidateAndSubmit()" /></div>
+            <div class="buttondiv"><input id="btnSave" title="Save" class="Savebtn" type="button" onclick="ValidateAndSave();" /></div>
+            <div class="buttondiv"><input id="btnCancel" title="Cancel" class="Cancelbtn" type="button" /></div>
+            <div class="ErrorLabel">
+                <label id="lblMessage" class="lblMessage"></label>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var flag = 0;
+    $(document).ready(function () {
+        DefineDatePicker($('#txtContExpDate'));
+        DefineDatePicker($('#txtCompDate'));
+        DefineDatePicker($('#txtClientDate'));
+        DefineFileUploadClicks();
+        $("#divRateInfo").hide();
+        $('#divAddbtn > a').click(function (e) {
+            e.preventDefault();
+        });
+        if(@SubmissionId!=0){
+            $.ajax({
+                url: '/Home/GetSelectData',
+                type: "GET",
+                dataType: 'json',
+                data: { Id: @SubmissionId, Operation: 57 },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        $("#txtCandidateName").val(resultVals[0]["CandidateName"]).attr('disabled', true);
+                        $("#txtClient").val(resultVals[0]["ClientName"]).attr('disabled', true);
+                        $("#txtPositionTitle").val(resultVals[0]["PositionTitle"]).attr('disabled', true);
+                        var DateVal = FormatDate(resultVals[0]["Date"], "mm/dd/yyyy");
+                        var DateValClient = FormatDate(resultVals[0]["DateClient"], "mm/dd/yyyy");
+                        var ContractExpiryDate = FormatDate(resultVals[0]["ContractExpiryDate"], "mm/dd/yyyy");
+                        $('#hdnContractId').val(resultVals[0]["ContractId"]);
+                        $('#txtCompSignedBy').val(resultVals[0]["SignedBy"]);
+                        $('#txtCompTitle').val(resultVals[0]["Title"]);
+                        $('#txtCompDate').val(DateVal == '01/01/1753'?"":DateVal);
+                        $('#txtClientSignedBy').val(resultVals[0]["SignedByClient"]);
+                        $('#txtClientTitle').val(resultVals[0]["TitleClient"]);
+                        $('#txtClientDate').val(DateValClient == '01/01/1753'?"":DateValClient);
+                        $('#txtState').val(resultVals[0]["State"]);
+                        $('#txtContExpDate').val(ContractExpiryDate == '01/01/1753'?"":ContractExpiryDate);
+                        if(resultVals[0]["IsRateConfirmationPresent"] == true)
+                        {
+                            $('#cbConfirmationDoc').prop("checked","true");
+                            $("#divRateInfo").show();
+                        }
+                        //else
+                        //    $('#cbConfirmationDoc').prop("checked","false");
+                        $.ajax({
+                            url: '/Home/GetSelectData',
+                            type: "GET",
+                            dataType: 'json',
+                            data: { Id: parseInt(resultVals[0]["ContractId"]), Operation: 58 },
+                            success: function (result) {
+                                var docresultVals = $.parseJSON(result);
+                                var docDiv=null;
+                                var files;
+                                var fileHidden;
+                                var attachmentUrl;
+                                if (docresultVals["Result"] == undefined || docresultVals["Result"] == null) {
+                                    for(var i=0;i<docresultVals.length;i++){
+                                        if(docresultVals[i]["DocName"]=="Signed Contract"){
+                                            docDiv=$('#divSigndCont').find('.docDiv');
+                                            fileHidden = $('#divSigndCont').find('.filehiddenUrl');
+                                        }
+                                        else if(docresultVals[i]["DocName"]=="Rate Information"){
+                                            docDiv=$('#divRateInfo').find('.docDiv');
+                                            fileHidden = $('#divRateInfo').find('.filehiddenUrl');
+                                        }
+                                        else{
+                                            AddFileUpload();
+                                            docDiv = $("#divContract").find('.divAddDocs').last().find('.docDiv');
+                                            fileHidden = $("#divContract").find('.divAddDocs').last().find('.filehiddenUrl');
+                                            $("#divContract").find('.DocType').last().val(docresultVals[i]["DocName"]);
+                                        }
+                                        attachmentUrl = docresultVals[i]["DocUrl"];
+                                        if (attachmentUrl != "") {
+                                            fileHidden.val(attachmentUrl);
+                                            files = attachmentUrl.split('||');
+                                            for (var j = 0; j < files.length - 1; j++) {
+                                                CheckExtension( docDiv, files[j].split('\\').pop(), files[j], 
+                                                "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null , 2);
+                                                PreventDefaultClick();
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                //alert(err.statusText);
+                            }
+                        });
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        }
+    });
+
+    function ValidateAndSubmit(){
+        if(ValidateAll('divContractmain','lblMessage')){
+            if(CheckFileValidations())
+            {
+                $('#lblMessage').text("");
+                SaveContract(9);
+            }
+        }
+    }
+
+    function CheckFileValidations()
+    {
+        var values = [];
+        var IsValid = true;
+        if($('#divSigndCont').find('.docDiv').children().length == 0)
+        {
+            IsValid=false;
+            $('#lblMessage').removeClass('lblMessage');
+            $('#lblMessage').addClass('lblError');
+            $('#lblMessage').text("Please attach a signed contract");
+        }
+        else {
+            $("#divContract").find('.divAddDocs').each(function(){
+                if($(this).find(".filehiddenUrl").val()!="" && $(this).find(".DocType").val()=="")
+                {
+                    IsValid = false;
+                    $(this).find(".DocType").addClass("ErrorFocus");
+                    $('#lblMessage').removeClass('lblMessage');
+                    $('#lblMessage').addClass('lblError');
+                    $('#lblMessage').text("Please provide a valid document name");
+                }
+                else
+                    $(this).find(".DocType").removeClass("ErrorFocus");
+            });
+        }
+        if(IsValid)
+        {
+            $("#divContract").find('.divAddDocs').each(function(){
+                if(values.indexOf($(this).find(".DocType").val().toLowerCase()) !== -1) {
+                    $(this).find(".DocType").addClass("ErrorFocus");
+                    IsValid = false;
+                    $('#lblMessage').removeClass('lblMessage');
+                    $('#lblMessage').addClass('lblError');
+                    $('#lblMessage').text("Document Name already exists");
+                }
+                else
+                    $(this).find(".DocType").removeClass("ErrorFocus");
+                values.push($(this).find(".DocType").val().toLowerCase());
+            });
+}
+        return IsValid;
+    }
+
+    function ValidateAndSave(){
+        var IsValid = false;
+        $('#divContractmain').find('input[type=text]').each(function(){
+            $(this).removeClass("ErrorFocus");
+            $('#lblMessage').text("");
+            if($(this).val() != "") 
+                IsValid=true;
+        });
+        if(IsValid)
+        {
+            //if(CheckFileValidations())
+                SaveContract(18);
+        }
+        else
+        {
+            $('#lblMessage').removeClass('lblMessage');
+            $('#lblMessage').addClass('lblError');
+            $('#lblMessage').text("Please fill atleast one field");
+        }
+    }
+    function SaveContract(ticketStatusId) {
+        if(@SubmissionId!=0){
+            var Operation = parseInt($('#hdnContractId').val()) == 0 ? 1 : 2;
+            $.ajax({
+                url: '/USRecruitment/SaveContract',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    //ticketstatus for Submit - 9, save - 18
+                    ContractId: parseInt($('#hdnContractId').val()), SubmissionId: @SubmissionId, FK_TicketStatus : ticketStatusId, 
+                    SignedBy: $("#txtCompSignedBy").val(), Title: $("#txtCompTitle").val(), Date: FormatDate($("#txtCompDate").val(), "yyyy/mm/dd"),
+                    SignedByClient: $("#txtClientSignedBy").val(), TitleClient: $("#txtClientTitle").val(), DateClient: FormatDate($("#txtClientDate").val(), "yyyy/mm/dd"), 
+                    State: $("#txtState").val(), ContractExpiryDate: FormatDate($("#txtContExpDate").val(), "yyyy/mm/dd"), 
+                    IsRateConfirmationPresent: $("#cbConfirmationDoc").is(":checked") ? 1 : 0,Operation:Operation
+                },
+                success: function (data) {
+                    var resultVals = $.parseJSON(data);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        var ContractId = parseInt(resultVals[0]["ContractId"]);
+                        $('#hdnContractId').val(ContractId);
+                        if (ContractId != 0) {
+                            var dtDocumentsArray = new Array();
+                            $('#divContract > .row').each(function () {
+                                if ($(this).find('.filehiddenUrl').val() != "") {
+                                    //can't save docs as different rows as it have no master table and id.
+                                    if ($(this).find('.DocType').is("div")) {
+                                        if ($(this).find('.DocType').is(':visible'))
+                                            dtDocumentsArray.push({
+                                                "FK_ContractId": ContractId, "DocName": $(this).find('.DocType').text(),
+                                                "DocUrl": $(this).find('.filehiddenUrl').val(),
+                                            });
+                                    }
+                                    else {
+                                            dtDocumentsArray.push({
+                                                "FK_ContractId": ContractId, "DocName": $(this).find('.DocType').val(),
+                                                "DocUrl": $(this).find('.filehiddenUrl').val(),
+                                            });
+                                    }
+                                }
+                            });
+                            if (dtDocumentsArray.length > 0 ) {
+                                $.ajax({
+                                    url: '/USRecruitment/SaveContractDocuments',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        ContractId: ContractId, jsonData: JSON.stringify(dtDocumentsArray)
+                                    },
+                                    success: function (data) {
+                                        var docResultVals = $.parseJSON(data);
+                                        if (docResultVals["Result"] != undefined || docResultVals["Result"] != null && docResultVals["Result"] == "Success"){
+                                            $('#lblMessage').addClass('lblMessage');
+                                            $('#lblMessage').removeClass('lblError');
+                                            if(ticketStatusId==9)
+                                            {
+                                                $('#lblMessage').text("Contract Submitted successfully");
+                                                window.location.href="/Home/MyTickets";
+                                            }
+                                            else
+                                                $('#lblMessage').text("Contract Saved successfully");
+                                        }
+                                    },
+                                    error: function () {
+                                    }
+                                });
+                            }
+                            else
+                                $('#lblMessage').text("Contract Saved successfully");
+                        }
+                        // }
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+    }
+    function ShowRateInformation() {
+        if ($("#cbConfirmationDoc").is(":checked"))
+            $("#divRateInfo").show();
+        else {
+            $('#divRateInfoDocs').innerHTML = '';
+            $("#divRateInfo").hide();
+        }
+    }
+
+    function DefineFileUploadClicks() {
+        $(".fileInputUpload").change(function () {
+            var fileElement = $(this);
+            var hiddenField = fileElement.closest('.row').find('.filehiddenUrl');
+            var contractDocUpload = fileElement.get(0);
+            var contractDocFiles = contractDocUpload.files;
+            if (contractDocFiles.length > 0) {
+                var ExpAttachments = new FormData();
+                for (i = 0; i < contractDocFiles.length; i++) {
+                    ExpAttachments.append(contractDocFiles[i].name, contractDocFiles[i]);
+                }
+                $.ajax({
+                    url: '/EmpInfoUserView/UploadFiles',
+                    type: "POST",
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    data: ExpAttachments,
+                    success: function (result) {
+                        var json = $.parseJSON(result);
+                        if (json["Error"] == undefined || json["Error"] == null) {
+                            for (var i = 0; i < contractDocFiles.length; i++) {
+                                hiddenField.val(hiddenField.val() + json[contractDocFiles[i].name] + "||");
+                                CheckExtension(fileElement.closest('.row').find('.docDiv'), contractDocFiles[i].name, json[contractDocFiles[i].name],
+                                    "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 2);
+                                PreventDefaultClick();
+                                defineExpUploads();
+                            }
+                        }
+                    },
+                    error: function (err) {
+                    }
+                });
+                fileElement.val('');
+            }
+        });
+    }
+    function defineExpUploads(hiddenFile) {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            var HiddenField = $(this).closest('.fileDocs').find('.filehiddenUrl');
+            HiddenField.val(HiddenField.val().replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+        });
+    }
+
+    function AddFileUpload() {
+        divHTML = '<div class="row divAddDocs fileDocs"><div class="col-md-4">' +
+                        '<div class="contentfielddiv"><input id="txtAddmultipleDocs" class="floating-input DocType" type="text" placeholder=" ">' +
+                        '</div></div><div class="space"></div><div class="col-md-2">' +
+                    '<div class="USRECdocumentfilebtndiv multidoc">' +
+                        '<label for="fileUploadAttachmentDocuments' + flag + '" class="USRECdocumentfilebtn">Choose from File</label>' +
+                        '<input type="hidden" value="" class="filehiddenUrl" /><input type="file" class="fileInputUpload" id="fileUploadAttachmentDocuments' + flag + '" multiple style="display: none">' +
+                    '</div></div><div class="col-md-6"><div class="weeklyoffmaindiv divdocuments"><div class="workstarttimediv" style="max-height:50px;">' +
+                '<div class="row">' +
+                '<div class="docDiv"></div></div></div></div></div></div>';
+        $("#divContract").append(divHTML);
+        flag++;
+        DefineFileUploadClicks();
+    }
+</script>
+
+
+
+
+

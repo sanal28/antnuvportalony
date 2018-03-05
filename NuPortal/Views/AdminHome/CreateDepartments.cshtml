@@ -1,0 +1,177 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/sm-create department.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Add Departments</div>
+            </div>
+            <div class="col-sm-5">
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv" style="height:30px">
+            <a class="backbuttondiv" id="hrefBack" href="/AdminHome/AdminHome"><img title="Back" alt="Back" width="30" height="30" src="~/Images/back-button.png" /></a>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="space"></div>
+                <div class="popupheadingmaindiv">
+                    <div class="popupheadingtext">Department</div>
+                </div>
+                <div class="space"></div>
+                <div class="custReqleftdiv" id="dragDept" ondrop="drop(event,1)" ondragover="allowDrop(event)">
+
+                </div>
+            </div>
+            <div class="space"></div>
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                    </div>
+                </div>
+                <div class="space"></div>
+                <div class="space"></div>
+                <div class="addrequestdiv">
+                    <table width="98%" align="center" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td><input class="searchtext" id="txtNewItem" type="text"></td>
+                                <td align="center"><a href="#" id="hrefAdd"><img title="Add" src="../images/add-icon.png" width="16" height="16" alt="" /></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="custReqleftdiv" id="dropDept" ondrop="drop(event,2)" ondragover="allowDrop(event)">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" onclick="SaveDataToDb();" /></div>
+            <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onclick="LoadDepartments();" /></div>
+            <div class="labelmessage"><label id="lblSaveMessage" class="lblMessage"></label></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var idCount = 0;
+    $(document).ready(function () {
+        $(".CUSREQClosebtn").hide();
+        LoadDepartments();
+        $('#hrefAdd').click(function (e) {
+            e.preventDefault();
+            var IsPresent = false;
+            $('#dropDept > .CUSREQtxt').each(function () {
+                if ($(this).find('.lblText').text().toLowerCase().trim() == $('#txtNewItem').val().toLowerCase().trim())
+                    IsPresent = true;
+            });
+            $('#dragDept > .CUSREQtxt').each(function () {
+                if ($(this).find('.lblText').text().toLowerCase().trim() == $('#txtNewItem').val().toLowerCase().trim())
+                    IsPresent = true;
+            });
+            if ($('#txtNewItem').val() != "") {
+                if (!IsPresent) {
+                    $('#dropDept').append("<div class='CUSREQtxt' name='0' id='drag" + idCount + "'><label class='lblText'>" +
+                               $('#txtNewItem').val() + "</label><span class='CUSREQClosebtn'><a title='Close' href='#' id='hrefRemove' class='hrefAddRemove'>X</a></span></div>");
+                    idCount++;
+                    $('#lblSaveMessage').text("");
+                    DefineHref();
+                }
+                else {
+                    $('#lblSaveMessage').removeClass("lblMessage");
+                    $('#lblSaveMessage').addClass("lblError");
+                    $('#lblSaveMessage').text("Department already exists");
+                }
+                $('#txtNewItem').val("");
+            }
+        });
+    });
+    function DefineHref() {
+        $('.hrefAddRemove').click(function (e) {
+            e.preventDefault();
+            $('#txtNewItem').val('');
+            $(this).closest('.CUSREQtxt').remove();
+        });
+    }
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev, type) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.closest('#dropDept').appendChild(document.getElementById(data));
+    }
+    function LoadDepartments() {
+        $('.clearbtn').prop('disabled', true);
+        $('#lblSaveMessage').text("");
+        $('#dropDept').empty();
+        $('#dragDept').empty(); 
+        $('#txtNewItem').val("");
+        $.ajax({
+            url: '/AdminHome/GetDepartments',
+            type: "GET",
+            dataType: 'json',
+            data: {
+                OperationId: 29,
+            },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (resultVals[i]["IsAddedDept"] == 0) {
+                            $('#dragDept').append("<div class='CUSREQtxt' draggable='true' name='" + resultVals[i]["DepartmentId"] + "' ondragstart='drag(event)' id='drag" + idCount + "'><label class='lblText'>" +
+                               resultVals[i]["DepartmentName"] + "</label><span class='CUSREQClosebtn'></span></div>");
+                        }
+                        else {
+                            $('#dropDept').append("<div class='CUSREQtxt' name='" + resultVals[i]["DepartmentId"] +
+                            "' ondragstart='drag(event)' id='drag" + idCount + "'><label class='lblText'>" +
+                           resultVals[i]["DepartmentName"] + "</label><span class='CUSREQClosebtn'></span></div>");
+                        }
+                        idCount++;
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+        $('.clearbtn').prop('disabled', false);
+    }
+    function SaveDataToDb() {
+        var DataArray = new Array();
+        $('#dropDept > .CUSREQtxt').each(function () {
+            DataArray.push({ "Name": $(this).find('.lblText').text(), "Id": parseInt($(this).attr("name")), "IsCompOff": false  });
+        });
+        if (DataArray.length > 0) {
+            $.ajax({
+                url: '/AdminHome/SaveCategory',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    CategoryTypeId: 0,
+                    jsonData: JSON.stringify(DataArray),
+                    Operation: 4
+                },
+                success: function (data) {
+                    ShowLabelMessage(data, "Department", $('#lblSaveMessage'));
+                },
+                error: function (response) {
+                },
+                failure: function (response) {
+                }
+            });
+        }
+    }
+</script>

@@ -1,0 +1,584 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int id = 0;
+    int hourstype = 0;
+
+    if (Request["projectId"] != null && Request["projectId"] != "")
+    {
+        id = Convert.ToInt32(Request["projectId"]);
+    }
+    if (Request["HoursType"] != null && Request["HoursType"] != "")
+    {
+        hourstype = Convert.ToInt32(Request["HoursType"]);
+    }
+}
+<form id="frmDoc" action="/Task/TaskName" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+    @Html.Hidden("TypeId", new { id = "TypeId", name = "TypeId" })
+    @Html.Hidden("HoursType", new { id = "HoursType", name = "HoursType" })
+    @Html.Hidden("projectId", new { id = "projectId", name = "projectId" })
+</form>
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/report-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Timesheet Report</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" id="hrefBack" href="#"><img title="Back" alt="Back" width="30" height="30" src="../Images/back-button.png" /></a>
+        </div>
+        <div id="divTimesheet" style="display:none;">
+            <div class="timesheetdatemaindiv">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="timesheetfrom">From</div>
+                        <div class="timesheetfromdate" id="divFromDate"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="timesheettodate" id="divToDate"></div>
+                        <div class="timesheetto">To</div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="timesheetmaindiv">
+                                <img src="" id="imgResource" width="150" height="150" alt="" />
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="timesheetusername" id="divResourceName"></div>
+                            <div class="timesheetdesignation" id="divResourceDesig"></div>
+                            <div class="timesheetreportMORE" id="divMoreReso"><a class="show_hide" href="#"><img src="../Images/more.png" width="20" height="20" alt="" /></a></div>
+                            <div class="slidingDiv" id="divSlidingRes">
+                                <div class="resourceclosebtn"><a href="#" class="show_hide">X</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="timesheetmaindiv">
+                                <img id="imgMgr" src="" width="150" height="150" alt="" />
+
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="timesheetusername" id="divMgrName"></div>
+                            <div class="timesheetdesignation" id="divMgrDesig"></div>
+                            <div class="timesheetreportMORE" id="divMoreMgr"><a class="show_hideMgr" href="#"><img src="../Images/more.png" width="20" height="20" alt="" /></a></div>
+                            <div class="slidingDivMgr" id="divSlidingMgr">
+                                <div class="resourceclosebtn"><a href="#" class="show_hideMgr">X</a></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-4" id="divClientInfo" style="display:none">
+
+                    <div class="timesheetusername" id="divClient"></div>
+                    <div class="timesheetdesignation">Client</div>
+                </div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="requestgridmaindiv" id="divContent">
+
+                        <table id="tblTimeSheet" width="100%" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                            <tr class="requestgriddiv">
+                                @*<td class="requestgridheader" width="30%">Task Name</td>
+                                    <td class="requestgridheader" width="20%">Resource Name</td>
+                                    <td class="requestgridheader" width="10%">Date</td>
+                                    <td class="requestgridheader" width="13%">Day</td>*@
+                                @*<td class="requestgridheader class1" width="10%" style="display:none">Date</td>
+                                    <td class="requestgridheader class1" width="13%" style="display:none">Day</td>
+                                    <td class="requestgridheader class2" width="10%" style="display:none">Start Date</td>
+                                    <td class="requestgridheader class2" width="10%" style="display:none">End Date</td>*@
+                                @*<td class="requestgridheader" width="10%">Hour</td>
+                                    <td class="requestgridheader class1" width="15%" style="display:none">Status</td>*@
+
+                                <td class="requestgridheader" width="30%">
+                                    Task Name
+                                </td>
+                                <td class="requestgridheader" width="20%">
+                                    Resource Name
+                                </td>
+                                <td class="requestgridheader" width="10%">
+                                    Date
+                                </td>
+                                <td class="requestgridheader" width="13%">
+                                    Day
+                                </td>
+                                <td class="requestgridheader" width="10%">
+                                    Hour
+                                </td>
+                                <td class="requestgridheader class1" width="15%">
+                                    Status
+                                </td>
+                                @*<td class="requestgridheader" width="3%"><a href="#" id="hrefTimeSheetViewClearFilter"><img title="Clear" src="../images/ClearFilter.jpg" width="16" height="16" alt="" /></a></td>*@
+                            </tr>
+                        </table>
+                        <div class="paginationmaindiv" id="divPage" style="display:none">
+                            <div class="paginationsubdiv">
+                                <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                    <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                    <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                    <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                    <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Download" class="downloadbtn" style="display:none;" type="button" /></div>
+            <div class="buttondiv"><input title="Print" class="printbtn" style="display:none;" type="button"></div>
+            <div class="labelmessage"><label id="lblNoRecords" class="lblMessage"></label></div>
+        </div>
+        <table id="tblTimeSheetReport" border="0" cellpadding="0" cellspacing="0" class="requesttablediv" align="center" style="display:none;">
+            <tr class="requestgriddiv">
+                <td class="requestgridheader" width="20%">
+                    Task Name
+                </td>
+                <td class="requestgridheader" width="20%">
+                    Resource Name
+                </td>
+                <td class="requestgridheader" width="10%">
+                    Date
+                </td>
+                <td class="requestgridheader" width="10%">
+                    Day
+                </td>
+                <td class="requestgridheader" width="5%">
+                    Hour
+                </td>
+                <td class="requestgridheader class1" width="15%">
+                    Status
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var SDateVal = "";
+    var EDateVal = "";
+    var ProjectName="Report";
+    var Id= @id;
+    var HoursType=@hourstype;
+    var CurrentPageId = 1;
+    var RowCount = 10;
+    var PageCount = 0;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    var Resources = "";
+    var Managers = "";
+    var Client = "";
+    $(document).ready(function () {
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        $('#hrefBack').click(function(){
+            $('#hdnId').val(@id);
+            $('#frmDoc').attr("action","/TimeSheet/TimeSheetFilter");
+            $('#frmDoc').submit();
+        });
+        SDateVal = GetSession('/TimeSheet/GetSessionVal', "StartDate");
+        EDateVal = GetSession('/TimeSheet/GetSessionVal', "EndDate");
+        if (EDateVal != "0")
+            $('#divToDate').text(moment(new Date(EDateVal)).format('MMM-DD-YYYY'));
+        if (SDateVal != "0")
+            $('#divFromDate').text(moment(new Date(SDateVal)).format('MMM-DD-YYYY'));
+
+        $(".slidingDiv").hide();
+        $(".slidingDivMgr").hide();
+
+        $('.show_hide').click(function () {
+            $(".slidingDiv").slideToggle();
+            $('.slidingDivMgr').hide();
+        });
+        $('.show_hideMgr').click(function () {
+            $(".slidingDivMgr").slideToggle();
+            $('.slidingDiv').hide();
+        });
+        if(HoursType==1)
+            $('.class2').remove();
+        else if(HoursType == 2)
+            $('.class1').remove();
+        LoadProjectInfo();
+        LoadTimeSheetGrid();
+    });
+
+    function LoadProjectInfo(){
+        $.ajax({
+            url: '/TimeSheet/LoadTimeSheetGrid',
+            type: "GET",
+            dataType: 'json',
+            data: {
+                Id: Id, Operation:HoursType,OffSet:0,RowCount:0
+            },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Error"] == undefined || resultVals["Error"] == null) {
+                    var ResourceName;
+                    var resourceArray = new Array();
+                    $('#divTimesheet').show();
+                    $('.downloadbtn').show();
+                    $('.printbtn').show();
+                    $('#lblNoRecords').text("");
+                    var ResourceName;
+                    var resourceArray = new Array();
+                    for (var i = 0; i < resultVals.length; i++) {
+                        ResourceName = resultVals[i]["FirstName"] + " " + resultVals[i]["LastName"];
+                        ProjectName = resultVals[i]["ProjectName"];
+                        DateVal = FormatDate(resultVals[i]["Date"], "mm/dd/yyyy");
+                        $('.class'+HoursType).show();
+                        if(HoursType == 1) //Actual Hours
+                        {
+                            $('#tblTimeSheetReport').append("<tr class='requestgriddiv2'>" +
+                            "<td class='requestgridsubheader'>" +
+                            "<div class='documentlinkdiv'>"
+                            + resultVals[i]["TaskName"] + "</div></td>" +
+                            "<td class='requestgridsubheader'>" + ResourceName + "</td>" +
+                            "<td class='requestgridsubheader'>" + DateVal + "</td>" +
+                            "<td class='requestgridsubheader'>" + resultVals[i]["Day"] + "</td>" +
+                            "<td class='requestgridsubheader'>" + resultVals[i]["Hour"] + "</td>"+
+                            "<td class='requestgridsubheader'>" + resultVals[i]["StatusText"] + "</td></tr>");
+                        }
+                        else if(HoursType == 2) //Billable Hours
+                        {
+                            $('#tblTimeSheetReport').append("<tr class='requestgriddiv2'>" +
+                            "<td class='requestgridsubheader'>" +
+                            "<div class='Attachlinkdiv'>" +resultVals[i]["TaskName"]+ "</div></td>" +
+                            "<td class='requestgridsubheader'>" + ResourceName + "</td>" +
+                            "<td class='requestgridsubheader'>" + DateVal + "</td>" +
+                            "<td class='requestgridsubheader'>" + resultVals[i]["Day"] + "</td>" +
+                            "<td class='requestgridsubheader'>" + resultVals[i]["Hour"] + "</td></tr>");
+                        }
+                        if (i == 0) {
+                            if (SDateVal == "0")
+                                $('#divFromDate').text(moment(resultVals[i]["Date"]).format('MMM-DD-YYYY'));
+                            $('#divResourceName').text(ResourceName);
+                            Resources = ResourceName + ',';
+                            $('#divResourceDesig').text(resultVals[i]["Designation"]);
+                            $('#imgResource').attr('src', resultVals[i]["ProfilePicUrl"]);
+                        }
+                        else if ($.inArray(resultVals[i]["EmpId"], resourceArray) == -1) {
+                            Resources = ResourceName + ',';
+                            $('.slidingDiv').append("<div class='moreresourcediv'>" +
+                              "<table width='100%' border='0' cellspacing='0' cellpadding='0'>" +
+                                  "<tbody>" +
+                                      "<tr>" +
+                                         "<td width='10%'><div class='timesheetmoreresourcemaindiv'>" +
+                                            "<img src='" + resultVals[i]["ProfilePicUrl"] + "' width='150' height='150' alt='' /></div></td>" +
+                                         " <td width='90%'><div class='resourcemoreusename'>" + ResourceName +
+                                         "</div></td>" +
+                                      "</tr>" +
+                                  "</tbody>" +
+                              "</table>" +
+                         " </div>");
+                            $(".show_hide").show();
+                        }
+                        if (i == (resultVals.length - 1) && EDateVal == "0")
+                            $('#divToDate').text(moment(resultVals[i]["Date"]).format('MMM-DD-YYYY'));
+                        resourceArray.push(resultVals[i]["EmpId"]);
+                    }
+                    PreventDefaultLinkClicks();
+                }
+                else {
+                    $('#divTimesheet').hide();
+                    $('.downloadbtn').hide();
+                    $('.printbtn').hide();
+                    $('#lblNoRecords').text("No Records Found");
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+        $.ajax({
+            url: '/TimeSheet/ProjectInfo',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                Id: Id
+            },
+            success: function (dataVals) {
+                var resultVals = $.parseJSON(dataVals);
+                var reqType = '';
+                if (resultVals["Error"] == undefined || resultVals["Error"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (i == 0) {
+                            $('#divMgrName').text(resultVals[i]["FirstName"] + " " + resultVals[i]["LastName"]);
+                            Managers = Managers + resultVals[i]["FirstName"] + " " + resultVals[i]["LastName"] + ",";
+                            $('#divMgrDesig').text(resultVals[i]["Designation"]);
+                            $('#imgMgr').attr('src', resultVals[i]["ProfilePicUrl"]);
+                            if(resultVals[i]["CompanyName"]!=null)
+                            {
+                                $('#divClient').text(resultVals[i]["CompanyName"]);
+                                $('#divClientInfo').show();
+                            }
+                        }
+                        else
+                        {
+                            Managers = Managers + resultVals[i]["FirstName"] + " " + resultVals[i]["LastName"] + ",";
+                            $('.slidingDivMgr').append("<div class='moreresourcediv'>" +
+                    "<table width='100%' border='0' cellspacing='0' cellpadding='0'>" +
+                        "<tbody>" +
+                            "<tr>" +
+                               "<td width='10%'><div class='timesheetmoreresourcemaindiv'>" +
+                                  "<img src='" + resultVals[i]["ProfilePicUrl"] + "' width='150' height='150' alt='' /></div></td>" +
+                               " <td width='90%'><div class='resourcemoreusename'>" + resultVals[i]["FirstName"] + " " + resultVals[i]["LastName"] +
+                               "</div></td>" +
+                            "</tr>" +
+                        "</tbody>" +
+                    "</table>" +
+               " </div>");
+                            $(".show_hideMgr").show();
+                        }
+                    }
+                    PreventDefaultClick();
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+    }
+
+    function PreventDefaultLinkClicks(){
+        $('.documentlinkdiv > a , .show_hideMgr, .show_hide, .downloadbtn, .printbtn').click(function(e){
+            e.preventDefault();
+        });
+    }
+
+    $('.downloadbtn').click(function(e){
+        $("#tblTimeSheetReport").table2excel({
+            exclude: ".noExl",
+            name: "TimeSheetReport",
+            filename: ProjectName + '-' + moment().format('MM-DD-YYYY'),
+            fileext: ".xls",
+            exclude_links: true
+        });
+        e.preventDefault();
+    });
+    $('.printbtn').click(function(e){
+        $('#tblTimeSheetReport').find('a').replaceWith(function() {
+            return this.childNodes;
+        });
+        var headstr = "<head><link href='/css/Print.css' rel='stylesheet' type='text/css' onload='print();window.close();' /></head>";
+        var divToPrint=$("#tblTimeSheetReport").clone();
+        divToPrint.css('display','block');
+        var newWin= window.open("Print");
+        var PrintString = headstr + '<body><div class="container">'+
+	'<div class="weeklyprintmaindiv">'+
+			'<div class="space"></div>'+
+		'<table width="100%" border="0">'+
+	  '<tbody>'+
+		'<tr>'+
+		  '<td><img src="../Images/Nuvento_logo.png" width="200" height="40" alt=""/></td>'+
+		'</tr>'+
+	  '</tbody>'+
+	'</table>'+
+		'<div class="space"></div>'+
+		'<div class="WeReportspace"></div>'+
+		'<div class="space"></div>'+
+		'<table width="100%" border="1" cellspacing="0" cellpadding="0">'+
+		 '<tbody>'+
+			'<tr>'+
+			  '<td width="25%" class="weektabletext">Resource(s)</td>'+
+			  '<td width="25%" class="weektablelabel">'+ Resources.slice(0,-1) +'</td>'+
+			  '<td width="25%" class="weektabletext">Client Name</td>'+
+			  '<td width="25%" class="weektablelabel">'+ $('#divClient').text() +'</td>'+
+			'</tr>'+
+			'<tr>'+
+              '<td class="weektabletext">Start Date</td>'+
+			  '<td class="weektablelabel">'+(SDateVal != "0"?moment(new Date(SDateVal)).format('DD-MMM-YYYY'):"NA")+'</td>'+
+			 ' <td class="weektabletext">End Date</td>'+
+			  '<td class="weektablelabel">'+(EDateVal != "0"?moment(new Date(EDateVal)).format('DD-MMM-YYYY'):"NA")+'</td>'+
+			'</tr>'+
+			'<tr>'+
+			  '<td class="weektabletext">Project Name</td>'+
+			  '<td class="weektablelabel">'+ ProjectName +'</td>'+
+			  '<td class="weektabletext">Project Manager(s)</td>'+
+			  '<td class="weektablelabel">'+ Managers.slice(0,-1) +'</td>'+
+			'</tr>'+
+		  '</tbody>'+
+		'</table>'+
+		'<div class="space"></div>'+
+		'<div class="WeReportspace"></div>'+
+        '<div class="space"></div>'+
+		divToPrint[0].outerHTML+
+	'</div>'+
+   '</div></body>';
+        newWin.document.write(PrintString);
+        newWin.focus();
+        e.preventDefault();
+    });
+
+    function SetTaskVal(TaskId)
+    {
+        $('#hdnId').val(TaskId);
+        $('#projectId').val(Id);
+        $('#TypeId').val(2);
+        $('#HoursType').val(HoursType);
+        $('#frmDoc').submit();
+    }
+    function LoadTimeSheetGrid()
+    {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        //$("#tblTimeSheet").find("tr:gt(0)").remove();
+        $.ajax({
+            url: '/TimeSheet/LoadTimeSheetGrid',
+            type: "GET",
+            dataType: 'json',
+            data: {
+                Id: Id, Operation:HoursType,OffSet:OffsetVal,RowCount:RowCount
+            },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#tblTimeSheet > tbody').children("tr:gt(0)").remove();
+                if (resultVals["Error"] == undefined || resultVals["Error"] == null) {
+                    var DateVal="";
+                    var ResourceName;
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCount = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                    disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+                    showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                    for (var i = 0; i < resultVals.length; i++) {
+                        ResourceName = resultVals[i]["FirstName"] + " " + resultVals[i]["LastName"];
+                        DateVal = FormatDate(resultVals[i]["Date"], "mm/dd/yyyy");
+                        if(HoursType == 1) //Actual Hours
+                        {
+                            $('#tblTimeSheet').append("<tr class='requestgriddiv2'>" +
+                            "<td class='requestgridsubheader'>" +
+                            "<div class='documentlinkdiv'><a href='#' "+
+                            "onclick='SetTaskVal(" + resultVals[i]["TaskId"] + ")'>"
+                            + resultVals[i]["TaskName"] + "</a></div></td>" +
+                            "<td class='requestgridsubheader'>" + ResourceName + "</td>" +
+                            "<td class='requestgridsubheader'>" + DateVal + "</td>" +
+                            "<td class='requestgridsubheader'>" + resultVals[i]["Day"] + "</td>" +
+                            "<td class='requestgridsubheader'>" + resultVals[i]["Hour"] + "</td>"+
+                            "<td class='requestgridsubheader'>" + resultVals[i]["StatusText"] + "</td></tr>");
+                        }
+                        else if(HoursType == 2) //Billable Hours
+                        {
+                            $('#tblTimeSheet').append("<tr class='requestgriddiv2'>" +
+                            "<td class='requestgridsubheader'>" +
+                            "<div class='Attachlinkdiv PreventDefault'>" +resultVals[i]["TaskName"]+ "</div></td>" +
+                            "<td class='requestgridsubheader'>" + ResourceName + "</td>" +
+                            "<td class='requestgridsubheader'>" + DateVal + "</td>" +
+                            "<td class='requestgridsubheader'>" + resultVals[i]["Day"] + "</td>" +
+                            "<td class='requestgridsubheader'>" + resultVals[i]["Hour"] + "</td></tr>");
+                        }
+                        PreventDefaultClick();
+                    }
+                    $('#divPage').show();
+                }
+                else {
+                    $('#divTimesheet').hide();
+                    $('.downloadbtn').hide();
+                    $('.printbtn').hide();
+                    $('#lblNoRecords').text("No Records Found");
+                    $('#divPage').hide();
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+    }
+    //Pagination TimesheetGridView
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', PageCount);
+            LoadTimeSheetGrid();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, loopVal);
+            $(".slidingDiv").hide();
+            $(".slidingDivMgr").hide();
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        LoadTimeSheetGrid();
+        $(".slidingDiv").hide();
+        $(".slidingDivMgr").hide();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        LoadTimeSheetGrid();
+        $(".slidingDiv").hide();
+        $(".slidingDivMgr").hide();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        LoadTimeSheetGrid();
+        $(".slidingDiv").hide();
+        $(".slidingDivMgr").hide();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        LoadTimeSheetGrid();
+        $(".slidingDiv").hide();
+        $(".slidingDivMgr").hide();
+    });
+
+</script>

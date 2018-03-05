@@ -1,0 +1,181 @@
+﻿using Newtonsoft.Json;
+using NuPortal.Common_Library;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace NuPortal.Controllers
+{
+    [SessionTimeout]
+    public class EmployeeInfoController : Controller
+    {
+        // GET: EmployeeInfo
+        [HttpPost]
+        public ActionResult EmployeeDetails(HttpPostedFileBase postedFile, NuPortal.Models.EmployeeDetails empDetails)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    ViewBag.validationMessage = string.Empty;
+                    string path = string.Empty;
+                    //if (postedFile != null)
+                    //{
+                    //    path = Server.MapPath("~/Uploads/");
+                    //    if (!Directory.Exists(path))
+                    //    {
+                    //        Directory.CreateDirectory(path);
+                    //    }
+                    //    path = path + Path.GetFileName(postedFile.FileName);
+                    //    postedFile.SaveAs(path);
+                    //}
+                    
+                    NuPortalDBService.NuPortalService service = new NuPortalDBService.NuPortalService();
+                    service.Url = Constants.DBService;
+                    //DataTable dtLogin = JsonConvert.DeserializeObject<DataTable>(service.LoginInfo(Login.userName, Login.password));
+                    //if (dtLogin.Rows.Count > 0)
+                    //{
+                    //  int oItem = Convert.ToInt32(dtLogin.Rows[0]["UserExists"]);
+                    //bool result = service.LoginInfo(Login.userName, Login.password)
+                    string connectionString = ConfigurationManager.ConnectionStrings["NuPortal"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(connectionString))
+                    {
+                        using (SqlCommand cmd = new SqlCommand("UspCreateEmployee", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = empDetails.firstName;
+                            cmd.Parameters.Add("@LastName", SqlDbType.VarChar).Value = empDetails.lastName;
+                            cmd.Parameters.Add("@Title", SqlDbType.VarChar).Value = empDetails.Title;
+                            cmd.Parameters.Add("@EmployeeCode", SqlDbType.VarChar).Value = empDetails.employeeCode;
+                            cmd.Parameters.Add("@JobTitle", SqlDbType.VarChar).Value = empDetails.designation;
+                            cmd.Parameters.Add("@Manager", SqlDbType.VarChar).Value = empDetails.reportingTo;
+                            cmd.Parameters.Add("@PictureUrl", SqlDbType.VarChar).Value = path;
+                            cmd.Parameters.Add("@HireDate", SqlDbType.VarChar).Value = empDetails.joiningDate;
+                            cmd.Parameters.Add("@ConfirmationDate", SqlDbType.VarChar).Value = empDetails.confirmationDate;
+                            cmd.Parameters.Add("@WorkEmail", SqlDbType.VarChar).Value = empDetails.officeEmailId;
+                            cmd.Parameters.Add("@OfficeLocation", SqlDbType.VarChar).Value = empDetails.officeLocation;
+                            cmd.Parameters.Add("@WorkLocation", SqlDbType.VarChar).Value = empDetails.workLocation;
+                            cmd.Parameters.Add("@EmptTypeId", SqlDbType.Int).Value = empDetails.employmentType;
+                            cmd.Parameters.Add("@RelievingDate", SqlDbType.VarChar).Value = empDetails.relievingDate;
+                            cmd.Parameters.Add("@CompanyId", SqlDbType.Int).Value = 1;
+                            cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                            cmd.Parameters.Add("@ModifiedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                            cmd.Parameters.Add("@CreatedEmpID", SqlDbType.VarChar).Value = Convert.ToInt32(Session["EmpID"]);
+                            cmd.Parameters.Add("@ModifiedEmpID", SqlDbType.VarChar).Value = Convert.ToInt32(Session["EmpID"]);
+                            SqlParameter returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
+                            returnParameter.Direction = ParameterDirection.Output;
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                            int id = (int)returnParameter.Value;
+                            if (id > 0)
+                                ViewBag.saveMessage = "Employee Created successfully";
+                            else
+                                ViewBag.validationMessage = "Error in saving data";
+                        }
+                    }
+                }
+                else
+                    ViewBag.validationMessage = "Please enter all mandatory fields.";
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View();
+        }
+
+        public ActionResult EmployeeDetails()
+        {
+            return View();
+        }
+
+        public ActionResult SearchEmployee()
+        {
+            return View();
+        }
+       
+        [HttpPost]
+        public ActionResult PersonalInfo(NuPortal.Models.PersonalInfo pInfo)
+        {
+            string address = pInfo.address;
+            string city = pInfo.city;
+            string state = pInfo.state;
+            string country = pInfo.country;
+            string zip = pInfo.zip;
+            string address2 = pInfo.address2;
+            string city2 = pInfo.city2;
+            string state2 = pInfo.state2;
+            string country2 = pInfo.country2;
+            string zip2 = pInfo.zip2;
+            string phone = pInfo.phone;
+            string emergencyPhone = pInfo.emergencyPhone;
+            string dob = pInfo.dob;
+            string nationality = pInfo.nationality;
+            string phone2 = pInfo.phone2;
+            string emailId = pInfo.emailId;
+            string gender = pInfo.gender;
+            string bloodGroup = pInfo.bloodGroup;
+
+            return View();
+        }
+
+        public ActionResult PersonalInfo()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Competency(NuPortal.Models.Competency comp)
+        {
+            string skills = comp.skills;
+            string certification = comp.certification;
+            string technologies = comp.technologies;
+            return View();
+        }
+        public ActionResult Competency()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetEmployeeDetails(int EmpId)
+        {
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            DataTable dt = new DataTable(), temp = new DataTable();
+            try
+            {
+                temp = JsonConvert.DeserializeObject<DataTable>(empService.SelectEmployeeInfo(EmpId, 60));
+                //if (temp != null && temp.Rows.Count > 0)
+                //{
+                //    dt.Columns.Add("FirstName");
+                //    dt.Columns.Add("LastName");
+                //    dt.Columns.Add("Location");
+                //    dt.Columns.Add("EmployeeCode");
+                //    dt.Columns.Add("Designation");
+                //    dt.Columns.Add("WorkEmail");
+                //    dt.Columns.Add("Phone1");
+                //    dt.Columns.Add("ProfilePicture");
+                //    dt.Columns.Add("Skills");
+                //    dt.Columns.Add("Certification");
+                //    dt.Columns.Add("Technologies");
+                //    dt
+                //    DataRow[] row = temp.Select("CompetencyType='Skills'");
+                    return Json(JsonConvert.SerializeObject(temp), JsonRequestBehavior.AllowGet);
+                //}
+                
+            }
+            catch (Exception ex)
+            {
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally { empService.Dispose();dt.Dispose();temp.Dispose(); }
+            //return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+    }
+}

@@ -1,0 +1,220 @@
+﻿@model NuPortal.Models.NewContacts
+@{
+    ViewBag.Title = "NewContacts";
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    bool view = false;
+    var item = new NuPortal.Models.NewContacts();
+}
+@using (Html.BeginForm())
+{
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/new-contact-sm.png" width="45" height="45" alt="" /></div></div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="mainheaderdiv">New Contact</div>
+                </div>
+            </div>
+        </div>
+        @*<dialog id="dlgClient" style="width:50%;background: transparent;top: 25%;left: 5%;border: none;">
+            <div class="popupmaindiv" style="padding:5px">
+                <div class="popupmaindiv">
+                    <div class="popupheadingmaindiv">
+                        <div class="popupheadingtext">Choose Client</div>
+                        <div class="popupclosebutton"><a href="#" onclick="javascript:$('#dlgClient')[0].close();">X</a></div>
+                    </div>
+                </div>
+                <div class="row" id="divClient">
+
+                </div>
+            </div>
+        </dialog>*@
+        <dialog id="dlgClient" style="width: 65%;background: transparent;top: 25%;left: 5%;border: none;cursor:pointer">
+            <div class="popupmaindiv" style="padding:5px">
+                <div class="popupmaindiv">
+                    <div class="popupheadingmaindiv">
+                        <div class="popupheadingtext">Choose Client</div>
+                        <div class="popupclosebutton"><a title="Close" href="#" onclick="javascript:$('#dlgClient')[0].close();">X</a></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="clientinfopopupmaindiv" id="divClient">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+        <div class="contentmaindiv">
+            <div id="DivClearAll">
+                <div class="myprojectdiv">
+                        <a class="backbuttondiv" id="hrefBack" href="@Url.Action("Projects", "Projects")"><img title="Back" alt="back" width="30" height="30" src="~/Images/back-button.png" /></a>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.HiddenFor(model => model.ClientId, @view ? (object)new { @Value = @item.ClientId, @id = "popClient" } : new { @id = "popClient" })
+                            @Html.EditorFor(model => model.Client, @view ? (object)new { htmlAttributes = new { @class = "floating-input vinput", @Value = @item.Client, @id = "txtpopClient", @style = "cursor:pointer" } } : new { htmlAttributes = new { @class = "floating-input vinput", @id = "txtpopClient", @style = "cursor:pointer", @placeholder = " " } })
+                            @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "text-danger" })
+                            @*@Html.TextBoxFor(model => model.Client, "", new { required = "required", @class = "floating-input" , placeholder = " " })*@
+                            <label class="float">Client</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.ContactPerson, "", new { @class = "floating-input vinput", @id = "txtContactPerson", placeholder = " " })
+                            <label class="float">Contact Person</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.ContactNumber, "", new { @class = "floating-input  vphone", placeholder = " " })
+                            <label class="float">Contact Number</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.extn, "", new { @class = "floating-input  vphone", placeholder = " " })
+                            <label class="float">Extn</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.Mobile, "", new { @class = "floating-input  vphone", placeholder = " " })
+                            <label class="float">Mobile</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.Designation, "", new { @class = "floating-input", placeholder = " " })
+                            <label class="float">Designation</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.Email, "", new { @class = "floating-input  vemail", placeholder = " " })
+                            <label class="float">Email</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.Fax, "", new { @class = "floating-input  vphone vfax", placeholder = " " })
+                            <label class="float">Fax</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            @Html.TextBoxFor(model => model.Department, "", new { @class = "floating-input", placeholder = " " })
+                            <label class="float">Department</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttonmaindiv">
+                    <div class="buttondiv">
+                        <input title="Save" class="submitbtn" type="submit" name="submit" value="Save"  onclick="return ValidateAll('DivClearAll', 'lblMsg');" />
+                    </div>
+                    <div class="buttondiv">
+                        <input title="Save" class="submitandnewbtn" type="submit" onclick="return ValidateAll('DivClearAll', 'lblMsg');" />
+                    </div>
+
+                    <div class="buttondiv">
+                        <input title="Clear" class="clearbtn" type="button" onClick="$('#lblMsg').text(''); return ClearAllControlValues('DivClearAll')" />
+                    </div>
+                    <div class="ErrorLabel">
+                        <label class="lblError" id="lblErrorMsg">@ViewBag.validationMessage</label>
+                        <label class="lblMessage" id="lblMsg">@ViewBag.saveMessage</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#txtpopClient').click(function () {
+            $('#dlgClient')[0].showModal();
+        });
+        $.ajax({
+            url: '/projects/GetDepartment?opId=5',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var ClientLogo = "";
+                var results = $.parseJSON(data);
+                //var table=$('#dlgClient').find('table');
+                for (var i = 0; i < results.length; i++) {
+                    ClientLogo = "";
+                    //$(table).append("<tr onclick='SelectClient(this);'><td>"+results[i].CompanyName+"</td><td style='display:none'>"+results[i].ClientId+"</td></tr>");
+                    //$('#divClient').append("<div class='col-md-3' onclick='SelectClient(this);'><div class='clientinfologo'><img src='"+results[i].CompanyLogo+"' width='142' height='50' alt='' /></div>"+
+                    //    "<div class='clientname'>"+results[i].CompanyName+"</div><input type='hidden' value='"+results[i].ClientId+"'></div>");
+                    if (results[i].CompanyLogo == "")
+                        ClientLogo = "../Images/logo-placeholder.png";
+                    else
+                        ClientLogo = results[i].CompanyLogo;
+                    $('#divClient').append("<div class='clientinfopopupsubdiv' onclick='SelectClient(this);'>" +
+                                "<div class='clientinfologo'><img src='" + ClientLogo + "' width='150' height='100' alt='' /></div>" +
+                                "<div class='clientname'>" + results[i].CompanyName + "</div><input type='hidden' value='" + results[i].ClientId + "'></div>" +
+                            "</div>");
+                }
+            },
+            error: function (xhr) {
+            }
+        });
+
+        //$.ajax({
+        //    url: '/projects/GetDepartment?opId=5',
+        //    dataType: "json",
+        //    type: "GET",
+        //    contentType: 'application/json; charset=utf-8',
+        //    success: function (data) {
+        //        var ClientLogo = "";
+        //        var results = $.parseJSON(data);
+        
+        
+        //        for (var i = 0; i < results.length; i++)
+        //            ClientLogo = "";
+        //            //$(table).append("<tr onclick='SelectClient(this);'><td>"+results[i].CompanyName+"</td><td style='display:none'>"+results[i].ClientId+"</td></tr>");
+        //            //$('#divClient').append("<div class='col-md-3' onclick='SelectClient(this);'><div class='clientinfologo'><img src='" + results[i].CompanyLogo + "' width='142' height='50' alt='' /></div>" +
+        //        //    "<div class='client'>" + results[i].CompanyName + "</div><input type='hidden' value='" + results[i].ClientId + "'></div>");
+        //        //if (results[i].CompanyLogo == "")
+        //        //    ClientLogo = "../Images/logo-placeholder.png";
+        //        //else
+        //            ClientLogo = results[i].CompanyLogo;
+        //        $('#divClient').append("<div class='clientinfopopupsubdiv' onclick='SelectClient(this);'>" +
+        //                    "<div class='clientinfologo'><img src='" + ClientLogo + "' width='150' height='100' alt='' /></div>" +
+        //                    "<div class='clientname'>" + results[i].CompanyName + "</div><input type='hidden' value='" + results[i].ClientId + "'></div>" +
+        //                "</div>");
+        //    },
+        //    error: function (xhr) {
+        //        alert('error');
+        //    }
+        //});
+    });
+    $("#btnsave").click(function () {
+        
+        window.location.href = '/Projects/Projects';
+    });
+     
+
+    function SelectClient(obj) {
+        $('#popClient').val($(obj).find('input').val());
+        $('#txtpopClient').val($(obj).find('.clientname')[0].innerText);
+        //BindContact($(obj).find('input').val());
+        $('#dlgClient')[0].close();
+    }
+    //function BindContact(id) {
+    //}
+</script>

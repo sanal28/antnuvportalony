@@ -1,0 +1,2290 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int typeId = 0;
+
+    if (Request["EmpViewType"] != null && Request["EmpViewType"] != "")
+    {
+        typeId = Convert.ToInt16(Request["EmpViewType"]);
+    }
+}
+<dialog id="dlgEmpName" style="width:50%;background: transparent;top: 25%;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Employee Name</div>
+                <div class="popupclosebutton"><a title="Close" href="/HR/HRHome">X</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext" style="padding-left:0px !important">Enter Employee Name</div>
+                        <div class="floating-input autocomplete-textarea" id="divResources">
+                            <div id="listResources" class="list competancylist"></div>
+                            <input type="text" class="competancy autopopulateText" id="txtResources" placeholder=" " />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="myprojectenterdiv">
+                        <a href="#">
+                            <img title="Enter" src="../images/enter.png" style="cursor:pointer" id="btnEmployee" width="30" height="30" alt=""
+                                 onclick="CloseDialogBox(this);">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ErrorLabel">
+                        <label id="empMsg" class="lblError"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<dialog id="dlgAddProfilepicture" style="width:42%;background: transparent;left: 5%;border: none;">
+    <div class="contentEmpGallerymaindiv" id="divCleardlg">
+        <div class="popupmaindiv" style="padding:5px">
+            <div class="popupmaindiv">
+                <div class="popupheadingmaindiv">
+                    <div class="popupheadingtext">Add Profile Picture</div>
+                    <div class="popupclosebutton"><a title="Close" href="#" onclick="CloseQuotesPopup(this);">X</a></div>
+                </div>
+                <div class="row">
+                    <div id="divImage" class="userinfoEmpGalleryPopupmaindiv">
+                        <div class="empSlides Popupprofilepicimagediv">
+                            <div>
+                                <input type="file" id="fileUploadAttachement" accept="image/x-png, image/gif, image/jpeg,image/jpg,image/bmp" multiple="multiple" allowmultiple="true" style="display:none" onchange="previewImage();" />
+                                <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                <div class="divEmpGallery" onclick="BrowseImage();">
+                                </div>
+                            </div>
+                        </div>
+                        <a id="hrefPrevImage" title="Previous" class="prevSlide" style="margin-top:0px;margin-left:10px;" onclick="plusSlides(-1)">❮</a>
+                        <a id="hrefNxtImage" title="Next" class="nextSlide" style="margin-right:50px;margin-top:0px;" onclick="plusSlides(1)">❯</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<div class="col-md-11 divEmp0">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Employee Info</div>
+            </div>
+            <div class="col-sm-5">
+                <div class="progressbardiv">
+                    <div class="prgsbarmaindiv">
+                        <div class="prgsbarheading">Profile Completion</div>
+                        <div class="row">
+                            <div class="col-sm-10"><div class="prgsbackground"> <div class="prgspercent"></div></div></div>
+                            <div class="col-sm-2"><div class="prgspercenttext">0%</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv hideDiv" style="display:none;">
+            <a class="backbuttondiv" id="hrefBack" href="/HR/HRHome"><img title="Back" alt="back" width="30" height="30" src="~/Images/back-button.png" /></a>
+        </div>
+        <div class="space hideDiv" style="display:none;"></div>
+        <div id="DivClearEmpInfo">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlTitle" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                            <option value="1">Mr.</option>
+                            <option value="2">Ms.</option>
+                            <option value="3">Mrs.</option>
+                        </select>
+                        <label class="float">Title</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtFname" class="floating-input" placeholder=" ">
+
+                        <label class="float">First Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtLname" class="floating-input" placeholder=" ">
+                        <label class="float">Last Name</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtEmpCode" class="floating-input" placeholder=" ">
+                        <label class="float">Employee Code</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlDesignation" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Designation</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtOfficeEmail" class="floating-input vemail" placeholder=" ">
+                        <label class="float">Office Email ID</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlEmptType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Employee Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlLocation" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Location</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtWorkLocation" type="text" class="floating-input" placeholder=" ">
+                        <label class="float">Work Location</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtJoinDate" type="text" class="floating-input vdate vsdate" placeholder=" ">
+                        <label class="float">Joining Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtConfirmDate" type="text" class="floating-input vdate vedate" placeholder=" ">
+                        <label class="float">Confirmation Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtManager" type="text" class="floating-input autocompleteEmp" placeholder=" ">
+                        <input id="hfEmpId" class="hfEmpId" type="hidden" value="" />
+                        <label class="float">Reporting Manager</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtRelDate" type="text" class="floating-input vdate vedate" placeholder=" ">
+                        <label class="float">Relieving Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input type="hidden" id="hdnProPicFileVal" value="" />
+                            <input type="file" id="imguploadprofile" accept="image/x-png, image/gif, image/jpeg,image/jpg" style="display:none" />
+                            <div id="divprofile" class="profilethumbnaildiv">
+                                <a href='#'><div title="Close" class='documentclosebutton' onclick="CloseImageInProfile($('#hdnProPicFileVal'),$('#propicUrl'),0);">X</div></a>
+                                <img src="~/Images/NoImage.jpg" id="propicUrl" width="40" height="40" alt="" />
+                            </div>
+                            <div class="profilepictext">Profile Icon</div>
+                        </div>
+                        <div class="col-sm-4">
+                            @*<input type="hidden" id="hdnPassportPicFile" value="" class=".filehidden" />*@
+                            @*<input type="file" id="imguploadpassport" accept="image/x-png, image/gif, image/jpeg,image/jpg" style="display:none" />*@
+                            <div id="divpassport" class="profilethumbnaildiv">
+                                <div title="Close" class='documentclosebutton'></div>
+                                <img src="~/Images/NoImage.jpg" id="passportUrl" width="40" height="40" alt="" />
+                            </div>
+                            <div class="profilepictext">Profile Picture</div>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="hidden" id="hdnBgPicture" value="" />
+                            <input type="file" id="imguploadbground" accept="image/x-png, image/gif, image/jpeg,image/jpg" style="display:none" />
+                            <div id="divbground" class="profilethumbnaildiv">
+                                <a href='#'><div title="Close" class='documentclosebutton' onclick="CloseImageInProfile($('#hdnBgPicture'),$('#bgimagepropicUrl'),2);">X</div></a>
+                                <img src="~/Images/NoImage.jpg" id="bgimagepropicUrl" width="40" height="40" alt="" />
+                            </div>
+                            <div class="profilepictext">Background</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 hideDiv" style="display:none">
+                    <div class="contentfielddiv">
+                        <select id="ddlEmpstatus" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Employee Status</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="weeklyoffmaindiv">
+                        <div class="weeklytext">Weekly Off</div>
+                        <div class="weeklyoffdiv">
+                            <div class="weeklydiv"><div title="Sunday" name="1" class="weeklyofftext">S</div></div>
+                            <div class="weeklydiv"><div title="Monday" name="2" class="weeklyofftext">M</div></div>
+                            <div class="weeklydiv"><div title="Tuesday" name="3" class="weeklyofftext">T</div></div>
+                            <div class="weeklydiv"><div title="Wednesday" name="4" class="weeklyofftext">W</div></div>
+                            <div class="weeklydiv"><div title="Thursday" name="5" class="weeklyofftext">T</div></div>
+                            <div class="weeklydiv"><div title="Friday" name="6" class="weeklyofftext">F</div></div>
+                            <div class="weeklydiv"><div title="Saturday" name="7" class="weeklyofftext">S</div></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="weeklyoffmaindiv">
+                        <div class="weeklytext">Work Start Time</div>
+                        <div class="workstarttimediv"><input id="txtWorkStartTime" type="text" class="contenttextfield"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="weeklyoffmaindiv">
+                        <div class="weeklytext">Work End Time</div>
+                        <div class="workstarttimediv"><input id="txtWorkEndTime" type="text" class="contenttextfield"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" id="btnSaveEmpDetails" /></div>
+            <div class="labelmessage"><label id="lblEmpError" class="lblMessage"></label></div>
+        </div>
+        <div class="nextprvmaindiv">
+            <input title="Next" type="button" class="nextbtn" onclick="nextclick()" />
+            <input title="Previous" type="button" class="prvbtn" onclick="prevclick()" />
+        </div>
+    </div>
+</div>
+<div class="col-md-11 divEmp1" style="display:none">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Personal Info</div>
+            </div>
+            <div class="col-sm-5">
+                <div class="progressbardiv">
+                    <div class="prgsbarmaindiv">
+                        <div class="prgsbarheading">Profile Completion</div>
+                        <div class="row">
+                            <div class="col-sm-10"><div class="prgsbackground"> <div class="prgspercent"></div></div></div>
+                            <div class="col-sm-2"><div class="prgspercenttext">0%</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv hideDiv" style="display:none;">
+            <a class="backbuttondiv" id="hrefBack" href="/HR/HRHome"><img title="Back" alt="back" width="30" height="30" src="~/Images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div id="DivClearPerInfo">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" class="floating-input" id="txtaddress1" placeholder=" ">
+                        <label class="float">Address1</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtcity1" class="floating-input" placeholder=" ">
+                        <label class="float">City1</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtstate1" class="floating-input" placeholder=" ">
+                        <label class="float">State1</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtcountry1" class="floating-input" placeholder=" ">
+                        <label class="float">Country1</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtzipcode1" class="floating-input" placeholder=" ">
+                        <label class="float">Zipcode/Postalcode1</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtphone1" class="floating-input vphone" placeholder=" ">
+                        <label class="float">Phone1</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" class="floating-input" id="txtaddress2" placeholder=" ">
+                        <label class="float">Address2</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtcity2" class="floating-input" placeholder=" ">
+                        <label class="float">City2</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtstate2" class="floating-input" placeholder=" ">
+                        <label class="float">State2</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtcountry2" class="floating-input" placeholder=" ">
+                        <label class="float">Country2</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtZipcode2" class="floating-input" placeholder=" ">
+                        <label class="float">Zipcode/Postalcode2</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtPhone2" type="text" class="floating-input" placeholder=" ">
+                        <label class="float">Phone2</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtEmergencyPhone" class="floating-input" placeholder=" ">
+                        <label class="float">Emergency Phone</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEmail" type="text" class="floating-input vemail" placeholder=" ">
+                        <label class="float">Email ID</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtDob" type="text" class="floating-input dateText" placeholder=" ">
+                        <label class="float">DOB</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" class="floating-input" id="txtBloodGroup" placeholder=" ">
+                        <label class="float">Blood Group</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input type="text" id="txtNationality" class="floating-input" placeholder=" ">
+                        <label class="float">Nationality</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-sm-4"><div class="weeklytext">Gender</div></div>
+                        <div class="col-sm-8">
+                            <div class="genderdiv">
+                                <div class="gendersubdiv"><div title="Male" class="weeklyofftext"><img src="~/Images/male.png" width="20" height="20" alt="" /></div></div>
+                                <div class="gendersubdiv"><div title="Female" class="weeklyofftext"><img src="~/Images/female.png" width="20" height="20" alt="" /></div></div>
+                                <div class="gendersubdiv"><div title="TransGender" class="weeklyofftext"><img src="~/Images/transgender.png" width="20" height="20" alt="" /></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" id="btnSavePerInfo" /></div>
+            <div class="labelmessage"><label id="lblPersonalError" class="lblMessage"></label></div>
+        </div>
+        <div class="nextprvmaindiv">
+            <input title="Next" type="button" class="nextbtn" onclick="nextclick()" />
+            <input title="Previous" type="button" class="prvbtn" onclick="prevclick()" />
+        </div>
+    </div>
+</div>
+<div class="col-md-11 divEmp2" style="display:none">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Academic</div>
+            </div>
+            <div class="col-sm-5">
+                <div class="progressbardiv">
+                    <div class="prgsbarmaindiv">
+                        <div class="prgsbarheading">Profile Completion</div>
+                        <div class="row">
+                            <div class="col-sm-10"><div class="prgsbackground"> <div class="prgspercent"></div></div></div>
+                            <div class="col-sm-2"><div class="prgspercenttext">0%</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contentmaindiv">
+        <div class="myprojectdiv hideDiv" style="display:none;">
+            <a class="backbuttondiv" id="hrefBack" href="/HR/HRHome"><img title="Back" alt="back" width="30" height="30" src="~/Images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div id="DivClearAcac">
+            <table style="width:100%" id="tblAcademic">
+                <tbody id="tbyAcademic">
+                    <tr id="tr1">
+                        <td>
+                            <div class="academicaddmaindiv">
+                                <div title="Remove" class="academicremovebutton" onclick="return deleteRow(this,$('#lblAcademicError'));">-</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input type="text" id="txtSchool" class="floating-input" placeholder=" ">
+                                        <label class="float">School / College</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtCourse" type="text" class="floating-input" placeholder=" ">
+                                        <label class="float">Course</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtMajor" type="text" class="floating-input" placeholder=" ">
+                                        <label class="float">Major</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtMinor" type="text" class="floating-input" placeholder=" ">
+                                        <label class="float">Minor</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtYear" type="text" class="floating-input" placeholder=" ">
+                                        <label class="float">Year of Passing</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtBoard" type="text" class="floating-input" placeholder=" ">
+                                        <label class="float">University / Board</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="weeklyoffmaindiv">
+                                        <div class="weeklytext">
+                                            <label style="color:#27c4ff;top:2px;font-size:12px">% Mark</label>
+                                        </div>
+                                        <div class="weeklytext">
+                                            <div class="sliders priorityslidermaindiv" id="divSliders">
+                                                <div class="percentageslider NewTaskSlider" id="divPerSlider"></div>
+                                                <label class="lblPercentage" id="lblPercentage">0</label>%
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input type="text" id="txtGrade" class="floating-input" placeholder=" ">
+                                        <label class="float">Grade</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="weeklyoffmaindiv">
+                                        <div class="weeklytext">Course Completion</div>
+                                        <div class="workstarttimediv" style="padding-left: 16px;">
+                                            <label class="switch">
+                                                <input type="checkbox" id="cbCourseCompletion">
+                                                <div class="slider round"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-right:10px">
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="contentfielddiv">
+                                                <input type="hidden" id="filehidden" value="" class="filehidden" />
+                                                <input id="fileUploadAttachment" type="file" class="floating-input fileUploadAttachment" placeholder="Attachment" multiple>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="uploadbutton">
+                                                <img title="Upload" id="imgUpload" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="weeklyoffmaindiv divdocuments">
+                                        <div class="workstarttimediv" style="max-height:50px;">
+                                            <div class="row">
+                                                <div id="divEmpDocs" class="docDiv">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <div class="academicaddmaindiv">
+                                <div title="Add" class="academicaddbutton" onclick="return addRow(this,$('#lblAcademicError'));">+</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" id="btnSaveAcademic" /></div>
+            <div class="labelmessage"><label id="lblAcademicError" class="lblMessage"></label></div>
+        </div>
+        <div class="nextprvmaindiv">
+            <input title="Next" type="button" class="nextbtn" onclick="nextclick()" />
+            <input title="Previous" type="button" class="prvbtn" onclick="prevclick()" />
+        </div>
+    </div>
+</div>
+<div class="col-md-11 divEmp3" style="display:none">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Competency</div>
+            </div>
+            <div class="col-sm-5">
+                <div class="progressbardiv">
+                    <div class="prgsbarmaindiv">
+                        <div class="prgsbarheading">Profile Completion</div>
+                        <div class="row">
+                            <div class="col-sm-10"><div class="prgsbackground"> <div class="prgspercent"></div></div></div>
+                            <div class="col-sm-2"><div class="prgspercenttext">0%</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contentmaindiv">
+        <div class="myprojectdiv hideDiv" style="display:none;">
+            <a class="backbuttondiv" id="hrefBack" href="/HR/HRHome"><img title="Back" alt="back" width="30" height="30" src="~/Images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div id="DivClearComp">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext">Skills</div>
+                        <div class="contenttextarea">
+                            <div id="listSkills" class="list competancylist"></div><input type="text" class="competancy" id="txtSkills" placeholder="+ Click to Add" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext">Certification</div>
+                        <div class="contenttextarea">
+                            <div id="listCertification" class="list competancylist"></div><input type="text" class="competancy" id="txtcertification" placeholder="+ Click to Add" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext">Technologies</div>
+                        <div class="contenttextarea">
+                            <div id="listTechnologies" class="list competancylist"></div><input type="text" class="competancy" id="txtTechnologies" placeholder="+ Click to Add" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" id="btnSaveCompetancy" /></div>
+            <div class="labelmessage"><label id="lblCompetError" class="lblMessage"></label></div>
+        </div>
+        <div class="nextprvmaindiv">
+            <input title="Next" type="button" class="nextbtn" onclick="nextclick()" />
+            <input title="Previous" type="button" class="prvbtn" onclick="prevclick()" />
+        </div>
+    </div>
+</div>
+<div class="col-md-11 divEmp4" style="display:none">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Experience</div>
+            </div>
+            <div class="col-sm-5">
+                <div class="progressbardiv">
+                    <div class="prgsbarmaindiv">
+                        <div class="prgsbarheading">Profile Completion</div>
+                        <div class="row">
+                            <div class="col-sm-10"><div class="prgsbackground"> <div class="prgspercent"></div></div></div>
+                            <div class="col-sm-2"><div class="prgspercenttext">0%</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contentmaindiv">
+        <div class="myprojectdiv hideDiv" style="display:none;">
+            <a class="backbuttondiv" id="hrefBack" href="/HR/HRHome"><img title="Back" alt="back" width="30" height="30" src="~/Images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div id="DivClearExp">
+            <table style="width:100%" id="tblExperience">
+                <tbody id="tbyExperience">
+                    <tr id="tr1">
+                        <td>
+                            <div class="academicaddmaindiv">
+                                <div title="Remove" class="academicremovebutton" onclick="return deleteRow(this,$('#lblExpError'));">-</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input type="text" id="txtCompany" class="floating-input" placeholder=" ">
+                                        <label class="float">Company Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtDesignation" type="text" class="floating-input" placeholder=" ">
+                                        <label class="float">Designation</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtTeamSize" type="text" class="floating-input" placeholder=" ">
+                                        <label class="float">Team Size</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtRoles" type="text" class="floating-input" placeholder=" ">
+                                        <label class="float">Roles</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtNoOfMonths" type="text" class="floating-input" placeholder=" ">
+                                        <label class="float">No of Months</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtReasonForLeave" type="text" class="floating-input" placeholder=" ">
+                                        <label class="float">Reason for Leaving</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input type="text" class="floating-input sdateExp dateText vdate vsdate" placeholder=" ">
+                                        <label class="float">Start Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input type="text" class="floating-input edateExp dateText vdate vedate" placeholder=" ">
+                                        <label class="float">End Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input id="txtTechnologies" type="text" class="floating-input" placeholder=" ">
+                                        <label class="float">Technologies</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="contentfielddiv">
+                                        <input type="text" id="txtDomain" class="floating-input" placeholder=" ">
+                                        <label class="float">Domain</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3"><div class="contentfielddiv"><input type="hidden" id="filehidden" value="" class=".filehidden" /><input id="fileUploadAttachment" type="file" class="floating-input fileUploadAttachment" placeholder="Attachment" multiple></div></div>
+                                <div class="col-md-1"><div class="uploadbutton"><img title="Upload" id="imgUpload" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" /></div></div>
+                                <div class="col-md-4">
+                                    <div class="weeklyoffmaindiv divdocuments">
+                                        <div class="workstarttimediv">
+                                            <div class="row">
+                                                <div id="divEmpDocs" class="docDiv">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <div class="academicaddmaindiv">
+                                <div title="Add" class="academicaddbutton" onclick="AddExpRow(this);">+</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" id="btnSaveExp" /></div>
+            <div class="labelmessage"><label id="lblExpError" class="lblMessage"></label></div>
+        </div>
+        <div class="nextprvmaindiv">
+            <input title="Next" type="button" class="nextbtn" onclick="nextclick()" />
+            <input title="Previous" type="button" class="prvbtn" onclick="prevclick()" />
+        </div>
+    </div>
+</div>
+<div class="col-md-11 divEmp5" style="display:none">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Identity Details</div>
+            </div>
+            <div class="col-sm-5">
+                <div class="progressbardiv">
+                    <div class="prgsbarmaindiv">
+                        <div class="prgsbarheading">Profile Completion</div>
+                        <div class="row">
+                            <div class="col-sm-10"><div class="prgsbackground"> <div class="prgspercent"></div></div></div>
+                            <div class="col-sm-2"><div class="prgspercenttext">0%</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contentmaindiv">
+        <div class="myprojectdiv hideDiv" style="display:none;">
+            <a class="backbuttondiv" id="hrefBack" href="/HR/HRHome"><img title="Back" alt="back" width="30" height="30" src="~/Images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div id="DivClearIden">
+            <table style="width:100%" id="tblIdentity">
+                <tbody id="tbyIdentity">
+                    <tr id="tr1">
+                        <td>
+                            <div class="academicaddmaindiv">
+                                <div title="Remove" class="academicremovebutton" onclick="return deleteRow(this,$('#lblIdentError'));">-</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="contentfielddiv">
+                                        <select id="ddlIdentityType" class="floating-select identity" onclick="this.setAttribute('value', this.value);" value="">
+                                            <option value=""></option>
+                                        </select>
+                                        <label class="float">Identity Type</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="contentfielddiv">
+                                        <input id="txtIdentityNumber" type="text" class="floating-input" placeholder=" ">
+                                        <label class="float">Identity Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    @*<div class="row">
+                                        <div class="col-md-10">*@
+                                    <div class="contentfielddiv">
+                                        <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                        <input type="file" id="fileUploadIdentity" class="floating-input fileUploadIdentityAttachment" placeholder="Attachment">
+                                    </div>
+                                    @*</div>*@
+                                    @*<div class="col-md-1">
+                                            <div class="uploadbutton">
+                                                <img id="imgIdentityUpload" class="imgIdentityFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" />
+                                            </div>
+                                        </div>*@
+                                    @*</div>*@
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="weeklyoffmaindiv divdocuments">
+                                        <div class="workstarttimediv">
+                                            <div class="row">
+                                                <div class="docDiv">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <div class="academicaddmaindiv">
+                                <div title="Add" class="academicaddbutton" onclick="return addRow(this,$('#lblIdentError'));">+</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" id="btnSaveIdentity" /></div>
+            <div class="labelmessage"><label id="lblIdentError" class="lblMessage"></label></div>
+        </div>
+        <div class="nextprvmaindiv">
+            <input title="Next" type="button" class="nextbtn" onclick="nextclick()" />
+            <input title="Previous" type="button" class="prvbtn" onclick="prevclick()" />
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var QuotesText="";
+    var InitialImage = "";
+    var weekoffcount = 2;
+    var tblAcademicRowCount = 1;
+    var sliders = $(".sliders .percentageslider");
+    var expUploadedDocs = "";
+    var availableTotal = 100;
+    var EmpID = 0;
+    var expFileNum = 0;
+    var slideIndex;
+    var hiddenfield = $('#filehidden');
+    var slideCount=0;
+    var index=0;
+    function CloseDialogBox(obj)
+    {
+        if ($("#listResources").is(':empty')) {
+            $("#divResources").addClass("ErrorFocus");
+            $('#empMsg').text("Please select an employee");
+        }
+        else{
+            EmpID = parseInt($("#listResources").find(".divcompetancy").attr("name"));
+            if(EmpID!=0)
+            {
+                var dialog = document.getElementById('dlgEmpName');
+                dialog.close();
+                LoadDataFromDB(EmpID);
+                defineExpUploads();
+                SimulateDdlClicks();
+                GetProfileCompleteness(EmpID);
+            }
+            else
+                $('#empMsg').text("Employee is not valid");
+        }
+    }
+    //function CloseOnX(obj,flag)
+    //{
+    //    if(flag == 1)
+
+    //    $('#dlgAddProfilepicture')[0].close();
+    //}
+    //function CloseQuotesPopup(obj)
+    //{
+    //    $(obj).closest('.popupmaindiv').find('#hdnProPicFile').each(function(){
+    //        $('#hdnPassportPicFile').val($(this).val());
+    //    });
+    //    if($('#hdnPassportPicFile').val()!="")
+    //    {
+    //        $("#passportUrl").attr('src', $('#hdnPassportPicFile').val());
+    //        //if($('#txtQuotes').val()!="")
+    //        QuotesText = $('#txtQuotes').val();
+    //    }
+    //    else
+    //    {
+    //        $("#passportUrl").attr('src',"../Images/NoImage.jpg");
+    //        QuotesText = "";
+    //    }
+    //    //ClearQuotesVal(obj);
+    //    $('#dlgAddProfilepicture')[0].close();
+    //}
+    function ClearQuotesVal(obj)
+    {
+        $(obj).closest('.popupmaindiv').find('.docDiv').empty();
+        $('#fileQuotesAttachment').val('');
+        $('#txtQuotes').val('');
+    }
+    function CloseImageInProfile(hiddenObj,imgObj,picType)
+    {
+        hiddenObj.val('');
+        //QuotesText="";
+        //$('#txtQuotes').val("");
+        imgObj.attr('src', '../Images/NoImage.jpg');
+        if(@typeId==1){
+            //if(picType==0)
+            //    $("#imgProfilePic").attr('src', "../Images/user-profile.png");
+            //else
+            if(picType!=0)
+                $('body').css('background-image', "url('../Images/background-images/4e81b8475e56f173dd296e2c3d0790f8.jpg')");
+        }
+    }
+    $(document).ready(function () {
+        $("#divResources").click(function () {
+            $("#txtResources").focus();
+        });
+        DefineDatePicker($('#txtJoinDate'));
+        DefineDatePicker($('.dateText'));
+        DefineDatePicker($('#txtConfirmDate'));
+        DefineDatePicker($('#txtRelDate'));
+        DefineDatePicker($('#txtDob'));
+        dateCheck();
+        LoadDropDowns();
+        LoadPage();
+        sliding();
+        DefineFileUploads();
+        DefineIdentityFileUploads();
+        if(@typeId==1)
+        {
+            $('.hideDiv').show();
+            var dialog = document.getElementById('dlgEmpName');
+            dialog.showModal();
+        }
+        else if(@typeId==2)
+        {
+            $('#DivClearEmpInfo').find('input[type=text],input[type=checkbox], select').attr('disabled','disabled');
+            var sessionVal = parseInt(@Session["EmpID"]);
+            if (!isNaN(sessionVal) && sessionVal != "")
+                EmpID = parseInt(@Session["EmpID"]);
+            GetProfileCompleteness(EmpID);
+            LoadDataFromDB(EmpID);
+        }
+        else
+            $('.buttonmaindiv').hide();
+        defineExpUploads();
+        SimulateDdlClicks();
+    });
+
+    $('#propicUrl').click(function () { $('#imguploadprofile').trigger('click'); });
+
+    //Gallery view
+    $('#passportUrl').click(function () {
+        $('#dlgAddProfilepicture')[0].showModal();
+        //$(".empGal").remove();
+
+        //if($('#hdnPassportPicFile').val()!="")
+        //{
+        //    $('#txtQuotes').val(QuotesText);
+        //    $('#divProfileDocs').empty();
+        //    CheckExtension($('#divProfileDocs'),$('#hdnPassportPicFile').val() , $('#hdnPassportPicFile').val(), "<a href='#' class='hrefFileClose'><div class='documentclosebutton closeQuotes'>X</div></a>", null, 1);
+        //    PreventDefaultClick();
+        //}
+    });
+    $('#bgimagepropicUrl').click(function () { $('#imguploadbground').trigger('click'); });
+
+    if(@typeId==1)
+    {
+        $('.weeklydiv').click(function () {
+            if ($(this).css("background-color") == "rgb(255, 91, 37)") {
+                $(this).css("background-color", "rgba(255, 255, 255, 0.5)");
+                weekoffcount = weekoffcount - 1;
+            }
+            else {
+                if (weekoffcount < 2) {
+                    $(this).css("background-color", "rgb(255, 91, 37)");
+                    weekoffcount = weekoffcount + 1;
+                }
+            }
+        });
+    }
+    $('.gendersubdiv').click(function () {
+        $(this).siblings().css("background-color", "rgba(255, 255, 255, 0.5)");
+        if ($(this).css("background-color") == "rgb(255, 91, 37)") {
+            $(this).css("background-color", "rgba(255, 255, 255, 0.5)");
+        }
+        else {
+            $(this).css("background-color", "rgb(255, 91, 37)");
+        }
+    });
+
+    //Define competancy textboxes
+
+    DefineCompetancies($("#listSkills"), $('#txtSkills'));
+    DefineCompetancies($("#listCertification"), $('#txtcertification'));
+    DefineCompetancies($("#listTechnologies"), $('#txtTechnologies'));
+
+    //function DefineCompetancies(listObject, inputObject) {
+    //    inputObject.keypress(function (e) {
+    //        var key = e.which;
+    //        if (key == 13) {
+    //            var inputText = $(this).val();
+    //            if (inputText != "") {
+    //                listObject.append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + inputText +
+    //                            "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+    //                                        "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+    //                $(this).val("");
+    //            }
+    //        }
+    //    });
+    //}
+
+    $('.divclear').click(function () { $(this).closest('.maincompetancy').remove() });
+
+    //Save Data to DB
+    $(function () {
+        //save emp info
+        $("#btnSaveEmpDetails").click(function () {
+            if (Validate('Emp')&&ValidateAll('DivClearEmpInfo','lblEmpError')) {
+                var title = $("#ddlTitle option:selected").text();
+                var fname = $("#txtFname").val();
+                var lname = $("#txtLname").val();
+                var empCode = $("#txtEmpCode").val().toUpperCase();
+                var designation = parseInt($("#ddlDesignation option:selected").val() == "" ? -1 : $("#ddlDesignation option:selected").val());
+                var officeEmail = $("#txtOfficeEmail").val();
+                var empType = parseInt($("#ddlEmptType option:selected").val() == "" ? -1 : $("#ddlEmptType option:selected").val());
+                var location = parseInt($("#ddlLocation option:selected").val() == "" ? -1 : $("#ddlLocation option:selected").val());
+                var workLocation = $("#txtWorkLocation").val();
+                var joinDate = FormatDate($("#txtJoinDate").val(), "yyyy/mm/dd");
+                var confirmDate = FormatDate($("#txtConfirmDate").val(), "yyyy/mm/dd");
+                var manager = parseInt($("#hfEmpId").val());
+                var relDate = FormatDate($("#txtRelDate").val(), "yyyy/mm/dd");
+
+                var weekOffDays = "";
+                $(".weeklyoffdiv > .weeklydiv > .weeklyofftext").each(function () {
+                    if ($(this).parent().css("background-color") == "rgb(255, 91, 37)")
+                        weekOffDays = weekOffDays + $(this).attr("name") + "|";
+                });
+                var offdays = weekOffDays.split("|");
+                var powerval = Math.pow(2, parseInt(offdays[0])) + Math.pow(2, parseInt(offdays[1]));
+                var profilePic = $("#hdnProPicFileVal").val();
+                //var passportPic = $("#hdnPassportPicFile").val();
+                var bgPic = $("#hdnBgPicture").val();
+                $.ajax({
+                    url: '/EmpInfoUserView/UpdateEmpInfo',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        EmployeeId: EmpID ,title: title, fname: fname, lname: lname, empCode: empCode, designation: designation, officeEmail: officeEmail, empType: empType,
+                        location: location, workLocation: workLocation, joinDate: joinDate, confirmDate: confirmDate, manager: manager, relDate: relDate,
+                        profilePic: profilePic,passportPic: "", bgPic: bgPic, powerval: powerval, StartTime: $("#txtWorkStartTime").val(),
+                        EndTime: $("#txtWorkEndTime").val(),quotes:"",EmpStatus : parseInt($("#ddlEmpstatus").val() == "" ? 0 : $("#ddlEmpstatus").val())
+                    },
+                    success: function (data) {
+                        if(@typeId==2){
+                            //if (profilePic != "")
+                            $("#imgProfilePic").attr('src', profilePic);
+                            //if (bgPic != "")
+                            $('body').css('background-image', "url('" + bgPic + "')");
+                        }
+                            //if(passportPic!="")
+                            //{
+                            //    $('#imgQuotes').attr('src', passportPic);
+                            //    $('#pQuotesText').html("");
+                            //    if(QuotesText!="")
+                            //        $('#pQuotesText').html("<span><i class='fa fa-quote-left' aria-hidden='true'></i></span>" + QuotesText +
+                            //        "<span><i class='fa fa-quote-right' aria-hidden='true'></i></span>");
+                            //    $("#imgProfilePic").bind("click");
+                            //    DefineQuotesPopup();
+                            //}
+                            //else
+                            //{
+                            //    $("#imgProfilePic").unbind("click");
+                            //}
+                            var galleryArr = new Array();
+                            $('.empSlides').each(function(i, obj) {
+                                if(i > 0 && $(this).find(".imgProfile").length > 0)
+                                    galleryArr.push({ "FK_EmpId" : EmpID,
+                                        "QuotesPictureUrl": $(this).find(".imgProfile").attr("src"), "QuotesText": $(this).find(".txtQuote").val()
+                                    });
+                                if(i==1)
+                                    InitialImage = $(this).find(".imgProfile").attr("src");
+                            });
+                            $.ajax({
+                                url: '/EmpInfoUserView/SetEmpGallery',
+                                type: 'POST',
+                                dataType: 'json',
+                                async:false,
+                                data: {
+                                    EmpID:EmpID,
+                                    jsonData: JSON.stringify(galleryArr)
+                                },
+                                success: function (data) {
+                                    if(@typeId==2){
+                                        $("#passportUrl").attr('src', InitialImage);
+                                        if($(".empGal").find(".imgProfile").length > 0)
+                                        {
+                                            $("#imgProfilePic").bind("click"); 
+                                            DefineQuotesPopup();
+                                        }
+                                        else
+                                        {
+                                            $("#imgProfilePic").unbind("click");
+                                        }
+                                    }
+                                    @*$.ajax({
+                                        url: '/Home/GetEmpData',
+                                        type: "GET",
+                                        dataType: 'json',
+                                        data:{ Id: parseInt(@Session["EmpID"]), Operation: 95 },
+                                        success: function (result) {
+                                            var resultSet = $.parseJSON(result);
+                                            if (resultSet["Result"] == undefined || resultSet["Result"] == null) {
+                                                if (resultSet[0]["QuotesPictureUrl"] != "") {
+                                                    //$('#hdnPassportPicFile').val(resultVals[0]["QuotesPictureUrl"]);
+                                                    $("#passportUrl").attr('src', InitialImage);
+                                                }
+                                            }
+                                            else
+                                                $("#passportUrl").attr('src', '/Images/NoImage.jpg');
+                                        },
+                                        error: function (err) {
+                                        }
+                                    });*@
+                                },
+                                error: function () {
+                                    $("#passportUrl").attr('src', '/Images/NoImage.jpg');
+                                }
+                            });
+                        ShowLabelMessage(data, "Employee Info", $('#lblEmpError'));
+                        LoadGallery();
+                        GetProfileCompleteness(EmpID);
+                    },
+                    error: function () {
+                        //alert('error');
+                    }
+                });
+            }
+        });
+
+        //save personal info
+        $("#btnSavePerInfo").click(function () {
+            if (Validate('Personal')&&ValidateAll('DivClearPerInfo','lblPersonalError')) {
+                var address1 = $("#txtaddress1").val();
+                var city1 = $("#txtcity1").val();
+                var state1 = $("#txtstate1").val();
+                var country1 = $("#txtcountry1").val();
+                var zipcode1 = $("#txtzipcode1").val();
+                var phone1 = $("#txtphone1").val();
+                var address2 = $("#txtaddress2").val();
+                var city2 = $("#txtcity2").val();
+                var state2 = $("#txtstate2").val();
+                var country2 = $("#txtcountry2").val();
+                var zipcode2 = $("#txtZipcode2").val();
+                var phone2 = $("#txtPhone2").val();
+                var EmergencyPhone = $("#txtEmergencyPhone").val();
+                var Email = $("#txtEmail").val();
+                var Dob = FormatDate($("#txtDob").val(), "yyyy/mm/dd");
+                var BloodGroup = $("#txtBloodGroup").val();
+                var Nationality = $("#txtNationality").val();
+                var Gender = "";
+
+                $(".genderdiv > .gendersubdiv > .weeklyofftext").each(function () {
+                    if ($(this).parent().css("background-color") == "rgb(255, 91, 37)")
+                        Gender = $(this)[0].title;
+                });
+
+                $.ajax({
+                    url: '/EmpInfoUserView/SavePerInfo',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        EmployeeId: EmpID ,address1: address1, city1: city1, state1: state1, country1: country1, zipcode1: zipcode1, phone1: phone1, address2: address2,
+                        city2: city2, state2: state2, country2: country2, zipcode2: zipcode2, phone2: phone2, EmergencyPhone: EmergencyPhone,
+                        Email: Email, Dob: Dob, BloodGroup: BloodGroup, Nationality: Nationality, Gender: Gender
+                    },
+                    success: function (data) {
+                        ShowLabelMessage(data, "Personal Info", $('#lblPersonalError'));
+                        $("#divEmpContact").text((phone1 != null && phone1 != "") ? phone1 : "");
+                        GetProfileCompleteness(EmpID);
+                    },
+                    error: function () {
+                        //alert('error');
+                    }
+                });
+            }
+        });
+
+        //save academic
+        $("#btnSaveAcademic").click(function () {
+            // if (Validate('Academic')) {
+            $('#lblAcademicError').text("");
+            var IsValid = true;
+            var dtAcademic = new Array();
+            $("#tblAcademic").find("tbody > tr").each(function () {
+                if ($(this).find("#txtSchool").val() == "") {
+                    $(this).find("#txtSchool").addClass("ErrorFocus");
+                    $("#lblAcademicError").addClass("lblError");
+                    $("#lblAcademicError").removeClass("lblMessage");
+                    $('#lblAcademicError').text("Please fill all mandatory fields");
+                    IsValid = false;
+                }
+                else
+                    $(this).find("#txtSchool").removeClass("ErrorFocus");
+
+                if ($(this).find("#txtYear").val().length > 0) {
+
+                    var year=$(this).find("#txtYear").val();
+                    var filter = /^(19|20)\d{2}$/;
+
+                    if (!filter.test(year)) {
+                        $(this).find("#txtYear").addClass("ErrorFocus");
+                        $("#lblAcademicError").addClass("lblError");
+                        $("#lblAcademicError").removeClass("lblMessage");
+                        $('#lblAcademicError').text("Please Provide Valid Year");
+                        IsValid = false;
+                    }
+                    else  if (filter.test(year))
+                        $(this).find("#txtYear").removeClass("ErrorFocus");
+
+
+                }
+                else
+                    $(this).find("#txtYear").removeClass("ErrorFocus");
+
+                if (IsValid)
+                {
+                    var courseCompletion = 0;
+                    if ($(this).find("#cbCourseCompletion").is(":checked"))
+                        courseCompletion = 1;
+                    dtAcademic.push({
+                        "FKEmpID": EmpID, "School": $(this).find("#txtSchool").val(), "Course": $(this).find("#txtCourse").val(),
+                        "Major": $(this).find("#txtMajor").val(), "Minor": $(this).find("#txtMinor").val(), "PerMarks": $(this).find("#lblPercentage").text(),
+                        "University": $(this).find("#txtBoard").val(), "CourseCompletion": courseCompletion,
+                        "YearofPassing": $(this).find("#txtYear").val() == "" ? 0 : $(this).find("#txtYear").val(),
+                        "Grade": $(this).find("#txtGrade").val(), "AttachmentPaths": $(this).find("#filehidden").val(),
+                        "CreatedDate": new Date(), "ModifiedDate": new Date(), "CreatedEmpID": EmpID,
+                        "ModifiedEmpID": EmpID
+                    });
+                }
+            });
+            if(!IsValid)
+                return;
+            else{
+                $.ajax({
+                    url: '/EmpInfoUserView/SaveAcademic',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        EmployeeId: EmpID ,
+                        jsonData: JSON.stringify(dtAcademic)
+                    },
+                    success: function (data) {
+                        ShowLabelMessage(data, "Academic", $('#lblAcademicError'));
+                        GetProfileCompleteness(EmpID);
+                        //$('#lblAcademicError').text("");
+                    },
+                    error: function () {
+                        //alert('error');
+                    }
+                });
+            }
+            // }
+        });
+
+
+        //save experience
+        $("#btnSaveExp").click(function () {
+            if (ValidateAll('DivClearExp','lblExpError')) {
+                $('#lblExpError').text("");
+                var IsValid = true;
+                var dtExperience = new Array();
+                $("#tblExperience > tbody").children("tr").each(function () {
+                    if ($(this).find("#txtCompany").val() == "") {
+                        $(this).find("#txtCompany").addClass("ErrorFocus");
+                        $("#lblExpError").addClass("lblError");
+                        $("#lblExpError").removeClass("lblMessage");
+                        $('#lblExpError').text("Please fill all mandatory fields");
+                        IsValid = false;
+                    }
+                    else
+                        $(this).find("#txtCompany").removeClass("ErrorFocus");
+
+
+                    if ($(this).find("#txtNoOfMonths").val().length > 0) {
+
+                        var NOM=$(this).find("#txtNoOfMonths").val();
+                        var filter = /^[0-9]*$/;
+
+                        if (!filter.test(NOM)) {
+                            $(this).find("#txtNoOfMonths").addClass("ErrorFocus");
+                            $("#lblExpError").addClass("lblError");
+                            $("#lblExpError").removeClass("lblMessage");
+                            $('#lblExpError').text("Please Provide Valid Numeric Value");
+                            IsValid = false;
+                        }
+                        else  if (filter.test(NOM))
+                            $(this).find("#txtNoOfMonths").removeClass("ErrorFocus");
+                    }
+                    else
+                        $(this).find("#txtNoOfMonths").removeClass("ErrorFocus");
+
+                    if ($(this).find("#txtTeamSize").val().length > 0) {
+
+                        var TS=$(this).find("#txtTeamSize").val();
+                        var filter = /^[0-9]*$/;
+
+                        if (!filter.test(TS)) {
+                            $(this).find("#txtTeamSize").addClass("ErrorFocus");
+                            $("#lblExpError").addClass("lblError");
+                            $("#lblExpError").removeClass("lblMessage");
+                            $('#lblExpError').text("Please Provide Valid Numeric Value");
+                            IsValid = false;
+                        }
+                        else  if (filter.test(TS))
+                            $(this).find("#txtTeamSize").removeClass("ErrorFocus");
+                    }
+                    else
+                        $(this).find("#txtTeamSize").removeClass("ErrorFocus");
+
+                    if (IsValid)
+                        dtExperience.push({
+                            "FKEmpID": EmpID, "CompanyName": $(this).find("#txtCompany").val(), "Designation": $(this).find("#txtDesignation").val(),
+                            "TeamSize": parseInt($(this).find("#txtTeamSize").val() == "" ? 0 : $(this).find("#txtTeamSize").val()), "Roles": $(this).find("#txtRoles").val(),
+                            "NoOfMonths": parseInt($(this).find("#txtNoOfMonths").val() == "" ? 0 : $(this).find("#txtNoOfMonths").val()),
+                            "ReasonForLeaving": $(this).find("#txtReasonForLeave").val(), "StartDate": FormatDate($(this).find(".sdateExp").val(), "yyyy/mm/dd"),
+                            "EndDate": FormatDate($(this).find(".edateExp").val(), "yyyy/mm/dd"), "Technologies": $(this).find("#txtTechnologies").val(),
+                            "Domain": $(this).find("#txtDomain").val(), "AttachmentPaths": $(this).find("#filehidden").val(), "CreatedDate": new Date(), "ModifiedDate": new Date(),
+                            "CreatedEmpID": EmpID, "ModifiedEmpID": EmpID
+                        });
+                });
+                if(!IsValid)
+                    return;
+                else{
+                    $.ajax({
+                        url: '/EmpInfoUserView/SaveExperience',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            EmployeeId: EmpID ,
+                            jsonData: JSON.stringify(dtExperience)
+                        },
+                        success: function (data) {
+                            ShowLabelMessage(data, "Experience", $('#lblExpError'));
+                            GetProfileCompleteness(EmpID);
+                        },
+                        error: function () {
+                            //alert('error');
+                        }
+                    });
+                }
+            }
+        });
+
+        //save identity
+        $("#btnSaveIdentity").click(function () {
+            //if (Validate('Identity')) {
+            $('#lblIdentError').text("");
+            var IsValid = true;
+            var dtIdentity = new Array();
+            var IsIdentityPresent=new Array();
+            $("#tblIdentity").find("tbody > tr").each(function () {
+                if ($(this).find("#ddlIdentityType option:selected").val() == "")
+                {
+                    $(this).find("#ddlIdentityType").addClass("ErrorFocus");
+                    IsValid = false;
+                }
+                else
+                {
+                    IsIdentityPresent.push($(this).find("#ddlIdentityType").val());
+                    $(this).find("#ddlIdentityType").removeClass("ErrorFocus");
+                }
+
+                if( $(this).find("#txtIdentityNumber").val() == "") {
+                    $(this).find("#txtIdentityNumber").addClass("ErrorFocus");
+                    IsValid = false;
+                }
+                else
+                    $(this).find("#txtIdentityNumber").removeClass("ErrorFocus");
+
+                if(!IsValid){
+                    $("#lblIdentError").addClass("lblError");
+                    $("#lblIdentError").removeClass("lblMessage");
+                    $('#lblIdentError').text("Please fill all mandatory fields");
+                }
+                //call save file indivudually and return filename
+                if (IsValid) {
+                    dtIdentity.push({
+                        "FKEmpID": EmpID, "IdentityType": parseInt($(this).find("#ddlIdentityType option:selected").val()), "IdentityNumber": $(this).find("#txtIdentityNumber").val(),
+                        "IdentityFilePath": $(this).find("#filehidden").val(), "CreatedDate": new Date(), "ModifiedDate": new Date(), "CreatedEmpID": EmpID, "ModifiedEmpID": EmpID
+                    });
+                }
+            });
+            if(!IsValid)
+                return;
+            else if((new Set(IsIdentityPresent)).size !== IsIdentityPresent.length)
+            {
+                var duplicates = IsIdentityPresent.reduce(function(acc, el, i, arr) {
+                    if (arr.indexOf(el) !== i && acc.indexOf(el) < 0) acc.push(el); return acc;
+                }, []);
+                for(var i=0;i<duplicates.length;i++){
+                    $(".identity option[value='"+duplicates[i]+"']:selected").parent().addClass("ErrorFocus");
+                }
+                $("#lblIdentError").addClass("lblError");
+                $("#lblIdentError").removeClass("lblMessage");
+                $('#lblIdentError').text("Identity Type already exists");
+            }
+            else {
+                $(".identity").removeClass("ErrorFocus");
+                $.ajax({
+                    url: '/EmpInfoUserView/SaveIdentity',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        EmployeeId: EmpID ,
+                        jsonData: JSON.stringify(dtIdentity)
+                    },
+                    success: function (data) {
+                        ShowLabelMessage(data, "Identity", $('#lblIdentError'));
+                        GetProfileCompleteness(EmpID);
+                    },
+                    error: function () {
+                        //alert('error');
+                    }
+                });
+                //}
+            }
+        });
+
+        //save competancy
+        $("#btnSaveCompetancy").click(function () {
+            $('#lblCompetError').text("");
+            //if (Validate('Competancy')) {
+            dtCompetancy = new Array();
+            var Skills = getCompetancy($("#listSkills"));
+            var Certification = getCompetancy($("#listCertification"));
+            var Technologies = getCompetancy($("#listTechnologies"));
+
+            if (Skills != "")
+                dtCompetancy.push({
+                    "FKEmpID": EmpID, "CompetencyType": "Skills", "CompetencyValue": Skills, "CreatedDate": new Date(), "ModifiedDate": new Date(),
+                    "CreatedEmpID": EmpID, "ModifiedEmpID": EmpID
+                });
+            if (Certification != "")
+                dtCompetancy.push({
+                    "FKEmpID": EmpID, "CompetencyType": "Certification", "CompetencyValue": Certification, "CreatedDate": new Date(), "ModifiedDate": new Date(),
+                    "CreatedEmpID": EmpID, "ModifiedEmpID": EmpID
+                });
+            if (Technologies != "")
+                dtCompetancy.push({
+                    "FKEmpID": EmpID, "CompetencyType": "Technologies", "CompetencyValue": Technologies, "CreatedDate": new Date(), "ModifiedDate": new Date(),
+                    "CreatedEmpID": EmpID, "ModifiedEmpID": EmpID
+                });
+            //if (dtCompetancy.length > 0) {
+            $.ajax({
+                url: '/EmpInfoUserView/SaveCompetancy',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    EmployeeId: EmpID ,
+                    jsonData: JSON.stringify(dtCompetancy)
+                },
+                success: function (data) {
+                    ShowLabelMessage(data, "Competency", $('#lblCompetError'));
+                    GetProfileCompleteness(EmpID);
+                },
+                error: function () {
+                    // alert('error');
+                }
+            });
+            //}
+            //  }
+        });
+    });
+    function getCompetancy(element) {
+        var returnVal = "";
+        element.find(".divcompetancy").each(function () {
+            returnVal = returnVal + $(this).text() + "|";
+        });
+        return returnVal;
+    }
+    //file upload image change for emp info
+    $("#imguploadprofile").change(function () {
+        UploadEmpInfoFiles(this, $("#propicUrl"), $("#hdnProPicFileVal"),0);
+    });
+    $("#fileUrl").click(function () {
+        UploadEmpInfoFiles($("#fileQuotesAttachment"), $("#passportUrl"), $("#hdnPassportPicFile"),1);
+    });
+    $("#imguploadbground").change(function () {
+        UploadEmpInfoFiles(this, $("#bgimagepropicUrl"), $("#hdnBgPicture"),0);
+    });
+
+    function UploadEmpInfoFiles(fileObject, imageObject, hiddenfield,type) {
+        var Attachments = new FormData();
+        var uploadedFilePath = "";
+        var DocUpload = $(fileObject).get(0);
+        var DocFiles = DocUpload.files;
+        if (DocFiles.length > 0) {
+            Attachments.append(DocFiles[0].name, DocFiles[0]);
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: Attachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    var docElement = $('#divProfileDocs');
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        uploadedFilePath = json[DocFiles[0].name];
+                    }
+                    if (type != 0)
+                    {
+                        docElement.empty();
+                        CheckExtension(docElement, DocFiles[0].name, json[DocFiles[0].name], "<a href='#'><div title='Close' class='documentclosebutton closeQuotes'>X</div></a>", null, 1);
+                        PreventDefaultClick();
+                    }
+                    else
+                    {
+                        hiddenfield.val(uploadedFilePath);
+                        readURL(fileObject, imageObject);
+                    }
+                    $(fileObject).val('');
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        }
+    }
+
+    function DefineFileUploads() {
+
+        //Exp file upload
+        $(".imgExpFileUpload").click(function () {
+            var divId = getCurrentDiv();
+            var fileElement = $(this).closest('td').find('#fileUploadAttachment');
+            var hiddenfield = fileElement.closest('td').find('#filehidden');
+            var fileCount = hiddenfield.val().split('||').length;
+
+            var divDocuments = $(this).closest('td').find('.divdocuments');
+            var expDocUpload = fileElement.get(0);
+            var docElement = fileElement.closest('td').find('.docDiv');
+            var expDocFiles = expDocUpload.files;
+            if (divId == 2 && (fileCount + expDocFiles.length) > 16) {
+                alert('File count cannot exceed 15!');
+                fileElement.val('');
+                return;
+            }
+            else if (divId == 4 && (fileCount + expDocFiles.length) > 6) {
+                alert('File count cannot exceed 5!');
+                fileElement.val('');
+                return;
+            }
+            else {
+                var uploadedFilePath = "";
+                var ExpAttachments = new FormData();
+                //if (expDocFiles.length > 0) {
+                for (i = 0; i < expDocFiles.length; i++) {
+                    ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+                }
+                $.ajax({
+                    url: '/EmpInfoUserView/UploadFiles',
+                    type: "POST",
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    data: ExpAttachments,
+                    success: function (result) {
+                        var json = $.parseJSON(result);
+                        if (json["Error"] == undefined || json["Error"] == null) {
+                            for (var i = 0; i < expDocFiles.length; i++) {
+                                hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                                CheckExtension(docElement, expDocFiles[i].name, json[expDocFiles[i].name], "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", divDocuments, (divId / 2));
+                                PreventDefaultClick();
+                            }
+                        }
+                    },
+                    error: function (err) {
+                        //alert(err.statusText);
+                    }
+                });
+                fileElement.val('');
+            }
+        });
+    }
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            //var divDocuments = $(this).closest('td').find('.divdocuments');
+            var docDivs = $(this).closest('td').find('.docDiv');
+            var hidden = $(this).closest('td').find('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+            //if (docDivs.children().length == 0)
+            //    divDocuments.hide();
+        });
+        $('.closeQuotes').click(function () {
+            $('#hdnPassportPicFile').val("");
+            //QuotesText="";
+            //$('#txtQuotes').val("");
+            $(this).closest('.docDiv').empty();
+            //$()
+        });
+    };
+    //identity file upload
+    function DefineIdentityFileUploads() {
+        $(".fileUploadIdentityAttachment").change(function () {
+            var fileElement = $(this);//.closest('td').find('#fileUploadIdentity');
+            var docElement = fileElement.closest('td').find('.docDiv');
+            var divDocuments = fileElement.closest('td').find('.divdocuments');
+            var IdenAttachment = new FormData();
+            var uploadedFilePath;
+            var hiddenfield = fileElement.closest('td').find('#filehidden');
+            var identityDocFiles = fileElement.get(0).files;
+            if (identityDocFiles.length > 0) {
+                IdenAttachment.append(identityDocFiles[0].name, identityDocFiles[0]);
+                $.ajax({
+                    url: '/EmpInfoUserView/UploadFiles',
+                    type: "POST",
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    data: IdenAttachment,
+                    success: function (result) {
+                        var json = $.parseJSON(result);
+                        if (json["Error"] == undefined || json["Error"] == null) {
+                            uploadedFilePath = json[identityDocFiles[0].name];
+                        }
+                        hiddenfield.val(uploadedFilePath+"||");
+                        docElement.empty();
+                        CheckExtension(docElement, identityDocFiles[0].name, uploadedFilePath, "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", divDocuments, 2);
+                        PreventDefaultClick();
+                        fileElement.val('');
+                    },
+                    error: function (err) {
+                        //alert(err.statusText);
+                    }
+                });
+            }
+        });
+    }
+
+    //Get Data from DB
+    function LoadDataFromDB(employeeId) {
+        //$('#txtEmpCode').css('textTransform', 'capitalize');
+        //Get Employee Info
+        $.ajax({
+            url: '/EmpInfoUserView/GetEmpInfo',
+            type: "GET",
+            async: false,
+            dataType: 'json',
+            data:{ EmployeeId: employeeId, Operation: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    if (resultVals[0]["Title"] != "")
+                        $("#ddlTitle option:contains(" + resultVals[0]["Title"] + ")").attr('selected', 'selected');
+                    $("#txtFname").val(resultVals[0]["FirstName"]);
+                    $("#txtLname").val(resultVals[0]["LastName"]);
+                    QuotesText = resultVals[0]["QuotesText"];
+                    $("#txtEmpCode").val(resultVals[0]["EmployeeCode"]);
+
+                    $("#txtOfficeEmail").val(resultVals[0]["WorkEmail"]);
+
+                    $("#txtWorkLocation").val(resultVals[0]["WorkLocation"]);
+                    $("#txtJoinDate").val(FormatDate(resultVals[0]["HireDate"], "mm/dd/yyyy"));
+                    $("#txtConfirmDate").val(FormatDate(resultVals[0]["ConfirmationDate"], "mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[0]["ConfirmationDate"], "mm/dd/yyyy"));
+
+                    $("#txtManager").val(resultVals[0]["Manager"]);
+                    $("#hfEmpId").val(resultVals[0]["ManagerId"]);
+
+                    $("#txtRelDate").val(FormatDate(resultVals[0]["RelievingDate"], "mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[0]["RelievingDate"], "mm/dd/yyyy"));
+
+                    $("#ddlDesignation").val(resultVals[0]["DesignationId"]);
+                    $("#ddlEmptType").val(resultVals[0]["FK_EmptTypeId"]);
+                    $("#ddlLocation option:contains(" + resultVals[0]["Location"] + ")").attr('selected', 'selected');
+
+                    $("#txtWorkStartTime").val(resultVals[0]["StartTime"]);
+                    $('#ddlEmpstatus').val(resultVals[0]["Fk_EmpStatus"]);
+                    $("#txtWorkEndTime").val(resultVals[0]["EndTime"]);
+                    if (resultVals[0]["ProfilePicUrl"] != "") {
+                        $('#hdnProPicFileVal').val(resultVals[0]["ProfilePicUrl"]);
+                        //var FileName = resultVals[0]["ProfilePicUrl"].split('\\').pop();
+                        $("#propicUrl").attr('src', resultVals[0]["ProfilePicUrl"]);
+                    }
+                    //if (resultVals[0]["QuotesPictureUrl"] != "") {
+                    //    $('#hdnPassportPicFile').val(resultVals[0]["QuotesPictureUrl"]);
+                    //    //var FileName = resultVals[0]["QuotesPictureUrl"].split('\\').pop();
+                    //    $("#passportUrl").attr('src', resultVals[0]["QuotesPictureUrl"]);
+                    //}
+                    if (resultVals[0]["BackGroundPicUrl"] != "") {
+                        $('#hdnBgPicture').val(resultVals[0]["BackGroundPicUrl"]);
+                        //var FileName = resultVals[0]["BackGroundPicUrl"].split('\\').pop();
+                        $("#bgimagepropicUrl").attr('src', resultVals[0]["BackGroundPicUrl"]);
+                    }
+                    //Load weekly Off
+                    var weekOff = resultVals[0]["WeekOffDays"];
+                    if (weekOff != "") {
+                        var days = weekOff.split('|');
+                        $(".weeklyoffdiv > .weeklydiv").each(function () {
+                            $(this).css("background-color", "rgba(255, 255, 255, 0.50)");
+                        });
+                        for (var i = 0; i < days.length - 1; i++) {
+                            $(".weeklyoffdiv > .weeklydiv > div[name='" + days[i] + "']").parent().css("background-color", "rgb(255, 91, 37)");
+                        }
+                    }
+                }
+                $.ajax({
+                    url: '/Home/GetEmpData',
+                    type: "GET",
+                    dataType: 'json',
+                    data:{ Id: employeeId, Operation: 95 },
+                    success: function (result) {
+                        var resultSet = $.parseJSON(result);
+                        if (resultSet["Result"] == undefined || resultSet["Result"] == null) {
+                            if (resultSet[0]["QuotesPictureUrl"] != "") {
+                                //$('#hdnPassportPicFile').val(resultVals[0]["QuotesPictureUrl"]);
+                                $("#passportUrl").attr('src', resultSet[0]["QuotesPictureUrl"]);
+                            }
+                        }
+                    },
+                    error: function (err) {
+                    }
+                });
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+
+        LoadGallery();
+
+        //Get Personal Info
+        $.ajax({
+            url: '/EmpInfoUserView/GetEmpInfo',
+            type: "GET",
+            async: false,
+            dataType: 'json',
+            data:{ EmployeeId: employeeId, Operation: 1 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    $("#txtaddress1").val(resultVals[0]["Address1"]);
+                    $("#txtcity1").val(resultVals[0]["City1"]);
+                    $("#txtstate1").val(resultVals[0]["State1"]);
+                    $("#txtcountry1").val(resultVals[0]["Country1"]);
+                    $("#txtzipcode1").val(resultVals[0]["ZipCode1"]);
+                    $("#txtphone1").val(resultVals[0]["Phone1"]);
+                    $("#txtaddress2").val(resultVals[0]["Address2"]);
+                    $("#txtcity2").val(resultVals[0]["City2"]);
+                    $("#txtstate2").val(resultVals[0]["State2"]);
+                    $("#txtcountry2").val(resultVals[0]["Country2"]);
+                    $("#txtZipcode2").val(resultVals[0]["ZipCode2"]);
+                    $("#txtPhone2").val(resultVals[0]["Phone2"]);
+                    $("#txtEmergencyPhone").val(resultVals[0]["EmergencyPhone"]);
+                    $("#txtEmail").val(resultVals[0]["EmailId"]);
+                    var dobDate = FormatDate(resultVals[0]["DOB"], "mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[0]["DOB"], "mm/dd/yyyy");
+                    $("#txtDob").val(dobDate);
+                    $("#txtBloodGroup").val(resultVals[0]["BloodGroup"]);
+                    $("#txtNationality").val(resultVals[0]["Nationality"]);
+                    var Gender = resultVals[0]["Gender"];
+                    $(".genderdiv > .gendersubdiv > .weeklyofftext").each(function () {
+                        $(this).parent().css("background-color", "rgba(255, 255, 255, 0.5)");
+                    });
+                    $(".genderdiv > .gendersubdiv > div[title='" + Gender + "']").parent().css("background-color", "rgb(255, 91, 37)");
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+        //Get Academic Info
+        $.ajax({
+            url: '/EmpInfoUserView/GetEmpInfo',
+            type: "GET",
+            async: false,
+            dataType: 'json',
+            data:{ EmployeeId: employeeId, Operation: 2 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                var rowObject;
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (i > 0) {
+                            addRow($('#tblAcademic'),$('#lblAcademicError'));
+                        }
+                        rowObject = $('#tblAcademic').find("tr:nth-child(" + (i + 1) + ")");
+                        rowObject.find('#txtSchool').val(resultVals[i]["School"]);
+                        rowObject.find('#txtCourse').val(resultVals[i]["Course"]);
+                        rowObject.find('#txtMajor').val(resultVals[i]["Major"]);
+                        rowObject.find('#txtMinor').val(resultVals[i]["Minor"]);
+                        rowObject.find('#txtYear').val(resultVals[i]["YearofPassing"] == 0 ? "" : resultVals[i]["YearofPassing"]);
+                        rowObject.find('#txtBoard').val(resultVals[i]["University"]);
+                        rowObject.find('#lblPercentage').text(resultVals[i]["PerMarks"]);
+                        rowObject.find('#txtGrade').val(resultVals[i]["Grade"]);
+                        if (resultVals[i]["CourseCompletion"] == 1)
+                            rowObject.find('#cbCourseCompletion').prop('checked', true);
+                        var attachmentUrl = resultVals[i]["Attachments"];
+                        if (attachmentUrl != "") {
+                            rowObject.find('#filehidden').val(attachmentUrl);
+                            var files = attachmentUrl.split('||');
+                            var docElement = rowObject.find('#fileUploadAttachment').closest('td').find('.docDiv');
+                            var divDocuments = rowObject.find('#fileUploadAttachment').closest('td').find('.divdocuments');
+                            for (var j = 0; j < files.length - 1; j++) {
+                                CheckExtension(docElement, files[j].split('\\').pop(), files[j], "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", divDocuments, 1);
+                                PreventDefaultClick();
+                            }
+                        }
+                    }
+                    sliding();
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+
+        //Get Experience Details
+        $.ajax({
+            url: '/EmpInfoUserView/GetEmpInfo',
+            type: "GET",
+            async: false,
+            dataType: 'json',
+            data:{ EmployeeId: employeeId, Operation: 4 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                var rowObject;
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (i > 0) {
+                            addRow($('#tblExperience'),$('#lblExpError'));
+                            $('body').on('focus',".dateExp", function(){
+                                $(this).datepicker();
+                            });
+                        }
+                        rowObject = $('#tblExperience').find("tr:nth-child(" + (i + 1) + ")");
+                        rowObject.find('#txtCompany').val(resultVals[i]["CompanyName"]);
+                        rowObject.find('#txtDesignation').val(resultVals[i]["Desgination"]);
+                        rowObject.find('#txtTeamSize').val(resultVals[i]["TeamSize"] == 0 ? "" : resultVals[i]["TeamSize"]);
+                        rowObject.find('#txtRoles').val(resultVals[i]["Roles"]);
+                        rowObject.find('#txtNoOfMonths').val(resultVals[i]["NoOfMonths"] == 0 ? "" : resultVals[i]["NoOfMonths"]);
+                        rowObject.find('#txtReasonForLeave').val(resultVals[i]["ReasonForLeaving"]);
+                        rowObject.find('.sdateExp').val(FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[i]["StartDate"], "mm/dd/yyyy"));
+                        rowObject.find('.edateExp').val(FormatDate(resultVals[i]["EndDate"],"mm/dd/yyyy") == "01/01/1753" ? "" : FormatDate(resultVals[i]["EndDate"], "mm/dd/yyyy"));
+                        rowObject.find('#txtTechnologies').val(resultVals[i]["Technologies"]);
+                        rowObject.find('#txtDomain').val(resultVals[i]["Domain"]);
+
+                        var attachmentUrl = resultVals[i]["Attachments"];
+                        if (attachmentUrl != "") {
+                            rowObject.find('#filehidden').val(attachmentUrl);
+                            var files = attachmentUrl.split('||');
+                            var docElement = rowObject.find('#fileUploadAttachment').closest('td').find('.docDiv');
+                            var divDocuments = rowObject.find('#fileUploadAttachment').closest('td').find('.divdocuments');
+                            for (var j = 0; j < files.length - 1; j++) {
+                                CheckExtension(docElement, files[j].split('\\').pop(), files[j], "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", divDocuments, 2);
+                                PreventDefaultClick();
+                            }
+                        }
+                    }
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+
+        //Get Competancy Info
+        var compInfo = new Array();
+
+        $.ajax({
+            url: '/EmpInfoUserView/GetEmpInfo',
+            type: "GET",
+            async: false,
+            dataType: 'json',
+            data:{ EmployeeId: employeeId, Operation: 5 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    var competancy;
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (resultVals[i]["CompetencyValue"] != "") {
+                            competancy = resultVals[i]["CompetencyValue"].split('|');
+                            var listObject = $("#list" + resultVals[i]["CompetencyType"]);
+                            if (listObject != undefined)
+                                for (var j = 0; j < competancy.length - 1; j++) {
+                                    listObject.append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; " +
+                           "min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + competancy[j] +
+                            "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                            "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+                                }
+                        }
+                    }
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+
+        //Get Identity Details
+        var IdentInfo = new Array();
+        $.ajax({
+            url: '/EmpInfoUserView/GetEmpInfo',
+            type: "GET",
+            async: false,
+            dataType: 'json',
+            data:{ EmployeeId: employeeId, Operation: 3 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                var rowObject;
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (i > 0) {
+                            addRow($('#tblIdentity'),$('#lblIdentError'));
+                        }
+                        rowObject = $('#tblIdentity').find("tr:nth-child(" + (i + 1) + ")");
+                        rowObject.find("#ddlIdentityType").val(resultVals[i]["FKIdentityTypeId"]);
+                        rowObject.find('#txtIdentityNumber').val(resultVals[i]["IdentityNumber"]);
+                        var attachmentUrl = resultVals[i]["Attachments"];
+                        if (attachmentUrl != "") {
+                            rowObject.find('#filehidden').val(attachmentUrl);
+                            var docElement = rowObject.find('#fileUploadIdentity').closest('td').find('.docDiv');
+                            var divDocuments = rowObject.find('#fileUploadIdentity').closest('td').find('.divdocuments');
+                            docElement.empty();
+                            CheckExtension(docElement, attachmentUrl, attachmentUrl.replace("||",""), "<a title='Close' href='#'><div class='documentclosebutton closeImage'>X</div></a>", divDocuments, 2);
+                            PreventDefaultClick();
+                        }
+                    }
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+    }
+
+    //get profile completeness
+    function GetProfileCompleteness(employeeId) {
+        $.ajax({
+            url: '/EmpInfoUserView/GetProfileCompleteness',
+            type: "GET",
+            dataType: 'json',
+            data:{ EmployeeId: employeeId },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    var percentage = resultVals[0]["ProfileCompleted"];
+                    if (percentage != "") {
+                        $(".prgspercent").width(percentage + "%");
+                        $(".prgspercenttext").text(percentage + "%");
+                    }
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+    }
+
+    //load all dropdowns
+    function LoadDropDowns() {
+
+        LoadDdls("/EmpInfoUserView/GetDesignation", $('#ddlDesignation'), "DesignationId", "Designation");
+        LoadDdls("/EmpInfoUserView/GetEmptType", $('#ddlEmptType'), "EmptTypeId", "EmploymentType");
+        LoadDdls("/EmpInfoUserView/GetLocation", $('#ddlLocation'), "LocationId", "Location");
+        LoadDdls("/EmpInfoUserView/GetDdlIdentity", $('#ddlIdentityType'), "IdentityTypeId", "IdentityType");
+        LoadDdls("/Home/GetDdlData?Id=0&Operation=39", $('#ddlEmpstatus'), "EmpStatusId", "EmpStatus");
+    }
+
+
+    $(function () {
+        var CompareItems = new Array();
+        $(".autocompleteEmp").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/EmpInfoAdminView/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'EmpName': '" + request.term + "' }",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                            CompareItems.push(data[i]["Value"]);
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                    },
+                    failure: function (response) {
+                    }
+                });
+            },
+            change: function (event, ui) {
+                var val = $(this).val();
+                var exists = $.inArray(val, CompareItems);
+                if (exists < 0) {
+                    $(this).val("");
+                    return false;
+                }
+            },
+            select: function (e, i) {
+                $(this).siblings('.hfEmpId').val(i.item.Id);
+                $(this).val(i.item.label);
+            },
+            minLength: 1
+        });
+        $("#txtResources").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/EmpInfoAdminView/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'EmpName': '" + request.term + "' }",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                    },
+                    failure: function (response) {
+                    }
+                });
+            },
+            select: function (e, i) {
+                if (i.item.label != "") {
+                    $("#listResources").empty();
+                    $("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                                 "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                             "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+                    $(this).val("");
+                    return false;
+                }
+            },
+            minLength: 1
+        });
+        $('.nextbtn, .prvbtn').click(function () {
+            $('#lblEmpError').text('');
+            $('#lblPersonalError').text('');
+            $('#lblAcademicError').text('');
+            $('#lblCompetError').text('');
+            $('#lblExpError').text('');
+            $('#lblIdentError').text('');
+        });
+    });
+    function AddExpRow(obj){
+        addRow(obj,$('#lblExpError'));
+
+    }
+    function previewImage() {
+        hiddenfield = $('#filehidden');
+        var expDocFiles = $('#fileUploadAttachement').get(0).files;
+        var ExpAttachments = new FormData();
+        for (i = 0; i < expDocFiles.length; i++) {
+            ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+        }
+        $.ajax({
+            url: '/EmpInfoUserView/UploadFiles',
+            type: "POST",
+            async: false,
+            contentType: false,
+            processData: false,
+            data: ExpAttachments,
+            success: function (result) {
+                var json = $.parseJSON(result);
+                if (json["Error"] == undefined || json["Error"] == null) {
+                    for (var i = 0; i < expDocFiles.length; i++) {
+                        hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                        $('#divImage').append("<div class='empSlides empGal'><div class='userinfoclosediv'><div class='profilepicclosebtn PreventDefault ' onclick='removeBrowsedImg(this);'><a href='#' title='Delete Image'>"
+                        +"<i class='fa fa-times' aria-hidden='true'></i></a></div></div><div class='Popupprofilepicimagediv'><div class='Popupprofilepic'><img class='imgProfile' src='" + json[expDocFiles[i].name] + "'></div></div>"
+                        +"<div class='Profilequotesmaindiv'><div class='Profilequotestextboxdiv'><div class='Profilequotestextboxsubdiv'><input Name='Quote' type='text' class='Profilequotestextbox txtQuote' maxlength='400' placeholder='Type Your Quotes Here'>"
+                        +"</div><div class='Profilepiccleartxtbox PreventDefault' onclick='clearQuote(this);'><a href='#' title='Remove Quote'><i class='fa fa-times-circle' aria-hidden='true' ></i></a></div></div></div></div></div>");
+                        index++;
+                        showSlides(slideIndex+=1,true);
+                    }
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+                //alert(err);
+            }
+        });
+        $('#fileUploadAttachement').val('');
+        //var totalFile = document.getElementById("fileUploadAttachement").files.length;
+        //for (var i = 0; i < totalFile; i++) {
+
+        //}
+        if($(".empSlides").length > 1)
+        {
+            $("#hrefNxtImage").show();
+            $("#hrefPrevImage").show();
+        }
+
+    }
+    function showSlides(n,IsFileUpload) {
+        var i;
+        var slides;
+        slides= document.getElementsByClassName("empSlides");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1 || IsFileUpload) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex-1].style.display = "block";
+    }
+    function plusSlides(n) {
+        showSlides(slideIndex += n,false);
+    }
+    function BrowseImage() {
+        $("#fileUploadAttachement").click();
+    }
+    function CloseQuotesPopup()
+    {
+        $('.empSlides.empGal').each(function(i, obj) {
+            if($(this).find(".imgProfile").length > 0)
+            {
+                InitialImage = $(this).find(".imgProfile").attr("src");
+                $("#passportUrl").attr('src', InitialImage);
+                return false;
+            }
+            else
+                $("#passportUrl").attr('src', '/Images/NoImage.jpg'); //If deleted all images
+        });
+        if($(".empSlides.empGal").length = 0)
+            $("#passportUrl").attr('src', '/Images/NoImage.jpg'); //If no images in gallery
+        $('#dlgAddProfilepicture')[0].close();
+    }
+    function clearQuote(obj)
+    {
+        $(obj).parent().find('.Profilequotestextbox').val('');
+        PreventDefaultClick();
+    }
+    function removeImage(obj)
+    {
+        var hidden = $('#filehidden');
+        hidden.val(hidden.val().replace($(obj).parent('div').siblings().find('.filehidden').val() + '||', ''));
+        $(obj).parent('div').next(".imgProfile").remove();
+        $(obj).closest(".userinfoclosediv").find("a").remove();
+        $(obj).closest(".userinfoclosediv").siblings().find("div").remove();
+        $(obj).find(".profilethumbnaildiv").remove();
+        $(obj).html('<div style="margin-right:170px;margin-top:130px;"><label style="color:white;font-size:20px;">Image Deleted</label></div>');
+        PreventDefaultClick();
+    }
+    function removeBrowsedImg(obj)
+    {
+        $(obj).html('<div style="margin-right:170px;margin-top:120px;"><label style="color:white;font-size:20px;">Image Deleted</label></div>');
+        $(obj).parent().siblings().remove();
+        PreventDefaultClick();
+    }
+
+    //Get gallery data
+    function LoadGallery()
+    {
+        $(".empGal").remove();
+        slideIndex = 1;
+        showSlides(slideIndex,false);
+        $.ajax({
+            url: '/Home/GetEmpData',
+            type: 'GET',
+            async:false,
+            dataType: 'json',
+            data: {
+                Id:EmpID,Operation:93
+            },
+            success: function (data) {
+                var resultVals = $.parseJSON(data);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    hiddenfield.val('');
+                    for(var i=0;i<resultVals.length;i++)
+                    {
+                        if(i==0)
+                            $("#passportUrl").attr('src', resultVals[i]["QuotesPictureUrl"]);
+                        $('#divImage').append("<div class='empSlides empGal' style='Height:305px;'><div class='userinfoclosediv'><div class='profilepicclosebtn PreventDefault ' onclick='removeBrowsedImg(this);'><a href='#' title='Delete Image'>"
+                        +"<i class='fa fa-times' aria-hidden='true'></i></a></div></div><div class='Popupprofilepicimagediv'><div class='Popupprofilepic'><img class='imgProfile' src='" + resultVals[i]["QuotesPictureUrl"] + "'></div></div>"
+                        +"<div class='Profilequotesmaindiv'><div class='Profilequotestextboxdiv'><div class='Profilequotestextboxsubdiv'><input Name='Quote' type='text' class='Profilequotestextbox txtQuote' maxlength='200' placeholder='Type Your Quotes Here' value='"+resultVals[i]["QuotesText"]+"'>"
+                        +"</div><div class='Profilepiccleartxtbox PreventDefault' onclick='clearQuote(this);'><a href='#' title='Remove Quote'><i class='fa fa-times-circle' aria-hidden='true' ></i></a></div></div></div></div></div>");
+                        showSlides(slideIndex + 1);
+                    }
+                    PreventDefaultClick();
+                }
+                else
+                    $("#passportUrl").attr('src', '/Images/NoImage.jpg');
+            },
+            error: function () {
+            }
+        });
+        $('#fileUploadAttachement').val('');
+        $("#hrefNxtImage").hide();
+        $("#hrefPrevImage").hide();
+        if($(".empSlides").length > 1)
+        {
+            $("#hrefNxtImage").show();
+            $("#hrefPrevImage").show();
+        }
+    }
+</script>

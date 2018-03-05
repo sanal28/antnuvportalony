@@ -1,0 +1,390 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int PollId = 0;
+    if (Request["PollId"] != null && Request["PollId"] != "")
+    {
+        PollId = Convert.ToInt16(Request["PollId"].ToString());
+    }
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/poll-details-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Create Office Poll</div>
+            </div>          
+        </div>
+    </div>
+
+    <div class="contentmaindiv">
+        <div id="clearOfficePoll">
+            <div class="myprojectdiv">
+                <a class="backbuttondiv" id="hrefBack" href="@Url.Action("OfficePollLog","HR")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            </div>
+            <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="contentfielddiv">
+                            <input id="txtTitle" type="text" class="floating-input" required placeholder=" " />
+                            <label class="float">Form Title</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <input id="txtEndDate" type="text" class="floating-input" required placeholder=" "/>
+                            <Label class="float">End Date</Label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="space1"></div>
+                <div class="space1"></div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="contentfielddiv">
+                            <input id="txtTopic" type="text" class="floating-input" required placeholder=" " />
+                            <Label class="float">Question/Topic</Label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contentfielddiv">
+                            <select id="ddlFieldType" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                                <option value=""></option>
+                            </select>
+                            <label class="float">Field Type</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="contentfielddiv optionDiv">
+                            <div class="weeklytext1">Options</div>
+                            <div class="contenttextarea focusdiv">
+                                <div id="listSkills" class="list competancylist"></div><input class="competancy" id="txtOptions" placeholder="+ Click to Add" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="contentfielddiv ">
+                            <div class="textarea-wrapper">
+                                <textarea id="txtNote" class="floating-input" required placeholder=" "></textarea>
+                                <Label class="float">Note</Label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td width="90%">
+                                        <div class="contentfielddiv hideupload">
+                                            <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                            <input type="file" id="fileUploadAttachment" class="contenttextfield" placeholder="Attachment" multiple>
+                                        </div>
+                                    </td>
+                                    <td width="10%" align="right"><div class="uploadbutton hideupload"><a href="#"><img title="Upload" id="fileUrl" class="imgExpFileUpload" src="../images/upload.gif" width="25" height="25" alt="" /></a></div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="weeklyoffmaindiv">
+                            <div class="workstarttimediv" style="max-height:50px;">
+                                <div id="divTaskDocs" class="docDiv">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttonmaindiv hideButtons">
+                    <div class="buttondiv"><input title="Save" id="btnSaveOfficePoll" class="submitbtn" type="button" /></div>
+                    <div class="buttondiv"><input title="SaveAndNew" id="btnSaveandnewOfficePoll" class="submitandnewbtn" type="button" /></div>
+                    <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onclick="return ClearAllControlValues('clearOfficePoll')" /></div>
+                    <div class="ErrorLabel"><label id="lblMessage" class="lblMessage"></label></div>
+                </div>
+            </div>
+    </div>
+</div>
+<script>
+    var EmpID = 0;
+    $(document).ready(function () {
+        // $('select').each(function () { $(this).click(); });
+        //$('#txtEndDate').attr('readonly', 'readonly');
+        $(".focusdiv").click(function () {
+            $("#txtOptions").focus();
+        });
+        if(@PollId!=0)
+        {
+            loadOfficePoll(); 
+            $("#txtOptions").hide();
+            $(".hideButtons").hide();
+            
+        }
+       $(".optionDiv").hide();
+        DefineDatePicker($('#txtEndDate'));
+        LoadDropDowns();
+        $("#ddlFieldType").click(function () {
+            if ($("#ddlFieldType option:selected").text() == "TextBox") {
+                $(".optionDiv").hide();
+            }
+            else if (($("#ddlFieldType option:selected").text() == "CheckBox") || ($("#ddlFieldType option:selected").text() == "Radio") || ($("#ddlFieldType option:selected").text() == "DropDownList")) {
+                $(".optionDiv").show();
+               
+            }
+        });
+        var sessionVal = parseInt(@Session["EmpID"]);
+        if (!isNaN(sessionVal) && sessionVal != "")
+        { EmpID = parseInt(@Session["EmpID"]);}      
+    });
+    //Load Office Poll
+    function loadOfficePoll() {
+        $.ajax({
+            url: '/HR/loadOfficePoll',
+            type: 'Get',
+            dataType: 'json',
+            data: {
+                idval:@PollId,Operation:61
+            },
+            success: function (result) { 
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    $("#txtTitle").val(resultVals[0]["Title"]);                    
+                    $("#txtEndDate").val(FormatDate(resultVals[0]["EndDate"],"mm/dd/yyyy"));
+                    $("#txtTopic").val(resultVals[0]["Question"]);
+                    $("#ddlFieldType").val(resultVals[0]["QuestionTypeId"]);
+                    $("#ddlFieldType").click();
+                    $("#txtNote").val(resultVals[0]["Note"]);
+                    showAttachments(resultVals[0]["AttachmentPath"]);
+
+                    if(@PollId!=0){
+                        $('#txtTitle').attr('readonly', true);
+                        $('#txtEndDate').attr('disabled', true);
+                        $('#txtTopic').attr('disabled', true);
+                        $("#ddlFieldType").attr('disabled', 'disabled');
+                        $("#ddlFieldType").click();
+                        $('#txtNote').attr('readonly', 'true');                           
+                        $('.hideupload').hide();
+                    }
+                    else
+                    {
+                        $('#txtTitle').attr('readonly', false);
+                        $('#txtEndDate').attr('readonly', false);
+                        $('#txtTopic').attr('disabled', false);
+                        $("#ddlFieldType").attr('disabled', false);
+                        $("#ddlFieldType").click();
+                        $('#txtNote').attr('readonly', false);   
+
+                    }
+                   // var competancy;
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (resultVals[i]["OptionText"] != "") {
+                           // competancy = resultVals[i]["OptionText"]
+                            var listObject=$("#listSkills");
+                            //var listObject = $("#list" + resultVals[i]["CompetencyType"]);
+                            if (listObject != undefined)
+                                //for (var j = 0; j < competancy.length - 1; j++) {
+                                    listObject.append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; " +
+                           "min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + resultVals[i]["OptionText"] +
+                            "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                            "</div></div>");
+                                }
+                        }
+                    //}
+                    
+                }
+            },
+            error: function () {
+            
+            }
+        });
+
+    }
+   
+    //Load Attachment
+    function showAttachments(attachmentURLs) {
+        attachmentURLs = attachmentURLs.split('||');
+        var docElement = $('#divTaskDocs');
+        for (var i = 0; i < (attachmentURLs.length - 1); i++) {
+            CheckExtension(docElement, "", attachmentURLs[i], "", null, 1);
+            //CheckExtension(docElement, "", attachmentURLs[i], "<a href='#'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+        }
+    }
+   
+    //Save Office poll
+
+    $("#btnSaveOfficePoll").click(function () {
+        
+        pgId = $(this).attr("id");
+        $("#btnSaveandnewOfficePoll").trigger("click");
+      
+
+    });
+    $("#btnSaveandnewOfficePoll").click(function () {
+        if (Validate("OfficePoll")) {
+            $.ajax({
+                url: '/HR/saveOfficePoll',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    Title: $('#txtTitle').val(), Note: $('#txtNote').val(), AttachmentPath: $('#filehidden').val(), EndDate: FormatDate($("#txtEndDate").val(), "yyyy/mm/dd")
+                },
+                success: function (result) {//return PollId             
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        //alert(resultVals[0]["PollId"]);
+                        $.ajax({
+                            url: '/HR/saveQuestion',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                PollId: (resultVals[0]["PollId"]), QuestionTypeId: $("#ddlFieldType option:selected").val(), Question: $('#txtTopic').val()
+                            },
+                            success: function (result) {//return Question Id  
+                                //var options = getCompetancy($("#listSkills"));
+                                //if (options != "") {
+                                var resultVals = $.parseJSON(result);
+                                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                                    dtOfficePoll = new Array();
+                                    if($("#ddlFieldType option:selected").val()==1)
+                                    {ClearAllControlValues('clearOfficePoll');
+                                    $("#lblMessage").text("Office Poll Submitted Successfully");
+                                    if (pgId == "btnSaveOfficePoll") {
+                                        document.getElementById("hrefBack").click();
+                                        pgId = 0;
+                                    }
+
+
+                                    }
+                                    else
+                                    {
+                                        $("#listSkills").find(".divcompetancy").each(function () {
+                                            dtOfficePoll.push({ "FK_QuestionId": (resultVals[0]["QuestionId"]), "OptionText": $(this).text(), "ModifiedEmpID": EmpID, "CreatedEmpID": EmpID });
+                                        });
+                                        if (dtOfficePoll.length > 0) {
+                                            $.ajax({
+                                                url: '/HR/SetOptions',
+                                                type: 'POST',
+                                                dataType: 'json',
+                                                data: {
+                                                    jsonOptions: JSON.stringify(dtOfficePoll)
+                                                },
+                                                success: function (result) {
+                                                    ClearAllControlValues('clearOfficePoll');
+                                                    $("#lblMessage").text("Office Poll Submitted Successfully");
+
+
+                                                },
+                                                error: function () {
+                                                    $("#lblMessage").text("Error Submitted Office Poll");
+                                                }
+                                            });
+                                        }
+                                    }
+                                }
+
+                            },
+                            error: function () {
+                                //alert("Error");
+                            }
+                        });
+                    }
+
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        }
+    });
+
+    //Options
+    DefineCompetancies($("#listSkills"), $('#txtOptions'));
+
+    function DefineCompetancies(listObject, inputObject) {
+        inputObject.keypress(function (e) {
+            var key = e.which;
+            if (key == 13) {
+                var inputText = $(this).val();
+                if (inputText != "") {
+                    listObject.append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy'>" + inputText +
+                                "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                            "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+                    $(this).val("");
+                }
+            }
+        });
+    }
+    //fileipload
+    $(function () {
+        $('.imgExpFileUpload').click(function () {
+            var divId = getCurrentDiv();
+            var fileElement = $('#fileUploadAttachment');
+            var hiddenfield = $('#filehidden');
+            var fileCount = hiddenfield.val().split('||').length;            
+            var expDocUpload = fileElement.get(0);
+            var docElement = $('#divTaskDocs');
+            var expDocFiles = expDocUpload.files;
+            var uploadedFilePath = "";
+            var ExpAttachments = new FormData();
+            if (fileCount + expDocFiles.length > 25) {
+                alert('File count cannot exceed 24!');
+                fileElement.val('');
+                return;
+            }
+            for (i = 0; i < expDocFiles.length; i++) {
+                ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+            }
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: ExpAttachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < expDocFiles.length; i++) {
+                            hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                            CheckExtension(docElement, expDocFiles[i].name, json[expDocFiles[i].name], "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                        }
+                    }
+                },
+                error: function (err) {
+                }
+            });
+            fileElement.val('');
+        });
+    });
+
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();            
+            var docDivs = $('#divTaskDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();           
+        });
+    };
+    //dropdown
+    function LoadDropDowns() {
+        LoadDdls("/HR/getFieldType", $('#ddlFieldType'), "QuestionTypeId", "QuestionType");
+    }
+
+</script>
+
+

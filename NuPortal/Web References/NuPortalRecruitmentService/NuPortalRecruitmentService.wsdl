@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="OpeningsOper">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="openingId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Certification" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContractPeriod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CTC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Domain" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ExperienceRequired" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKDepartment" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKManager" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKRecruiter" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Role" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Industry" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="JobDescription" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="JobOpeningStatus" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="JobTitle" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="JobType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="NOOfVacancy" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Skills" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Technologies" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKCompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OpeningsOperResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OpeningsOperResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewApplicantOper">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NewApplicantId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdditionalInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AssignedBy" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="AssignedTo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentCTC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentEmployer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentJobTitle" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ExpectedCTC" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ExperianceinMonths" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKApplicantIdStatus" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKOpeningsId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="HighestQualification" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LinkedInID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MobileNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Skills" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SkypeID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Street" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ZipCode" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Technologies" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TwitterID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewApplicantOperResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewApplicantOperResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewAllApplicantOper">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AllApplicantId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdditionalInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="AssignedTo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentCTC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentEmployer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrentJobTitle" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ExpectedCTC" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ExperianceinMonths" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKApplicantIdStatus" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKCompanyId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="HighestQualification" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LinkedInID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MobileNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Skills" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SkypeID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Street" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ZipCode" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Technologies" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TwitterID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NewAllApplicantOperResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NewAllApplicantOperResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ScheduleInterview">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Date" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ApplicantId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="InterviewType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Time" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ScheduleInterviewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ScheduleInterviewResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetInterview">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInterView" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetInterviewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetInterviewResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InterviewAssessment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InterviewAssessmentId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKInterviewerId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKScheduledId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="InterpersonalSkills" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="LeadershipSkills" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="PresentaitonSkills" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Teamwork" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="TechinicalAbility" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InterviewAssessmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InterviewAssessmentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApplicantStatusUpdate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApplicantId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="OpeningId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="StatusId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="AssignTo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="AssignBy" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="operationId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApplicantStatusUpdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApplicantStatusUpdateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TimesheetReport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="empId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ProjectId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="startDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="endDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TimesheetReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TimesheetReportResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InterviewScheduleUpdate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApplicantId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="InterviewerId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Interviewer" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InterviewScheduleUpdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InterviewScheduleUpdateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateJoinedEmployee">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FKNewApp" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmployeeCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="JobTitle" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Manager" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProfilePicUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QuotesPictureUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BackGroundPicUrl" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="HireDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ConfirmationDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="WorkEMail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="OfficeLocation" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="WorkLocation" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmptTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RelievingDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FkEmpStatus" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="WeekOffDays" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndTime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QuotesText" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateJoinedEmployeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateJoinedEmployeeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UspUpdateJoinedEmpolyee">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UspUpdateJoinedEmpolyeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UspUpdateJoinedEmpolyeeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="OpeningsOperSoapIn">
+    <wsdl:part name="parameters" element="tns:OpeningsOper" />
+  </wsdl:message>
+  <wsdl:message name="OpeningsOperSoapOut">
+    <wsdl:part name="parameters" element="tns:OpeningsOperResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewApplicantOperSoapIn">
+    <wsdl:part name="parameters" element="tns:NewApplicantOper" />
+  </wsdl:message>
+  <wsdl:message name="NewApplicantOperSoapOut">
+    <wsdl:part name="parameters" element="tns:NewApplicantOperResponse" />
+  </wsdl:message>
+  <wsdl:message name="NewAllApplicantOperSoapIn">
+    <wsdl:part name="parameters" element="tns:NewAllApplicantOper" />
+  </wsdl:message>
+  <wsdl:message name="NewAllApplicantOperSoapOut">
+    <wsdl:part name="parameters" element="tns:NewAllApplicantOperResponse" />
+  </wsdl:message>
+  <wsdl:message name="ScheduleInterviewSoapIn">
+    <wsdl:part name="parameters" element="tns:ScheduleInterview" />
+  </wsdl:message>
+  <wsdl:message name="ScheduleInterviewSoapOut">
+    <wsdl:part name="parameters" element="tns:ScheduleInterviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetInterviewSoapIn">
+    <wsdl:part name="parameters" element="tns:SetInterview" />
+  </wsdl:message>
+  <wsdl:message name="SetInterviewSoapOut">
+    <wsdl:part name="parameters" element="tns:SetInterviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="InterviewAssessmentSoapIn">
+    <wsdl:part name="parameters" element="tns:InterviewAssessment" />
+  </wsdl:message>
+  <wsdl:message name="InterviewAssessmentSoapOut">
+    <wsdl:part name="parameters" element="tns:InterviewAssessmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApplicantStatusUpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:ApplicantStatusUpdate" />
+  </wsdl:message>
+  <wsdl:message name="ApplicantStatusUpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:ApplicantStatusUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="TimesheetReportSoapIn">
+    <wsdl:part name="parameters" element="tns:TimesheetReport" />
+  </wsdl:message>
+  <wsdl:message name="TimesheetReportSoapOut">
+    <wsdl:part name="parameters" element="tns:TimesheetReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="InterviewScheduleUpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:InterviewScheduleUpdate" />
+  </wsdl:message>
+  <wsdl:message name="InterviewScheduleUpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:InterviewScheduleUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateJoinedEmployeeSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateJoinedEmployee" />
+  </wsdl:message>
+  <wsdl:message name="CreateJoinedEmployeeSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateJoinedEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UspUpdateJoinedEmpolyeeSoapIn">
+    <wsdl:part name="parameters" element="tns:UspUpdateJoinedEmpolyee" />
+  </wsdl:message>
+  <wsdl:message name="UspUpdateJoinedEmpolyeeSoapOut">
+    <wsdl:part name="parameters" element="tns:UspUpdateJoinedEmpolyeeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="RecruitmentSoap">
+    <wsdl:operation name="OpeningsOper">
+      <wsdl:input message="tns:OpeningsOperSoapIn" />
+      <wsdl:output message="tns:OpeningsOperSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewApplicantOper">
+      <wsdl:input message="tns:NewApplicantOperSoapIn" />
+      <wsdl:output message="tns:NewApplicantOperSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NewAllApplicantOper">
+      <wsdl:input message="tns:NewAllApplicantOperSoapIn" />
+      <wsdl:output message="tns:NewAllApplicantOperSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ScheduleInterview">
+      <wsdl:input message="tns:ScheduleInterviewSoapIn" />
+      <wsdl:output message="tns:ScheduleInterviewSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetInterview">
+      <wsdl:input message="tns:SetInterviewSoapIn" />
+      <wsdl:output message="tns:SetInterviewSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InterviewAssessment">
+      <wsdl:input message="tns:InterviewAssessmentSoapIn" />
+      <wsdl:output message="tns:InterviewAssessmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApplicantStatusUpdate">
+      <wsdl:input message="tns:ApplicantStatusUpdateSoapIn" />
+      <wsdl:output message="tns:ApplicantStatusUpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TimesheetReport">
+      <wsdl:input message="tns:TimesheetReportSoapIn" />
+      <wsdl:output message="tns:TimesheetReportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InterviewScheduleUpdate">
+      <wsdl:input message="tns:InterviewScheduleUpdateSoapIn" />
+      <wsdl:output message="tns:InterviewScheduleUpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateJoinedEmployee">
+      <wsdl:input message="tns:CreateJoinedEmployeeSoapIn" />
+      <wsdl:output message="tns:CreateJoinedEmployeeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UspUpdateJoinedEmpolyee">
+      <wsdl:input message="tns:UspUpdateJoinedEmpolyeeSoapIn" />
+      <wsdl:output message="tns:UspUpdateJoinedEmpolyeeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RecruitmentSoap" type="tns:RecruitmentSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="OpeningsOper">
+      <soap:operation soapAction="http://tempuri.org/OpeningsOper" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewApplicantOper">
+      <soap:operation soapAction="http://tempuri.org/NewApplicantOper" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewAllApplicantOper">
+      <soap:operation soapAction="http://tempuri.org/NewAllApplicantOper" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ScheduleInterview">
+      <soap:operation soapAction="http://tempuri.org/ScheduleInterview" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetInterview">
+      <soap:operation soapAction="http://tempuri.org/SetInterview" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InterviewAssessment">
+      <soap:operation soapAction="http://tempuri.org/InterviewAssessment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApplicantStatusUpdate">
+      <soap:operation soapAction="http://tempuri.org/ApplicantStatusUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TimesheetReport">
+      <soap:operation soapAction="http://tempuri.org/TimesheetReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InterviewScheduleUpdate">
+      <soap:operation soapAction="http://tempuri.org/InterviewScheduleUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateJoinedEmployee">
+      <soap:operation soapAction="http://tempuri.org/CreateJoinedEmployee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UspUpdateJoinedEmpolyee">
+      <soap:operation soapAction="http://tempuri.org/UspUpdateJoinedEmpolyee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RecruitmentSoap12" type="tns:RecruitmentSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="OpeningsOper">
+      <soap12:operation soapAction="http://tempuri.org/OpeningsOper" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewApplicantOper">
+      <soap12:operation soapAction="http://tempuri.org/NewApplicantOper" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewAllApplicantOper">
+      <soap12:operation soapAction="http://tempuri.org/NewAllApplicantOper" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ScheduleInterview">
+      <soap12:operation soapAction="http://tempuri.org/ScheduleInterview" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetInterview">
+      <soap12:operation soapAction="http://tempuri.org/SetInterview" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InterviewAssessment">
+      <soap12:operation soapAction="http://tempuri.org/InterviewAssessment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApplicantStatusUpdate">
+      <soap12:operation soapAction="http://tempuri.org/ApplicantStatusUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TimesheetReport">
+      <soap12:operation soapAction="http://tempuri.org/TimesheetReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InterviewScheduleUpdate">
+      <soap12:operation soapAction="http://tempuri.org/InterviewScheduleUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateJoinedEmployee">
+      <soap12:operation soapAction="http://tempuri.org/CreateJoinedEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UspUpdateJoinedEmpolyee">
+      <soap12:operation soapAction="http://tempuri.org/UspUpdateJoinedEmpolyee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Recruitment">
+    <wsdl:port name="RecruitmentSoap" binding="tns:RecruitmentSoap">
+      <soap:address location="http://192.168.1.18:97/NuPortalRecruitmentService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RecruitmentSoap12" binding="tns:RecruitmentSoap12">
+      <soap12:address location="http://192.168.1.18:97/NuPortalRecruitmentService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

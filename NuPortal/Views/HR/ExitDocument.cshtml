@@ -1,0 +1,304 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int EmpId = 0;
+    if (Request["EmpId"] != null && Request["EmpId"] != "")
+    {
+        EmpId = Convert.ToInt16(Request["EmpId"].ToString());
+    }
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/exit-interview-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Exit Interview</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div id="divClearExitDoc">
+            <div class="myprojectdiv">
+
+                <a class="backbuttondiv" id="hrefBack" href="@Url.Action("ExitInterviewLog","HR")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+
+            </div>
+
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext" style="padding:0px !important;margin:0px !important;">Employee Name</div>
+                        <div class="floating-input autocomplete-textarea" id="divResources">
+                            <div id="listResources" class="list competancylist"></div>
+                            <input type="text" class="competancy autopopulateText" id="txtResources" placeholder=" " />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv" style="margin-top:21px;">
+                        <input id="txtReleivingDate" class="floating-input vdate" type="text" placeholder=" ">
+                        <label class="float">Relieving Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td width="90%">
+                                    <div class="contentfielddiv">
+                                        <label id="Attachment" type="hidden" class=".filehidden"></label>
+                                        <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                        <input type="file" id="fileUploadAttachment" class="contenttextfield " placeholder="Attachment" multiple />
+                                    </div>
+                                </td>
+                                <td width="10%" align="right"><div class="uploadbutton"><a href="#"><img title="Upload" src="../images/upload.gif" width="25" height="25" alt="" /></a></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            @*<div class="row">
+                    <div class="col-md-12">
+                        <div class="weeklyoffmaindiv">
+                            <div class="workstarttimediv" style="max-height:50px;">
+                                <div id="divTaskDocs" class="docDiv">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="weeklyoffmaindiv">
+                        <div class="workstarttimediv" style="max-height:50px;">
+                            <div id="divTaskDocs" class="docDiv">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="buttonmaindiv">
+                <div class="buttondiv"><input title="Save" class="submitbtn" type="button" id="btnSave" /></div>
+                <div class="buttondiv"><input title="SaveAndNew" class="submitandnewbtn" type="button" id="btnSaveandnew" /></div>
+                <div class="buttondiv"><input title="Clear" id="clearButton" class="clearbtn" type="button" onclick="return ClearAllControlValues('divClearExitDoc')" /></div>
+                <div class="ErrorLabel">
+                    <label id="lblMessage" class="lblMessage"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+
+    $(document).ready(function () {
+        DefineDatePicker($('#txtReleivingDate'));
+        loadExitInterview();
+        if(@EmpId!=0)
+        {
+            $("#txtResources").attr('disabled','disabled');
+            $("#clearButton").hide();
+            $('#btnSaveandnew').hide();
+        }
+    })
+    function loadExitInterview() {
+        $.ajax({
+            url: '/HR/loadExitInterview',
+            type:'Get',
+            dataType: 'json',
+            data: {
+                idval: @EmpId, Operation: 55
+            },
+            success:function(result)
+            {
+
+                var resultVals = $.parseJSON(result);
+
+                $('#txtResources').parent().find("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px;"+
+                    " color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" +resultVals[0]["EmpId"] + "'>" +
+                    resultVals[0]["FirstName"]+"</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                   "</div></div>");
+
+                $("#txtReleivingDate").val(FormatDate(resultVals[0]["RelievingDate"],"mm/dd/yyyy"));
+                showAttachments(resultVals[0]["RelievingAttachments"]);
+                $("#filehidden").val(resultVals[0]["RelievingAttachments"]);
+            },
+            error:function()
+            {}
+        });
+    }
+
+    function showAttachments(attachmentURLs) {
+        attachmentURLs = attachmentURLs.split('||');
+        var docElement = $('#divTaskDocs');
+        for (var i = 0; i < (attachmentURLs.length - 1); i++) {
+            CheckExtension(docElement, "", attachmentURLs[i], "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 1);
+        }
+    }
+
+    var pgId = 0;
+    $("#btnSave").click(function () {
+
+        pgId = $(this).attr("id");
+        $("#btnSaveandnew").trigger("click");
+
+
+    });
+
+    $("#btnSave").click(function () {
+        //var attach;
+        if (Validate("exitdoc")) {
+            if (ValidateAll('divClearExitDoc', 'lblMessage')) {
+                $.ajax({
+                    url: '/HR/saveExitDocument',
+                    type: "POST",
+                    dataType: 'JSON',
+                    data: {
+                        Name: parseInt($("#listResources").find(".divcompetancy").attr("name")), RelievingDate: FormatDate($("#txtReleivingDate").val(), "yyyy/mm/dd"), Attachments: $("#filehidden").val(), Operation: 1
+                    },
+                    success: function (result) {
+                        if(@EmpId==0){
+                            ClearAllControlValues('divClearExitDoc');
+                            $("#lblMessage").text("Exit Interview  Saved Successfully");
+                            if (pgId == "btnSave") {
+                                document.getElementById("hrefBack").click();
+                                pgId = 0;
+                            }
+                        }
+                        else
+                        {
+                            //ClearAllControlValues('divClearExitDoc');
+                            $("#lblMessage").text("Exit Interview  Updated Successfully");
+                        }
+                    },
+                    error: function () {
+                        $("#lblMessage").text("Error Saving Document");
+                    }
+                });
+            }
+        }
+    });
+    $("#btnSaveandnew").click(function () {
+        if (Validate("exitdoc")) {
+            if (ValidateAll('divClearExitDoc', 'lblMessage')) {
+                $.ajax({
+                    url: '/HR/saveExitDocument',
+                    type: "POST",
+                    dataType: 'JSON',
+                    data: {
+                        Name: parseInt($("#listResources").find(".divcompetancy").attr("name")), RelievingDate: FormatDate($("#txtReleivingDate").val(), "yyyy/mm/dd"), Attachments: $("#filehidden").val(), Operation: 1
+                    },
+                    success: function (result) {
+                        if(@EmpId==0){
+                            ClearAllControlValues('divClearExitDoc');
+                            $("#lblMessage").text("Exit Interview  Saved Successfully");
+                        }
+                        else
+                        {
+                            $("#lblMessage").text("Exit Interview  Updated Successfully");
+                        }
+                    },
+                    error: function () {
+                        $("#lblMessage").text("Error Saving Document");
+                    }
+                });
+            }
+        }
+    });
+    $('.uploadbutton').click(function () {
+        var divId = getCurrentDiv();
+        var fileElement = $('#fileUploadAttachment');
+        var hiddenfield = $('#filehidden');
+        var fileCount = hiddenfield.val().split('||').length;
+        var expDocUpload = fileElement.get(0);
+        var docElement = $('#divTaskDocs');
+        var expDocFiles = expDocUpload.files;
+        var uploadedFilePath = "";
+        var ExpAttachments = new FormData();
+        if (fileCount + expDocFiles.length > 25) {
+            alert('File count cannot exceed 24!');
+            fileElement.val('');
+            return;
+        }
+        for (i = 0; i < expDocFiles.length; i++) {
+            ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+        }
+        $.ajax({
+            url: '/EmpInfoUserView/UploadFiles',
+            type: "POST",
+            async: false,
+            contentType: false,
+            processData: false,
+            data: ExpAttachments,
+            success: function (result) {
+                var json = $.parseJSON(result);
+                if (json["Error"] == undefined || json["Error"] == null) {
+                    for (var i = 0; i < expDocFiles.length; i++) {
+                        hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                        CheckExtension(docElement, expDocFiles[i].name, json[expDocFiles[i].name], "<a href='#'><div title='Close' class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+        fileElement.val('');
+    });
+
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            var docDivs = $('#divTaskDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+        });
+    };
+    $("#txtResources").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: '/EmpInfoAdminView/AutoComplete',
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: "{ 'EmpName': '" + request.term + "' }",
+                success: function (data) {
+                    var items = [];
+                    for (var i = 0; i < data.length; i++) {
+                        items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                    }
+                    response($.map(items, function (item) {
+                        return item;
+                    }))
+                },
+                error: function (response) {
+                },
+                failure: function (response) {
+                }
+            });
+        },
+        select: function (e, i) {
+            if (i.item.label != "") {
+                $("#listResources").empty();
+                $("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                             "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                         "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+                $(this).val("");
+                return false;
+            }
+        },
+        minLength: 1
+    });
+</script>

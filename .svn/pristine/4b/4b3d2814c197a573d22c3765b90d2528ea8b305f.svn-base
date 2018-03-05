@@ -1,0 +1,331 @@
+﻿using Newtonsoft.Json;
+using NuPortal.Common_Library;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+
+namespace NuPortal.Controllers
+{
+    [SessionTimeout]
+    public class EmpInfoAdminViewController : Controller
+    {
+        [HttpPost]
+        public ActionResult EmpInfoAdminView(HttpPostedFileBase file, NuPortal.Models.EmpInfoAdminView empDetails, int? hdnId)
+        {
+            string path = string.Empty;
+            Common_Library.GeneralFunctions general = new Common_Library.GeneralFunctions();
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            NuPortalRecruitmentService.Recruitment recService = new NuPortalRecruitmentService.Recruitment();
+            empService.Url = Constants.EmpService;
+            recService.Url = Constants.RecruitmentService;
+            Dictionary<string, int> dictEmpData = new Dictionary<string, int>();
+            try
+            {
+                if (hdnId == null)
+                {
+                    //DateTime JDate= Convert.ToDateTime(DateTime.ParseExact(empDetails.joiningDate, "yyyy/MM/dd", null).ToString("dd/MM/yyyy"));
+                    DateTime JDate = Convert.ToDateTime(DateTime.ParseExact(empDetails.joiningDate, "MM/dd/yyyy", null).ToString("yyyy/MM/dd"));
+                    bool IsSuccess = false;
+                    string[] imageUrlArray = new string[] { };
+                    string[] quoteArray = new string[] { };
+                    StringBuilder sb = new StringBuilder();                   
+                    int flag = 0;
+                    if (empDetails.applicantId == 0)
+                    {
+                        flag = 1;
+                        string JsonData = empService.CreateEmployee(empDetails.firstName, empDetails.lastName == null ? "" : empDetails.lastName, empDetails.titleId == null ? "" : empDetails.titleId,
+                        empDetails.employeeCode,
+                        Convert.ToInt32(empDetails.designationId), empDetails.reportingTo, empDetails.profilePicUrl == null ? "" : empDetails.profilePicUrl,
+                        empDetails.passPicUrl == null ? "" : empDetails.passPicUrl, empDetails.bgPicUrl == null ? "" : empDetails.bgPicUrl,
+                        JDate, general.SetDateVal(empDetails.confirmationDate), empDetails.officeEmailId,
+                        Convert.ToInt32(empDetails.officeLocationId), empDetails.workLocation == null ? "" : empDetails.workLocation,
+                        empDetails.employementId == null ? 0 : Convert.ToInt32(empDetails.employementId), general.SetDateVal(empDetails.relievingDate), 1, empDetails.employmentStatusId != null ? Convert.ToInt32(empDetails.employmentStatusId) : 0,
+                        DateTime.Now, DateTime.Now, Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(Session["EmpID"]), empDetails.weekOffDays,
+                        empDetails.workStartTime == null ? "" : empDetails.workStartTime, empDetails.workEndTime == null ? "" : empDetails.workEndTime, empDetails.quotes == null ? "" : empDetails.quotes);
+                        dictEmpData = JsonConvert.DeserializeObject<Dictionary<string, int>>(JsonData);
+                        if (!string.IsNullOrEmpty(empDetails.imageUrl) && dictEmpData["EmpId"] > 0)
+                        {
+                            imageUrlArray = empDetails.imageUrl.Split('|');
+                            quoteArray = empDetails.quoteText.Split('|');
+                            sb.Append("[");
+                            for (int i = 0; i < imageUrlArray.Length - 1; i++)
+                            {
+                                sb.Append("{\"FK_EmpId\":" + dictEmpData["EmpId"] + ",\"QuotesPictureUrl\":\"" + imageUrlArray[i] + "\",\"QuotesText\":\"" + quoteArray[i] + "\"},");
+                            }
+                            sb.Length--;
+                            sb.Append("]");
+                            IsSuccess = empService.SetEmpGallery(dictEmpData["EmpId"], Convert.ToString(sb).TrimEnd('}').TrimStart('{'));
+                        }
+                    }
+                    else
+                    {
+                        flag = 2;
+                        var newId = recService.CreateJoinedEmployee(empDetails.applicantId, empDetails.firstName, empDetails.lastName == null ? "" : empDetails.lastName, empDetails.titleId == null ? "" : empDetails.titleId,
+                        empDetails.employeeCode, Convert.ToInt32(empDetails.designationId), empDetails.reportingTo, empDetails.profilePicUrl == null ? "" : empDetails.profilePicUrl,
+                        empDetails.passPicUrl == null ? "" : empDetails.passPicUrl, empDetails.bgPicUrl == null ? "" : empDetails.bgPicUrl, JDate, general.SetDateVal(empDetails.confirmationDate), empDetails.officeEmailId == null ? "" : empDetails.officeEmailId,
+                        Convert.ToInt32(empDetails.officeLocationId), empDetails.workLocation == null ? "" : empDetails.workLocation, empDetails.employementId == null ? 0 : Convert.ToInt32(empDetails.employementId), general.SetDateVal(empDetails.relievingDate), 1, empDetails.employmentStatusId != null ? Convert.ToInt32(empDetails.employmentStatusId) : 0,
+                        DateTime.Now, DateTime.Now, Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(Session["EmpID"]), empDetails.weekOffDays,
+                        empDetails.workStartTime == null ? "" : empDetails.workStartTime, empDetails.workEndTime == null ? "" : empDetails.workEndTime, empDetails.quotes == null ? "" : empDetails.quotes);
+                        if (!string.IsNullOrEmpty(newId))
+                            IsSuccess = true;
+                    }
+                    if(flag == 1)
+                    {
+                        if(dictEmpData["EmpId"] > 0 && dictEmpData["MailStatus"] == 1)
+                        {
+                            ModelState.Clear();
+                            ViewBag.Message = "Employee Created Successfully";
+                        }
+                        else if(dictEmpData["EmpId"] > 0 && dictEmpData["MailStatus"] == 0 )
+                            ViewBag.Message = "Error in sending mail";
+                        else
+                            ViewBag.Message = "Error in saving data";
+                    }
+                    else if (flag == 2)
+                    {
+                        if (IsSuccess)
+                        {
+                            ModelState.Clear();
+                            ViewBag.Message = "Employee Created Successfully";
+                        }
+                        else
+                            ViewBag.Message = "Error in saving data";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+            }
+            finally
+            {
+                empDetails = null;
+                empService = null;
+                general = null;
+                dictEmpData = null;
+            }
+            return EmpInfoAdminView(hdnId);
+        }
+
+        public ActionResult EmpInfoAdminView(int? hdnId)
+        {
+            List<SelectListItem> items;
+            NuPortal.Models.EmpInfoAdminView empAdmin = new Models.EmpInfoAdminView();
+            NuPortalDBService.NuPortalService dbService = new NuPortalDBService.NuPortalService();
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            dbService.Url = Constants.DBService;
+            empService.Url = Constants.EmpService;
+            DataTable dtDesignation = JsonConvert.DeserializeObject<DataTable>(dbService.GetDDListBox(Convert.ToInt32(Session["CompanyId"]), 0));
+            DataTable dtLocation = JsonConvert.DeserializeObject<DataTable>(dbService.GetDDListBox(Convert.ToInt32(Session["CompanyId"]), 44));
+            DataTable dtEmploymentType = JsonConvert.DeserializeObject<DataTable>(dbService.GetDDListBox(Convert.ToInt32(Session["CompanyId"]), 2));
+            DataTable dtStatus = JsonConvert.DeserializeObject<DataTable>(dbService.GetDDListBox(Convert.ToInt32(Session["CompanyId"]), 39));
+           
+
+            items = new List<SelectListItem>();
+            if (dtDesignation != null && dtDesignation.Rows.Count > 0)
+            {
+                for (int i = 0; i < dtDesignation.Rows.Count; i++)
+                {
+                    items.Add(new SelectListItem
+                    {
+                        Text = dtDesignation.Rows[i]["Designation"].ToString(),
+                        Value = dtDesignation.Rows[i]["DesignationId"].ToString()
+                    });
+                }
+            }
+            else
+            {
+                items.Add(new SelectListItem
+                {
+                    Text = "",
+                    Value = ""
+                });
+            }
+            empAdmin.designation = items;
+
+            items = new List<SelectListItem>();
+            if (dtLocation != null && dtLocation.Rows.Count > 0)
+            {
+                for (int i = 0; i < dtLocation.Rows.Count; i++)
+                {
+                    items.Add(new SelectListItem
+                    {
+                        Text = dtLocation.Rows[i]["Name"].ToString(),
+                        Value = dtLocation.Rows[i]["OfficeId"].ToString()
+                    });
+                }
+            }
+            else
+            {
+                items.Add(new SelectListItem
+                {
+                    Text = "",
+                    Value = ""
+                });
+            }
+            empAdmin.officeLocation = items;
+
+
+
+            items = new List<SelectListItem>();
+            if (dtEmploymentType != null && dtEmploymentType.Rows.Count > 0)
+            {
+                for (int i = 0; i < dtEmploymentType.Rows.Count; i++)
+                {
+                    items.Add(new SelectListItem
+                    {
+                        Text = dtEmploymentType.Rows[i]["EmploymentType"].ToString(),
+                        Value = dtEmploymentType.Rows[i]["EmptTypeId"].ToString()
+                    });
+                }
+            }
+            else
+            {
+                items.Add(new SelectListItem
+                {
+                    Text = "",
+                    Value = ""
+                });
+            }
+            empAdmin.employmentType = items;
+
+
+
+            items = new List<SelectListItem>();
+            if (dtStatus != null && dtStatus.Rows.Count > 0)
+            {
+                for (int i = 0; i < dtStatus.Rows.Count; i++)
+                {
+                    items.Add(new SelectListItem
+                    {
+                        Text = dtStatus.Rows[i]["EmpStatus"].ToString(),
+                        Value = dtStatus.Rows[i]["EmpStatusId"].ToString()
+                    });
+                }
+            }
+            else
+            {
+                items.Add(new SelectListItem
+                {
+                    Text = "",
+                    Value = ""
+                });
+            }
+            empAdmin.employmentStatus = items;
+
+            //Load Visa Type
+            
+
+            //Load Salary Payment Type
+            
+
+            items = new List<SelectListItem>();
+            items.Add(new SelectListItem() { Text = "Mr.", Value = "Mr." });
+            items.Add(new SelectListItem() { Text = "Ms.", Value = "Ms." });
+            items.Add(new SelectListItem() { Text = "Mrs.", Value = "Mrs." });
+            empAdmin.title = items;
+
+            if (hdnId != null)//For New Joining
+            {
+                string JsonString = empService.SelectEmployeeInfo(Convert.ToInt32(hdnId), 48);
+                if (JsonString != string.Empty)
+                {
+                    DataTable data = JsonConvert.DeserializeObject<DataTable>(JsonString);
+                    empAdmin.firstName = Convert.ToString(data.Rows[0]["Name"]);
+                    empAdmin.applicantId = Convert.ToInt32(hdnId);
+                }
+            }
+            return View(empAdmin);
+        }
+
+        [HttpPost]
+        public JsonResult AutoComplete(string EmpName)
+        {
+            Dictionary<string, string> oItems = new Dictionary<string, string>();
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            DataTable dtAutoComplete = JsonConvert.DeserializeObject<DataTable>(empService.ManagerAutoComplete(Convert.ToInt32(Session["CompanyId"]), EmpName, 0, 1));
+            if (dtAutoComplete != null && dtAutoComplete.Rows.Count > 0)
+            {
+                for (int i = 0; i < dtAutoComplete.Rows.Count; i++)
+                {
+                    oItems.Add(dtAutoComplete.Rows[i]["EmpId"].ToString(), dtAutoComplete.Rows[i]["FirstName"].ToString());
+                }
+            }
+
+
+            return Json(oItems.ToList());
+        }
+
+        [HttpPost]
+        public JsonResult AutoCompleteHR(string EmpName)
+        {
+            Dictionary<string, string> oItems = new Dictionary<string, string>();
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            empService.Url = Constants.EmpService;
+            DataTable dtAutoComplete = JsonConvert.DeserializeObject<DataTable>(empService.ManagerAutoComplete(Convert.ToInt32(Session["CompanyId"]), EmpName, 0, 8));
+            if (dtAutoComplete != null && dtAutoComplete.Rows.Count > 0)
+            {
+
+                for (int i = 0; i < dtAutoComplete.Rows.Count; i++)
+                {
+                    oItems.Add(dtAutoComplete.Rows[i]["EmpId"].ToString(), dtAutoComplete.Rows[i]["Name"].ToString());
+                }
+            }
+
+
+            return Json(oItems.ToList());
+        }
+
+        [HttpPost]
+        public JsonResult UpdateNewEmployeeMail(string JsonStr,string Email)
+        {
+            NuPortalRecruitmentService.Recruitment recService = new NuPortalRecruitmentService.Recruitment();
+            NuPortalEmpService.NuPortalEmployeeService empService = new NuPortalEmpService.NuPortalEmployeeService();
+            recService.Url = Constants.RecruitmentService;
+            empService.Url = Constants.EmpService;
+            Common_Library.GeneralFunctions general = new Common_Library.GeneralFunctions();
+            try
+            {
+                DataTable NewEmpDetails = JsonConvert.DeserializeObject<DataTable>(JsonStr);
+                string jsonString = recService.UspUpdateJoinedEmpolyee(Email, Convert.ToInt32(Session["EmpID"]),Convert.ToInt32(NewEmpDetails.Rows[0]["FK_NewAppId"]), 1);
+                if (jsonString != string.Empty)
+                {
+                    string JsonData = empService.CreateEmployee(Convert.ToString(NewEmpDetails.Rows[0]["FirstName"]), Convert.ToString(NewEmpDetails.Rows[0]["LastName"]), Convert.ToString(NewEmpDetails.Rows[0]["Title"]), Convert.ToString(NewEmpDetails.Rows[0]["EmployeeCode"]),
+                       Convert.ToInt32(NewEmpDetails.Rows[0]["FK_DesignationId"]), Convert.ToInt32(NewEmpDetails.Rows[0]["Manager"]), Convert.ToString(NewEmpDetails.Rows[0]["ProfilePicUrl"]), Convert.ToString(NewEmpDetails.Rows[0]["QuotesPictureUrl"]),
+                       Convert.ToString(NewEmpDetails.Rows[0]["BackGroundPicUrl"]), general.SetDateVal(Convert.ToString(NewEmpDetails.Rows[0]["HireDate"])), general.SetDateVal(Convert.ToString(NewEmpDetails.Rows[0]["ConfirmationDate"])), Email, Convert.ToInt32(NewEmpDetails.Rows[0]["OfficeLocation"]),
+                       Convert.ToString(NewEmpDetails.Rows[0]["WorkLocation"]), Convert.ToInt32(NewEmpDetails.Rows[0]["FK_EmptTypeId"]), general.SetDateVal(Convert.ToString(NewEmpDetails.Rows[0]["RelievingDate"])), Convert.ToInt32(NewEmpDetails.Rows[0]["FK_CompanyId"]),
+                       Convert.ToInt32(NewEmpDetails.Rows[0]["Fk_EmpStatus"]), DateTime.Now, DateTime.Now, Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(Session["EmpID"]), Convert.ToInt32(NewEmpDetails.Rows[0]["WeekOffDays"]), Convert.ToString(NewEmpDetails.Rows[0]["StartTime"]),
+                       Convert.ToString(NewEmpDetails.Rows[0]["EndTime"]), Convert.ToString(NewEmpDetails.Rows[0]["QuotesText"]));
+                    if (!string.IsNullOrEmpty(JsonData))
+                    return Json(jsonString, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                GeneralFunctions genFun = new GeneralFunctions();
+                genFun.LogError(ControllerContext.HttpContext, ex.Message, ex.TargetSite.Name,
+                    Convert.ToString(ControllerContext.RouteData.Values["action"]),
+                    Convert.ToString(ControllerContext.RouteData.Values["controller"]));
+                genFun = null;
+                return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+            }
+            finally
+            {
+                recService.Dispose(); empService.Dispose();
+            }
+            return Json(Common_Library.Constants.JsonError, JsonRequestBehavior.AllowGet);
+        }
+    }
+}

@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace NuPortal.Models
+{
+    public class PersonalInfo
+    {
+        public string address { get; set; }
+        public string city { get; set; }
+        public string state { get; set; }
+        public string country { get; set; }
+        public string zip { get; set; }
+        [Required(ErrorMessage = "PhoneNumber required")]
+        public string phone { get; set; }
+        public string emergencyPhone { get; set; }
+        [Required(ErrorMessage = "DOB required")]
+        public string dob { get; set; }
+        public string nationality { get; set; }
+        public string address2 { get; set; }
+        public string city2 { get; set; }
+        public string state2 { get; set; }
+        public string country2 { get; set; }
+        public string zip2 { get; set; }
+        public string phone2 { get; set; }
+        [Required(ErrorMessage = "Email Id required")]
+        public string emailId { get; set; }
+        [Required(ErrorMessage = "Gender required")]
+        public string gender { get; set; }
+        public string bloodGroup { get; set; }
+    }
+}

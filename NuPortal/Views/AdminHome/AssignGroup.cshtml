@@ -1,0 +1,194 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+                <div class="col-md-11">
+                    <div class="mainheadingdiv">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/sm-assign resource.png" width="45" height="45" alt="" /></div></div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="mainheaderdiv">Assign Group</div>
+                            </div>
+                            <div class="col-sm-5">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contentmaindiv">
+                        <div class="myprojectdiv" style="height:50px">
+                            <a class="backbuttondiv" id="hrefBack" href="/AdminHome/AdminHome"><img title="Back" alt="Back" width="30" height="30" src="~/Images/back-button.png" /></a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="space"></div>
+                                <div class="popupheadingmaindiv">
+                                    <div class="popupheadingtext">Groups</div>
+                                </div>
+                                <div class="space"></div>
+                                <div class="custReqleftdiv" id="drag" ondrop="drop(event,1)" ondragover="allowDrop(event)">
+                                  
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <div class="contentfielddiv">
+                                        <input type="hidden" id="hdnResource" value=""  class=".filehidden" />
+                                        <div class="weeklytext" style="padding-left:0px !important">Resource</div>
+                                        <div class="floating-input autocomplete-textarea" id="divResources">
+                                            <div id="listResources" class="list competancylist"></div>
+                                            <input type="text" class="competancy autopopulateText" id="txtResources" placeholder=" " />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="addDropdiv1" id="drop" ondrop="drop(event,2)" ondragover="allowDrop(event)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="buttonmaindiv">
+                            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" onclick="SaveDataToDb();" /></div>
+                            <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onclick="GetGroups();" /></div>
+                            <div class="labelmessage"><label id="lblSaveMessage" class="lblMessage"></label></div>
+                        </div>
+                    </div>
+                </div>
+<script type="text/javascript">
+    var idCount = 0;
+    //var EmpID = 0;
+    $(document).ready(function () {
+        $("#txtResources").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/AdminHome/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'Name': '" + request.term + "','Operation': '1','IdVal' : 'EmpId','NameVal' : 'FirstName'}",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                    },
+                    failure: function (response) {
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#hdnResource").val(i.item.Id);
+                if (i.item.label != "") {
+                    $("#listResources").empty();
+                    $("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                                 "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                             "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);ClearDragAndDrop();'>X</a></div></div>");
+                    $(this).val("");
+                    GetGroups(i.item.Id);
+                    return false;
+                }
+            },
+            minLength: 1
+        });
+    });
+    function drop(ev, type) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        if (type == 2)
+            $('#drop').append(document.getElementById(data));
+    }
+    function drag(ev) {
+        $('#lblSaveMessage').text("");
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    function GetGroups(EmpId) {
+        $('.clearbtn').prop('disabled', true);
+        $('#lblSaveMessage').text("");
+        //var typeId = $('#ddlRequestTypes').val();
+        $('#drag').empty();
+        $('#drop').empty();
+        $.ajax({
+            url: '/AdminHome/GetResourceGroups',
+            type: "GET",
+            dataType: 'json',
+            data: {
+                ResourceId: parseInt($("#hdnResource").val()),
+            },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        if (resultVals[i]["IsResourcePresent"] == 0) {
+                            $('#drag').append("<div class='CUSREQtxt' draggable='true' name='" + resultVals[i]["GroupId"] + "' ondragstart='drag(event)' id='drag" + idCount + "'><label class='lblText'>" +
+                               resultVals[i]["GroupName"] + "</label><span class='CUSREQClosebtn'></span></div>");
+                        }
+                        else {
+                            //if (typeId == 1)
+                            //    AllowanceDataArray.push({ "Name": resultVals[i]["CategoryName"], "GroupId": resultVals[i]["GroupId"] });
+                            //else if (typeId == 2)
+                            //    ReimbDataArray.push({ "Name": resultVals[i]["CategoryName"], "GroupId": resultVals[i]["GroupId"] });
+                            //else
+                            //    RequestDataArray.push({ "Name": resultVals[i]["CategoryName"], "GroupId": resultVals[i]["GroupId"] });
+                            $('#drop').append("<div class='CUSREQtxt' draggable='true' name='" + resultVals[i]["GroupId"] +
+                            "' ondragstart='drag(event)' id='drag" + idCount + "'><label class='lblText'>" +
+                           resultVals[i]["GroupName"] + "</label><span class='CUSREQClosebtn'></span></div>");
+                        }
+                        idCount++;
+                    }
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+        $('.clearbtn').prop('disabled', false);
+    }
+    function SaveDataToDb() {
+        var DataArray = new Array();
+        $('#drop > .CUSREQtxt').each(function () {
+            DataArray.push({
+                "FK_EmployeeId": parseInt($("#hdnResource").val()), "FK_GroupId": parseInt($(this).attr("name")), "CreatedEmpID":  parseInt($("#hdnResource").val()),
+                "ModifiedEmpID":  parseInt($("#hdnResource").val())
+            });
+        });
+        if (DataArray.length > 0) {
+            //var Operation = 0;
+            //var TypeVal = $('#ddlRequestTypes').val();
+            //if (TypeVal == 1 || TypeVal == 2) {
+            //    Operation = 1;
+            //}
+            //else {
+            //    Operation = 2;
+            //}
+            $.ajax({
+                url: '/AdminHome/SaveResourceGroups',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    ResourceId: parseInt($("#hdnResource").val()),
+                    jsonData: JSON.stringify(DataArray),
+                },
+                success: function (data) {
+                    ShowLabelMessage(data,"Group", $('#lblSaveMessage'));
+                },
+                error: function (response) {
+                },
+                failure: function (response) {
+                }
+            });
+        }
+    }
+    function ClearDragAndDrop() {
+        $('#drag').empty();
+        $('#drop').empty();
+    }
+
+
+</script>

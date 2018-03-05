@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace NuPortal.Models
+{
+    public class EmpInfoUserView
+    {
+        //[Required]
+        public string Title { get; set; }
+        //[Required]
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        //[Required]
+        public string joiningDate { get; set; }
+        public string confirmationDate { get; set; }
+        public string designation { get; set; }
+        //[Required]
+        public string employeeCode { get; set; }
+        //[Required]
+        public string officeEmailId { get; set; }
+        public int officeLocation { get; set; }
+        public string workLocation { get; set; }
+        public string relievingDate { get; set; }
+        //[Required]
+        public string reportingTo { get; set; }
+        public string employmentType { get; set; }
+
+        //Personal Information
+
+        public string address { get; set; }
+        public string city { get; set; }
+        public string state { get; set; }
+        public string country { get; set; }
+        public string zip { get; set; }
+        [Required(ErrorMessage = "PhoneNumber required")]
+        public string phone { get; set; }
+        public string emergencyPhone { get; set; }
+        [Required(ErrorMessage = "DOB required")]
+        public string dob { get; set; }
+        public string nationality { get; set; }
+        public string address2 { get; set; }
+        public string city2 { get; set; }
+        public string state2 { get; set; }
+        public string country2 { get; set; }
+        public string zip2 { get; set; }
+        public string phone2 { get; set; }
+        [Required(ErrorMessage = "Email Id required")]
+        public string emailId { get; set; }
+        [Required(ErrorMessage = "Gender required")]
+        public string gender { get; set; }
+        public string bloodGroup { get; set; }
+    }
+}

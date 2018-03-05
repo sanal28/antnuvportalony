@@ -1,0 +1,306 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<dialog id="dlgConfirmation" style="width:28%;background: transparent;top: 10%;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Confirmation Window</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgConfirmation').close()">X</a></div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="margin-left:40px;">
+                        <p>Want to Replace the existing document</p>
+                    </div>
+                </div>
+            </div>
+            <div class="space1"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-5">
+                        <div class="myprojectdiv">
+                            <div class="myprojecttxt"> <a class=".PreventHref" onclick="openFileuploadWindow();" href="#">YES</a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="myprojectdiv">
+                            <div class="myprojecttxt"> <a class=".PreventHref" onclick="closeFileuploadWindow();" href="#">NO</a></div>
+                        </div>
+                    </div>
+                    <input id="hdnFile" type="hidden" value="">
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/mydocuments-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">New Document</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div id="div-clear-addDocument">
+            <div class="myprojectdiv">
+                <a class="backbuttondiv" id="hrefBack" href="/Projects/MyDocument"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtDocumentName" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Document Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlProjectName" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                        <option value=""></option>                             
+                        </select>
+                        <label class="float">Project Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlSharedWith" class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                        <option value=""></option>  
+                        </select>
+                        <label class="float">Shared with</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                        <textarea id="txtDescription" class="floating-input floating-textarea" placeholder=" "></textarea>
+                        <label class="float">Description</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 ">
+                    <table width="100%" border="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td width="90%">
+                                    <div class="contentfielddiv hideupload">
+                                        <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                        <input type="file" id="fileUploadAttachment" class="fileUploadAttachment contenttextfield" placeholder="Attachment" multiple />
+                                    </div>
+                                </td>
+                                <td width="10%">
+                                    <div class="uploadbutton hideupload">
+                                        <img title="Upload" id="fileUrl" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="weeklyoffmaindiv ">
+                        <div class="workstarttimediv" style="max-height:50px;">
+                            <div id="divTaskDocs" class="docDiv">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space"></div>
+        </div>
+        <div class="buttonmaindiv">
+            <div class="buttondiv"><input title="Save" class="submitbtn" type="button" onclick="AddDocument(1);" /></div>
+            <div class="buttondiv"><input title="Save" class="submitandnewbtn" type="button" onclick="AddDocument();" /></div>                       
+            <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onclick="ClearControls();"/></div>
+            <div class="labelmessage"><label id="lblMessage" class="lblMessage"></label></div>
+        </div>
+    </div>
+</div>
+<script>
+    var flag = true;
+    $(document).ready(function () {
+        LoadDropDowns();
+        $("#ddlSharedWith option:contains(All)").attr('selected', 'selected');
+        $("#ddlSharedWith").click();
+
+    });
+
+    function ClearControls()
+    {
+        $('#lblMessage').text("");
+        ClearAllControlValues('div-clear-addDocument');
+    }
+
+    function AddDocument(flag) {
+
+        if (Validate('AddDocument')) {
+            $.ajax({
+                url: '/Projects/validateDocumentName',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    ProjId: $("#ddlProjectName").val(), DocumentName: $("#txtDocumentName").val(), Operation: 9
+                },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        if(!resultVals[0].Column1 > 0)
+                        {
+                            $.ajax({
+                                url: '/Projects/addUserDocument',
+                                type: 'Post',
+                                dataType: 'json',
+                                data: {
+                                    DocumentName: $("#txtDocumentName").val(), ProjectName: $("#ddlProjectName").val(), SharedWith: $("#ddlSharedWith").val(),
+                                    Description: $("#txtDescription").val(),Attachment: $('#filehidden').val()
+                                },
+                                success: function (data) {
+                                    $('#lblMessage').text("Document Added Successfully");
+                                    ClearAllControlValues('div-clear-addDocument');
+                                    if (flag ==1) {
+                                        document.getElementById("hrefBack").click();}
+                                },
+                                error: function () {
+                                    //alert('error');
+                                }
+                            });
+                        }
+                        else
+                        {
+                            $("#lblMessage").addClass("lblError");
+                            $("#txtDocumentName").addClass("ErrorFocus");
+                            $("#lblMessage").text("Document Name already exist please provide some different name");
+                        }
+                    }
+                },
+                error : function (err){
+                }
+            });
+        }
+    }
+    $(function () {
+        $('.imgExpFileUpload').click(function () {
+            var fileAttachment = new Array();
+            saveFileNameArray = new Array();
+            var j = $(".docDiv").children("div").attr("id");
+            var length = $('.docDiv').children().last().attr('id');
+            for (var i = j; i <= length; i++) {
+                var fileName = $("#" + i + "").find(".documentname").text()
+                fileAttachment.push(fileName);
+            }
+            var hiddenfield = $('#filehidden');
+            var fileCount = hiddenfield.val().split('||').length;
+            var fileElement = $('#fileUploadAttachment');
+            var expDocUpload = fileElement.get(0);
+            var expDocFiles = expDocUpload.files;
+            for (i = 0; i < expDocFiles.length; i++) {
+                if (jQuery.inArray("" + expDocFiles[i].name + "", fileAttachment) != -1) {
+                    var dialogConfirmation = document.getElementById("dlgConfirmation");
+                    saveFileNameArray.push(expDocFiles[i].name);
+                    if (flag) {
+                        dialogConfirmation.showModal();
+                        flag = false;
+                    }
+                    break;
+                }
+                else {
+                    uploadDocuments();
+                }
+            }
+        });
+    });
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            //var divDocuments = $("#divdocuments");
+            var docDivs = $('#divTaskDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+            //if (docDivs.children().length == 0)
+            //    divDocuments.hide();
+        });
+    };
+
+    function LoadDropDowns() {
+        LoadDdls("/Projects/UserDocSharedType", $('#ddlSharedWith'), "SharedTypeId", "SharedTypeName");
+        LoadDdls("/Projects/getProjectName", $('#ddlProjectName'), "ProjectId", "Name");
+    }
+    function uploadDocuments() {
+        var divId = getCurrentDiv();
+        var fileElement = $('#fileUploadAttachment');
+        var hiddenfield = $('#filehidden');
+        var fileCount = hiddenfield.val().split('||').length;
+        var expDocUpload = fileElement.get(0);
+        var docElement = $('#divTaskDocs');
+        var expDocFiles = expDocUpload.files;
+        var uploadedFilePath = "";
+        var ExpAttachments = new FormData();
+        if (fileCount + expDocFiles.length > 25) {
+            alert('File count cannot exceed 24!');
+            fileElement.val('');
+            return;
+        }
+        for (i = 0; i < expDocFiles.length; i++) {
+            ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+        }
+        $.ajax({
+            url: '/EmpInfoUserView/UploadFiles',
+            type: "POST",
+            async: false,
+            contentType: false,
+            processData: false,
+            data: ExpAttachments,
+            success: function (result) {
+                var json = $.parseJSON(result);
+                if (json["Error"] == undefined || json["Error"] == null) {
+                    for (var i = 0; i < expDocFiles.length; i++) {
+                        hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                        CheckExtension(docElement, expDocFiles[i].name, json[expDocFiles[i].name], "<a href='#' title='Close'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+        fileElement.val('');
+    }
+    function openFileuploadWindow() {
+        var j = $(".docDiv").children("div").attr("id");
+        var length = $('.docDiv').children().last().attr('id');
+        for (var i = j; i <= length; i++) {
+            for (var k = 0 ; k < saveFileNameArray.length ; k++) {
+                if ($("#" + i + "").find(".documentname").text() == saveFileNameArray[k]) {
+                    var filepath = $("#" + i + "").find(".documentname").closest('.profilethumbnaildiv').find('.filehidden').val();
+                    var docDivs = $('#divTaskDocs');
+                    var hidden = $('#filehidden');
+                    var value = hidden.val();
+                    hidden.val(value.replace(filepath + '||', ''));
+                    $("#" + i + "").find(".documentname").closest('.profilethumbnaildiv').parent().remove();
+                    uploadDocuments();
+                }
+            }
+        }
+        document.getElementById('dlgConfirmation').close();
+        PreventDefaultClick();
+    }
+    function closeFileuploadWindow() {
+        document.getElementById('dlgConfirmation').close();
+        $("#fileUploadAttachment").val('');
+        PreventDefaultClick();
+    }
+</script>
+

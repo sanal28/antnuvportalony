@@ -1,0 +1,522 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int leaveID = 0;
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        leaveID = Convert.ToInt32(Request["hdnId"]);
+    }
+    int typeId = 0;
+    if (Request["TypeId"] != null && Request["TypeId"] != "")
+    {
+        typeId = Convert.ToInt16(Request["TypeId"]);
+    }
+    int leavetypeId = 0;
+    if (Request["LeaveTypeId"] != null && Request["LeaveTypeId"] != "")
+    {
+        leavetypeId = Convert.ToInt16(Request["LeaveTypeId"]);
+    }
+}
+<html>
+<body>
+    <dialog id="dlgCalander" style="background: transparent;top: 25%;left: 5%;border: none;">
+        <div class="popupmaindiv" style="padding:5px">
+            <div class="popupmaindiv">
+                <div class="popupheadingmaindiv" style="overflow:hidden">
+                    <div class="popupheadingtext">Leave Calendar</div>
+                    <div class="popupclosebutton" onclick="javascript:$('#dlgCalander')[0].close();"><a href="#">X</a></div>
+                </div>
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="calendarmaindiv">
+                            <div class="academicaddmaindiv" style="text-align:center;margin: 0px 0px 0px 12px;overflow:hidden;">
+
+                                <div class="timesheetleftarrow calPrev" onclick="calendarPrevious(this);"><a href="#" id="btnPrev">&#8810;</a></div>
+                                <label id="monthYeardiv" class="popupheadingtext1"></label>
+                                <div class="timesheetrightarrow calNext" onclick="calendarNext(this);"><a href="#" id="btnNext">&#8811;</a></div>
+                                <input type="hidden" id="hdnPage" value="0" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="calendarmaindiv">
+                            <div class="calendarsubdiv">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="calendarmainbg">
+                                    <tr>
+                                        <td class="calendarheader-SUN">Sun</td>
+                                        <td class="calendarheader">Mon</td>
+                                        <td class="calendarheader">Tue</td>
+                                        <td class="calendarheader">Wed</td>
+                                        <td class="calendarheader">Thu</td>
+                                        <td class="calendarheader">Fri</td>
+                                        <td class="calendarheader-SUN">Sat</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/leave-sm.png" width="45" height="45" alt="" /></div></div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="mainheaderdiv">Leave Request</div>
+                </div>
+                <div class="col-sm-5">
+
+                </div>
+            </div>
+        </div>
+        <div class="contentmaindiv">
+            <div class="myprojectdiv">
+
+                <a class="backbuttondiv" id="hrefBack" href="@Url.Action("LeaveCalendar","RequestMain")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+
+            </div>
+            <div class="space"></div>
+            <div id="divClear">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlLeaveType" class="floating-select" placeholder="    " onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                            
+                        </select>
+                        <label class="float">Leave Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input onfocusout="gettotaldays()" id="dtStartDate" class="floating-input datechange" type="text" placeholder="    ">
+                        <label class="float">Start Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input onfocusout="gettotaldays()"  id="dtEndDate" class="floating-input datechange" type="text" placeholder="     ">
+                        <label class="float">End Date</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="contentfielddiv">
+                        <textarea id="txtLeaveDesc" class="floating-input floating-textarea" placeholder="     " style="height:0px"></textarea>
+
+                        <label class="float">Reason</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="levreqNOFDAYmaindiv">
+                        <div id="numberOfDaysLeave" class="leaverequestdiv">00</div>
+                        <div class="numberofdays">No of Days</div>
+                    </div>
+
+                </div>
+            </div>            
+            <div class="row" id="divCount">
+                <div class="space"></div>
+                <div class="col-md-12" id="divLeavecount">
+
+                </div>
+            </div>
+            <div class="buttonmaindiv" id="divSave" style="display:none">
+                <div class="buttondiv"><input title="Save" class="submitbtn" onclick="saveLeaveDetails(1)" type="button" /></div>
+                <div class="buttondiv"><input title="Save" class="submitandnewbtn" onclick="saveLeaveDetails()" type="button" /></div>
+                <div class="buttondiv"><input title="Clear" class="clearbtn" onclick="ClearControls()" type="button" /></div>
+                <div class="labelmessage"><label id="lblMessage" class="lblMessage"></label></div>
+                <input type="hidden" id="hiddenWeeklyOff" value="" class=".filehidden" />
+            </div>
+            </div>
+            <div id="divUpdatebtns">
+                <div class="buttonmaindiv" id="divAccept" style="display:none">
+                    <div class="leavecalander" onclick="ShowCalander();"><a href="#"><img title="Calander" src="../images/Calendar.png" width="30" height="30" alt="" /></a></div>
+                    <div class="leaveacceptbtn"><a class="hrefClass" href="#" onclick="updateLeave('2');"><img src="../images/accept.png" width="14" height="14" alt="" />Approve</a></div>
+                    <div class="leaveacceptbtn"><a class="hrefClass" href="#" onclick="updateLeave('3');"><img src="../images/reject.png" width="14" height="14" alt="" />Reject</a></div>
+                    <div class="leaveacceptbtn"><a class="hrefClass" href="#" onclick="updateLeave('6');"><img src="../images/onhold.png" width="14" height="14" alt="" />On Hold</a></div>
+                    <div class="labelmessage"><label id="lblUpdateMessage" class="lblMessage"></label></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--</div>
+        </main>
+
+
+    </div>-->
+    <script type="text/javascript">
+        var hdnWeekOff;
+        var leaveid=@leaveID;
+        var typeId=@typeId;
+        var AvailableLeaves= {};
+        var EmpId=0;
+        $(document).ready(function () {
+            
+            if(@Session["EmpID"]!=null && @Session["EmpID"]!=undefined)
+                EmpId=@Session["EmpID"];
+            $('#divAccept').hide();
+            $('#divSave').hide();
+            LoadDropDowns();
+            if(typeId==0)//save view
+            {
+                $("#dtStartDate").datepicker({
+                    dateFormat: 'mm/dd/yy',
+                    changeMonth: true,
+                    beforeShow: function (textbox, instance) {
+                        $("#dtStartDate").closest('div').append($('#ui-datepicker-div'));
+                    },
+                    changeYear: true,
+                    yearRange: '1900:2100',
+                    onSelect: function (d, i) {
+                        if (d !== i.lastVal) {
+                            gettotaldays();
+                        }
+                    }
+                });
+                $("#dtEndDate").datepicker({
+                    dateFormat: 'mm/dd/yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    beforeShow: function (textbox, instance) {
+                        $("#dtEndDate").closest('div').append($('#ui-datepicker-div'));
+                    },
+                    yearRange: '1900:2100',
+                    onSelect: function (d, i) {
+                        if (d !== i.lastVal) {
+                            gettotaldays();
+                        }
+                    }
+                });
+                $('#divAccept').hide();
+                $('#divSave').show();
+                if(@leavetypeId!=0)
+                {
+                    $('#ddlLeaveType').val(@leavetypeId);
+                    $('#ddlLeaveType').attr('disabled','disabled');
+                    $('#ddlLeaveType').click();
+                }
+                getAvailableLeaves(EmpId);
+            }
+            else if(typeId==1){//my tickets view
+                $('#divAccept').show();
+                $('#divSave').hide();
+                $("#hrefBack").attr("href", "@Url.Action("MyTickets", "Home")");
+            }            
+            $.ajax({
+                url: "/RequestMain/fetchWeekOffDays",
+                type: "GET",
+                async:false,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Error"] == undefined || resultVals["Error"] == null) {
+                        $('#hiddenWeeklyOff').val(resultVals[0]['WeekOffDays']);
+                        hdnWeekOff = $('#hiddenWeeklyOff').val();
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+            getLeavebyId();
+        });
+        function ShowCalander(){
+            var dt = new Date();
+            getmonthCalendar(dt.getFullYear(), parseInt(dt.getMonth()) + 1);
+            bindEvents(dt.getFullYear(), parseInt(dt.getMonth()) + 1, 17);
+            $('#dlgCalander')[0].showModal();
+        }
+        function ClearControls()
+        {
+            $("#numberOfDaysLeave").text('0');
+            ClearAllControlValues('divClear');
+        }
+        function updateLeave(status){
+            if(status==2 || status==3)
+                DisableHref();
+            $.ajax({
+                url: '/RequestMain/CancelLeave',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    reqID: @leaveID, leavetypeID: $('#ddlLeaveType').val(),operation:2, employee: @Session["EmpID"], status: status
+                },
+                success: function (data) {
+                    //getAllLeavesforID();
+                    if(status==2)
+                    {
+                        $('#lblUpdateMessage').text("Leave request Approved successfully");
+                    }
+                    else if(status==3)
+                    {
+                        $('#lblUpdateMessage').text("Leave request Rejected successfully");
+                    }
+                    else if(status==6)
+                    {
+                        $('#lblUpdateMessage').text("Leave request updated successfully");
+                    }
+                    getAvailableLeaves(EmpId);
+                },
+                error: function () {
+                    //alert('error');
+                }
+            });
+        }
+
+        function getLeavebyId(){
+            if(leaveid!=0)
+            {
+                $.ajax({
+                    url: '/RequestMain/GetLeaveByID?LeaveId='+leaveid,
+                    type: "GET",
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        var resultVals = JSON.parse(result);
+                        EmpId=parseInt(resultVals[0].FK_EmpIdRequester);
+                        getAvailableLeaves(EmpId);
+                        $('#ddlLeaveType').find('option').remove();
+                        $('#ddlLeaveType').append($('<option>', {
+                            value: resultVals[0].FK_LeaveTypeId,
+                            text: resultVals[0].DisplayName
+                        }));
+                        $("#ddlLeaveType option[value='"+resultVals[0].FK_LeaveTypeId+"']").attr('selected','selected');
+                        $('#dtStartDate').val(customDateformat(resultVals[0].LeaveStartDate,"MM/dd/yyyy"));
+                        $('#dtEndDate').val(customDateformat(resultVals[0].LeaveEndDate,"MM/dd/yyyy"));
+                        $('#txtLeaveDesc').text(resultVals[0].Reason);
+                        $('#numberOfDaysLeave')[0].innerText=resultVals[0].LeaveAppliedDays;
+                        $('#ddlLeaveType').attr('disabled','disabled');
+                        $('#ddlLeaveType').click();
+
+                        $('#dtStartDate').attr('disabled','disabled');
+                        $('#dtEndDate').attr('disabled','disabled');
+                        $('#txtLeaveDesc').attr('disabled','disabled');
+
+                        if(resultVals[0]["FK_StatusId"]== 2 || resultVals[0]["FK_StatusId"] == 3)
+                        {
+                            $('#divAccept').hide();
+                            $('#divSave').hide();
+                        }
+                        gettotaldays();
+                    },
+                    error: function (err) {
+                    }
+                });
+            }
+        }
+
+        function getAvailableLeaves(empId) {
+            $.ajax({
+                url: '/RequestMain/getAvailableLeaveInfo?Employee='+empId,
+                type: "GET",
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    $('#divLeavecount').empty();
+                    for (var i = 0; i < resultVals.length; i++) {
+                        AvailableLeaves[resultVals[i].DisplayName]=parseInt(resultVals[i].Balance);
+                        if(typeId==1)
+                        {
+                            $('#divLeavecount').append('<div class="leavemaindiv"><div class="' + resultVals[i].LeaveName +
+                                'leavemaindiv">' + resultVals[i].LeaveName + '</div><div class="'+resultVals[i].LeaveName+'totalleavediv">' + 
+                                (resultVals[i].LeaveName=='LOP'?0:resultVals[i].Balance) + '</div>' +
+                                '<div class="'+resultVals[i].LeaveName+'availedtext">Availed</div><div class="'+resultVals[i].LeaveName+'availedvalue">' 
+                                + resultVals[i].AppliedLeaveCount + '</div></div>');
+                        }
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+        }
+
+        //getting WeekOffDays in page load..
+        function getWeekOffDays() {
+            $('.datechange').datepicker({
+                beforeShow: function (textbox, instance) {
+                    $('.datechange').closest('div').append($('#ui-datepicker-div'));
+                },
+                onSelect: function (d, i) {
+                    if (d !== i.lastVal) {
+                        gettotaldays();
+                    }
+                }
+            });
+        }
+        //load all dropdowns
+        function LoadDropDowns() {
+            LoadDdls("/RequestMain/GetLeaveType", $('#ddlLeaveType'), "LeaveTypeId", "DisplayName");
+        }
+        //Adding Leave method..
+        function saveLeaveDetails(flag) {
+            $('#lblMessage').text('');
+            if (Validate('LeaveForm')) {
+                if($("#numberOfDaysLeave").text()!="0")
+                {
+                    $.ajax({
+                        url: '/RequestMain/CheckIfLeaveApplied',
+                        type: 'GET',
+                        dataType: 'json',
+                        async:false,
+                        data: { LeaveStartDate: FormatDate($('#dtStartDate').val(),"yyyy/mm/dd"), LeaveEndDate: FormatDate($('#dtEndDate').val(),"yyyy/mm/dd"), Operation:4 },
+                        success: function (result) {
+                            var resultVals = JSON.parse(result);
+                            if(parseInt(resultVals[0]["NoOfLeaves"])==0)
+                            {
+                                if(AvailableLeaves[$("#ddlLeaveType option:selected").text()]>=parseInt($("#numberOfDaysLeave").text()))
+                                {
+                                    $.ajax({
+                                        url: '/RequestMain/addLeaves',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: {
+                                            LeaveStartDate: FormatDate($("#dtStartDate").val(), 'yyyy/mm/dd'), LeaveEndDate: FormatDate($("#dtEndDate").val(), 'yyyy/mm/dd'), 
+                                            LeaveTypeId: $("#ddlLeaveType option:selected").val(), LeaveAppliedDays: $("#numberOfDaysLeave").text(), Reason: $("#txtLeaveDesc").val()
+
+                                        },
+
+                                        success: function (data) {
+                                            var ddlleaveTypeVal = $('#ddlLeaveType option:selected').text();
+                                            $("#numberOfDaysLeave").text('0');
+                                            ClearAllControlValues('divClear');
+                                            $("#lblMessage").removeClass('lblError');
+                                            $("#lblMessage").addClass('lblMessage');
+                                            $('#lblMessage').text("Leave request for " + ddlleaveTypeVal + " placed successfully");
+                                            if(flag==1)
+                                                document.getElementById("hrefBack").click();
+                                        },
+                                        error: function () {
+                                            //alert('error');
+                                        }
+                                    });
+                                }
+                                else
+                                {
+                                    $("#lblMessage").addClass('lblError');
+                                    $("#lblMessage").removeClass('lblMessage');
+                                    $('#lblMessage').text("Insufficient Leave");
+                                }
+                            }
+                            else{
+                                $("#lblMessage").addClass('lblError');
+                                $("#lblMessage").removeClass('lblMessage');
+                                $('#lblMessage').text("Leave already Requested");
+                            }   
+                        },
+                        error: function () {
+                            //alert('error');
+                        }
+                    });
+                }
+                else
+                {
+                    $("#lblMessage").addClass('lblError');
+                    $("#lblMessage").removeClass('lblMessage');
+                    $('#lblMessage').text("Cannot apply leave for 0 days");
+                }
+            }
+        }
+
+        ////To Clear All Fields
+        //function clearAllLeaveFields() {
+        //    $("#dtStartDate").val('');
+        //    $('#lblMessage').text('');
+        //    $("#dtEndDate").val('');
+        //    $("#numberOfDaysLeave").text('0');
+        //    $("#txtLeaveDesc").val('');
+        //    $('#dtStartDate').datepicker();
+        //    $('#dtEndDate').datepicker();
+        //}
+
+        //fetch weekoff days..
+        function gettotaldays() {
+            try {
+
+               $("#numberOfDaysLeave").text(0);
+                if ($("#dtStartDate").val() != "" && $("#dtEndDate").val() != "") {
+                    var arrDate1 = $("#dtStartDate").val().split("/");
+                    var useDate1 = new Date(arrDate1[2], arrDate1[0] - 1, arrDate1[1]);
+                    var arrDate2 = $("#dtEndDate").val().split("/");
+                    var useDate2 = new Date(arrDate2[2], arrDate2[0] - 1, arrDate2[1]);
+
+                    if (useDate1 <= useDate2) {
+                        var oneDay = 24 * 60 * 60 * 1000;
+                        var diffDays = Math.round(Math.abs((useDate1.getTime() - useDate2.getTime()) / (oneDay))) + 1
+                        var cnt = 0;
+                        var weekday = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+
+                        for (var d = useDate1; d <= useDate2; d.setDate(d.getDate() + 1)) {
+                            if (hdnWeekOff.indexOf((new Date(d).getDay()+1).toString()) != -1)
+                                cnt++;
+                        }
+
+                        $("#numberOfDaysLeave").text(diffDays - cnt);
+                        $('#lblMessage').text('');
+                    }
+                    else {
+                        $("#dtEndDate").val("");
+                        $("#lblMessage").addClass('lblError');
+                        $("#lblMessage").removeClass('lblMessage');
+                        $("#lblMessage").text("The End Date must be greater than the Start Date");
+                        return false;
+                    }
+                }
+
+            } catch (e) {
+                alert(e);
+            }
+            return false;
+        }
+
+        function bindEvents(yr, mon) {
+            $.ajax({
+                url: '/RequestMain/GetAllLeaves',
+                dataType: "json",
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                data: { year: yr, month: mon},
+                success: function (data) {
+                    var results = $.parseJSON(data);
+                    for (var i = 0; i < results.length; i++) {
+                        var dt = new Date(results[i].EventDate);
+                        var td = $('.calendarmainbg').find('td.' + results[i].Month + '[name="' + dt.getDate() + '"]');
+                        if ($(td).find('.calendareventsmaindiv').length < 1)
+                            $(td).append('<div class="calendareventsmaindiv"></div>');
+                        var calDiv = $(td).find('.calendareventsmaindiv');
+                        if ($(calDiv).find('.calendarevent').length < 2)
+                            $(calDiv).append('<div class="calendarevent">' + results[i].Name + '</div>');
+                        else {
+                            if ($(calDiv).find('.slidingDiv1').length == 0)
+                                $(calDiv).append('<div class="calendareventsMORE" onclick="toggleSlid(this);"><a style="display:block" href="#"><img src="../images/more.png" width="18" height="18" alt=""/></a></div><div style="display:none" class="slidingDiv1">' +
+                                    '<div class="resourceclosebtn" onclick="toggleSlid(this);"><a href="#">X</a></div><div class="slidingsubDiv"></div></div>');
+                            var slidDiv = $(calDiv).find('.slidingsubDiv');
+                            $(slidDiv).append('<div class="calendarevent">' + results[i].Name + '</div>');
+                        }
+                    }
+                },
+                error: function (xhr) {
+                }
+            });
+        }
+
+        function toggleSlid(obj) {
+            $(obj).parents('div.calendareventsmaindiv').find(".slidingDiv1").slideToggle();
+        }
+    </script>
+</body>
+</html>

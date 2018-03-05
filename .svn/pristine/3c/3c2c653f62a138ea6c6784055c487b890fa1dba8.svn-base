@@ -1,0 +1,387 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int TrainId = 0;
+    if (Request["TrainId"] != null && Request["TrainId"] != "")
+    {
+        TrainId = Convert.ToInt16(Request["TrainId"].ToString());
+    }
+    <form id="frmTrainDetails" action="" method="post">
+        @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+        @Html.Hidden("TrainId", new { id = "TrainId", name = "TrainId" })
+
+    </form>
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="../images/personal-info-icon.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Training Details</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div id="clearTrainingDetail">
+            <div class="myprojectdiv">
+                <label id="TrainingId" type="hidden" class=".filehidden"></label>
+                <label id="Attachment" type="hidden" class=".filehidden"></label>
+                <label id="AssessmentId" type="hidden" class=".filehidden"></label>
+                <a class="backbuttondiv" href="@Url.Action("TrainingLog","HR")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+
+                        <input id="txtSubject" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Subject</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+
+                        <input id="txtFrom" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">From</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtTo" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">To</label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtStartTime" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Time Starts</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEndTime" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Time Ends</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="contentfielddiv">
+                                <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                <input type="file" id="fileUploadAttachment" class="fileUploadAttachment contenttextfield" placeholder="Attachment" multiple />
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="uploadbutton">
+                                <img id="fileUrl" title="Upload" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext" style="padding:0px !important;margin:0px !important;">Trainer</div>
+                        <div class="floating-input autocomplete-textarea" id="divManager">
+                            <div id="listResources" class="list competancylist"></div>
+                            <input type="text" class="competancy autopopulateText" id="txtTrainer" placeholder=" " />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <div class="textarea-wrapper">
+                            <textarea id="txtDetails" class="myprojecttextarea" required></textarea>
+                            <span class="floating-label">Details</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="weeklyoffmaindiv divdocuments">
+                        <div class="workstarttimediv" style="max-height:50px;">
+                            <div id="divTaskDocs" class="docDiv">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="clearEnroll" class="row">
+                <div class="col-md-12">
+                    <div  class="enrolledempdetails hidediv">
+                        <div class="enrolledempdetailsdiv">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buttonmaindiv" id="divSave">
+                <div class="buttondiv"><input title="Save" class="submitbtn" type="button" onclick="updateTrainingDetails();" /></div>
+                <div class="buttondiv"><input title="Clear" id="clearButton" class="clearbtn" type="button" onclick="clearTrainingDetails();" /></div>
+                <div class="ErrorLabel"><label id="lblMessage" class="lblMessage"></label></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        loadTrainingDetails();
+        DefineDatePicker($('#txtFrom'));
+        DefineDatePicker($('#txtTo'));
+    });
+    function clearTrainingDetails(){
+        ClearAllControlValues('clearTrainingDetail');
+        $(".hidediv").hide();
+    }
+    function loadTrainingDetails() {
+        $("#clearButton").hide();
+        var Today = new Date();
+        Today.setHours(0, 0, 0, 0);
+        $.ajax({
+            url: '/HR/viewTrainingDetails',
+            type:'Get',
+            dataType: 'json',
+            data: {
+                idval: @TrainId, Operation: 21
+            },
+            success:function(result)
+            {
+                var resultVals = $.parseJSON(result);
+                for (var i = 0; i < resultVals.length; i++)
+                {
+                    if(resultVals[i]["FirstName"]==null)
+                    {
+                        $(".hidediv").hide();
+                    }
+                    else{
+                        $(".hidediv").show();
+                        var lnk="";
+                        if(resultVals[i]["AssessmentId"]==0)
+                        {
+                            lnk="";
+                        }
+                        else
+                        {
+                            lnk="<a href='#' onclick='gotoAssesment()'><i class='fa fa-ellipsis-v' aria-hidden='true'></i></a>";
+                            $("#AssessmentId").val(resultVals[i]["AssessmentId"]);
+                        }
+
+                        $('.enrolledempdetailsdiv').append("<div class='enrolledemployee'> <img src="+ resultVals[i]['TraineeImg'] +" width='150' height='150' alt='' />" +
+
+                            "<p>"+resultVals[i]["FirstName"] +" "+ resultVals[i]["LastName"]  +" "+lnk+" </p></div>");
+                    }
+                }
+                $("#TrainingId").val(resultVals[0]["TrainingId"]);
+                $("#txtSubject").val(resultVals[0]["Subject"]);
+
+                //$("#txtTrainer").val(resultVals[0]["TrainerFName"] +" "+ resultVals[0]["TrainerLName"] );
+                //$('#txtTrainer').parent().find("#listManager").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + resultVals[0]["FK_TrainerId"] + "'>" + resultVals[0]["TrainerFName"] +
+                //               "</label></div></div>");
+
+                $('#txtTrainer').parent().find("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px;"+
+                    " color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" +resultVals[0]["FK_TrainerId"] + "'>" +
+                    resultVals[0]["TrainerFName"]+"</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                    "<a title='Close' href='#' style='color: #fff;' onclick='RemoveDiv(this,1,"+resultVals[0]["FK_TrainerId"]+");'>X</a></div></div>");
+                var endDate = FormatDate(resultVals[0]["EndDate"], "mm/dd/yyyy");
+                $("#txtFrom").val(FormatDate(resultVals[0]["StartDate"],"mm/dd/yyyy"));
+                $("#txtTo").val(endDate);
+                $("#txtStartTime").val(resultVals[0]["StartTime"]);
+                $("#txtEndTime").val(resultVals[0]["EndTime"]);
+                $("#txtDetails").val(resultVals[0]["Details"]);               
+                showAttachments(resultVals[0]["AttachmentPaths"]);
+                $("#filehidden").val(resultVals[0]["AttachmentPaths"]);
+                if (resultVals[0]["Status"] == true || (new Date(endDate)<Today)){
+                    $('#divSave').hide();
+                    $("#clearTrainingDetail input,textarea").prop("disabled", true);
+                    $('.div2').find('a').hide();
+                    $('.closeImage').hide();
+                }
+            },
+            error:function()
+            {}
+        });
+    }
+    function RemoveDiv(obj,type,resId)
+    {
+        obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
+        if(type==1)
+        {
+            resources = $.grep(resources, function(e){
+                return e.id != resId;
+            });
+            roles = $.grep(roles, function(e){
+                return e.Resource != resId;
+            });
+        }
+        else
+        {
+            managers = $.grep(managers, function(e){
+                return e.id != resId;
+            });
+        }
+    }
+
+    function updateTrainingDetails(){
+        //var attach;
+        if (Validate("updateTraining"))
+        {
+        //    if($("#filehidden").val()!=="")
+        //{
+        //    attach=$("#Attachment").val()+$("#filehidden").val()
+        //}
+        //else
+        //{
+        //    attach=$("#Attachment").val();
+        //}
+            var endDate=FormatDate($("#txtTo").val(),'yyyy/mm/dd');
+            var startDate=FormatDate($("#txtFrom").val(),'yyyy/mm/dd')
+            $.ajax({
+                url:'/HR/updateTrainingDetails',
+                type:'POST',
+                dataType:'JSON',
+                data: {
+                    id:$("#TrainingId").val(),Subject:$("#txtSubject").val(),Trainer:parseInt($("#listResources").find(".divcompetancy").attr("name")),StartDate:startDate,
+                    EndDate:endDate,StartTime:$("#txtStartTime").val(),EndTime:$("#txtEndTime").val(),Details:$("#txtDetails").val(),
+                    Attachment:$("#filehidden").val()
+                },
+                success:function(result)
+                {
+                    //ClearAllControlValues('clearTrainingDetail');
+                    //$(".hidediv").hide();
+                $("#lblMessage").text("Training Details Updated Successfully");
+               
+                },
+                error:function()
+                {
+                    $("#lblMessage").text("Error Updating Training Details");
+                }
+            });
+        }
+    }
+
+
+    $(function () {
+        $(".imgExpFileUpload").click(function () {
+            var divId = getCurrentDiv();
+            //var fileElement = $(this).closest('tr').find('#fileUploadAttachment');
+            var fileElement = $('#fileUploadAttachment');
+            var hiddenfield = $('#filehidden');
+            var fileCount = hiddenfield.val().split('||').length;
+            var divDocuments = $("#divdocuments");
+            var expDocUpload = fileElement.get(0);
+            var docElement = $('#divTaskDocs');
+            var expDocFiles = expDocUpload.files;
+            var uploadedFilePath = "";
+            var ExpAttachments = new FormData();
+            if (fileCount + expDocFiles.length > 25) {
+                alert('File count cannot exceed 24!');
+                fileElement.val('');
+                return;
+            }
+            for (i = 0; i < expDocFiles.length; i++) {
+                ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+            }
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: ExpAttachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < expDocFiles.length; i++) {
+                            hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                            CheckExtension(docElement, expDocFiles[i].name, json[expDocFiles[i].name], "<a title='Close' href='#'><div class='documentclosebutton closeImage'>X</div></a>", divDocuments, 1);
+                        }
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+            fileElement.val('');
+        });
+    });
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            var divDocuments = $("#divdocuments");
+            var docDivs = $('#divTaskDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+            if (docDivs.children().length == 0)
+                divDocuments.hide();
+        });
+    };
+
+    function showAttachments(attachmentURLs) {
+        attachmentURLs = attachmentURLs.split('||');
+        var docElement = $('#divTaskDocs');
+        for (var i = 0; i < (attachmentURLs.length - 1); i++) {
+            CheckExtension(docElement, "", attachmentURLs[i], "<a title='Close' href='#'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+        }
+    }
+    function gotoAssesment(){
+        $("#hdnId").val($("#AssessmentId").val());
+        $("#TrainId").val(@TrainId);
+        $("#frmTrainDetails").attr("action", "/HR/TrainingAssesment");
+        $('#frmTrainDetails').submit();
+    }
+
+    $(function () {
+        $("#txtTrainer").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/EmpInfoAdminView/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'EmpName': '" + request.term + "' }",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        //alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        //alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                if($('#listResources').find('.div2').length>0)
+                    $('#listResources').find('.div2').remove();
+                $('#txtTrainer').parent().find("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px;"+
+                    " color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" +i.item.Id + "'>" +
+                    i.item.label+"</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                    "<a title='Close' href='#' style='color: #fff;' onclick='RemoveDiv(this,1,"+i.item.Id+");'>X</a></div></div>");
+                //term.pop();
+                //term.push("");
+                this.value="";
+                return false;
+            },
+            minLength: 1
+        });
+
+    });
+</script>

@@ -1,0 +1,378 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int id = 0;
+    int typeId = 0;
+
+    if (Request["hdnId"] != null && Request["hdnId"] != "")
+    {
+        id = Convert.ToInt32(Request["hdnId"]);
+    }
+    if (Request["TypeId"] != null && Request["TypeId"] != "")
+    {
+        typeId = Convert.ToInt16(Request["TypeId"]);
+    }
+}
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/reimbursement-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div id="divReimbHeading" class="mainheaderdiv">Add Reimbursement</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+
+            <a class="backbuttondiv" id="hrefBack" href="@Url.Action("AllReimbursements","Reimbursement")"><img title="Back" alt="Back" width="30" height="30" src="~/Images/back-button.png" /></a>
+
+        </div>
+        <div class="space"></div>
+        <div id="divClear">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlReimbType" class="floating-select vselect" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                            @*<option value="1">Sample</option>
+                                <option value="2">Sample2</option>*@
+                        </select>
+                        <label class="float">Reimbursement Type</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtStartDate" class="floating-input vdate vsdate" type="text" placeholder=" ">
+                        <label class="float">Start Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtEndDate" class="floating-input  vdate vedate" type="text" placeholder=" ">
+                        <label class="float">End Date</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtAmount" class="floating-input vinput vnumeric" type="text" placeholder=" ">
+                        <label class="float">Amount</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <table width="100%" border="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td width="90%">
+                                    <div class="contentfielddiv hideupload">
+                                        @*<input type="hidden" id="filehidden" value="" class=".filehidden" />*@
+                                        @*@Html.HiddenFor(model => model.UploadedFileUrl, new { id = "filehidden" })*@
+                                        <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                        <input type="file" id="fileUploadAttachment" class="fileUploadAttachment contenttextfield" placeholder="Attachment" multiple />
+                                    </div>
+                                </td>
+                                <td width="10%">
+                                    <div class="uploadbutton hideupload">
+                                        <img title="Upload" id="fileUrl" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" />
+                                    </div>
+                                    @*<div class="uploadbutton">
+                                            <a href="href=" #"><img src="../images/upload.gif" id="fileUrl" width="25" height="25" alt</a>
+                                        </div>*@
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                        <textarea id="txtDescription" class="floating-input floating-textarea" placeholder=" "></textarea>
+
+                        <label class="float">Description</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="weeklyoffmaindiv">
+                        @*<div class="weeklytext">Documents</div>*@
+                        <div class="workstarttimediv" style="max-height:50px;">
+                            <div id="divTaskDocs" class="docDiv">
+                                @*<div class="col-sm-4"><div class="profilethumbnaildiv"><img src="~/Images/user-profile.png" /></div></div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divSave" class="buttonmaindiv">
+                <div class="buttondiv"><input title="Save" class="submitbtn" type="button" id="btnSaveReimbursement" /></div>
+                <div class="buttondiv"><input title="Save" class="submitandnewbtn" type="button" id="btnSaveandnewReimbursement" /></div>
+                <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onclick="return ClearAllControlValues('divClear');" /></div>
+                <div class="labelmessage"><label id="lblMessage" class="lblMessage"></label></div>
+            </div>
+
+            <div class="buttonmaindiv" id="divAccept">
+                <div id="btnAccept" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/accept.png" width="14" height="14" alt="" />Approve</a></div>
+                <div id="btnReject" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/reject.png" width="14" height="14" alt="" />Reject</a></div>
+                <div id="btnOnHold" class="leaveacceptbtn"><a class="hrefClass" href="#"><img src="../Images/onhold.png" width="14" height="14" alt="" />On Hold</a></div>
+                <div class="labelmessage"><label id="lblUpdateMessage" class="lblMessage"></label></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var id=@id;
+    var typeId=@typeId;    
+
+    $(document).ready(function () {
+        $('#divAccept').hide();
+        $('#divSave').hide();
+
+        LoadDdls("/Reimbursement/GetReimbursemenType", $('#ddlReimbType'), "CategoryId", "CategoryName");
+
+        if(typeId==0)//save view
+        {
+            DefineDatePicker($("#txtStartDate"));
+            DefineDatePicker($("#txtEndDate"));
+            $('#divAccept').hide();
+            $('#divSave').show();
+        }
+        else if(typeId==1){//my tickets view
+            $('#divAccept').show();
+            $('#divSave').hide();
+            $("#hrefBack").attr("href", "@Url.Action("MyTickets", "Home")");
+        }
+        fillDataforView();
+
+    });
+
+    $('#btnAccept').click(function () {
+        DisableHref();
+        var empId = parseInt(@Session["EmpID"]);
+        var operation = 2;
+
+        $.ajax({
+            url: '/RequestMain/UpdateStatus',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                requestId: id, empId: empId, statusId: 2, operation: operation, IsCompOff : false
+            },
+            success: function (data) {
+                $('#lblUpdateMessage').text("Reimbursement Approved successfully");
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    });
+    $('#btnReject').click(function () {
+        DisableHref();
+        var empId = parseInt(@Session["EmpID"]);
+        var operation = 2;
+
+        $.ajax({
+            url: '/RequestMain/UpdateStatus',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                requestId: id, empId: empId, statusId: 3, operation: operation, IsCompOff : false
+            },
+            success: function (data) {
+                $('#lblUpdateMessage').text("Reimbursement Rejected successfully");
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    });
+    $('#btnOnHold').click(function () {
+
+        var empId = parseInt(@Session["EmpID"]);
+        var operation = 2;
+
+        $.ajax({
+            url: '/RequestMain/UpdateStatus',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                requestId: id, empId: empId, statusId: 6, operation: operation, IsCompOff : false
+            },
+            success: function (data) {
+                $('#lblUpdateMessage').text("Reimbursement updated successfully");
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    });
+    //Used to Show Data in View Form
+    function fillDataforView() {
+        if (id != 0) {
+            var reimbursementID = id;
+            $.ajax({
+                url: '/Reimbursement/getReimbursementInfoforID',
+                type: 'POST',
+                dataType: 'json',
+                data: { reimbursementID: reimbursementID },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    var DateVal=FormatDate(resultVals[0]["StartDate"], "mm/dd/yyyy");
+                    $('#txtStartDate').val(DateVal=="01/01/1753"?"":DateVal);
+                    DateVal=FormatDate(resultVals[0]["EndDate"], "mm/dd/yyyy");
+                    $('#txtEndDate').val(DateVal=="01/01/1753"?"":DateVal);
+                    $('#ddlReimbType').val(resultVals[0]["FK_CategoryId"]);
+                    $("#txtAmount").val(resultVals[0]["Amount"]);
+                    $("#txtDescription").val(resultVals[0]["Description"]);
+                    $('#ddlReimbType').click();
+                    if(resultVals[0]["TicketStatusId"]== 2 || resultVals[0]["TicketStatusId"] == 3)
+                    {
+                        $('#divAccept').hide();
+                        $('#divSave').hide();
+                    }
+                    showAttachments(resultVals[0]["Attachments"]);
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+            $('#ddlReimbType').attr('disabled','disabled');
+            $('#txtStartDate').attr('readonly', true);
+            $('#txtEndDate').attr('readonly', true);
+            $('#txtAmount').attr('readonly', true);
+            $('#txtDescription').attr('readonly', true);
+            $('#divReimbHeading').text('View Reimbursement');
+            $('#titleAllowance').text('View Reimbursement');
+            $('#ddlReimbType').click();
+            $('.hideupload').hide();
+        }
+        else {
+            $('#ddlReimbType').attr('disabled',false);
+            $('#dtAllowanceDate').attr('readonly', false);
+            $('#txtEndDate').attr('readonly', false);
+            $('#txtAmount').attr('readonly', false);
+            $('#txtDescription').attr('readonly', false);
+            $('#divReimbHeading').text('Add Reimbursement');
+            $('#titleAllowance').text('Add Reimbursement');
+            $('.hideupload').show();
+        }
+    }
+    //To Show Attachments in View Forms
+    function showAttachments(attachmentURLs) {
+        attachmentURLs = attachmentURLs.split('||');
+        var docElement = $('#divTaskDocs');
+        for (var i = 0; i < (attachmentURLs.length - 1); i++) {
+            CheckExtension(docElement, "", attachmentURLs[i], "", null, 1);
+        }
+    }
+
+    $(function () {
+        var pgId = 0;
+
+        
+        $("#btnSaveReimbursement").click(function () {           
+            pgId = $(this).attr("id");
+            $("#btnSaveandnewReimbursement").trigger( "click");
+        });
+        
+        $("#btnSaveandnewReimbursement").click(function () {             
+            
+            if(!ValidateAll('divClear','lblMessage')){
+                pgId=0;            
+            }
+            
+            if(ValidateAll('divClear','lblMessage'))
+            {
+                $('#lblMessage').val();
+                $.ajax({
+                    url: '/Reimbursement/AddReimbursement',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        EndDate: FormatDate($('#txtEndDate').val(), 'yyyy/mm/dd'), StartDate: FormatDate($('#txtStartDate').val(), 'yyyy/mm/dd'),
+                        Amount: $('#txtAmount').val(), Description: $('#txtDescription').val(), Attachments: $('#filehidden').val(),
+                        CategoryId: $("#ddlReimbType option:selected").val()
+                    },
+                    success: function (data) {
+                        var ReimType = $("#ddlReimbType option:selected").text();
+                        ClearAllControlValues('divClear');
+                        $('#lblMessage').text("Reimbursement request for "+ReimType+" placed successfully");
+                        $('#divTaskDocs').empty();
+
+                        if(pgId=="btnSaveReimbursement"){
+                            document.getElementById("hrefBack").click();
+                            pgId=0;
+                        }
+                        
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        });
+    });
+
+
+    $(function () {
+        $(".imgExpFileUpload").click(function () {
+            var divId = getCurrentDiv();
+            var fileElement = $('#fileUploadAttachment');
+            var hiddenfield = $('#filehidden');
+            var fileCount = hiddenfield.val().split('||').length;
+            var expDocUpload = fileElement.get(0);
+            var docElement = $('#divTaskDocs');
+            var expDocFiles = expDocUpload.files;
+            var uploadedFilePath = "";
+            var ExpAttachments = new FormData();
+            if (fileCount + expDocFiles.length > 25) {
+                alert('File count cannot exceed 24!');
+                fileElement.val('');
+                return;
+            }
+            for (i = 0; i < expDocFiles.length; i++) {
+                ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+            }
+            $.ajax({
+                url: '/EmpInfoUserView/UploadFiles',
+                type: "POST",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: ExpAttachments,
+                success: function (result) {
+                    var json = $.parseJSON(result);
+                    if (json["Error"] == undefined || json["Error"] == null) {
+                        for (var i = 0; i < expDocFiles.length; i++) {
+                            hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                            CheckExtension(docElement, expDocFiles[i].name, json[expDocFiles[i].name], "<a href='#'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                        }
+                    }
+                },
+                error: function (err) {
+                    //alert(err.statusText);
+                }
+            });
+            fileElement.val('');
+        });
+    });
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+        });
+    };
+</script>

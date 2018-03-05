@@ -1,0 +1,653 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int docid = 0;
+    int ProjId = 0;
+    int TypeId = 0;
+    if (Request["docId"] != null && Request["docId"] != "")
+    {
+        docid = Convert.ToInt16(Request["docId"].ToString());
+    }
+    if (Request["projId"] != null && Request["projId"] != "")
+    {
+        ProjId = Convert.ToInt16(Request["projId"].ToString());
+    }
+    if (Request["TypeId"] != null && Request["TypeId"] != "")
+    {
+        TypeId = Convert.ToInt16(Request["TypeId"].ToString());
+    }
+}
+
+<form id="frmDoc" action="" method="post">
+    @Html.Hidden("hdnId", new { id = "hdnId", name = "hdnId" })
+</form>
+<dialog id="dlgConfirmation" style="width:28%;background: transparent;top: 10%;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Confirmation Window</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgConfirmation').close()">X</a></div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="margin-left:40px;">
+                        <p>Want to Replace the existing document</p>
+                    </div>
+                </div>
+            </div>
+            <div class="space1"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-5">
+                        <div class="myprojectdiv">
+                            <div class="myprojecttxt"> <a class=".PreventHref" onclick="openFileuploadWindow();" href="#">YES</a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="myprojectdiv">
+                            <div class="myprojecttxt"> <a class=".PreventHref" onclick="closeFileuploadWindow();" href="#">NO</a></div>
+                        </div>
+                    </div>
+                    <input id="hdnFile" type="hidden" value="">
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/project-document-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-11">
+                <div class="mainheaderdiv" id="divHeading">New Document</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div id="DivClearAll">
+            <div class="myprojectdiv">
+                <a class="backbuttondiv" id="hrefBack" href="#" title="Back"><img alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <input id="txtDocName" class="floating-input" type="text" placeholder=" ">
+                        <label class="float">Document Name</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv">
+                        <select id="ddlShareWith" class="floating-select" onclick="this.setAttribute('value', this.value);" onchange="CustomPopUp(this);" value="">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Share with</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contentfielddiv hideDiv">
+                        <textarea id="txtCustName" class="floating-input floating-textarea" placeholder=" "></textarea>
+                        <label class="float">Custom Resources Name</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contentfielddiv">
+                        <textarea id="txtDescription" class="floating-input floating-textarea" placeholder=" "></textarea>
+                        <label class="float">Description</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 ">
+                    <table width="100%" border="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td width="90%">
+                                    <div class="contentfielddiv hideupload">
+                                        <input type="hidden" id="filehidden" value="" class=".filehidden" />
+                                        <input type="file" id="fileUploadAttachment" class="fileUploadAttachment contenttextfield" placeholder="Attachment" multiple />
+                                    </div>
+                                </td>
+                                <td width="10%">
+                                    <div class="uploadbutton hideupload">
+                                        <img title="Upload" id="fileUrl" class="imgExpFileUpload" src="../Images/upload.gif" width="25" height="25" alt="" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="weeklyoffmaindiv">
+                        <div class="workstarttimediv" style="max-height:50px;">
+                            <div id="divTaskDocs" class="docDiv">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space"></div>
+            <div class="buttonmaindiv" id="btnDivSave">
+                <div class="buttondiv"><input title="Save" class="submitbtn" type="button" id="btnNewDoc" /></div>
+                <div class="buttondiv"><input title="Save And New" class="submitandnewbtn" type="button" id="btnSaveandnewDoc" /></div>
+                <div class="buttondiv"><input class="clearbtn" type="button" id="clearbtn" onClick="return ClearAllControlValues('DivClearAll');" /></div>
+                <div class="labelmessage"><label id="lblMessage" class="lblMessage"></label></div>
+                <input id="hdnDocumentName" type="hidden" value="" />
+            </div>
+        </div>
+
+    </div>
+
+    <dialog id="dlgCustom" style="width:50%;background: transparent;top: 25%;left: 5%;border: none;">
+        <div class="popupmaindiv" style="max-width:inherit; padding:5px;">
+            <div class="popupmaindiv">
+                <div class="popupheadingmaindiv">
+                    <div class="popupheadingtext">Resources</div>
+                    <div class="popupclosebutton"><a title="Close" href="#" onclick="CustomPopUpClose(this);">X</a></div>
+                </div>
+                <div class="row" id="divCustom">
+
+                </div>
+                <div class="popupbuttonmaindiv" id="btnDivSave">
+                    <div class="buttondiv"><input class="submitbtn" type="button" onclick="CustomPopUpOk(this);" /></div>
+
+                </div>
+            </div>
+        </div>
+    </dialog>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#hrefBack').click(function(){
+            $('#hdnId').val(@ProjId);
+            if(@TypeId==1)
+                $('#frmDoc').attr("action", "/Projects/MyDocument");
+            else
+                $('#frmDoc').attr("action", "/Projects/Document");
+            $('#frmDoc').submit();
+        });
+        $('.hideDiv').hide();
+        LoadDropDowns();
+        if (@docid != 0)
+        {
+            fillDataforView();
+            $("#hdnDocumentName").val($("#txtDocName").val());
+        }
+
+        fillPopUp();
+    });
+    function fillPopUp() {
+        $.ajax({
+            url: '/projects/GetCustomResources/',
+            dataType: "json",
+            type: "GET",
+            data:{ ProjectId:@ProjId},
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                var results = $.parseJSON(data);
+                for (var i = 0; i < results.length; i++)
+                    $('#divCustom').append("<div class='col-md-4 emps'><div class='newdocpopupCheckboxdiv'><input id='chkCustom' type='checkbox' ></div>" +
+                        "<div class='newdocpopuptext clientname'>" + results[i].EmployeeName + "</div><input type='hidden' id='hdnEmpId' value='" + results[i].EmpId + "'></div>");
+            },
+            error: function (xhr) {
+
+            }
+        });
+    }
+    function fillDataforView() {
+        $.ajax({
+            url: '/Projects/GetDocument',
+            type: 'Get',
+            dataType: 'json',
+            async:false,
+            data: { pId:@docid},
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('.clearbtn').hide();
+                $('.submitandnewbtn').hide();
+                $('#txtDocName').val(resultVals[0]["DocumentName"]);
+                $('#ddlShareWith').val(resultVals[0]["FK_SharedTypeId"]);
+                $('#divHeading').text(resultVals[0]["DocumentName"]);
+                if(resultVals[0]["SharedTypeName"]=="Role")
+                {
+                    $('#ddlShareWith').val(resultVals[0]["FK_RoleId"]);
+                }
+                if(resultVals[0]["SharedTypeName"]=="Custom")
+                {
+                    $('#ddlShareWith').val(resultVals[0]["FK_SharedTypeId"]);
+                    $('.hideDiv').show();
+                    $.ajax({
+                        url: '/Projects/GetCustomResourcesResult?DocId='+@docid,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (result) {
+                            var resultVals = $.parseJSON(result);
+                            $('#txtCustName').val(resultVals[0]["Managers"].slice(0,-1));
+                        },
+                        error: function () {
+                        }
+                    });
+
+                }
+                $('#ddlShareWith').click();
+                $("#txtDescription").val(resultVals[0]["Description"]);
+                $('#filehidden').val(resultVals[0]["Attachments"]);
+                showAttachments(resultVals[0]["Attachments"]);
+            },
+            error: function (err) {
+            }
+        });
+        if(@TypeId==1)
+        {
+            $('#txtDocName').attr('disabled', 'disabled');
+            $('#txtCustName').attr('disabled', 'disabled');
+            $("#ddlShareWith").attr("disabled", "disabled");
+            $("#ddlShareWith").click();
+            $('#txtDescription').attr('disabled', 'disabled');
+            $('.hideupload').hide();
+            $('.buttonmaindiv').hide();
+            $('.documentclosebutton').hide();
+        }
+    }
+    //To Show Attachments in View Forms
+    function showAttachments(attachmentURLs) {
+        attachmentURLs = attachmentURLs.split('||');
+        var docElement = $('#divTaskDocs');
+        for (var i = 0; i < (attachmentURLs.length - 1); i++) {
+            CheckExtension(docElement, "", attachmentURLs[i], "<a href='#' title='Close'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+        }
+    }
+    var btId = 0;
+    $("#btnNewDoc").click(function () {
+
+        btId = $(this).attr("id");
+        $("#btnSaveandnewDoc").trigger("click");
+
+
+    });
+    $("#btnSaveandnewDoc").click(function () {
+        if (@docid == 0)
+            saveData();
+        else
+            updateData();
+    });
+    var fileAttch = new Array();
+    var saveFileNameArray = new Array();
+    var flag = true;
+    $(function () {
+        $('.imgExpFileUpload').click(function () {
+            if(@docid != 0)
+            {
+                $.ajax({
+                    url: '/Projects/GetDocument',
+                    type: 'Get',
+                    dataType: 'json',
+                    async:false,
+                    data: { pId:@docid},
+                    success: function (result) {
+                        var resultVals = $.parseJSON(result);
+                        if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                            for (var i = 0; i < resultVals.length; i++) {
+                                var attachments = resultVals[i].Attachments;
+                                var fileAtt = attachments.split('||');
+                                for(var j=0;j<fileAtt.length-1;j++)
+                                {
+                                    var fileName = fileAtt[j].replace('../Uploads/','');
+                                    var extension = fileName.substr((fileName.lastIndexOf('.') + 1));
+                                    var fileNames =  fileName.substring(0,fileName.indexOf("^_^_^")) + "." + extension;
+                                    fileAttch.push(fileNames);
+                                }
+                            }
+                            trimFileAttachments(fileAttch);
+                        }
+                    },
+                    error : function ()
+                    {
+
+                    }
+                });
+            }
+            else
+            {
+                var fileAttachment = new Array();
+                saveFileNameArray = new Array();
+                var j = $(".docDiv").children("div").attr("id");
+                var length = $('.docDiv').children().last().attr('id');
+                for(var i=j;i<=length;i++)
+                {
+                    var fileName = $("#"+i+"").find(".documentname").text() 
+                    fileAttachment.push(fileName);
+                }
+                var hiddenfield = $('#filehidden');
+                var fileCount = hiddenfield.val().split('||').length;
+                var fileElement = $('#fileUploadAttachment');
+                var expDocUpload = fileElement.get(0);
+                var expDocFiles = expDocUpload.files;
+                for (i = 0; i < expDocFiles.length; i++) {
+                    if(jQuery.inArray(""+expDocFiles[i].name+"", fileAttachment) != -1) 
+                    {
+                        var dialogConfirmation = document.getElementById("dlgConfirmation");
+                        saveFileNameArray.push(expDocFiles[i].name);
+                        if(flag)
+                        {
+                            dialogConfirmation.showModal(); 
+                            flag=false; 
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        uploadDocuments();
+                    }
+                }
+            }
+        });
+    });
+    function defineExpUploads() {
+        $('.closeImage').click(function () {
+            var filepath = $(this).closest('.profilethumbnaildiv').find('.filehidden').val();
+            var docDivs = $('#divTaskDocs');
+            var hidden = $('#filehidden');
+            var value = hidden.val();
+            hidden.val(value.replace(filepath + '||', ''));
+            $(this).closest('.profilethumbnaildiv').parent().remove();
+        });
+    };
+
+    function LoadDropDowns() {
+        LoadDdls("/Projects/GetSharedType", $('#ddlShareWith'), "SharedTypeId", "SharedTypeName");
+    }
+    function CustomPopUp(obj)
+    {
+        if ($("#ddlShareWith option:selected").text() == "Custom") {
+            var dialog = document.getElementById('dlgCustom');
+            dialog.showModal();
+        }
+        else
+        {
+            $('.hideDiv').hide();
+        }
+    }
+    function CustomPopUpClose(obj)
+    {
+        $("#ddlShareWith").attr("value","");
+        $('#divCustom').find('.emps').each(function() {
+            $(this).find('#chkCustom').removeAttr('checked');
+        });
+        var dialog = document.getElementById('dlgCustom');
+        dialog.close();
+        $('.hideDiv').hide();
+    }
+    function CustomPopUpOk(obj)
+    {
+        var EmpName="";
+        $('#divCustom').find('.emps').each(function() {
+            if($(this).find('#chkCustom').is(":checked"))
+            {
+                EmpName=EmpName+$(this).find('.clientname').text()+",";
+            }
+
+        });
+        $('#txtCustName').val(EmpName.slice(0,-1));
+        var dialog = document.getElementById('dlgCustom');
+        dialog.close();
+        $('.hideDiv').show();
+    }
+    function trimFileAttachments(fileAttch)
+    {
+        saveFileNameArray = new Array();
+        var hiddenfield = $('#filehidden');
+        var fileCount = hiddenfield.val().split('||').length;
+        var fileElement = $('#fileUploadAttachment');
+        var expDocUpload = fileElement.get(0);
+        var expDocFiles = expDocUpload.files;
+        for (i = 0; i < expDocFiles.length; i++) {
+            if(jQuery.inArray(""+expDocFiles[i].name+"", fileAttch) != -1) 
+            {
+                var dialogConfirmation = document.getElementById("dlgConfirmation");
+                saveFileNameArray.push(expDocFiles[i].name);
+                if(flag)
+                {                         
+                    dialogConfirmation.showModal();
+                    flag = false;
+                }
+                break;
+            }
+            else
+            {
+                uploadDocuments();
+            }
+        }
+    }
+    function openFileuploadWindow()
+    {
+        var j = $(".docDiv").children("div").attr("id");
+        var length = $('.docDiv').children().last().attr('id');
+        for(var i=j;i<=length;i++)
+        {
+            for(var k=0 ; k<saveFileNameArray.length ; k++)
+            {
+                if($("#"+i+"").find(".documentname").text() == saveFileNameArray[k])
+                {
+                    var filepath = $("#"+i+"").find(".documentname").closest('.profilethumbnaildiv').find('.filehidden').val();
+                    var docDivs = $('#divTaskDocs');
+                    var hidden = $('#filehidden');
+                    var value = hidden.val();
+                    hidden.val(value.replace(filepath + '||', ''));
+                    $("#"+i+"").find(".documentname").closest('.profilethumbnaildiv').parent().remove();
+                    uploadDocuments();
+                }
+            }
+        }
+        document.getElementById('dlgConfirmation').close();
+        PreventDefaultClick();
+    }
+    function saveData()
+    {
+        if(Validate("NewDocument"))
+        {
+            $.ajax({
+                url: '/Projects/validateDocumentName',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    ProjId : @ProjId, DocumentName : $("#txtDocName").val(), Operation : 9
+                },
+                success: function (result) {
+                    var resultVals = $.parseJSON(result);
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        if(!resultVals[0].Column1 > 0)
+                        {
+                            saveDocuments();
+                        }
+                        else
+                        {
+                            $("#lblMessage").addClass("lblError");
+                            $("#txtDocName").addClass("ErrorFocus");
+                            $("#lblMessage").text("Document Name already exist please provide different name");
+                        }
+                    }
+                },
+                error : function(err){
+                }
+            });
+        }
+        else
+        {
+            $("#lblMessage").addClass("lblError");
+            $("#lblMessage").text("Please fill all mandatory fields");
+        }
+    }
+    function updateData()
+    {
+        if(Validate("NewDocument"))
+        {
+            if($("#hdnDocumentName").val() != $("#txtDocName").val())
+            {
+                $.ajax({
+                    url: '/Projects/validateDocumentName',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        ProjId : @ProjId, DocumentName : $("#txtDocName").val(), Operation : 9
+                    },
+                    success: function (result) {
+                        var resultVals = $.parseJSON(result);
+                        if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                            if(!resultVals[0].Column1 > 0)
+                            {
+                                saveDocuments();
+                            }
+                            else
+                            {
+                                $("#lblMessage").addClass("lblError");
+                                $("#txtDocName").addClass("ErrorFocus");
+                                $("#lblMessage").text("Document Name already exist please provide different name");
+                            }
+                        }
+                    },
+                    error : function(err){
+                    }
+                });
+            }
+            else
+            {
+                saveDocuments();
+            }
+        }
+        else
+        {
+            $("#lblMessage").addClass("lblError");
+            $("#lblMessage").text("Please fill all mandatory fields");
+        }
+    }
+    function uploadDocuments()
+    {
+        var divId = getCurrentDiv();
+        var fileElement = $('#fileUploadAttachment');
+        var hiddenfield = $('#filehidden');
+        var fileCount = hiddenfield.val().split('||').length;
+        var expDocUpload = fileElement.get(0);
+        var docElement = $('#divTaskDocs');
+        var expDocFiles = expDocUpload.files;
+        var uploadedFilePath = "";
+        var ExpAttachments = new FormData();
+        if (fileCount + expDocFiles.length > 25) {
+            alert('File count cannot exceed 24!');
+            fileElement.val('');
+            return;
+        }
+        for (i = 0; i < expDocFiles.length; i++) {
+            ExpAttachments.append(expDocFiles[i].name, expDocFiles[i]);
+        }
+        $.ajax({
+            url: '/EmpInfoUserView/UploadFiles',
+            type: "POST",
+            async: false,
+            contentType: false,
+            processData: false,
+            data: ExpAttachments,
+            success: function (result) {
+                var json = $.parseJSON(result);
+                if (json["Error"] == undefined || json["Error"] == null) {
+                    for (var i = 0; i < expDocFiles.length; i++) {
+                        hiddenfield.val(hiddenfield.val() + json[expDocFiles[i].name] + "||");
+                        CheckExtension(docElement, expDocFiles[i].name, json[expDocFiles[i].name], "<a href='#' title='Close'><div class='documentclosebutton closeImage'>X</div></a>", null, 1);
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+        fileElement.val('');
+    }
+    function closeFileuploadWindow()
+    {
+        document.getElementById('dlgConfirmation').close();
+        $("#fileUploadAttachment").val('');
+        PreventDefaultClick();
+    }
+    function saveDocuments()
+    {
+        var SharedWith = 0;
+        var RoleID=0;
+        if($("#ddlShareWith option:selected").text()=="All")
+            SharedWith=1
+        else if($("#ddlShareWith option:selected").text()=="Managers")
+            SharedWith=2
+        else if($("#ddlShareWith option:selected").text()=="Custom")
+            SharedWith=4
+        else
+            SharedWith=3
+        if(SharedWith==3)
+            RoleID=$("#ddlShareWith option:selected").val();
+
+        var DocumentName = $('#txtDocName').val();
+        var Description = $('#txtDescription').val();
+        var Attachment = $('#filehidden').val();
+        $.ajax({
+            url: '/Projects/SaveDocument',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                DocId:@docid,ProjId:@ProjId,DocumentName: DocumentName,Description: Description, Attachment:Attachment,
+                SharedWith: SharedWith,RoleID:RoleID
+            },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if($("#ddlShareWith option:selected").text()=="Custom")
+                {
+                    if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                        var SharedEmps=new Array();
+                        $('#divCustom').find('.emps').each(function() {
+                            if($(this).find('#chkCustom').is(":checked"))
+                            {
+                                SharedEmps.push({"SharedId":4,"DocumentId":resultVals[0]["DocumentId"],
+                                    "SharedResource":parseInt($(this).find('#hdnEmpId').val()),"Status":1});
+                            }
+                        });
+                        var docId = parseInt(resultVals[0]["DocumentId"]);
+                        $.ajax({
+                            url: '/Projects/SaveDocResources',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                DocID: docId, jsonData: JSON.stringify(SharedEmps)
+                            },
+                            success: function (result) {
+                            },
+                            error: function () {
+                            }
+                        });
+                    }
+                }
+                $("#lblMessage").removeClass("lblError");
+                $("#lblMessage").addClass("lblMessage");
+                if(@docid==0)
+                {
+                    ClearAllControlValues('DivClearAll');
+                    $('#lblMessage').text("New Document Added Successfully.");
+                    if (btId == "btnNewDoc") {
+                        document.getElementById("hrefBack").click();
+                        btId = 0;
+                    }
+                }
+                else
+                    $('#lblMessage').text("Document Updated Successfully.");
+            },
+            error: function (err) {
+            }
+        });
+    }
+</script>

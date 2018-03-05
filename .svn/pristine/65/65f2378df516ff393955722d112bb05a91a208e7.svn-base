@@ -1,0 +1,163 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+
+    $(document).ready(function () {
+        if ($('.calendarmainbg').length > 0) {
+            var dt = new Date();
+            getmonthCalendar(dt.getFullYear(), parseInt(dt.getMonth()) + 1);
+            bindEvents(dt.getFullYear(), parseInt(dt.getMonth()) + 1);
+        }
+    });
+
+    function toggleSlid(obj) {
+        $(obj).parents('div.calendareventsmaindiv').find(".slidingDiv1").slideToggle();
+    }
+
+    function bindEvents(yr, mon) {
+        $.ajax({
+            url: '/home/GetAllEvents',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            data: { year: yr, month: mon, Operation:1 },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                for (var i = 0; i < results.length; i++) {
+                    var dt = new Date(results[i].EventDate);
+                    var td = $('.calendarmainbg').find('td.' + results[i].Month + '[name="' + dt.getDate() + '"]');
+                    if ($(td).find('.calendareventsmaindiv').length < 1)
+                        $(td).append('<div class="calendareventsmaindiv"></div>');
+                    var calDiv = $(td).find('.calendareventsmaindiv');
+                    if ($(calDiv).find('.calendarevent').length < 2)
+                        $(calDiv).append('<div class="calendarevent"><a href="#" class="PreventHref" onclick="viewEventdetails(' + results[i].EventId + ');">' + results[i].Title + '</a><input type="hidden" value="' + results[i].EventId + '" /></div>');
+                    else {
+                        if ($(calDiv).find('.slidingDiv1').length == 0)
+                            $(calDiv).append('<div class="calendareventsMORE" onclick="toggleSlid(this);"><a style="display:block" href="#"><img src="../images/more.png" width="18" height="18" alt=""/></a></div><div style="display:none" class="slidingDiv1">' +
+                                '<div class="resourceclosebtn" onclick="toggleSlid(this);"><a href="#">X</a></div><div class="slidingsubDiv"></div></div>');
+                        var slidDiv = $(calDiv).find('.slidingsubDiv');
+                        $(slidDiv).append('<div class="calendarevent"><a href="#" class="PreventHref" onclick="viewEventdetails(' + results[i].EventId + ');">' + results[i].Title + '</a><input type="hidden" value="' + results[i].EventId + '" /></div>');
+                    }
+                }
+                PreventDefaultClick();
+            },
+            error: function (xhr) {
+            }
+        });
+    }
+
+    function viewEventdetails(id) {
+        $.ajax({
+            url: '/home/GetEventById',
+            dataType: "json",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            data: { EventId: id },
+            success: function (data) {
+                var results = $.parseJSON(data);
+                //$('#divEventHead')[0].innerText = results[0].Title;
+                $('#divEventTitle')[0].innerText = results[0].Title;
+                $('#divEventDate')[0].innerText = moment(FormatDate(results[0].StartDate, "mm/dd/yyyy")).format("MMM DD YYYY") + "-" + moment(FormatDate(results[0].EndDate, "mm/dd/yyyy")).format("MMM DD YYYY");
+                if (results[0].StartTime != "" && results[0].EndTime != "")
+                    $('#divEventTime')[0].innerText = results[0].StartTime + "-" + results[0].EndTime;
+                else if (results[0].StartTime != "")
+                    $('#divEventTime')[0].innerText = results[0].StartTime;
+                else if (results[0].EndDate != "")
+                    $('#divEventTime')[0].innerText = results[0].EndTime;
+                $('#pEventDesc')[0].innerText = results[0].Description;
+                $('#dlgEvents')[0].showModal();
+            },
+            error: function (xhr) {
+            }
+        });
+    }
+</script>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/sm-events.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Events</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <dialog id="dlgEvents" style="width: 50%;background: transparent;left: 5%;border: none;">
+            <div class="popupmaindiv" style="padding:5px">
+                <div class="popupheadingmaindiv">
+                    <div class="popupheadingtext" id="divEventHead">Events</div>
+                    <div class="popupclosebutton" onclick="javascript: $('#dlgEvents')[0].close();"><a href="#" title="Close">X</a></div>
+                </div>
+
+                <div class="announcementmaindiv">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="announcementinnerdiv">
+                                <div class="announcementinnertopdiv">
+
+                                    <div class="eventsheading" id="divEventTitle"></div>
+                                    <div class="announcementdatemaindiv">
+                                        <div class="eventsdates" id="divEventDate"></div>
+                                        <div class="eventsdates" id="divEventTime"></div>
+                                    </div>
+                                </div>
+                                <div class="announcementparadiv-readmore">
+                                    <p id="pEventDesc"></p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+    </dialog>
+    <div class="contentmaindiv">
+
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" href="@Url.Action("Home","Home")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="calendarmaindiv">
+                    <div class="academicaddmaindiv" style="text-align:center;margin: 0px 0px 0px 12px;overflow:hidden;">
+
+                        <div title="Previous" class="timesheetleftarrow calPrev" onclick="calendarPrevious(this);"><a href="#" id="btnPrev">&#8810;</a></div>
+                        <label id="monthYeardiv" class="popupheadingtext1"></label>
+                        <div title="Next" class="timesheetrightarrow calNext" onclick="calendarNext(this);"><a href="#" id="btnNext">&#8811;</a></div>
+                        <input type="hidden" id="hdnPage" value="0" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="calendarmaindiv">
+                    <div class="calendarsubdiv">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="calendarmainbg">
+                            <tr>
+                                <td class="calendarheader-SUN">Sun</td>
+                                <td class="calendarheader">Mon</td>
+                                <td class="calendarheader">Tue</td>
+                                <td class="calendarheader">Wed</td>
+                                <td class="calendarheader">Thu</td>
+                                <td class="calendarheader">Fri</td>
+                                <td class="calendarheader-SUN">Sat</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

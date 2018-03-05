@@ -1,0 +1,307 @@
+﻿
+@{
+    ViewBag.Title = "EmployeeProgressChart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int typeId = 0;
+
+    if (Request["EmpProgressChat"] != null && Request["EmpProgressChat"] != "")
+    {
+        typeId = Convert.ToInt16(Request["EmpProgressChat"]);
+    }
+}
+<dialog id="dlgEmpProgressChart" style="width:50%;background: transparent;top: 25%;left: 5%;border: none;">
+    <div class="popupmaindiv" style="padding:5px">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv" style="overflow:hidden">
+                <div class="popupheadingtext">Employee Name</div>
+                <div class="popupclosebutton"><a title="Close" href="/HR/HRView">X</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="contentfielddiv">
+                        <div class="weeklytext" style="padding-left:0px !important">Enter Employee Name</div>
+                        <div class="floating-input autocomplete-textarea" id="divChartResources">
+                            <div id="listChartResources" class="list competancylist"></div>
+                            <input type="text" class="competancy autopopulateText" id="txtChartResources" placeholder=" " />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="myprojectenterdiv">
+                        <a href="#">
+                            <img title="Enter" src="../images/enter.png" style="cursor:pointer" id="btnEmployeeProgressChart" width="30" height="30" alt=""
+                                 onclick="CloseChartDialogBox(this);">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ErrorLabel">
+                        <label id="empMsg" class="lblError"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv">
+                    <div class="mainheadericon">
+                        <img src="~/Images/process-chart-sm.png" width="45" height="45" alt="" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Progress Chart</div>
+            </div>
+            <div class="col-sm-5">
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <a class="backbuttondiv" href="@Url.Action("HRView","HR")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+        </div>
+        <div class="space"></div>
+        <div class="space"></div>
+        <div id="divProgressChart" class="chartdiv" style="margin-left:150px;">
+            <table style="height: 10px; width: 750px;background-color:#7f7f7f;">
+                <tr>
+                    <td style="float: left">
+                        <input title="Previous" type="button" class="prvbtn" id="btnPrev" onClick="onPrevLoad();" />
+                    </td>
+                    <td style="text-align: center; font-weight: bold; color:white">
+                        <label id="lblStEndMonth"></label>
+                    </td>
+                    <td style="float: right">
+                        <input title="Next" type="button" class="progresschartnextbtn" id="btnNxt" onClick="onNxtLoad();" />
+                    </td>
+                </tr>
+                <input type="hidden" id="hdnPrevChart" value="" class=".filehidden" />
+                <input type="hidden" id="hdnNextChart" value="" class=".filehidden" />
+                <input type="hidden" id="hdnPrvNxtCnt" value="" class=".filehidden" />
+            </table>
+            <div id="chart_div" style="height: 500px; width: 750px;color:gray">
+            </div>
+        </div>
+        <div style="padding:22px;"></div>
+    </div>
+</div>
+<input id="hdnEmpPrgChart" type="hidden" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if(@typeId==1)
+        {
+            var dialog = document.getElementById('dlgEmpProgressChart');
+            dialog.showModal();
+        }
+    });
+        var DataArray = [];
+        var titleBar = ['Month', 'Task completed on due date', 'Task completed before due date', 'Task completed after due date'];
+        var Months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+        var Tasks = ['0', '1', '2'];
+        var DisplayMonths = [];
+        DataArray.push(titleBar);
+        var today = new Date();
+        var curDate = new Date();
+        var curMonth = curDate.getMonth() + 1;
+        var curYear = curDate.getFullYear();
+        var month, year;
+        window.onload = loadChart(curMonth, curYear);
+        function onPrevLoad() {
+            $('#btnNxt').attr('disabled', false);
+            var countPrev = $('#hdnPrvNxtCnt').val();
+            $('#hdnPrvNxtCnt').val(+countPrev + +1);
+            DataArray = [];
+            DataArray.push(titleBar);
+            DisplayMonths = [];
+            var mon = $('#hdnPrevChart').val().split('-')[0];
+            var yr = $('#hdnPrevChart').val().split('-')[1];
+            if (mon > 1)
+                mon = mon - 1;
+            else {
+                mon = 12;
+                yr = yr - 1;
+            }
+            displayChart(mon, yr);
+            if (mon == 1 || mon == 2 || mon == 3) {
+                var PrevYear = yr - 1;
+                $('#lblStEndMonth').text('Year - (' + PrevYear + ' ' + '-' + ' ' + yr + ')');
+            }
+            else {
+                $('#lblStEndMonth').text('Year - ' + yr);
+            }
+        }
+        function onNxtLoad() {
+            var countNxt = $('#hdnPrvNxtCnt').val();
+            $('#hdnPrvNxtCnt').val(+countNxt - +1);
+            if ($('#hdnPrvNxtCnt').val() == 0) {
+                $('#btnNxt').attr('disabled', true);
+            }
+            DataArray = [];
+            DataArray.push(titleBar);
+            DisplayMonths = [];
+            var mon = $('#hdnNextChart').val().split('-')[0];
+            var yr = $('#hdnNextChart').val().split('-')[1];
+
+            if ((parseInt(mon) + 4) > 12) {
+                mon = (mon - 9) + 1;
+                yr = parseInt(yr) + 1;
+            }
+            else
+                mon = (parseInt(mon) + 4);
+            displayChart(mon, yr);
+            if (mon == 1 || mon == 2 || mon == 3) {
+                var PrevYear = yr - 1;
+                $("#lblStEndMonth").text('Year - (' + PrevYear + ' ' + '-' + ' ' + yr + ')');
+            }
+            else {
+                $("#lblStEndMonth").text('Year - ' + yr);
+            }
+        }
+        function loadChart(curMonth, curYear) {
+            $('#btnNxt').attr('disabled', true);
+            if (curMonth == 1 || curMonth == 2 || curMonth == 3) {
+                var PrevYear = curYear - 1;
+                $("#lblStEndMonth").text('Year - (' + PrevYear + ' ' + '-' + ' ' + curYear + ')');
+            }
+            else {
+                $("#lblStEndMonth").text('Year - ' + curYear);
+            }
+            displayChart(curMonth, curYear)
+        }
+        function displayChart(mon, yr) {
+            GetLastMonths(mon, yr);
+            $('#hdnPrevChart').val(DisplayMonths[3]);
+            $('#hdnNextChart').val(DisplayMonths[0]);
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawVisualization);
+            function drawVisualization(data) {
+                for (i = DisplayMonths.length - 1; i >= 0 ; i--) {
+                    var onduedate = 0;
+                    var beforeduedate = 0;
+                    var afterduedate = 0;
+                    $.ajax({
+                        url: '/HR/GetEmployeeProgressChat',
+                        type: "GET",
+                        async: false,
+                        data: { empId : $('#hdnEmpPrgChart').val()!= "" ?$('#hdnEmpPrgChart').val():0, Month: DisplayMonths[i].split('-')[0], Year: DisplayMonths[i].split('-')[1], Operation : 1},
+                        success: function (result) {
+                            var resultVals = $.parseJSON(result);
+                            if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                                for (var j = 0; j < resultVals.length; j++) {
+                                        if (moment(new Date(resultVals[j]["EndDate"])).format('MM-DD-YYYY') == moment(new Date(resultVals[j]["TaskCompletedDate"])).format('MM-DD-YYYY'))
+                                            onduedate = onduedate + 1;
+                                        else if (!CompareDates(resultVals[j]["EndDate"], resultVals[j]["TaskCompletedDate"]))
+                                            beforeduedate = beforeduedate + 1;
+                                        else if (CompareDates(resultVals[j]["EndDate"], resultVals[j]["TaskCompletedDate"]))
+                                            afterduedate = afterduedate + 1;
+                                }
+                            }
+                        },
+                        error: function (err) {
+                        }
+                    });
+                    DataArray.push([Months[parseInt([DisplayMonths[i].split('-')[0]]) - 1], onduedate, beforeduedate, afterduedate]);
+                }
+                data = google.visualization.arrayToDataTable(DataArray);
+
+                var options = {
+                    width: '50%',
+                    height: '70%',
+                    chartArea: {
+                        left: "25%",
+                        top: "10%",
+                        height: "70%",
+                        width: "40%",
+                    },
+
+                    vAxis: {
+                        title: 'Tasks', minValue: 4
+                    },
+                    hAxis: { title: 'Month' },
+                    colors: ['blue', 'green', 'red'],
+                    seriesType: 'Line',
+                };
+                chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }           
+        }
+        function GetLastMonths(mon, yr) {
+            var currMon = mon;
+            var currYr = yr;
+            DisplayMonths.push(currMon + "-" + currYr);
+            for (var i = 0; i < 3; i++) {
+                currMon = currMon - 1;
+                if (currMon == 0) {
+                    currMon = 12;
+                    currYr = currYr - 1;
+                }
+                DisplayMonths.push(currMon + "-" + currYr);
+            }
+        }
+        $("#txtChartResources").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/EmpInfoAdminView/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'EmpName': '" + request.term + "' }",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                    },
+                    failure: function (response) {
+                    }
+                });
+            },
+            select: function (e, i) {
+                if (i.item.label != "") {
+                    $("#listChartResources").empty();
+                    $("#listChartResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                                 "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                             "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+                    $(this).val("");
+                    return false;
+                }
+            },
+            minLength: 1
+        });
+        function CloseChartDialogBox(obj)
+        {
+            var empId=0;
+            if ($("#listChartResources").is(':empty')) {
+                $("#divChartResources").addClass("ErrorFocus");
+                $('#empMsg').text("Please select an employee");
+            }
+            else
+            {                
+                DataArray = [];
+                DataArray.push(titleBar);
+                DisplayMonths = [];
+                today = new Date();
+                //curDate = new Date();
+                //curMonth = curDate.getMonth() + 1;
+                //curYear = curDate.getFullYear();
+                empId = parseInt($("#listChartResources").find(".divcompetancy").attr("name"));
+                document.getElementById('hdnEmpPrgChart').value = empId
+                loadChart(curMonth,curYear)
+                var dialog = document.getElementById('dlgEmpProgressChart');
+                dialog.close();
+            }
+        }
+</script>
+

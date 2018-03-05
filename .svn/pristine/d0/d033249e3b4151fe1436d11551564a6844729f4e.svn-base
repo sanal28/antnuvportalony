@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CreateRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestText" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="RequestType" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="AttachmentUrl" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompOffFor" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="RequestedToDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateRequestResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestedDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GroupName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReqStatus" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Requester" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchRequestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchAllOrReim">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:float" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="TicketStatusId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Requester" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CategoryTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CategoryId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchAllOrReimResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchAllOrReimResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAllowanceReimbursement">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:float" />
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CategoryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CategoryTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddAllowanceReimbursementResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddAllowanceReimbursementResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RequestId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Iscompoff" nillable="true" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CancelRequestResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateLeaveRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpIdRequester" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpAssignedTo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="LeaveStartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="LeaveEndDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="StatusId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FKLeaveTransId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="LeaveTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="LeaveAppliedDays" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedEmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ModifiedEmpId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Reason" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsCreate" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateLeaveRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateLeaveRequestResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrCancelMyLeave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RequestId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpIdRequester" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="LeaveTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="StatusId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrCancelMyLeaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateOrCancelMyLeaveResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableAvailedLeaves">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CompanyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableAvailedLeavesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailableAvailedLeavesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRequestStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RequestId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="StatusId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Iscompoff" nillable="true" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRequestStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateRequestStatusResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetForgotPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetForgotPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetForgotPasswordResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckIfReqApplied">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RequestedTo" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmpId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RequestTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Operation" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckIfReqAppliedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckIfReqAppliedResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateRequest" />
+  </wsdl:message>
+  <wsdl:message name="CreateRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchRequest" />
+  </wsdl:message>
+  <wsdl:message name="SearchRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchAllOrReimSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchAllOrReim" />
+  </wsdl:message>
+  <wsdl:message name="SearchAllOrReimSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchAllOrReimResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddAllowanceReimbursementSoapIn">
+    <wsdl:part name="parameters" element="tns:AddAllowanceReimbursement" />
+  </wsdl:message>
+  <wsdl:message name="AddAllowanceReimbursementSoapOut">
+    <wsdl:part name="parameters" element="tns:AddAllowanceReimbursementResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelRequest" />
+  </wsdl:message>
+  <wsdl:message name="CancelRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateLeaveRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateLeaveRequest" />
+  </wsdl:message>
+  <wsdl:message name="CreateLeaveRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateLeaveRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrCancelMyLeaveSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateOrCancelMyLeave" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrCancelMyLeaveSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateOrCancelMyLeaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableAvailedLeavesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailableAvailedLeaves" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailableAvailedLeavesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailableAvailedLeavesResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRequestStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateRequestStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRequestStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateRequestStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetForgotPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:GetForgotPassword" />
+  </wsdl:message>
+  <wsdl:message name="GetForgotPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:GetForgotPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckIfReqAppliedSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckIfReqApplied" />
+  </wsdl:message>
+  <wsdl:message name="CheckIfReqAppliedSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckIfReqAppliedResponse" />
+  </wsdl:message>
+  <wsdl:portType name="NuPortalRequestServiceSoap">
+    <wsdl:operation name="CreateRequest">
+      <wsdl:input message="tns:CreateRequestSoapIn" />
+      <wsdl:output message="tns:CreateRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchRequest">
+      <wsdl:input message="tns:SearchRequestSoapIn" />
+      <wsdl:output message="tns:SearchRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchAllOrReim">
+      <wsdl:input message="tns:SearchAllOrReimSoapIn" />
+      <wsdl:output message="tns:SearchAllOrReimSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAllowanceReimbursement">
+      <wsdl:input message="tns:AddAllowanceReimbursementSoapIn" />
+      <wsdl:output message="tns:AddAllowanceReimbursementSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelRequest">
+      <wsdl:input message="tns:CancelRequestSoapIn" />
+      <wsdl:output message="tns:CancelRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateLeaveRequest">
+      <wsdl:input message="tns:CreateLeaveRequestSoapIn" />
+      <wsdl:output message="tns:CreateLeaveRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrCancelMyLeave">
+      <wsdl:input message="tns:UpdateOrCancelMyLeaveSoapIn" />
+      <wsdl:output message="tns:UpdateOrCancelMyLeaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableAvailedLeaves">
+      <wsdl:input message="tns:GetAvailableAvailedLeavesSoapIn" />
+      <wsdl:output message="tns:GetAvailableAvailedLeavesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRequestStatus">
+      <wsdl:input message="tns:UpdateRequestStatusSoapIn" />
+      <wsdl:output message="tns:UpdateRequestStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetForgotPassword">
+      <wsdl:input message="tns:GetForgotPasswordSoapIn" />
+      <wsdl:output message="tns:GetForgotPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfReqApplied">
+      <wsdl:input message="tns:CheckIfReqAppliedSoapIn" />
+      <wsdl:output message="tns:CheckIfReqAppliedSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NuPortalRequestServiceSoap" type="tns:NuPortalRequestServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateRequest">
+      <soap:operation soapAction="http://tempuri.org/CreateRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchRequest">
+      <soap:operation soapAction="http://tempuri.org/SearchRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchAllOrReim">
+      <soap:operation soapAction="http://tempuri.org/SearchAllOrReim" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAllowanceReimbursement">
+      <soap:operation soapAction="http://tempuri.org/AddAllowanceReimbursement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelRequest">
+      <soap:operation soapAction="http://tempuri.org/CancelRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateLeaveRequest">
+      <soap:operation soapAction="http://tempuri.org/CreateLeaveRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrCancelMyLeave">
+      <soap:operation soapAction="http://tempuri.org/UpdateOrCancelMyLeave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableAvailedLeaves">
+      <soap:operation soapAction="http://tempuri.org/GetAvailableAvailedLeaves" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRequestStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdateRequestStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetForgotPassword">
+      <soap:operation soapAction="http://tempuri.org/GetForgotPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfReqApplied">
+      <soap:operation soapAction="http://tempuri.org/CheckIfReqApplied" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NuPortalRequestServiceSoap12" type="tns:NuPortalRequestServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateRequest">
+      <soap12:operation soapAction="http://tempuri.org/CreateRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchRequest">
+      <soap12:operation soapAction="http://tempuri.org/SearchRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchAllOrReim">
+      <soap12:operation soapAction="http://tempuri.org/SearchAllOrReim" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAllowanceReimbursement">
+      <soap12:operation soapAction="http://tempuri.org/AddAllowanceReimbursement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelRequest">
+      <soap12:operation soapAction="http://tempuri.org/CancelRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateLeaveRequest">
+      <soap12:operation soapAction="http://tempuri.org/CreateLeaveRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrCancelMyLeave">
+      <soap12:operation soapAction="http://tempuri.org/UpdateOrCancelMyLeave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableAvailedLeaves">
+      <soap12:operation soapAction="http://tempuri.org/GetAvailableAvailedLeaves" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRequestStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdateRequestStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetForgotPassword">
+      <soap12:operation soapAction="http://tempuri.org/GetForgotPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckIfReqApplied">
+      <soap12:operation soapAction="http://tempuri.org/CheckIfReqApplied" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NuPortalRequestService">
+    <wsdl:port name="NuPortalRequestServiceSoap" binding="tns:NuPortalRequestServiceSoap">
+      <soap:address location="http://192.168.1.18:97/NuPortalRequestService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="NuPortalRequestServiceSoap12" binding="tns:NuPortalRequestServiceSoap12">
+      <soap12:address location="http://192.168.1.18:97/NuPortalRequestService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,218 @@
+﻿
+@{
+    ViewBag.Title = "WeeklyTaskReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/weekl-report-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Timesheet Report</div>
+            </div>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="myprojectdiv">
+            <div class="backbuttondiv"> <a href="/USRecruitment/Home"><img alt="Back" width="30" height="30" src="../images/back-button.png" /></a></div>
+        </div>
+        <div class="space"></div>
+        <div id="divValidateSearch">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="contentfielddiv">
+                        <input id="txtResourceName" class="floating-input autocompleteEmp vinput" type="text" placeholder=" ">
+                        <label class="float">Resource Name</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="contentfielddiv">
+                        <select class="floating-select vselect" id="ddlProjects" onclick="this.setAttribute('value', this.value);" value="">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Project Name</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="contentfielddiv">
+                        <input id="txtStartDate" class="floating-input vinput" type="text" placeholder=" ">
+                        <label class="float">Start Date</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="contentfielddiv">
+                        <input id="txtEndDate" class="floating-input vinput" type="text" placeholder=" ">
+                        <label class="float">End Date</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="weektasksearchdiv"><a href="#" id="hrefSearch"><img title="Search" src="../Images/timesheet-search.png" width="20" height="20" alt="" /></a></div>
+                </div>
+            </div>
+            </div>
+            @*<div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="requestgridmaindiv">
+
+                        <table width="100%" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                            <tbody>
+                                <tr class="requestgriddiv">
+                                    <td class="requestgridheader" width="20%">Name</td>
+                                    <td class="requestgridheader" width="20%">Client Name</td>
+                                    <td class="requestgridheader" width="20%">Project Name</td>
+                                    <td class="requestgridheader" width="20%">Project Manager</td>
+                                    <td class="requestgridheader" width="10%">Week Ending</td>
+                                    <td class="requestgridheader" width="10%">Client ID</td>
+                                </tr>
+                                <tr class="requestgriddiv2">
+                                    <td class="requestgridsubheader">Name here</td>
+                                    <td class="requestgridsubheader">Kansas</td>
+                                    <td class="requestgridsubheader">Test</td>
+                                    <td class="requestgridsubheader">Mohanakannan</td>
+                                    <td class="requestgridsubheader">15-12-2017</td>
+                                    <td class="requestgridsubheader">1235</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>*@
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="requestgridmaindiv">
+                        <table id="tblTaskDetails" width="100%" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                            <tbody>
+                                <tr class="requestgriddiv">
+                                    <td class="requestgridheader" width="20%">Task Name</td>
+                                    <td class="requestgridheader" width="10%">Reporting To</td>
+                                    <td class="requestgridheader" width="10%">Task Status</td>
+                                </tr>
+                                <tr class="requestgriddiv2">
+                                    <td class="requestgridsubheader">Name here</td>
+                                    <td class="requestgridsubheader">Mohan</td>
+                                    <td class="requestgridsubheader">Completed</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table id="tblTaskDetailsPrint" width="100%" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                            <tbody>
+                                <tr class="requestgriddiv">
+                                    <td class="requestgridheader" width="20%">Task Name</td>
+                                    <td class="requestgridheader" width="10%">Reporting To</td>
+                                    <td class="requestgridheader" width="10%">Task Status</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="buttonmaindiv">
+                <div class="buttondiv"><input class="printbtn1" type="button" /></div>
+                <div class="buttondiv"><input class="clearbtn" type="button" /></div>
+                <div class="ErrorLabel">
+                    <label id="lblMessage" class="lblMessage"></label>
+                </div>
+            </div>
+        </div>
+</div>
+<script>
+    var EmpId = 0;
+    $(document).ready(function () {
+        DefineDatePicker($('#txtStartDate'));
+        DefineDatePicker($('#txtEndDate'));
+        var CompareItems = new Array();
+        $(".autocompleteEmp").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/EmpInfoAdminView/AutoComplete',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'EmpName': '" + request.term + "' }",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                            CompareItems.push(data[i]["Value"]);
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                    },
+                    failure: function (response) {
+                    }
+                });
+            },
+            change: function (event, ui) {
+                var val = $(this).val();
+                var exists = $.inArray(val, CompareItems);
+                if (exists < 0) {
+                    $(this).val("");
+                    $('#ddlProjects').children('option:not(:first)').remove();
+                    $('#ddlProjects').click();  
+                    $(this).focus();
+                    return false;
+                }
+            },
+            select: function (e, i) {
+                empid = i.item.Id;
+                $('#ddlProjects').children('option:not(:first)').remove();
+                LoadDdls('/timesheet/GetTasksList?EmpId=' + i.item.Id, $('#ddlProjects'), 'ProjectId', 'Name');
+                $('#ddlProjects').click();
+                $(this).val(i.item.label);
+            },
+            minLength: 1
+        });
+        $('#hrefSearch').click(function (e) {
+            e.preventDefault();
+            if (ValidateAll('divValidateSearch', 'lblMessage')) {
+                $.ajax({
+                    url: '/USRecruitment/GetWeeklyReport',
+                    type: "GET",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    data: {
+                        StartDate: FormatDate($("#txtStartDate").val(), "yyyy/mm/dd"),
+                        EndDate: FormatDate($("#txtEndDate").val(), "yyyy/mm/dd")
+                        , ProjectId: $('#ddlProjects').val(), ResourceId : EmpId, Offset : 0, RowCount : 5, Operation : 1
+                    },
+                    success: function (result) {
+                        var resultVals = $.parseJSON(result);
+                        $('#tblTaskDetailsPrint > tbody').children("tr:gt(0)").remove();
+                        $('#tblTaskDetails > tbody').children("tr:gt(0)").remove();
+                        if (resultVals["Error"] == undefined || resultVals["Error"] == null) {
+                            for (var i = 0; i < resultVals.length; i++) {
+                                if (i < 10)
+                                    $('#tblTaskDetails').append('<tr class="requestgriddiv2">' +
+                                        '<td class="requestgridsubheader">' + resultVals[i]["TaskName"] + '</td>' +
+                                        '<td class="requestgridsubheader">' + resultVals[i]["ManagerName"] + '</td>' +
+                                        '<td class="requestgridsubheader">' + resultVals[i]["StatusText"] + '</td>' +
+                                    '</tr>');
+                                $('#tblTaskDetailsPrint').append('<tr class="requestgriddiv2">'+
+                                    '<td class="requestgridsubheader">' + resultVals[i]["TaskName"] + '</td>' +
+                                    '<td class="requestgridsubheader">' + resultVals[i]["ManagerName"] + '</td>' +
+                                    '<td class="requestgridsubheader">' + resultVals[i]["StatusText"] + '</td>' +
+                                '</tr>');
+                            }
+                        }
+                    },
+                    error: function (response) {
+
+                    }
+                });
+            }
+        });
+    });
+</script>

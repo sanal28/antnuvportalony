@@ -1,0 +1,1309 @@
+﻿
+@{
+    ViewBag.Title = "VisaLog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<dialog id="dlgVisaProcess" style="width:70%;background: transparent;border: none;">
+    <div class="popupmaindiv" style="padding:5px;">
+        <div class="popupmaindiv">
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Visa</div>
+                <div class="popupclosebutton"><a title="Close" href="#" onclick="document.getElementById('dlgVisaProcess').close();">X</a></div>
+            </div>
+            <div style="overflow-y:auto;overflow-x:hidden;max-height:570px;">
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtFedTaxId" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Federal TAX ID Number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCompName" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Company Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="contentfielddiv">
+                                    <textarea id="txtCompAddress" class="floating-input floating-textarea" placeholder=" "></textarea>
+                                    <label class="float">Company Address</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtPhone" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Phone</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtFax" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Fax</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtEmail" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Email</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtTotEmployees" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Total Employees</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtGrossAnnIncome" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Gross Annual Income</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtNetIncome" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Net Income</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtCompEstDate" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Company Established Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtName" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Name (Signed By)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtTitle" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Title (Signed By)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="contentfielddiv">
+                                    <textarea id="txtCompDes" class="floating-input floating-textarea" placeholder=" "></textarea>
+                                    <label class="float">Company Description</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divCBFiles">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <div class="USRECdocument">Is Your Company H-1B Dependent?</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <div class="USRECdocument">
+                                        <label class="switch">
+                                            <input type="checkbox" id="cbCompDependent">
+                                            <div class="slider round"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtEmpCount" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">How many H-1B employees?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space"></div>
+                        <div class="popupheadingmaindiv">
+                            <div class="popupheadingtext">Job Offered</div>
+                        </div>
+                        <div class="space"></div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtSalOffered" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Salary offered</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtJobTitle" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Title</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="contentfielddiv">
+                                    <textarea id="JobAddress" class="floating-input floating-textarea" placeholder=" "></textarea>
+                                    <label class="float">Address</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space"></div>
+                        <div class="popupheadingmaindiv">
+                            <div class="popupheadingtext">Employees Information</div>
+                        </div>
+                        <div class="space"></div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtEmpFistName" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">First Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtEmpMiddleName" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Middle Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtEmpLastName" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Last Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="contentfielddiv">
+                                    <textarea id="txtUSAddress" class="floating-input floating-textarea" placeholder=" "></textarea>
+                                    <label class="float">Address in US</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="contentfielddiv">
+                                    <textarea id="txtAbroadAddress" class="floating-input floating-textarea" placeholder=" "></textarea>
+
+                                    <label class="float">Address Abroad</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtAbroadConsulate" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Nearest Consulate Abroad </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtEmpDob" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">DOB</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtEmpBirthPlace" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Place of Birth</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtBirthCountry" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Country of Birth</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtSSN" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Social Security Number (if any) </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtPassportNo" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Passport Number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtPassIssueDate" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Passport Issue Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtPassValidityDate" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Passport Validity Date</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtI94" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">I-94 Number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtI94IssueDate" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">I-94 Issue Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtI94ValidityDate" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">I-94 Validity Date</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <input id="txtApproval" class="floating-input" type="text" placeholder=" ">
+                                    <label class="float">Last I-797 Approval (Receipt Number)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space"></div>
+                        <div class="space"></div>
+                        <div class="popupheadingmaindiv">
+                            <div class="popupheadingtext">Date of US Residency</div>
+                        </div>
+                        <div class="space"></div>
+                        <table style="width:100%" id="tblVisaProcess">
+                            <tbody id="tbyVisaProcess">
+                                <tr id="tr1">
+                                    <td>
+                                        <div class="academicaddmaindiv"></div>
+                                        <div class="space"></div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="contentfielddiv">
+                                                    <input id="txtEntryDate" class="floating-input visadateText" type="text" placeholder=" ">
+                                                    <label class="float">Entry Date on H-1B or L-1 Visa</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="contentfielddiv">
+                                                    <input id="txtExitDate" class="floating-input visadateText" type="text" placeholder=" ">
+                                                    <label class="float">Exit Date on H-1B or L-1 Visa</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div id="divSpace" class="space"></div>
+                        <div class="popupheadingmaindiv">
+                            <div class="popupheadingtext">Document </div>
+                        </div>
+                        <div id="divFiles">
+                        </div>
+                        <div class="space"></div>
+                        <div class="popupheadingmaindiv">
+                            <div class="popupheadingtext">About Family</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <div class="USRECdocument">Married</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="contentfielddiv">
+                                    <div class="USRECdocument">
+                                        <label class="switch">
+                                            <input type="checkbox" id="cbMarried">
+                                            <div class="slider round"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table style="width:100%" id="tblVisaFamilyDetails">
+                            <tbody id="tbyVisaFamilyDetails">
+                                <tr id="tr1">
+                                    <td>
+                                        <div class="academicaddmaindiv">
+                                        </div>
+                                        <div class="space"></div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="contentfielddiv">
+                                                    <input id="txtFirstName" class="floating-input" type="text" placeholder=" ">
+                                                    <label class="float">First Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="contentfielddiv">
+                                                    <input id="txtLastName" class="floating-input" type="text" placeholder=" ">
+                                                    <label class="float">Last Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="contentfielddiv">
+                                                    <input id="txtDob" class="floating-input visadateText" type="text" placeholder=" ">
+                                                    <label class="float">DOB</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="contentfielddiv">
+                                                    <input id="txtSOS" class="floating-input" type="text" placeholder=" ">
+                                                    <label class="float">SOS. SEC Number</label>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-4">
+                                                <div class="contentfielddiv">
+                                                    <input id="txtRelation" class="floating-input" type="text" placeholder=" ">
+                                                    <label class="float">Relationship</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="contentfielddiv">
+                                                    <input id="BirthPlace" class="floating-input" type="text" placeholder=" ">
+                                                    <label class="float">Place of Birth</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            
+                                            <div class="col-md-4">
+                                                <div class="contentfielddiv">
+                                                    <input id="txtEntry" class="floating-input visadateText" type="text" placeholder=" ">
+                                                    <label class="float">Entry</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="contentfielddiv">
+                                                    <input id="txtExit" class="floating-input visadateText" type="text" placeholder=" ">
+                                                    <label class="float">Exit</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="divFDFiles">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+<div>
+    <div class="col-md-11">
+        <div class="mainheadingdiv">
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mainheadericondiv">
+                        <div class="mainheadericon">
+                            <img src="~/Images/visa-sm.png" width="45" height="45" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="mainheaderdiv">Visa</div>
+                </div>
+                <div class="col-sm-5">
+                </div>
+            </div>
+        </div>
+        <div class="contentmaindiv">
+            <div class="myprojectdiv">
+                    <a class="backbuttondiv" href="@Url.Action("Home", "USRecruitment")">
+                        <img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" />
+                    </a>
+            </div>
+            <div class="space"></div>
+            <div class="popupheadingmaindiv">
+                <div class="popupheadingtext">Visa-Requested</div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="requestgridmaindiv">
+                        <table width="100%" id="tblVisaReq" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                            <tr class="requestgriddiv">
+                                <td class="requestgridheader" width="13%">
+                                    Requested Date
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field1Xml" id="cbVisaReqDate" name="requestdate" style="width:170px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbVisaReq1" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbVisaReq1" name='Field1Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="14%">
+                                    Candidate Name
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field2Xml" id="cbVisaReqCanName" name="candidatename" style="width:170px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbVisaReq2" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbVisaReq2" name='Field2Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="14%">
+                                    Client Name
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field3Xml" id="cbVisaReqClientName" name="clientname" style="width:180px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbVisaReq3" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbVisaReq3" name='Field3Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="13%">
+                                    Position Title
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field4Xml" id="cbVisaReqPosTitle" name="positiontitle" style="width:155px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbVisaReq4" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbVisaReq4" name='Field4Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="12%">
+                                    Status
+                                    <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                    <div class="slidingDivGrid Field5Xml" id="cbVisaReqStatus" name="status" style="width:150px !important">
+                                        <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                        <div class="moreresourcediv">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbVisaReq5" name="SelectAll" /></td>
+                                                        <td width="90%">
+                                                            <div class="resourcemoreusename">
+                                                                <label class="cbcheckbox" for="cbVisaReq5" name='Field5Xml'>Select All</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="requestgridheader" width="10%">
+                                    Visa
+                                </td>
+                                <td class="requestgridheader" width="3%" colspan="3">
+                                    <a href="#" id="hrefVisaReqClearFilter">
+                                        <img title="Clear" src="../images/ClearFilter.jpg" width="14" height="14" alt="" />
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="paginationmaindiv" id="divPage">
+                            <div class="paginationsubdiv">
+                                <div class="paginationbtndiv" id="FRSTbtn" title="First">
+                                    <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="PRVbtn" title="Previous">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPgfirst">
+                                    <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMOpenbtn paginationNUM-ACTVbtn  pagination pgNumber1">1</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber2">2</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber3">3</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum">
+                                    <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber4">4</div></a>
+                                </div>
+                                <div class="paginationbtndiv paginationbtndivNum" id="divPglast">
+                                    <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMOpenbtn pagination pgNumber5">5</div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="NXTbtn" title="Next">
+                                    <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                                </div>
+                                <div class="paginationbtndiv" id="LSTbtn" title="Last">
+                                    <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="space"></div>
+                <div class="popupheadingmaindiv">
+                    <div class="popupheadingtext">Visa-Approved</div>
+                </div>
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="requestgridmaindiv">
+                            <table width="100%" id="tblVisaApp" border="0" cellspacing="1" cellpadding="0" class="requesttablediv">
+                                <tr class="requestgriddiv">
+                                    <td class="requestgridheader" width="16%">
+                                        Requested Date
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field1Xml" id="cbVisaAppReqDate" name="requesteddate" style="width:155px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbVisaApp1" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbVisaApp1" name='Field1Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="17%">
+                                        Candidate Name
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field2Xml" id="cbVisaAppCanName" name="candidatename" style="width:155px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbVisaApp2" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbVisaApp2" name='Field2Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="14%">
+                                        Client Name
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field3Xml" id="cbVisaAppClientName" name="clientname" style="width:130px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbVisaApp3" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbVisaApp3" name='Field3Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="17%">
+                                        Position Title
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field4Xml" id="cbVisaAppPosTitle" name="positiontitle" style="width:155px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbVisaApp4" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbVisaApp4" name='Field4Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="requestgridheader" width="14%">
+                                        Status
+                                        <a class="show_hideGrid" href="#"><img title="Filter" src="../images/Filter.png" width="14" height="14" alt="" /></a>
+                                        <div class="slidingDivGrid Field5Xml" id="cbVisaAppStatus" name="status" style="width:140px !important">
+                                            <div class="resourceclosebtn"><a title="Close" href="#" class="show_hideGrid">X</a></div>
+                                            <div class="moreresourcediv">
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="10%"><input type="checkbox" class="cbcheckbox" id="cbVisaApp5" name="SelectAll" /></td>
+                                                            <td width="90%">
+                                                                <div class="resourcemoreusename">
+                                                                    <label class="cbcheckbox" for="cbVisaApp5" name='Field5Xml'>Select All</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td> 
+                                    <td class="requestgridheader" width="12%">
+                                        Visa
+                                    </td>                                                                        
+                                    <td class="requestgridheader" width="3%" colspan="3">
+                                        <a href="#" id="hrefVisaAppClearFilter">
+                                            <img title="Clear" src="../images/ClearFilter.jpg" width="14" height="14" alt="" />
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="paginationmaindiv" id="divPageVisaApproved">
+                                <div class="paginationsubdiv">
+                                    <div class="paginationbtndiv" id="FRSTbtnCTasks">
+                                        <a href="#" class="hreflink"><div class="paginationfirstbtn"><i class="fa fa-angle-double-left" aria-hidden="true"></i></div></a>
+                                    </div>
+                                    <div class="paginationbtndiv" id="PRVbtnCTasks">
+                                        <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-left" aria-hidden="true"></i></div></a>
+                                    </div>
+                                    <div class="paginationbtndiv paginationbtndivComNum" id="divPgfirstCTasks">
+                                        <a href="#" class="hreflink"><div name="1" class="paginationNUMbtn paginationNUMCompbtn paginationNUM-ACTVbtnComp  pagination pgNumberB1">1</div></a>
+                                    </div>
+                                    <div class="paginationbtndiv paginationbtndivComNum">
+                                        <a href="#" class="hreflink"><div name="2" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB2">2</div></a>
+                                    </div>
+                                    <div class="paginationbtndiv paginationbtndivComNum">
+                                        <a href="#" class="hreflink"><div name="3" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB3">3</div></a>
+                                    </div>
+                                    <div class="paginationbtndiv paginationbtndivComNum">
+                                        <a href="#" class="hreflink"><div name="4" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB4">4</div></a>
+                                    </div>
+                                    <div class="paginationbtndiv paginationbtndivComNum" id="divPglastCTasks">
+                                        <a href="#" class="hreflink"><div name="5" class="paginationNUMbtn paginationNUMCompbtn pagination pgNumberB5">5</div></a>
+                                    </div>
+                                    <div class="paginationbtndiv" id="NXTbtnCTasks">
+                                        <a href="#" class="hreflink"><div class="paginationNXTbtn"><i class="fa fa-angle-right" aria-hidden="true"></i></div></a>
+                                    </div>
+                                    <div class="paginationbtndiv" id="LSTbtnCTasks">
+                                        <a href="#" class="hreflink"><div class="paginationPRVbtn"><i class="fa fa-angle-double-right" aria-hidden="true"></i></div></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+<script>
+    var dictVisaReqArray = {};
+    var dictVisaAppArray = {};
+    var IsPrimaryLoad = true;
+    var date;
+    var CurrentPageId = 1;
+    var CurrentPageIdApproved = 1;
+    var RowCount = 10;
+    var PageCount = 0;
+    var PageCountApproved = 0;
+    var OffsetVal = 0;
+    var loopVal = 0;
+    var classId = 0;
+    $(document).ready(function () {
+        dictVisaReqArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": ""};
+        dictVisaAppArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "" };
+        $(".slidingDivGrid").hide();
+        $(".show_hideGrid").show();
+        hideFilter();
+        $('.show_hideGrid').click(function () {
+            $(".slidingDivGrid").not($(this).closest(".requestgridheader").find('.slidingDivGrid')).hide();
+            $(this).closest(".requestgridheader").find('.slidingDivGrid').slideToggle();
+        });
+        $('.show_hideGrid').click(function (e) {
+            e.preventDefault();
+        });
+        loadVisaReq();
+        loadVisaReqFilter();
+        loadVisaApp();
+        loadVisaAppFilter();
+        $('#hrefVisaReqClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictVisaReqArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "" };
+            FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+            CurrentPageId = 1;
+            loadVisaReq();
+            showPages($('.paginationbtndivNum > a'), '.pgNumber', 1);
+
+        });
+        $('#hrefVisaAppClearFilter').click(function (e) {
+            e.preventDefault();
+            $(".slidingDivGrid").hide();
+            $(this).closest('table').find('input.cbcheckbox:checkbox').each(function () {
+                $(this).prop('checked', false);
+            }); //clear all checkbox
+            dictVisaAppArray = { "Field1Xml": "", "Field2Xml": "", "Field3Xml": "", "Field4Xml": "", "Field5Xml": "", "Field6Xml": "" };
+            FirstButonClick($('.paginationNUMCompbtn'), $('.pgNumberB1'), 'paginationNUM-ACTVbtnComp', CurrentPageIdApproved,
+            'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+            loadVisaApp();
+        });
+    });
+    function loadVisaReq()
+    {
+        OffsetVal = ((CurrentPageId - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictVisaReqArray), Operation: 41, ProjId: 0, TypeId: 1, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#tblVisaReq > tbody').children("tr:gt(0)").remove();
+                $('#divPage').show();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCount = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCount = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                    disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+                    showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+                    for (var i = 0; i < resultVals.length; i++) {
+                        date = FormatDate(resultVals[i]["RequestedDate"], "mm/dd/yyyy");
+                        $('#tblVisaReq').append('<tr class="requestgriddiv2" ><td class="requestgridsubheader">' + date + '</td><td class="requestgridsubheader" >' + resultVals[i]["CandidateName"] +
+                            '</td><td class="requestgridsubheader">' +
+                            resultVals[i]["ClientName"] + '</td><td class="requestgridsubheader" >' + resultVals[i]["PositionTitle"] +
+                            '</td><td class="requestgridsubheader">' + resultVals[i]["StatusName"] + '</td>' +
+                            '<td class="requestgridsubheader"><div class="documentlinkdiv"><a href="#" onclick="showVisaProcessDialog(' + resultVals[i]["VisaProcessingId"] + ');">Visa Form</a></div></td><td  class="requestgridsubheader"></td></tr>');
+                    }
+                }
+                else
+                {
+                        $('#divPage').hide();
+                        $('#tblVisaReq').append("<tr><td colspan='7' class='NoRecordsFound'>No Records Found</td></tr>");
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        })
+    }
+    function loadVisaReqFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictVisaReqArray), Operation: 41, ProjId: 0, TypeId: 1, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        date = FormatDate(resultVals[i]["RequestedDate"], "mm/dd/yyyy");
+                            CreateCheckBox($('#cbVisaReqDate'), date, 'Field1Xml');
+                            CreateCheckBox($('#cbVisaReqCanName'), resultVals[i]["CandidateName"], 'Field2Xml');
+                            CreateCheckBox($('#cbVisaReqClientName'), resultVals[i]["ClientName"], 'Field3Xml');
+                            CreateCheckBox($('#cbVisaReqPosTitle'), resultVals[i]["PositionTitle"], 'Field4Xml');
+                            CreateCheckBox($('#cbVisaReqStatus'), resultVals[i]["StatusName"], 'Field5Xml');
+                            DefineCheckboxClicks();
+                    }
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        })
+    }
+
+    function loadVisaApp()
+    {
+        OffsetVal = ((CurrentPageIdApproved - 1) * RowCount);
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictVisaAppArray), Operation: 42, ProjId: 0, TypeId: 1, OffSet: OffsetVal, RowCount: RowCount },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#tblVisaApp > tbody').children("tr:gt(0)").remove();
+                $('#divPageVisaApproved').show();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    if (resultVals[0]["TotalRowCount"] % 10 == 0)
+                        PageCountApproved = resultVals[0]["TotalRowCount"] / 10;
+                    else
+                        PageCountApproved = Math.floor(resultVals[0]["TotalRowCount"] / 10) + 1;
+                    disableButtons($('#LSTbtnCTasks'), $('#NXTbtnCTasks'), $('#FRSTbtnCTasks'), $('#PRVbtnCTasks'), PageCountApproved, CurrentPageIdApproved);
+                    showAndHidePages(PageCountApproved, CurrentPageIdApproved, $('.paginationbtndivComNum > a'), '.pgNumberB');
+                    for (var i = 0; i < resultVals.length; i++) {
+                        date = FormatDate(resultVals[i]["RequestedDate"], "mm/dd/yyyy");
+                        $('#tblVisaApp').append('<tr class="requestgriddiv2" ><td class="requestgridsubheader">' + date +
+                            '</td><td class="requestgridsubheader" >' + resultVals[i]["CandidateName"] +
+                            '</td><td class="requestgridsubheader">' +
+                            resultVals[i]["ClientName"] + '</td><td class="requestgridsubheader" >' + resultVals[i]["PositionTitle"] +
+                            '</td><td class="requestgridsubheader">' + resultVals[i]["StatusName"] + '</td>'+
+                            '<td class="requestgridsubheader"><div class="documentlinkdiv"><a href="#" onclick="showVisaProcessDialog(' + resultVals[i]["VisaProcessingId"] +
+                            ');">Visa Form</a></div></td><td  class="requestgridsubheader"></td></tr>');
+                    }
+                }
+                else {
+                        $('#divPageVisaApproved').hide();
+                        $('#tblVisaApp').append("<tr><td colspan='8' class='NoRecordsFound'>No Records Found</td></tr>");
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        })
+    }
+    function loadVisaAppFilter() {
+        $.ajax({
+            url: '/Home/GetGridData',
+            type: "POST",
+            dataType: 'json',
+            data: { jsonData: JSON.stringify(dictVisaAppArray), Operation: 42, ProjId: 0, TypeId: 1, OffSet: 0, RowCount: 0 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        date = FormatDate(resultVals[i]["RequestedDate"], "mm/dd/yyyy");
+                            CreateCheckBox($('#cbVisaAppReqDate'), date, 'Field1Xml');
+                            CreateCheckBox($('#cbVisaAppCanName'), resultVals[i]["CandidateName"], 'Field2Xml');
+                            CreateCheckBox($('#cbVisaAppClientName'), resultVals[i]["ClientName"], 'Field3Xml');
+                            CreateCheckBox($('#cbVisaAppPosTitle'), resultVals[i]["PositionTitle"], 'Field4Xml');
+                            CreateCheckBox($('#cbVisaAppStatus'), resultVals[i]["StatusName"], 'Field5Xml');
+                            DefineCheckboxClicks();
+                    }
+                }
+                PreventDefaultClick();
+            },
+            error: function (err) {
+            }
+        })
+    }
+
+    function DefineCheckboxClicks() {
+        $('.cbcheckbox:checkbox').unbind().click(function () {
+            IsPrimaryLoad = false;
+            var dictTemp = {};
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblVisaReq')
+                dictTemp = dictVisaReqArray;
+            else
+                dictTemp = dictVisaAppArray;
+            var SearchVal = "";
+            var ColValue = $(this).closest('tr').find('label').attr('name');
+            if ($(this).attr("name") == "SelectAll") {
+                dictTemp[ColValue] = "";
+                var cbElement = $(this);
+                cbElement.closest('.slidingDivGrid').find('.LoadedVal').each(function () {
+                    if (cbElement.is(':checked')) { //select all checked case
+                        $(this).find('input[type="checkbox"]').prop("checked", true);
+                        SearchVal = $(this).find('label').text();
+                        //SearchVal = CheckExceptionTexts(SearchVal, ColValue, "Field3Xml", "");
+                        dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                    }
+                    else { //select all unchecked case - remove dictionary value
+                        $(this).find('input[type="checkbox"]').prop("checked", false);
+                        dictTemp[ColValue] = "";
+                    }
+                });
+            }
+            else {
+                SearchVal = $(this).closest('tr').find('label').text();
+                //SearchVal = CheckExceptionTexts(SearchVal, ColValue, "Field3Xml", "");
+                if ($(this).is(':checked')) { //Add search key to dictionary in checkboc check
+                    dictTemp[ColValue] = dictTemp[ColValue] + SearchVal + "|";
+                }
+                else //remove search key from dictionary in checkboc uncheck
+                {
+                    $(this).closest('.slidingDivGrid').find("[name=SelectAll]").prop("checked", false); //uncheck selectall option
+                    dictTemp[ColValue] = dictTemp[ColValue].replace(SearchVal + "|", "");
+                }
+            }
+            if ($(this).closest('.requesttablediv').attr('id') == 'tblVisaReq') {
+                dictVisaReqArray = dictTemp;
+                FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', 1, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+                CurrentPageId = 1;
+                loadVisaReq();
+                showAndHidePages(PageCount, CurrentPageId, $('.paginationbtndivNum > a'), '.pgNumber');
+            }
+            else {
+                dictVisaAppArray = dictTemp;
+                FirstButonClick($('.paginationNUMCompbtn'), $('.pgNumberB1'), 'paginationNUM-ACTVbtnComp', 1,
+                'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+                CurrentPageIdApproved = 1;
+                loadVisaApp();
+                showAndHidePages(PageCountApproved, CurrentPageIdApproved, $('.paginationbtndivComNum > a'), '.pgNumberB');
+            }
+            dictTemp = null;
+            SearchVal = null;
+        });
+    }
+    function showVisaProcessDialog(VisaId)
+    {
+        var dialog = document.getElementById("dlgVisaProcess");
+        GetFileTypes();
+        loadDocuments(VisaId);
+        loadVisaDateDetails(VisaId);
+        loadVisaFamilyDetails(VisaId);
+        loadVisaProcessingData(VisaId);
+        dialog.showModal();
+    }
+    function GetFileTypes() {
+        $.ajax({
+            url: '/Home/GetSelectData',
+            type: "GET",
+            async : false,
+            dataType: 'json',
+            data: { Id: 0, Operation: 46 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                var rowObject;
+                var colVal = 0;
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    $('#divFiles').empty();
+                    $('#divCBFiles').empty();
+                    $('#divFDFiles').empty();
+                    for (var i = 0; i < resultVals.length; i++) {
+
+                        if (resultVals[i]["TypeId"] == 1) {
+                            rowObject = $('#divFiles');
+                            colVal = 4;
+                        }
+                        else if (resultVals[i]["TypeId"] == 2) {
+                            rowObject = $('#divCBFiles');
+                            colVal = 3;
+                        }
+                        else if (resultVals[i]["TypeId"] == 3) {
+                            rowObject = $('#divFiles');
+                            colVal = 4;
+                        }
+                        rowObject.append("<div class='row'>" +
+                                "<div class='col-md-" + colVal + "'>" +
+                                    "<div class='contentfielddiv'>" +
+                                        "<div class='USRECdocument docTypeId' name = '" + resultVals[i]["DocTypeId"] + "'>" + resultVals[i]["DocType"] + "</div>" +
+                                    "</div>" +
+                                "</div>" +
+                                "<div class='col-md-" + (12 - colVal) + "'><div class='docDiv' name='" + resultVals[i]["DocTypeId"] + "'></div></div>" +
+                            "</div>");
+                    }
+                }
+            },
+            error: function (err) {
+                //alert(err.statusText);
+            }
+        });
+    }
+    function loadVisaProcessingData(VisaProcessId) {
+        var date;
+        $.ajax({
+            url: '/Home/GetSelectData',
+            type: "GET",
+            dataType: 'json',
+            data: { Id: VisaProcessId, Operation: 53 },
+            success: function (result) {
+                var resultVal = $.parseJSON(result);
+                if (resultVal["Result"] == undefined || resultVal["Result"] == null) {
+                    for (var i = 0; i < resultVal.length; i++) {
+                        $("#txtFedTaxId").val(resultVal[i]["FederalTAXIDNumber"]).attr("disabled", "disabled");
+                        $("#txtCompName").val(resultVal[i]["CompanyName"]).attr("disabled", "disabled");
+                        $("#txtCompAddress").val(resultVal[i]["CompanyAddress"]).attr("disabled", "disabled");
+                        $("#txtPhone").val(resultVal[i]["Phone"]).attr("disabled", "disabled");
+                        $("#txtFax").val(resultVal[i]["Fax"]).attr("disabled", "disabled");
+                        $("#txtEmail").val(resultVal[i]["Email"]).attr("disabled", "disabled");
+                        $("#txtTotEmployees").val(resultVal[i]["NoOfEmployees"] != 0 ? resultVal[i]["NoOfEmployees"] : "").attr("disabled", "disabled");
+                        $("#txtGrossAnnIncome").val(resultVal[i]["GrossAnnualIncome"]).attr("disabled", "disabled");
+                        $("#txtNetIncome").val(resultVal[i]["NetIncome"]).attr("disabled", "disabled");
+                        date = FormatDate(resultVal[i]["CompanyEstDate"], "mm/dd/yyyy"); //date format convertion
+                        $("#txtCompEstDate").val(date != "01/01/1753" ? date : "").attr("disabled", "disabled");
+                        $("#txtName").val(resultVal[i]["NameOfPersonToSign"]).attr("disabled", "disabled");
+                        $("#txtTitle").val(resultVal[i]["TitleOfPersonToSign"]).attr("disabled", "disabled");
+                        $("#txtCompDes").val(resultVal[i]["CompanyDescription"]).attr("disabled", "disabled");
+                        if (resultVal[i]["IsCompanyH1BDependent"] == 1)
+                            $("#cbCompDependent").prop('checked', true).attr("disabled", true);
+                        else
+                            $("#cbCompDependent").prop('checked', false).attr("disabled", true);
+                        $("#txtEmpCount").val(resultVal[i]["NoOfH1BEmployees"] != 0 ? resultVal[i]["NoOfH1BEmployees"] : "").attr("disabled", "disabled");
+                        $("#txtSalOffered").val(resultVal[i]["SalaryOffered"]).attr("disabled", "disabled");
+                        $("#txtJobTitle").val(resultVal[i]["JobTitleOffered"]).attr("disabled", "disabled");
+                        $("#JobAddress").val(resultVal[i]["JobLocationAddress"]).attr("disabled", "disabled");
+                        $("#txtEmpFistName").val(resultVal[i]["EmpFname"]).attr("disabled", "disabled");
+                        $("#txtEmpMiddleName").val(resultVal[i]["EmpMName"]).attr("disabled", "disabled");
+                        $("#txtEmpLastName").val(resultVal[i]["EmpLname"]).attr("disabled", "disabled");
+                        $("#txtUSAddress").val(resultVal[i]["EmpUSAddress"]).attr("disabled", "disabled");
+                        $("#txtAbroadAddress").val(resultVal[i]["EmpAbroadAddress"]).attr("disabled", "disabled");
+                        $("#txtAbroadConsulate").val(resultVal[i]["EmpNearestConsulate"]).attr("disabled", "disabled");
+                        date = FormatDate(resultVal[i]["EmpDOB"], "mm/dd/yyyy");
+                        $("#txtEmpDob").val(date != "01/01/1753" ? date : "").attr("disabled", "disabled");
+                        $("#txtEmpBirthPlace").val(resultVal[i]["EmpPlaceOfBirth"]).attr("disabled", "disabled");
+                        $("#txtBirthCountry").val(resultVal[i]["EmpCountryOfBirth"]).attr("disabled", "disabled");
+                        $("#txtSSN").val(resultVal[i]["EmpSSN"]).attr("disabled", "disabled");
+                        $("#txtPassportNo").val(resultVal[i]["PassportNumber"]).attr("disabled", "disabled");
+                        date = FormatDate(resultVal[i]["PassportIssueDate"], "mm/dd/yyyy");
+                        $("#txtPassIssueDate").val(date != "01/01/1753" ? date : "").attr("disabled", "disabled");
+                        date = FormatDate(resultVal[i]["PassportValidityDate"], "mm/dd/yyyy");
+                        $("#txtPassValidityDate").val(date != "01/01/1753" ? date : "").attr("disabled", "disabled");
+                        $("#txtI94").val(resultVal[i]["I94Number"]).attr("disabled", "disabled");
+                        date = FormatDate(resultVal[i]["I94IssueDate"], "mm/dd/yyyy");
+                        $("#txtI94IssueDate").val(date != "01/01/1753" ? date : "").attr("disabled", "disabled");
+                        date = FormatDate(resultVal[i]["I94ValidityDate"], "mm/dd/yyyy");
+                        $("#txtI94ValidityDate").val(date != "01/01/1753" ? date : "").attr("disabled", "disabled");
+                        $("#txtApproval").val(resultVal[i]["LastI797ApprovalReceipt"]).attr("disabled", "disabled");
+                        if (resultVal[i]["MaritalStatus"] == 1)
+                            $("#cbMarried").prop('checked', true).attr("disabled", true);
+                        else
+                            $("#cbMarried").prop('checked', false).attr("disabled", true);
+                        //Ticket submission TicketSubmissionDate
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        })
+    }
+    function loadVisaFamilyDetails(VisaProcessId) {
+        var date;
+        $.ajax({
+            url: '/Home/GetSelectData',
+            type: "GET",
+            dataType: 'json',
+            data: { Id: VisaProcessId, Operation: 56 },
+            success: function (result) {
+                var resultVal = $.parseJSON(result);
+                var rowObject;
+                $('#tblVisaFamilyDetails').find("tr:gt(0)").remove();
+                ClearAllControlValues('tblVisaFamilyDetails');
+                if (resultVal["Result"] == undefined || resultVal["Result"] == null) {
+                    for (var i = 0; i < resultVal.length; i++) {
+                        if (i > 0) {
+                            addRow($("#tblVisaFamilyDetails"), null)
+                        }
+                        rowObject = $('#tblVisaFamilyDetails').find("tr:nth-child(" + (i + 1) + ")");
+                        rowObject.find("#txtFirstName").val(resultVal[i]["FirstName"]).attr("disabled", "disabled");
+                        rowObject.find("#txtLastName").val(resultVal[i]["LastName"]).attr("disabled", "disabled");
+                        date = FormatDate(resultVal[i]["DOB"], "mm/dd/yyyy")
+                        rowObject.find("#txtDob").val(date != "01/01/1753" ? date : "").attr("disabled", "disabled");
+                        rowObject.find("#txtSOS").val(resultVal[i]["SOSSec"]).attr("disabled", "disabled");
+                        rowObject.find("#txtRelation").val(resultVal[i]["RelationShip"]).attr("disabled", "disabled");
+                        rowObject.find("#BirthPlace").val(resultVal[i]["PlaceOfBirth"]).attr("disabled", "disabled");
+                        date = FormatDate(resultVal[i]["EntryDateOfUSRes"], "mm/dd/yyyy");
+                        rowObject.find("#txtEntry").val(date != "01/01/1753" ? date : "").attr("disabled", "disabled");
+                        date = FormatDate(resultVal[i]["ExitDateOfUSRes"], "mm/dd/yyyy");
+                        rowObject.find("#txtExit").val(date != "01/01/1753" ? date : "").attr("disabled", "disabled");
+                        showFamilyDocs(resultVal[i]["I94IfTheFamilyIsInUsa"], rowObject.find('.docDiv[name=17]'));
+                        showFamilyDocs(resultVal[i]["PassportVisaPage"], rowObject.find('.docDiv[name=18]'));
+                        showFamilyDocs(resultVal[i]["PassportPhotoPage"], rowObject.find('.docDiv[name=19]'));
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadVisaDateDetails(VisaProcessId) {
+        var date;
+        $.ajax({
+            url: '/Home/GetSelectData',
+            type: "GET",
+            dataType: 'json',
+            data: { Id: VisaProcessId, Operation: 54 },
+            success: function (result) {
+                var resultVal = $.parseJSON(result);
+                var rowObject;
+                $('#tblVisaProcess').find("tr:gt(0)").remove();
+                ClearAllControlValues('tblVisaProcess');
+                if (resultVal["Result"] == undefined || resultVal["Result"] == null) {
+                    for (var i = 0; i < resultVal.length; i++) {
+                        if (i > 0) {
+                            addRow($('#tblVisaProcess'), null);
+                        }
+                        rowObject = $('#tblVisaProcess').find("tr:nth-child(" + (i + 1) + ")");
+                        date = FormatDate(resultVal[i]["VisaEntryDate"], "mm/dd/yyyy");
+                        rowObject.find("#txtEntryDate").val(date != "01/01/2753" ? date : "").attr("disabled", "disabled");
+                        date = FormatDate(resultVal[i]["VisaExitDate"], "mm/dd/yyyy");
+                        rowObject.find("#txtExitDate").val(date != "01/01/2753" ? date : "").attr("disabled", "disabled");
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function loadDocuments(VisaProcessId)
+    {
+        $.ajax({
+            url: '/Home/GetSelectData',
+            type: "GET",
+            dataType: 'json',
+            data: { Id: VisaProcessId, Operation: 55 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length; i++) {
+                        showAttachments(resultVals[i]["DocPath"], resultVals[i]["FK_DocTypeId"], resultVals[i]["TypeId"]);
+                    }
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    function showAttachments(attachmentURLs, docTypeId,typeId) {
+        var docElement;
+        if ($('#divFiles').find('.USRECdocument[name=' + docTypeId + ']') != null && $('#divFiles').find('.USRECdocument[name=' + docTypeId + ']')!=undefined && typeId == 1)
+            docElement = $('#divFiles').find('.USRECdocument[name=' + docTypeId + ']').closest('.row').find('.docDiv');
+        else if ($('#divCBFiles').find('.USRECdocument[name=' + docTypeId + ']') != null && $('#divCBFiles').find('.USRECdocument[name=' + docTypeId + ']') != undefined && typeId == 2)
+            docElement = $('#divCBFiles').find('.USRECdocument[name=' + docTypeId + ']').closest('.row').find('.docDiv');
+
+        CheckExtension(docElement, "", attachmentURLs, "", null, 1);
+    }
+    function defineExpUploads() {
+        
+    };
+    function showFamilyDocs(attachmentURLs, docElement) {
+        attachmentURLs = attachmentURLs.split('||');
+        for (var i = 0; i < (attachmentURLs.length - 1) ; i++) {
+            CheckExtension(docElement, "", attachmentURLs[i], "", null, 1);
+        }
+    }
+    //Pagination Visa-Requested
+    $('.paginationbtndivNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMOpenbtn').attr("name"));
+            CurrentPageId = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMOpenbtn').text());
+            LoadEachButton($('.paginationNUMOpenbtn'), '.pgNumber', 'paginationNUM-ACTVbtn', 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', PageCount);
+            loadVisaReq();
+            disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, loopVal);
+        });
+    });
+    $("#NXTbtn").click(function () {
+        CurrentPageId = CurrentPageId + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        NextButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + classId), $('.pgNumber' + (classId + 1)), 'paginationNUM-ACTVbtn',
+         PageCount, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadVisaReq();
+    });
+    $("#PRVbtn").click(function () {
+        CurrentPageId = CurrentPageId - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtn'), $('.paginationNUMMOREtxt-Active'), $('.paginationNUMMOREtxt1-Active'));
+        prevButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber' + (classId - 1)), $('.pgNumber' + classId), 'paginationNUM-ACTVbtn',
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active', CurrentPageId);
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadVisaReq();
+    });
+    $("#FRSTbtn").click(function () {
+        CurrentPageId = 1;
+        FirstButonClick($('.paginationNUMOpenbtn'), $('.pgNumber1'), 'paginationNUM-ACTVbtn', CurrentPageId, 'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId, $('.paginationNUM-ACTVbtn'));
+        loadVisaReq();
+    });
+    $("#LSTbtn").click(function () {
+        CurrentPageId = PageCount;
+        LastButtonClick($('.paginationNUMOpenbtn'), $('.pgNumber5'), $('.pgNumber' + CurrentPageId), 'paginationNUM-ACTVbtn', CurrentPageId,
+         'paginationNUMMOREtxt-Active', 'paginationNUMMOREtxt1-Active');
+        disableButtons($('#LSTbtn'), $('#NXTbtn'), $('#FRSTbtn'), $('#PRVbtn'), PageCount, CurrentPageId);
+        loadVisaReq();
+    });
+    //Pagination Visa-Approved
+    $('.paginationbtndivComNum > a').each(function () {
+        $(this).click(function () {
+            classId = parseInt($(this).find('.paginationNUMCompbtn').attr("name"));
+            CurrentPageIdApproved = parseInt($(this).find('.paginationNUMCompbtn').text());
+            loopVal = parseInt($(this).find('.paginationNUMCompbtn').text());
+            LoadEachButton($('.paginationNUMCompbtn'), '.pgNumberB', 'paginationNUM-ACTVbtnComp', 'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp', PageCountApproved);
+            loadVisaApp();
+            disableButtons($('#LSTbtnCTasks'), $('#NXTbtnCTasks'), $('#FRSTbtnCTasks'), $('#PRVbtnCTasks'), PageCountApproved, loopVal);
+        });
+    });
+    $("#NXTbtnCTasks").click(function () {
+        CurrentPageIdApproved = CurrentPageIdApproved + 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtnComp'), $('.paginationNUMMOREtxt-ActiveComp'), $('.paginationNUMMOREtxt1-ActiveComp'));
+        NextButtonClick($('.paginationNUMCompbtn'), $('.pgNumberB' + classId), $('.pgNumberB' + (classId + 1)), 'paginationNUM-ACTVbtnComp', PageCountApproved,
+        'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+        disableButtons($('#LSTbtnCTasks'), $('#NXTbtnCTasks'), $('#FRSTbtnCTasks'), $('#PRVbtnCTasks'), PageCountApproved, CurrentPageIdApproved);
+        loadVisaApp();
+    });
+    $("#PRVbtnCTasks").click(function () {
+        CurrentPageIdApproved = CurrentPageIdApproved - 1;
+        getLoopValAndClassId($('.paginationNUM-ACTVbtnComp'), $('.paginationNUMMOREtxt-ActiveComp'), $('.paginationNUMMOREtxt1-ActiveComp'));
+        prevButtonClick($('.paginationNUMCompbtn'), $('.pgNumberB' + (classId - 1)), $('.pgNumberB' + classId), 'paginationNUM-ACTVbtnComp',
+        'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp', CurrentPageIdApproved);
+        loadVisaApp();
+    });
+    $("#FRSTbtnCTasks").click(function () {
+        CurrentPageIdApproved = 1;
+        FirstButonClick($('.paginationNUMCompbtn'), $('.pgNumberB1'), 'paginationNUM-ACTVbtnComp', CurrentPageIdApproved,
+        'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+        loadVisaApp();
+    });
+    $("#LSTbtnCTasks").click(function () {
+        CurrentPageIdApproved = PageCountApproved;
+        LastButtonClick($('.paginationNUMCompbtn'), $('.pgNumberB5'), $('.pgNumberB' + CurrentPageIdApproved), 'paginationNUM-ACTVbtnComp',
+         CurrentPageIdApproved, 'paginationNUMMOREtxt-ActiveComp', 'paginationNUMMOREtxt1-ActiveComp');
+        loadVisaApp();
+    });
+</script>

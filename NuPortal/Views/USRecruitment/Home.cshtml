@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form id="frmHome" action="" method="post">
+    @Html.Hidden("designFlag", new { id = "designFlag", name = "designFlag" })
+</form>
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/US-recruitment-LFT.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">US Recruitment</div>
+            </div>
+        </div>
+    </div>
+    <div class="contentmaindiv">
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("OpportunityLog", "USRecruitment")">
+                            <img src="~/Images/Opportunity.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("OpportunityLog", "USRecruitment")">
+                            Opportunity
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("LeadLog", "USRecruitment")">
+                            <img src="~/Images/lead.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("LeadLog", "USRecruitment")">
+                            Lead
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("CandidateLog", "USRecruitment")">
+                            <img src="~/Images/candidate.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("CandidateLog", "USRecruitment")">
+                            Candidate
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("SubmissionLog", "USRecruitment")">
+                            <img src="~/Images/submissioins.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("SubmissionLog", "USRecruitment")">
+                            Submissions
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("InterviewLog", "USRecruitment")">
+                            <img src="~/Images/interview.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("InterviewLog", "USRecruitment")">
+                            Interviews
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("Vendors", "USRecruitment")">
+                            <img src="~/Images/vendors.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("Vendors", "USRecruitment")">
+                            Vendors
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("ContractLog", "USRecruitment")">
+                            <img src="~/Images/contract.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("ContractLog", "USRecruitment")">
+                            Contracts
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("InvoiceLog", "USRecruitment")">
+                            <img src="~/Images/invoice.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("InvoiceLog", "USRecruitment")">
+                            Invoice
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("VisaLog", "USRecruitment")">
+                            <img src="~/Images/visa.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("VisaLog", "USRecruitment")">
+                            Visa
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="@Url.Action("WeeklyTaskReport", "USRecruitment")">
+                            <img src="~/Images/weekly-report.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="@Url.Action("WeeklyTaskReport", "USRecruitment")">
+                            Weekly Report
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <div class="myprojecttaskmaindiv">
+                    <div class="leaveicon">
+                        <a href="#" onclick="setDesignFlag(1)">
+                            <img src="~/Images/my-timesheet.png" width="80" height="80" alt="" />
+                        </a>
+                    </div>
+                    <div class="myprojecttaskname">
+                        <a href="#" onclick="setDesignFlag(1)">
+                        Timesheet
+                        </a>
+                           
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function setDesignFlag(DesignFlag)
+    {
+        $('#designFlag').val(DesignFlag);
+        $("#frmHome").attr("action", "/TimeSheet/TimeSheet");
+        $('#frmHome').submit();
+    }
+</script>

@@ -1,0 +1,106 @@
+﻿@model NuPortal.Models.Competency
+
+@{
+    ViewBag.Title = "Competency";
+}
+
+<head>
+
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.ui.datepicker.js"></script>*@
+
+</head>
+
+<body>
+    @using (Html.BeginForm())
+    {
+        <div class="right-col-maindiv">
+            <div id="ctl00_ctl44_g_cdf81438_a7f1_4773_aa2a_622d562b2e53_ctl00_upemp">
+
+                <div class="rightcontentdiv">
+                    <div class="rightcontentsubdiv" id="Scale">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Skills</h3>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(Model=>Model.skills,"",new { @class="ms-long ms-spellcheck-true"} )
+                                       
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <input type="image" name="imgbtnSkillsAdd" id="imgbtnSkillsAdd" title="Add" src="~\Content\Icons\add.png" onclick="">
+                                    </div>
+                                </div>
+                                <div class="spaceempinfo"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Certification</h3>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(Model => Model.certification, "", new { @class = "ms-long ms-spellcheck-true" })
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="image" name="imgbtnSkillsAdd" id="imgbtnSkillsAdd" title="Add" src="~\Content\Icons\add.png" onclick="">
+                                    </div>
+                                </div>
+                                <div class="spaceempinfo"></div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="ms-standardheader">Technologies</h3>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(Model => Model.technologies, "", new { @class = "ms-long ms-spellcheck-true" })
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="image" name="imgbtnSkillsAdd" id="imgbtnSkillsAdd" title="Add" src="~\Content\Icons\add.png" onclick="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        @Html.ListBoxFor(Model => Model.allTechnologies, new { @class = "ms-long ms-spellcheck-true" })
+                                     
+                                    </div>
+                                </div>
+                                <div class="spaceemp"></div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <select size="4" name="lstbCertification" multiple="multiple" id="bCertification" class="rightdiscriptionemptextbox" style="height:50px;"></select>
+                                        <input type="image" name="ctl00$ctl44$g_cdf81438_a7f1_4773_aa2a_622d562b2e53$ctl00$imgbtnCertification" id="ctl00_ctl44_g_cdf81438_a7f1_4773_aa2a_622d562b2e53_ctl00_imgbtnCertification" title="Delete" src="/style%20library/images/delete.png" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ctl44$g_cdf81438_a7f1_4773_aa2a_622d562b2e53$ctl00$imgbtnCertification&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))">
+                                    </div>
+                                </div>
+                                <div class="spaceemp"></div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <select size="4" name="ctl00$ctl44$g_cdf81438_a7f1_4773_aa2a_622d562b2e53$ctl00$lstbTechonologies" multiple="multiple" id="ctl00_ctl44_g_cdf81438_a7f1_4773_aa2a_622d562b2e53_ctl00_lstbTechonologies" class="rightdiscriptionemptextbox" style="height:50px;"></select>
+                                        <input type="image" name="ctl00$ctl44$g_cdf81438_a7f1_4773_aa2a_622d562b2e53$ctl00$imgbtnTechnologies" id="ctl00_ctl44_g_cdf81438_a7f1_4773_aa2a_622d562b2e53_ctl00_imgbtnTechnologies" title="Delete" src="/style%20library/images/delete.png" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ctl44$g_cdf81438_a7f1_4773_aa2a_622d562b2e53$ctl00$imgbtnTechnologies&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space"></div>
+                        @*<div class="btndiv">
+                            <input type="hidden" name="ctl00$ctl44$g_cdf81438_a7f1_4773_aa2a_622d562b2e53$ctl00$hfAccountName3" id="ctl00_ctl44_g_cdf81438_a7f1_4773_aa2a_622d562b2e53_ctl00_hfAccountName3">
+                            <input type="submit" name="ctl00$ctl44$g_cdf81438_a7f1_4773_aa2a_622d562b2e53$ctl00$btnClear3" value="Clear" onclick="ClearAllControlValues('Scape');return false;WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ctl44$g_cdf81438_a7f1_4773_aa2a_622d562b2e53$ctl00$btnClear3&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="ctl00_ctl44_g_cdf81438_a7f1_4773_aa2a_622d562b2e53_ctl00_btnClear3">
+                            <input type="submit" name="ctl00$ctl44$g_cdf81438_a7f1_4773_aa2a_622d562b2e53$ctl00$btnSave3" value="Save" onclick="javascript:return EmployeeValidation();WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ctl44$g_cdf81438_a7f1_4773_aa2a_622d562b2e53$ctl00$btnSave3&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="ctl00_ctl44_g_cdf81438_a7f1_4773_aa2a_622d562b2e53_ctl00_btnSave3">
+                            <input type="button" style="display:none" class="ms-ButtonHeightWidth" value="Edit" onclick="RelocateToSameWithoutQueryString()">
+                        </div>*@
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    }
+
+
+</body>

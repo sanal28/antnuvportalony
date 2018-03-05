@@ -1,0 +1,299 @@
+﻿
+@{
+    ViewBag.Title = "RateOtherEmployee";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-11">
+    <div class="mainheadingdiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="mainheadericondiv"><div class="mainheadericon"><img src="~/Images/employee-rating-sm.png" width="45" height="45" alt="" /></div></div>
+            </div>
+            <div class="col-sm-5">
+                <div class="mainheaderdiv">Employee Rating</div>
+            </div>
+        </div>
+    </div>
+    <dialog id="dlgRatingHistory" style="width:80%;background: transparent;top: 25%;left: 5%;border: none;">
+        <div class="popupmaindiv" style="padding:5px">
+            <div class="popupmaindiv">
+                <div class="popupheadingmaindiv">
+                    <div class="popupheadingtext">Rating History</div>
+                    <div class="popupclosebutton"><a title="Close" href="#" onclick="$('#dlgRatingHistory')[0].close();">X</a></div>
+                </div>
+                <div class="contentmaindiv">
+                    <div class="row" style="margin-right:0px !important;margin-left:0px !important">
+                        <div class="col-md-12">
+                            <div class="calendarmaindiv">
+                                <div class="academicaddmaindiv" style="text-align:center;margin: 0px 0px 0px 12px;overflow:hidden;">
+
+                                    <div class="timesheetleftarrow calPrev" onclick="RatingHistoryPrevious(this);"><a title="Perview" href="#" id="btnPrev">&#8810;</a></div>
+                                    <label id="rtngmonthYeardiv" class="popupheadingtext1"></label>
+                                    <div class="timesheetrightarrow calNext" id="divNext" onclick="RatingHistoryNext(this);"><a title="Next" href="#" id="btnNext">&#8811;</a></div>
+                                    <input type="hidden" id="hdnPage" value="0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-right:18px !important;margin-left:31px !important">
+                        <div id="divRatingHistory">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </dialog>
+    <div class="contentmaindiv">
+        <div id="DivClearAll">
+            <div class="myprojectdiv">
+                <a class="backbuttondiv" href="@Url.Action("Home","Home")"><img title="Back" alt="Back" width="30" height="30" src="../images/back-button.png" /></a>
+                <div class="col-md-12">
+                    <div class="Employeerateothers"><a href="#" onclick="loadRatingHistory(dt.getFullYear(), parseInt(dt.getMonth()) + 1, 17);">Rating History </a></div>
+                </div>
+            </div>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contentfielddiv" style="padding: 0px 10px;">
+                        <input type="hidden" id="hdnResource" value="" />
+                        @*<textarea class="floating-input floating-textarea" placeholder=" " id="txtResourceName"></textarea>
+                        <label class="float">Choose Resource</label>*@
+                        <div class="weeklytext" style="padding-left:0px !important;margin-top:0px !important;">Employee Name</div>
+                        <div class="floating-input autocomplete-textarea" id="divResources">
+                            <div id="listResources" class="list competancylist"></div>
+                            <input type="text" class="competancy autopopulateText" id="txtResources" placeholder=" " />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="contentfielddiv" style="margin-top:20px;">
+                        @*<textarea class="floating-input floating-textarea" placeholder=" " id="txtComments"></textarea>
+                        <label class="float">Comments</label>*@
+                        <select id="ddlRatingFactor" class="floating-select" value="" onclick="this.setAttribute('value', this.value);"  placeholder=" ">
+                            <option value=""></option>
+                        </select>
+                        <label class="float">Rating factor</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="weeklyoffmaindiv">
+                        <div class="weeklytext" style="margin-top:0px !important;">Rate Here</div>
+                        <div class="ratingdiv" style="margin-top:10px;">
+                            <fieldset class="rating" id="fldratings">
+                                <input type="radio" id="field6_star5" name="rating6" value="5" /><label class="full" for="field6_star5"></label>
+
+                                <input type="radio" id="field6_star4" name="rating6" value="4" /><label class="full" for="field6_star4"></label>
+
+                                <input type="radio" id="field6_star3" name="rating6" value="3" /><label class="full" for="field6_star3"></label>
+
+                                <input type="radio" id="field6_star2" name="rating6" value="2" /><label class="full" for="field6_star2"></label>
+
+                                <input type="radio" id="field6_star1" name="rating6" value="1" /><label class="full" for="field6_star1"></label>
+
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space"></div>
+            <div class="buttonmaindiv">
+                <div class="buttondiv"><input title="Save" class="submitbtn" type="button" id="btnSaveRatings" /></div>
+                <div class="buttondiv"><input title="Clear" class="clearbtn" type="button" onClick="$('#lblMessage').text(''); return ClearAllControlValues('DivClearAll');" /></div>
+                <div class="ErrorLabel">
+                    <label id="lblMessage" class="lblMessage"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var ratingvalue = "";
+    var dt = new Date();
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    $(document).ready(function () {
+        LoadDdls("/EmpInfoUserView/GetDataFromDDl", $('#ddlRatingFactor'), "RatingTypeId", "TypeName");
+        $('#fldratings input').each(function () {
+            $(this).click(function () {
+                ratingvalue = $(this).val();
+            });
+        });
+    });
+    $(function () {
+        $("#txtResources").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Home/AutoCompleteEmployee',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: "{ 'EmpName': '" + request.term + "' }",
+                    success: function (data) {
+                        var items = [];
+                        for (var i = 0; i < data.length; i++) {
+                            items.push({ Id: data[i]["Key"], label: data[i]["Value"], value: data[i]["Value"] });
+                        }
+                        response($.map(items, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#hdnResource").val(i.item.Id);
+                if (i.item.label != "") {
+                    $("#listResources").empty();
+                    $("#listResources").append("<div class='div2'><div style='padding-left:2px;margin: 0; font-size: 11px; color: #fff; min-width: 50px; width:auto; float: left;'><label class='divcompetancy' name='" + i.item.Id + "'>" + i.item.label +
+                                 "</label></div><div style='margin: 0; font-size: 11px; color: #fff; height: 10px;  width:10px; float: left; '>" +
+                                             "<a title='Close' href='#' style='color: #fff;' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>X</a></div></div>");
+                    $(this).val("");
+                    return false;
+                }
+                //$("#txtResourceName").val(i.item.label);
+            },
+            minLength: 1
+        });
+        $("#btnSaveRatings").click(function () {
+            if (Validate("rateotheremployee")) {
+                if (ratingvalue != "") {
+                    $.ajax({
+                        url: '/Home/SaveEmployeeRatings',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            ratedto: parseInt($("#hdnResource").val()), rating: ratingvalue, RatingFactorId: $('#ddlRatingFactor').val()
+                        },
+                        success: function (result) {
+                            ClearAllControlValues('DivClearAll');
+                            var resultVals = $.parseJSON(result);
+                            if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                                if (resultVals[0]["RatingId"] == -1)
+                                {
+                                    $("#lblMessage").addClass("lblError");
+                                    $('#lblMessage').text("Employee already rated");
+                                }
+                                else
+                                    $('#lblMessage').text("Rated Successfully");
+                            }
+                        },
+                        error: function () {
+                        }
+                    });
+                }
+                else {
+                    $("#lblMessage").addClass("lblError");
+                    $("#lblMessage").removeClass("lblMessage");
+                    $("#lblMessage").text("Please select a rating");
+                }
+            }
+            });
+        
+    });
+    function loadRatingHistory(yr, mon) {
+        $.ajax({
+            url: '/Home/GetMonthlyRating',
+            type: "GET",
+            datatype: 'json',
+            data: { Year: yr, Month: mon, Operation: 3 },
+            success: function (result) {
+                var resultVals = $.parseJSON(result);
+                $('#rtngmonthYeardiv')[0].innerText = months[mon - 1] + " " + yr;
+                $('#divRatingHistory').empty();
+                if (resultVals["Result"] == undefined || resultVals["Result"] == null) {
+                    for (var i = 0; i < resultVals.length ; i++) {
+                        var divHtml = "<div id='divRatingHistory'>" +
+                                "<div class='row'>" +
+                                "<div class='col-sm-4'>" +
+                                    "<div class='Employeeratingdiv'>" +
+                                    "<div class='Employeeratingsubdiv'>" +
+                                    "<div class='employeeratingimgdiv'><img src='" + resultVals[i]["ProfilePicUrl"] + "' width='133' height='133' alt='' /></div>" +
+                                    "<div class='Empsrating'>" +
+                                    "<div class='Empsratingnumber'>" + resultVals[i]["Rating"] + "</div>" +
+                                    "</div>" +
+                                    "<div class='Employeeratingheading'>" + resultVals[i]["RatedToName"] + "</div>" +
+                                    "<p>" + resultVals[i]["Comments"] + "</p>" +
+                                    "</div>" +
+                                "</div>" +
+                                "</div>";
+                        i = i + 1;
+                        if (i < resultVals.length) {
+                            divHtml = divHtml + "<div class='col-sm-4'>" +
+                                    "<div class='Employeeratingdiv'>" +
+                                    "<div class='Employeeratingsubdiv'>" +
+                                    "<div class='employeeratingimgdiv'><img src='" + resultVals[i]["ProfilePicUrl"] + "' width='133' height='133' alt='' /></div>" +
+                                    "<div class='Empsrating'>" +
+                                    "<div class='Empsratingnumber'>" + resultVals[i]["Rating"] + "</div>" +
+                                    "</div>" +
+                                    "<div class='Employeeratingheading'>" + resultVals[i]["RatedToName"] + "</div>" +
+                                    "<p>" + resultVals[i]["Comments"] + "</p>" +
+                                    "</div>" +
+                                "</div>" +
+                                "</div>";
+                            i = i + 1;
+                        }
+                        if (i < resultVals.length) {
+                            divHtml = divHtml + "<div class='col-sm-4'>" +
+                                    "<div class='Employeeratingdiv'>" +
+                                    "<div class='Employeeratingsubdiv'>" +
+                                    "<div class='employeeratingimgdiv'><img src='" + resultVals[i]["ProfilePicUrl"] + "' width='133' height='133' alt='' /></div>" +
+                                    "<div class='Empsrating'>" +
+                                    "<div class='Empsratingnumber'>" + resultVals[i]["Rating"] + "</div>" +
+                                    "</div>" +
+                                    "<div class='Employeeratingheading'>" + resultVals[i]["RatedToName"] + "</div>" +
+                                    "<p>" + resultVals[i]["Comments"] + "</p>" +
+                                    "</div>" +
+                                "</div>" +
+                                "</div>";
+                        }
+                        divHtml = divHtml + "</div>" +
+                               "</div>";
+                        $('#divRatingHistory').append(divHtml);
+                        if (mon == parseInt(dt.getMonth() + 1) && yr == dt.getFullYear()) {
+                            $('#divNext').css('pointer-events', 'none');
+                        }
+                        else
+                            $('#divNext').css('pointer-events', 'visible');
+                    }
+                }
+                else
+                    $('#divRatingHistory').append("<div width='100%' class='NoRecordsFound'>No Records Found</div>");
+            },
+            error: function (err) {
+            }
+        });
+        $('#dlgRatingHistory')[0].showModal();
+    }
+    function RatingHistoryPrevious(obj) {
+        var monthYr = $(obj).parent().find('#rtngmonthYeardiv')[0].innerText;
+        var mon = months.indexOf(monthYr.split(' ')[0]) + 1;
+        var yr = parseInt(monthYr.split(' ')[1]);
+        if (mon == 1) {
+            yr = parseInt(yr) - 1;
+            mon = 13
+        }
+        loadRatingHistory(yr, mon - 1);
+    }
+    function RatingHistoryNext(obj) {
+        var monYr = $(obj).parent().find('#rtngmonthYeardiv')[0].innerText;
+        var mon = months.indexOf(monYr.split(' ')[0]) + 1;
+        var yr = parseInt(monYr.split(' ')[1]);
+        //if (mon == parseInt(dt.getMonth() + 1) && yr == dt.getFullYear()) {
+        //    $('#divNext').attr('disabled', true);
+        //}
+        //else {
+        if (mon == 12) {
+            yr = parseInt(yr) + 1;
+            mon = 0
+        }
+        loadRatingHistory(yr, mon + 1);
+        //}
+    }
+</script>
